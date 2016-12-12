@@ -28,7 +28,6 @@ var UniteCssEditorRev = new function(){
 		'text-decoration': 'textDecoration'
 	};
 	var cur_editing = 'idle';
-	var opened = 'idle';
 	
 	//======================================================
 	//	Init Functions
@@ -154,13 +153,6 @@ var UniteCssEditorRev = new function(){
 			
 			if(sel_layer === -1) return false;
 			
-			var clayer = UniteLayersRev.getCurrentLayer();
-			
-			if(clayer['hover'] !== true){
-				jQuery('#change_acea_wrappers').hide();
-			}else{
-				jQuery('#change_acea_wrappers').show();
-			}
 			
 			if(!t.checkIfHandleExists(jQuery('#layer_caption').val())){
 				alert(rev_lang.please_select_first_an_existing_style);
@@ -168,19 +160,26 @@ var UniteCssEditorRev = new function(){
 			}
 			
 			cur_editing = (jQuery(this).hasClass('rev-advanced-css-idle')) ? 'idle' : 'hover';
-			opened = (jQuery(this).hasClass('rev-advanced-css-idle')) ? 'idle' : 'hover';
 			
 			jQuery('#dialog_advanced_css').dialog({
 				modal:true,
 				resizable:false,
 				title:'Currently editing: '+jQuery('#layer_caption').val(),
-				minWidth:1024,
+				minWidth:700,
 				minHeight:500,
 				closeOnEscape:true,
 				open:function () {
 					jQuery('.current-advance-edited-class').text(jQuery('#layer_caption').val());
-					jQuery(this).closest(".ui-dialog").addClass("tp-css-editor-dialog");
 					
+					jQuery(this).closest(".ui-dialog")
+						.find(".ui-button").each(function(i) {
+						   var cl;
+						   if (i==0) cl="revgray";
+						   if (i==1) cl="revgreen";
+						   if (i==2) cl="revred";
+						   if (i==3) cl="revred";
+						   jQuery(this).addClass(cl).addClass("button-primary").addClass("rev-uibuttons");						   						   
+				   });
 				   
 				   if(g_codemirrorCssEditable != null) g_codemirrorCssEditable.refresh();
 				   if(g_codemirrorCssUneditable != null) g_codemirrorCssUneditable.refresh();
@@ -188,120 +187,67 @@ var UniteCssEditorRev = new function(){
 				   t.setTemplateCssUneditable();
 				   t.setTemplateCssEditable();
 				},
-				close:function (ui) {
-					//set cur_editing back to what it was
-					cur_editing = opened;
-				},
 				buttons:{
 					"Save":function(){
 						t.saveTemplateStylesInDb();
 						updateCurFullClass();
-						cur_editing = opened;
 					},
 					"Cancel":function(){
 						jQuery(this).dialog("close");
-						cur_editing = opened;
 					}
 				}
 			});
 		});
 		
-
-		
 		
 		/**
 		 * additional Layer CSS dialog
-		 **/		
+		 **/
 		jQuery('.rev-advanced-css-idle-layer, .rev-advanced-css-hover-layer').click(function(){
 			//check if layer is selected or not
 			var sel_layer = UniteLayersRev.get_current_selected_layer();
 			
 			if(sel_layer === -1) return false;
 			
-			var clayer = UniteLayersRev.getCurrentLayer();
-			
-			if(clayer['hover'] !== true){
-				jQuery('#change_ace_wrappers').hide();
-			}else{
-				jQuery('#change_ace_wrappers').show();
-			}
-			
 			cur_editing = (jQuery(this).hasClass('rev-advanced-css-idle-layer')) ? 'idle' : 'hover';
-			opened = (jQuery(this).hasClass('rev-advanced-css-idle-layer')) ? 'idle' : 'hover';
 			
 			jQuery('#dialog_advanced_layer_css').dialog({
 				modal:true,
 				resizable:false,
-				minWidth:1024,
+				minWidth:700,
 				minHeight:500,
 				closeOnEscape:true,
-				open:function (ui) {
+				open:function () {
 					//jQuery('.current-advance-edited-class').text(jQuery('#layer_caption').val());
-					jQuery(this).closest(".ui-dialog").addClass("tp-css-editor-dialog");					
-				   if(g_codemirrorCssLayer != null) g_codemirrorCssLayer.refresh();				   
+					
+					jQuery(this).closest(".ui-dialog")
+						.find(".ui-button").each(function(i) {
+						   var cl;
+						   if (i==0) cl = "revgray";
+						   if (i==1) cl = "revgreen";
+						   if (i==2) cl = "revred";
+						   if (i==3) cl = "revred";
+						   jQuery(this).addClass(cl).addClass("button-primary").addClass("rev-uibuttons");						   						   
+				   });
+				   
+				   if(g_codemirrorCssLayer != null) g_codemirrorCssLayer.refresh();
+				   
 				   t.setTemplateCssLayer();
-				},
-				close:function (ui) {
-					//set cur_editing back to what it was
-					cur_editing = opened;
 				},
 				buttons:{
 					"Save":function(){
 						updateLayerCSS();
-						cur_editing = opened;
-						
 						jQuery(this).dialog("close");
 					},
 					"Cancel":function(){
-						cur_editing = opened;
-						
 						jQuery(this).dialog("close");
 					}
 				}
 			});
-			
-		});		
+		});
 		
 	}
-	jQuery(document).ready(function() {
-		jQuery('body').on('click','#change_ace_toidle',function() {
-			if(confirm(rev_lang.save_changes)){
-				updateLayerCSS();
-			}
-			cur_editing = "idle";
-			t.setTemplateCssLayer();
-		});
 
-		jQuery('body').on('click','#change_ace_tohover',function() {
-			if(confirm(rev_lang.save_changes)){
-				updateLayerCSS();
-			}
-			cur_editing = "hover";
-			t.setTemplateCssLayer();
-		});
-		
-		
-		jQuery('body').on('click','#change_acea_toidle',function() {
-			if(confirm(rev_lang.save_changes)){
-				t.saveTemplateStylesInDb();
-				updateCurFullClass();
-			}
-			cur_editing = "idle";
-			t.setTemplateCssUneditable();
-			t.setTemplateCssEditable();
-		});
-
-		jQuery('body').on('click','#change_acea_tohover',function() {
-			if(confirm(rev_lang.save_changes)){
-				t.saveTemplateStylesInDb();
-				updateCurFullClass();
-			}
-			cur_editing = "hover";
-			t.setTemplateCssUneditable();
-			t.setTemplateCssEditable();
-		});
-	});
-	
 	t.initAdvancedEditor = function(){
 		g_codemirrorCssEditable = CodeMirror.fromTextArea(document.getElementById("textarea_advanced_css_editor"), {
 			onChange: function(){ },
@@ -356,11 +302,6 @@ var UniteCssEditorRev = new function(){
 		
 		var cssData = "{\n";
 		setFullClass();
-		
-		if (cur_editing==="idle")
-			jQuery('.acsa_idle_or_hover').html("- IDLE")
-		else
-			jQuery('.acsa_idle_or_hover').html("- HOVER");
 		
 		if(cur_editing == 'idle' && typeof(curFullClass['params']) !== 'undefined'){
 			curActiveStyles = curFullClass['params'];
@@ -466,20 +407,14 @@ var UniteCssEditorRev = new function(){
 		
 		if(layer === null) return false;
 		
-		if (cur_editing==="idle")
-			jQuery('#acs_idle_or_hover').html("- IDLE")
-		else
-			jQuery('#acs_idle_or_hover').html("- HOVER");
-
 		if(layer)
-		if(cur_editing == 'idle' && typeof(layer['inline']) !== 'undefined' && typeof(layer['inline']['idle']) !== 'undefined')
-			var myStyles = jQuery.extend({},layer['inline']['idle']);		
-		else 
-		if(cur_editing == 'hover' && typeof(layer['inline']) !== 'undefined' && typeof(layer['inline']['hover']) !== 'undefined')
-			var myStyles = jQuery.extend({},layer['inline']['hover']);			
-		else
+		if(cur_editing == 'idle' && typeof(layer['inline']) !== 'undefined' && typeof(layer['inline']['idle']) !== 'undefined'){
+			var myStyles = jQuery.extend({},layer['inline']['idle']);
+		}else if(cur_editing == 'hover' && typeof(layer['inline']) !== 'undefined' && typeof(layer['inline']['hover']) !== 'undefined'){
+			var myStyles = jQuery.extend({},layer['inline']['hover']);
+		}else{
 			var myStyles = [];
-		
+		}
 		
 		for(var key in myStyles){
 			var the_style = '';
@@ -546,8 +481,7 @@ var UniteCssEditorRev = new function(){
 		data['idle']['border-color'] = jQuery('input[name="css_border-color-show"]').val();
 		data['idle']['border-transparency'] = jQuery('input[name="css_border-transparency"]').val();
 		data['idle']['border-style'] = jQuery('select[name="css_border-style"] option:selected').val();
-		data['idle']['border-width'] = {};
-		jQuery('input[name="css_border-width[]"]').each(function(i){ data['idle']['border-width'][i] = jQuery(this).val(); });
+		data['idle']['border-width'] = jQuery('input[name="css_border-width"]').val();
 		data['idle']['border-radius'] = {};
 		jQuery('input[name="css_border-radius[]"]').each(function(i){ data['idle']['border-radius'][i] = jQuery(this).val();});
 		data['idle']['x'] = jQuery('input[name="layer__x"]').val();
@@ -578,8 +512,7 @@ var UniteCssEditorRev = new function(){
 		data['hover']['border-color'] = jQuery('input[name="hover_css_border-color-show"]').val();
 		data['hover']['border-transparency'] = jQuery('input[name="hover_css_border-transparency"]').val();
 		data['hover']['border-style'] = jQuery('select[name="hover_css_border-style"] option:selected').val();
-		data['hover']['border-width'] = {};
-		jQuery('input[name="hover_css_border-width[]"]').each(function(i){ data['hover']['border-width'][i] = jQuery(this).val(); });
+		data['hover']['border-width'] = jQuery('input[name="hover_css_border-width"]').val();
 		data['hover']['border-radius'] = {};
 		jQuery('input[name="hover_css_border-radius[]"]').each(function(i){ data['hover']['border-radius'][i] = jQuery(this).val(); });
 		data['hover']['opacity'] = jQuery('input[name="hover_layer__opacity"]').val();
@@ -705,7 +638,7 @@ var UniteCssEditorRev = new function(){
 				
 				t.updateInitCssStyles(jQuery('#layer_caption').val(), id);
 				
-				//jQuery('#dialog_advanced_css').dialog("close");
+				jQuery('#dialog_advanced_css').dialog("close");
 				
 			}
 		});

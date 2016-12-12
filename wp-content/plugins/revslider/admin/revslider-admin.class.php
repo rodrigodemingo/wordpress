@@ -327,7 +327,6 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 			'hide_slide_opt' => __('Hide Slide Options', 'revslider'),
 			'close' => __('Close', 'revslider'),
 			'really_update_global_styles' => __('Really update global styles?', 'revslider'),
-			'really_clear_global_styles' => __('This will remove all Global Styles, continue?', 'revslider'),
 			'global_styles_editor' => __('Global Styles Editor', 'revslider'),
 			'select_image' => __('Select Image', 'revslider'),
 			'video_not_found' => __('No Thumbnail Image Set on Video / Video Not Found / No Valid Video ID', 'revslider'),
@@ -438,15 +437,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
             'not_available_in_demo' => __('Not available in Demo Mode', 'revslider'),
             'leave_not_saved' => __('By leaving now, all changes since the last saving will be lost. Really leave now?', 'revslider'),
             'static_layers' => __('--- Static Layers ---', 'revslider'),
-            'objects_only_available_if_activated' => __('Only available if plugin is activated', 'revslider'),
-            'download_install_takes_longer' => __('Download/Install takes longer than usual, please wait', 'revslider'),
-            'download_failed_check_server' => __('<div class="import_failure">Download/Install seems to have failed.</div><br>Please check your server <span class="import_failure">download speed</span> and  if the server can programatically connect to <span class="import_failure">http://templates.themepunch.com</span><br><br>', 'revslider'),
-            'aborting_import' => __('<b>Aborting Import...</b>', 'revslider'),
-            'create_draft' => __('Creating Draft Page...', 'revslider'),
-            'draft_created' => __('Draft Page created. Popup will open', 'revslider'),
-            'draft_not_created' => __('Draft Page could not be created.', 'revslider'),
-            'slider_import_success_reload' => __('Slider import successful', 'revslider'),
-            'save_changes' => __('Save Changes?', 'revslider')
+            'objects_only_available_if_activated' => __('Only available if plugin is activated', 'revslider')
 		);
 
 		return $lang;
@@ -708,6 +699,8 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 	 */
 	private static function importSliderHandle($viewBack = null, $updateAnim = true, $updateStatic = true, $updateNavigation = true){
 
+		dmp(__("importing slider settings and data...",'revslider'));
+
 		$slider = new RevSlider();
 		$response = $slider->importSliderFromPost($updateAnim, $updateStatic, false, false, false, $updateNavigation);
 		
@@ -719,12 +712,13 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 				$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
 		}
 		
-		//handle error this
+		//handle error
 		if($response["success"] == false){
 			$message = $response["error"];
-			RevSliderOperations::import_failed_message($message, $viewBack);
-			
-		}else{	//handle success, js redirect.
+			dmp("<b>Error: ".$message."</b>");
+			echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
+		}
+		else{	//handle success, js redirect.
 			//check here to create a page or not
 			if(!empty($sliderID)){
 				$page_id = 0;
@@ -737,9 +731,11 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					echo '<script>window.open("'.get_permalink($page_id).'", "_blank");</script>';
 				}
 			}
-			
+			dmp(__('Slider Import Success, redirecting in 3 seconds...','revslider'));
 			echo "<script>
-			location.href='".$viewBack."';
+			setTimeout(function () {
+				location.href='".$viewBack."'
+			}, 3000);
 			</script>";
 		}
 		exit();
@@ -750,140 +746,21 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 	 * import slider from TP servers
 	 * @since: 5.0.5
 	 */
-	private static function importSliderOnlineTemplateHandleNew($data, $viewBack = null, $updateAnim = true, $updateStatic = true, $single_slide = false){
+	private static function importSliderOnlineTemplateHandle($viewBack = null, $updateAnim = true, $updateStatic = true, $single_slide = false){
+		dmp(__("downloading template slider from server...", 'revslider'));
 		
-		$return = array('error' => array(), 'success' => array(), 'open' => false, 'view' => $viewBack);
-		
-		$uid = esc_attr($data['uid']);
-		
-		$added = array();
-		
-		if($uid == ''){
-			$return['error'][] = __("ID missing, something went wrong. Please try again!", 'revslider');
-		}else{
-			$tmp = new RevSliderTemplate();
-			
-			$package = esc_attr($data['package']);
-			$package = ($package == 'true') ? true : false;
-			
-			//get all in the same package as the uid
-			if($package === true){
-				$uids = $tmp->get_package_uids($uid);
-			}else{
-				$uids = (array)$uid;
-			}
-			
-			if(!empty($uids)){
-				foreach($uids as $uid){
-					set_time_limit(60); //reset the time limit
-			
-					$filepath = $tmp->_download_template($uid); //can be single or multiple, depending on $package beeing false or true
-					
-					//send request to TP server and download file
-					if(is_array($filepath) && isset($filepath['error'])){
-						$return['error'][] = $filepath['error'];
-						break;
-					}
-					
-					if($filepath !== false){
-						//check if Slider Template was already imported. If yes, remove the old Slider Template as we now do an "update" (in reality we delete and insert again)
-						//get all template sliders
-						$tmp_slider = $tmp->getThemePunchTemplateSliders();
-						
-						foreach($tmp_slider as $tslider){
-							if(isset($tslider['uid']) && $uid == $tslider['uid']){
-								if(!isset($tslider['installed'])){ //slider is installed
-									//delete template Slider!
-									$mSlider = new RevSlider();
-									$mSlider->initByID($tslider['id']);
-									
-									$mSlider->deleteSlider();
-									//remove the update flag from the slider
-									
-									$tmp->remove_is_new($uid);
-								}
-								break;
-							}
-						}
-						
-						
-						$slider = new RevSlider();
-						$response = $slider->importSliderFromPost($updateAnim, $updateStatic, $filepath, $uid, $single_slide);
-						
-						$tmp->_delete_template($uid);
-						
-						if($single_slide === false){
-							if(empty($viewBack)){
-								$sliderID = $response["sliderID"];
-								$viewBack = self::getViewUrl(self::VIEW_SLIDER,"id=".$sliderID);
-								$return['view'] = $viewBack;
-								if(empty($sliderID)){
-									$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
-									$return['view'] = $viewBack;
-								}
-							}
-						}
-						
-						if(isset($response["sliderID"])){
-							$return['slider_id'] = $response["sliderID"];
-							$added[] = $response["sliderID"];
-						}
-						//handle error
-						if($response["success"] == false){
-							$return['error'][] = $response["error"];
-							break;
-						}else{	//handle success, js redirect.
-							$return['success'][] = __("Slider Import Success", 'revslider');
-						}
-						
-					}else{
-						if(is_array($filepath)){
-							$return['error'][] = $filepath['error'];
-						}else{
-							$return['error'][] = __("Could not download from server. Please try again later!", 'revslider');
-						}
-						break;
-					}
-				}
-				
-				//check here to create a page or not
-				if(!empty($added)){
-					$page_creation = esc_attr($data['page-creation']);
-					if($page_creation === 'true'){
-						$operations = new RevSliderOperations();
-						$page_id = $operations->create_slider_page($added);
-					}
-					if($page_id > 0){
-						$return['open'] = get_permalink($page_id);
-					}
-				}
-			}else{
-				$return['error'][] = __("Could not download package. Please try again later!", 'revslider');
-			}
-		}
-		
-		return $return;
-	}
-	
-	
-	/**
-	 * import slider from TP servers
-	 * @since: 5.0.5
-	 */
-	private static function importSliderOnlineTemplateHandle($data, $viewBack = null, $updateAnim = true, $updateStatic = true, $single_slide = false){
-		
-		$uid = esc_attr($data['uid']);
+		$uid = esc_attr(RevSliderFunctions::getPostVariable('uid'));
 		
 		$added = array();
 		
 		if($uid == ''){
-			$message = __("ID missing, something went wrong. Please try again!", 'revslider');
-			RevSliderOperations::import_failed_message($message, $viewBack);
+			dmp(__("ID missing, something went wrong. Please try again!", 'revslider'));
+			echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 			exit;
 		}else{
 			$tmp = new RevSliderTemplate();
 			
-			$package = esc_attr($data['package']);
+			$package = esc_attr(RevSliderFunctions::getPostVariable('package'));
 			$package = ($package == 'true') ? true : false;
 			
 			//get all in the same package as the uid
@@ -901,8 +778,8 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					
 					//send request to TP server and download file
 					if(is_array($filepath) && isset($filepath['error'])){
-						$message = $filepath['error'];
-						RevSliderOperations::import_failed_message($message, $viewBack);
+						dmp($filepath['error']);
+						echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 						exit;
 					}
 					
@@ -948,25 +825,30 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 						//handle error
 						if($response["success"] == false){
 							$message = $response["error"];
-							RevSliderOperations::import_failed_message($message, $viewBack);
+							dmp("<b>Error: ".$message."</b>");
+							echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 						}else{	//handle success, js redirect.
-						
+							if(count($uids) > 1){
+								dmp(__("Slider Import Success", 'revslider'));
+							}else{
+								dmp(__("Slider Import Success, redirecting in 3 seconds...",'revslider'));
+							}
 						}
 						
 					}else{
 						if(is_array($filepath)){
-							$message = $filepath['error'];
+							dmp($filepath['error']);
 						}else{
-							$message = __("Could not download from server. Please try again later!", 'revslider');
+							dmp(__("Could not download from server. Please try again later!", 'revslider'));
 						}
-						RevSliderOperations::import_failed_message($message, $viewBack);
+						echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 						exit;
 					}
 				}
 				
 				//check here to create a page or not
 				if(!empty($added)){
-					$page_creation = esc_attr($data['page-creation']);
+					$page_creation = esc_attr(RevSliderFunctions::getPostVariable('page-creation'));
 					if($page_creation === 'true'){
 						$operations = new RevSliderOperations();
 						$page_id = $operations->create_slider_page($added);
@@ -976,10 +858,13 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					}
 				}
 				
-				echo "<script>location.href='".$viewBack."';</script>";
+				echo "<script>
+				setTimeout(function () {
+					location.href='".$viewBack."'
+				}, 3000);
+				</script>";
 			}else{
-				$message = __("Could not download package. Please try again later!", 'revslider');
-				RevSliderOperations::import_failed_message($message, $viewBack);
+				dmp(__("Could not download package. Please try again later!", 'revslider'));
 				exit;
 			}
 		}
@@ -994,10 +879,12 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 	 */
 	private static function importSliderTemplateHandle($viewBack = null, $updateAnim = true, $updateStatic = true, $single_slide = false){
 		
+		dmp(__("importing template slider settings and data...", 'revslider'));
+		
 		$uid = esc_attr(RevSliderFunctions::getPostVariable('uid'));
 		if($uid == ''){
-			$message = __("ID missing, something went wrong. Please try again!", 'revslider');
-			RevSliderOperations::import_failed_message($message, $viewBack);
+			dmp(__("ID missing, something went wrong. Please try again!", 'revslider'));
+			echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 			exit;
 		}
 		
@@ -1019,7 +906,8 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 		//handle error
 		if($response["success"] == false){
 			$message = $response["error"];
-			RevSliderOperations::import_failed_message($message, $viewBack);
+			dmp("<b>Error: ".$message."</b>");
+			echo RevSliderFunctions::getHtmlLink($viewBack, __("Go Back",'revslider'));
 		}else{	//handle success, js redirect.
 			//check here to create a page or not
 			if(isset($sliderID) && !empty($sliderID)){
@@ -1033,7 +921,12 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 				}
 			}
 			
-			echo "<script>location.href='".$viewBack."';</script>";
+			dmp(__("Slider Import Success, redirecting in 3 seconds...",'revslider'));
+			echo "<script>
+			setTimeout(function () {
+				location.href='".$viewBack."'
+			}, 3000);
+			</script>";
 		}
 		
 		exit();
@@ -1130,7 +1023,6 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					case 'import_slider_slidersview':
 					case 'import_slider_template_slidersview':
 					case 'import_slide_template_slidersview':
-					case 'import_slider_online_template_slidersview_new':
 					case 'fix_database_issues':
 						RevSliderFunctions::throwError(__('Function Only Available for Adminstrators', 'revslider'));
 						exit;
@@ -1148,10 +1040,9 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 			//verify the nonce
 			$isVerified = wp_verify_nonce($nonce, "revslider_actions");
 
-			if($isVerified == false){
+			if($isVerified == false)
 				RevSliderFunctions::throwError("Wrong request");
-				exit;
-			}
+
 			switch($action){
 				case 'add_new_preset':
 					
@@ -1171,6 +1062,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					exit;
 				break;
 				case 'update_preset':
+					
 					if(!isset($data['name']) || !isset($data['values'])) self::ajaxResponseError(__('Missing values to update preset', 'revslider'), false);
 					
 					$result = $operations->update_preset_setting($data);
@@ -1187,6 +1079,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					exit;
 				break;
 				case 'remove_preset':
+					
 					if(!isset($data['name'])) self::ajaxResponseError(__('Missing values to remove preset', 'revslider'), false);
 					
 					$result = $operations->remove_preset_setting($data);
@@ -1211,52 +1104,19 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 				case "import_slider":
 					$updateAnim = self::getPostGetVar("update_animations");
 					$updateNav = self::getPostGetVar("update_navigations");
-					//$updateStatic = self::getPostGetVar("update_static_captions");
-					$updateStatic = 'none';
+					$updateStatic = self::getPostGetVar("update_static_captions");
 					self::importSliderHandle(null, $updateAnim, $updateStatic, $updateNav);
 				break;
 				case "import_slider_slidersview":
 					$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
 					$updateAnim = self::getPostGetVar("update_animations");
 					$updateNav = self::getPostGetVar("update_navigations");
-					//$updateStatic = self::getPostGetVar("update_static_captions");
-					$updateStatic = 'none';
+					$updateStatic = self::getPostGetVar("update_static_captions");
 					self::importSliderHandle($viewBack, $updateAnim, $updateStatic, $updateNav);
 				break;
 				case "import_slider_online_template_slidersview":
 					$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
-					//ob_start();
-					$data['uid'] = esc_attr(RevSliderFunctions::getPostVariable('uid'));
-					$data['page-creation'] = esc_attr(RevSliderFunctions::getPostVariable('page-creation'));
-					$data['package'] = esc_attr(RevSliderFunctions::getPostVariable('package'));
-					
-					self::importSliderOnlineTemplateHandle($data, $viewBack, 'true', 'none');
-					/*$html = ob_get_contents();
-					ob_clean();
-					ob_end_clean();
-					
-					self::ajaxResponseData($html);*/
-				break;
-				case "import_slider_template_slidersview":
-					$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
-					$updateAnim = self::getPostGetVar("update_animations");
-					//$updateStatic = self::getPostGetVar("update_static_captions");
-					$updateStatic = 'none';
-					self::importSliderTemplateHandle($viewBack, $updateAnim, $updateStatic);
-				break;
-				case "import_slider_online_template_slidersview_new":
-					$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
-					$response = self::importSliderOnlineTemplateHandleNew($data, $viewBack, 'true', 'none');
-					self::ajaxResponseData($response);
-				break;
-				case 'create_draft_page':
-					$response = array('open' => false);
-					
-					$page_id = $operations->create_slider_page($data['slider_ids']);
-					if($page_id > 0){
-						$response['open'] = get_permalink($page_id);
-					}
-					self::ajaxResponseData($response);
+					self::importSliderOnlineTemplateHandle($viewBack, 'true', 'none');
 				break;
 				case "import_slide_online_template_slidersview":
 					$redirect_id = esc_attr(self::getPostGetVar("redirect_id"));
@@ -1264,18 +1124,20 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					$slidenum = intval(self::getPostGetVar("slidenum"));
 					$sliderid = intval(self::getPostGetVar("slider_id"));
 					
-					$data['uid'] = esc_attr(RevSliderFunctions::getPostVariable('uid'));
-					$data['page-creation'] = esc_attr(RevSliderFunctions::getPostVariable('page-creation'));
-					$data['package'] = esc_attr(RevSliderFunctions::getPostVariable('package'));
-					
-					self::importSliderOnlineTemplateHandle($data, $viewBack, 'true', 'none', array('slider_id' => $sliderid, 'slide_id' => $slidenum));
+					self::importSliderOnlineTemplateHandle($viewBack, 'true', 'none', array('slider_id' => $sliderid, 'slide_id' => $slidenum));
+				break;
+				case "import_slider_template_slidersview":
+					$viewBack = self::getViewUrl(self::VIEW_SLIDERS);
+					$updateAnim = self::getPostGetVar("update_animations");
+					$updateStatic = self::getPostGetVar("update_static_captions");
+					self::importSliderTemplateHandle($viewBack, $updateAnim, $updateStatic);
 				break;
 				case "import_slide_template_slidersview":
+					
 					$redirect_id = esc_attr(self::getPostGetVar("redirect_id"));
 					$viewBack = self::getViewUrl(self::VIEW_SLIDE,"id=$redirect_id");
 					$updateAnim = self::getPostGetVar("update_animations");
-					//$updateStatic = self::getPostGetVar("update_static_captions");
-					$updateStatic = 'none';
+					$updateStatic = self::getPostGetVar("update_static_captions");
 					$slidenum = intval(self::getPostGetVar("slidenum"));
 					$sliderid = intval(self::getPostGetVar("slider_id"));
 					
@@ -1450,24 +1312,6 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					self::ajaxResponseSuccess(__('Slide added to Templates', 'revslider'),array('HTML' => $html));
 					exit;
 				break;
-				case "get_slider_custom_css_js":
-					$slider_css = '';
-					$slider_js = '';
-					if(isset($data['slider_id']) && intval($data['slider_id']) > 0){
-						$slider->initByID(intval($data['slider_id']));
-						$slider_css = stripslashes($slider->getParam('custom_css', ''));
-						$slider_js = stripslashes($slider->getParam('custom_javascript', ''));
-					}
-					self::ajaxResponseData(array('css' => $slider_css, 'js' => $slider_js));
-				break;
-				case "update_slider_custom_css_js":
-					if(isset($data['slider_id']) && intval($data['slider_id']) > 0){
-						$slider->initByID(intval($data['slider_id']));
-						$slider->updateParam(array('custom_css' => $data['css']));
-						$slider->updateParam(array('custom_javascript' => $data['js']));
-					}
-					self::ajaxResponseSuccess(__('Slider CSS saved', 'revslider'));
-					exit;
 				break;
 				case "get_static_css":
 					$contentCSS = $operations->getStaticCss();
@@ -1576,7 +1420,6 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					self::ajaxResponseSuccess(__("Style deleted!",'revslider'),array("arrCaptions"=>$arrCaptions,'compressed_css'=>$styles.$custom_css,'initstyles'=>$arrCssStyles));
 				break;
 				case "update_static_css":
-					$data = ''; //do not allow to add new global CSS anymore, instead, remove all!
 					$staticCss = $operations->updateStaticCss($data);
 					
 					$db = new RevSliderDB();
@@ -2013,17 +1856,10 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 				case 'load_object_library': 
 					$html = '';
 					$obj = new RevSliderObjectLibrary();
-					$mdata = $obj->retrieve_all_object_data();
+					$data = $obj->retrieve_all_object_data();
 					
-					self::ajaxResponseData(array('data'=> $mdata));
-				break;
-				case 'slide_editor_sticky_menu':
-					if(isset($data['set_sticky']) && $data['set_sticky'] == 'true'){
-						update_option('revslider_slide_editor_sticky', 'true');
-					}else{
-						update_option('revslider_slide_editor_sticky', 'false');
-					}
-					self::ajaxResponseData(array());
+					self::ajaxResponseData(array('data'=> $data));
+					
 				break;
 				default:
 					$return = apply_filters('revslider_admin_onAjaxAction_switch', false, $action, $data, $slider, $slide, $operations);
@@ -2053,6 +1889,12 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 		exit();
 	}
 	
+	/**
+	 * Set the option to add a delay to the revslider javascript output
+	 */
+	public static function rev_set_js_delay($do_delay){
+		return '300';
+	}
 	
 	/**
 	 * onAjax action handler
@@ -2076,6 +1918,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					$id = intval(self::getPostVar('id', 0));
 					if($id > 0){
 						$html = '';
+						add_filter('revslider_add_js_delay', array('RevSliderAdmin', 'rev_set_js_delay'));
 						ob_start();
 						$slider_class = RevSliderOutput::putSlider($id);
 						$html = ob_get_contents();

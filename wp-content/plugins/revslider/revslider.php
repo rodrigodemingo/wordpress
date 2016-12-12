@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Slider Revolution
+Plugin Name: Slider Revolution - NULL24.NET
 Plugin URI: http://revolution.themepunch.com/
 Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
-Version: 5.3.1
+Version: 5.3.0.2
 Author URI: http://themepunch.com
 */
 
@@ -17,7 +17,7 @@ if(class_exists('RevSliderFront')) {
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-$revSliderVersion = "5.3.1";
+$revSliderVersion = "5.3.0.2";
 $revSliderAsTheme = false;
 $revslider_screens = array();
 $revslider_fonts = array();
