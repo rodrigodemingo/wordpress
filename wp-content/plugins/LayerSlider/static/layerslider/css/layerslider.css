@@ -9,6 +9,7 @@
 */
 
 
+
 /* Slider structure z-index cheat sheet
 
 	_____									YourLogo				z.index: 50;
@@ -20,8 +21,9 @@
 
 	-------------------------------------	Document
 
-
 */
+
+
 
 /* Slider */
 
@@ -73,6 +75,7 @@
 		padding: 0 !important;
 		visibility: visible !important;
 		border: 0 !important;
+		z-index: 1;
 	}
 
 	.ls-background-videos {
@@ -673,6 +676,7 @@
 
 	.ls-slide-transition-tile img {
 		visibility: visible;
+		margin: 0 !important;
 	}
 
 	.ls-curtiles {

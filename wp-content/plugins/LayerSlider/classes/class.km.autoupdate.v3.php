@@ -92,7 +92,7 @@ class KM_UpdatesV3 {
 
 		$this->_check_updates();
 
-		if(!isset($transient)) {
+		if( empty($transient) || ! is_object($transient) ) {
 			$transient = new stdClass;
 		}
 

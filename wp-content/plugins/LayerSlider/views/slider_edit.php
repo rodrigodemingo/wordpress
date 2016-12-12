@@ -21,9 +21,14 @@
 	$lsScreenOptions = ($lsScreenOptions == 0) ? array() : $lsScreenOptions;
 	$lsScreenOptions = is_array($lsScreenOptions) ? $lsScreenOptions : unserialize($lsScreenOptions);
 
-	// Defaults
-	if(!isset($lsScreenOptions['showTooltips'])) {
+	// Defaults: tooltips
+	if( ! isset($lsScreenOptions['showTooltips'])) {
 		$lsScreenOptions['showTooltips'] = 'true';
+	}
+
+	// Deafults: keyboard shortcuts
+	if( ! isset($lsScreenOptions['useKeyboardShortcuts'])) {
+		$lsScreenOptions['useKeyboardShortcuts'] = 'true';
 	}
 
 	// Get phpQuery
@@ -66,9 +71,12 @@
 <div id="ls-screen-options" class="metabox-prefs hidden">
 	<div id="screen-options-wrap" class="hidden">
 		<form id="ls-screen-options-form" method="post">
-			<h5><?php _e('Show on screen', 'LayerSlider') ?></h5>
+			<h5><?php _e('Use features', 'LayerSlider') ?></h5>
 			<label>
 				<input type="checkbox" name="showTooltips"<?php echo $lsScreenOptions['showTooltips'] == 'true' ? ' checked="checked"' : ''?>> Tooltips
+			</label>
+			<label>
+				<input type="checkbox" name="useKeyboardShortcuts"<?php echo $lsScreenOptions['useKeyboardShortcuts'] == 'true' ? ' checked="checked"' : ''?>> Keyboard shortcuts
 			</label>
 		</form>
 	</div>
@@ -145,10 +153,6 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 
 				} elseif( ! empty($slider['properties']['sublayercontainer']) ) {
 					$slider['properties']['width'] = $slider['properties']['sublayercontainer'];
-
-				// Falling back to 1000px when no layerContainer value was specified
-				} else {
-					$slider['properties']['width'] = 1000;
 				}
 			}
 
@@ -156,6 +160,12 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			$slider['properties']['type'] = 'fixedsize';
 		} else {
 			$slider['properties']['type'] = 'responsive';
+		}
+	}
+
+	if( ! empty( $slider['properties']['width'] ) ) {
+		if( strpos($slider['properties']['width'], '%') !== false ) {
+			$slider['properties']['width'] = 1000;
 		}
 	}
 
@@ -171,7 +181,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 		$slider['properties']['height'] = (int) $slider['properties']['height'];
 	}
 
-	if( ! empty( $slider['properties']['pauseonhover'] ) ) {
+	if( empty( $slider['properties']['pauseonhover'] ) ) {
 		$slider['properties']['pauseonhover'] = 'enabled';
 	}
 
@@ -277,7 +287,16 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 
 <!-- Get slider data from DB -->
 <script type="text/javascript">
+
+	// Slider data
 	window.lsSliderData = <?php echo json_encode($slider) ?>;
+
+	// Plugin path
+	var pluginPath = '<?php echo LS_ROOT_URL ?>/static/';
+	var lsTrImgPath = '<?php echo LS_ROOT_URL ?>/static/admin/img/';
+
+	// Screen options
+	var lsScreenOptions = <?php echo json_encode($lsScreenOptions) ?>;
 </script>
 
 
@@ -712,23 +731,3 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 		</div>
 	</div>
 </form>
-
-
-<script type="text/javascript">
-
-	// Plugin path
-	var pluginPath = '<?php echo LS_ROOT_URL ?>/static/';
-
-	// Transition images
-	var lsTrImgPath = '<?php echo LS_ROOT_URL ?>/static/admin/img/';
-
-	// New Media Library
-	<?php if(function_exists( 'wp_enqueue_media' )) { ?>
-	var newMediaUploader = true;
-	<?php } else { ?>
-	var newMediaUploader = false;
-	<?php } ?>
-
-	// Screen options
-	var lsScreenOptions = <?php echo json_encode($lsScreenOptions) ?>;
-</script>

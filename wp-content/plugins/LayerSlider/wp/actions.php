@@ -742,6 +742,7 @@ function ls_save_user_skin() {
 	if(is_writable($file)) {
 		file_put_contents($file, stripslashes($_POST['contents']));
 		header('Location: admin.php?page=ls-skin-editor&skin='.$skin['handle'].'&edited=1');
+		die();
 	} else {
 		wp_die(__("It looks like your files isn't writable, so PHP couldn't make any changes (CHMOD).", "LayerSlider"), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
 	}

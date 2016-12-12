@@ -121,7 +121,7 @@
 	// Notification messages
 	$notifications = array(
 
-		'cacheEmpty' => __('Successfully emptied LayerSlider caches.'),
+		'cacheEmpty' => __('Successfully emptied LayerSlider caches.', 'LayerSlider'),
 		'updateStore' => __('Successfully updated the Template Store library.', 'LayerSlider'),
 
 		'removeSelectError' => __('No sliders were selected to remove.', 'LayerSlider'),
@@ -167,7 +167,7 @@
 
 <div id="ls-guides" class="metabox-prefs">
 	<div id="ls-guides-wrap" class="hidden">
-		<h5><?php _e('Interactive guides coming soon!') ?></h5>
+		<h5><?php _e('Interactive guides coming soon!', 'LayerSlider') ?></h5>
 		<p><?php _e("Interactive step-by-step tutorial guides will shortly arrive to help you get started using LayerSlider.", 'LayerSlider') ?></p>
 	</div>
 	<div id="show-guides-link-wrap" class="hide-if-no-js screen-meta-toggle">
@@ -412,7 +412,7 @@
 							<?php if( empty( $preview ) ) : ?>
 							<div class="no-preview">
 								<h5><?php _e('No Preview', 'LayerSlider') ?></h5>
-								<small><?php _e('Previews are automatically generated from slide images in sliders.') ?></small>
+								<small><?php _e('Previews are automatically generated from slide images in sliders.', 'LayerSlider') ?></small>
 							</div>
 							<?php endif ?>
 						</a>
@@ -464,7 +464,7 @@
 					<?php if( $userFilters ) : ?>
 					<span><?php _e('No sliders found with the current filters set. <a href="?page=layerslider">Click here</a> to reset filters.', 'LayerSlider') ?></span>
 					<?php else : ?>
-					<span><?php _e('Add a new slider or import one of our templates to get started using LayerSlider.', 'LayerSlider') ?></span>
+					<span><?php _e('Add a new slider or check out the <a href="#" class="ls-open-template-store"><i class="dashicons dashicons-star-filled"></i>Template Store</a> to get started using LayerSlider.', 'LayerSlider') ?></span>
 					<?php endif ?>
 				</div>
 			</div>
@@ -640,7 +640,7 @@
 							<?php endif ?>
 						</li>
 					</ul>
-					<a href="https://support.kreaturamedia.com/faq/4/layerslider-for-wordpress/" target="_blank" class="button"><?php _e('Visit our Support Center') ?></a>
+					<a href="https://support.kreaturamedia.com/faq/4/layerslider-for-wordpress/" target="_blank" class="button"><?php _e('Visit our Support Center', 'LayerSlider') ?></a>
 				</div>
 			</div>
 		</div>
@@ -847,7 +847,7 @@
 						<td><input type="checkbox" name="use_cache" <?php echo get_option('ls_use_cache', true) ? 'checked="checked"' : '' ?>></td>
 						<td class="desc">
 							<?php _e('Enabled caching can drastically increase the plugin performance and spare your server from unnecessary load.', 'LayerSlider') ?>
-							<a href="<?php echo wp_nonce_url('?page=layerslider&action=empty_caches', 'empty_caches') ?>" class="button button-small"><?php _e('Empty caches') ?></a>
+							<a href="<?php echo wp_nonce_url('?page=layerslider&action=empty_caches', 'empty_caches') ?>" class="button button-small"><?php _e('Empty caches', 'LayerSlider') ?></a>
 						</td>
 					</tr>
 					<tr>
@@ -895,7 +895,7 @@
 			<div class="ls-box km-tabs-inner">
 				<div class="inner">
 					<a class="ls-link" href="<?php echo admin_url('admin.php?page=ls-system-status') ?>">
-						<?php _e('Click here to check System Status') ?>
+						<?php _e('Click here to check System Status', 'LayerSlider') ?>
 					</a>
 					<p class="center">
 						<?php _e('System Status is intended to help you identifying possible issues and to display relevant debug information about your site. <br>It also provides tools to list every server settings, easily set up a debug account or to erase all plugin data.', 'LayerSlider') ?>

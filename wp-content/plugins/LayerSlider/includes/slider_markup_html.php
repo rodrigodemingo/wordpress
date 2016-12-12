@@ -43,6 +43,12 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 		$slideAttrs = !empty($slide['attrs']) ? ls_array_to_attr($slide['attrs']) : '';
 		$postContent = false;
 
+
+		// Check for the origami plugin
+		if( ! empty( $slide['attrs']['transitionorigami'] ) ) {
+			$lsPlugins[] = 'origami';
+		}
+
 		// Post content
 		//if( !isset($slide['props']['post_content']) || $slide['props']['post_content']) {
 			$queryArgs = array( 'post_status' => 'publish', 'limit' => 1, 'posts_per_page' => 1 );
@@ -87,6 +93,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 		// Add slide background
 		if( ! empty($slide['props']['background'])) {
+			$lsBG = '';
 
 			if( ! empty($slide['props']['backgroundId'])) {
 				$lsBG = wp_get_attachment_image($slide['props']['backgroundId'], 'full', false, array('class' => 'ls-bg'));
@@ -103,7 +110,11 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$alt = 'Slide background';
 			}
 
-			$lsMarkup[] = ! empty($lsBG) ? $lsBG : '<img src="'.$src.'" class="ls-bg" alt="'.$alt.'" />';
+			if( ! empty( $lsBG ) ) {
+				$lsMarkup[] = $lsBG;
+			} elseif( ! empty( $src ) ) {
+				$lsMarkup[] = '<img src="'.$src.'" class="ls-bg" alt="'.$alt.'" />';
+			}
 		}
 
 		// Add slide thumbnail
@@ -279,7 +290,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						if( $key === 'class' ) {
 							$el->addClass( $val );
 						}
-						$el->attr( $val );
+						$el->attr( $key, $val );
 					}
 				}
 
@@ -288,7 +299,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						if( $key === 'class' ) {
 							$inner->addClass( $val );
 						}
-						$inner->attr( $val );
+						$inner->attr( $key, $val );
 					}
 				}
 
