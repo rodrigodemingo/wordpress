@@ -541,9 +541,9 @@ class RevSliderInstagram {
 
 		$rsp = json_decode(wp_remote_fopen($url));
 
-	    for($i=0;$i<$count;$i++) {
+	 for($i=0;$i<$count;$i++) {
 	      	$return[] = $rsp->items[$i];
-	    }
+	 }
     
 		if(isset($rsp->items)){
 			$rsp->items = $return;
@@ -561,21 +561,26 @@ class RevSliderInstagram {
 	 */
 	public function get_tag_photos($search_tag,$count){
 		//call the API and decode the response
-		$url = "https://api.instagram.com/v1/tags/".$search_tag."/media/recent?count=".$count."&access_token=".$this->api_key;
-
-		$transient_name = 'revslider_' . md5($url);
-		if ($this->transient_sec > 0 && false !== ($data = get_transient( $transient_name)))
+		$url = "https://www.instagram.com/explore/tags/".$search_tag."/?__a=1";
+    
+    $transient_name = 'revslider_' . md5($url);
+		/*if ($this->transient_sec > 0 && false !== ($data = get_transient( $transient_name)))
 			return ($data);
-
+*/
 		$rsp = json_decode(wp_remote_fopen($url));
 
+    var_dump($rsp);
 
-
-		if(isset($rsp->data)){
-			set_transient( $transient_name, $rsp->data, $this->transient_sec );
-			return $rsp->data;
-		}
-		else return '';
+      for($i=0;$i<$count;$i++) {
+          $return[] = $rsp->tag->media->nodes[$i];
+      }
+    
+    if(isset($rsp->tag->media->nodes)){
+      $rsp->tag->media->nodes = $return;
+      set_transient( $transient_name, $rsp->tag->media->nodes, $this->transient_sec );
+      return $rsp->tag->media->nodes;
+    }
+    else return '';
 	}
 }	// End Class
 

@@ -784,21 +784,21 @@ class RevSliderFunctionsWP {
 	 * get excerpt from post id
 	 */
 	public static function getExcerptById($postID, $limit=55){
-		
-		 $post = get_post($postID);	
-		 
-		 $excerpt = $post->post_excerpt;
-		 $excerpt = trim($excerpt);
-		 
-		 $excerpt = trim($excerpt);
-		 if(empty($excerpt))
-			$excerpt = $post->post_content;			 
-		 
-		 $excerpt = strip_tags($excerpt,"<b><br><br/><i><strong><small>");
-		 
-		 $excerpt = RevSliderFunctions::getTextIntro($excerpt, $limit);
-		 
-		 return $excerpt;
+
+		$post = get_post($postID);	
+
+		$excerpt = $post->post_excerpt;
+		$excerpt = trim($excerpt);
+
+		$excerpt = trim($excerpt);
+		if(empty($excerpt))
+		$excerpt = $post->post_content;			 
+
+		$excerpt = strip_tags($excerpt,"<b><br><br/><i><strong><small>");
+
+		$excerpt = RevSliderFunctions::getTextIntro($excerpt, $limit);
+
+		return apply_filters('revslider_getExcerptById', $excerpt, $post, $limit);
 	}		
 	
 	

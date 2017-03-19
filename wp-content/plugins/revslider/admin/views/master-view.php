@@ -26,6 +26,7 @@ $operations = new RevSliderOperations();
 $glob_vals = $operations->getGeneralSettingsValues();
 $pack_page_creation = RevSliderFunctions::getVal($glob_vals, "pack_page_creation", "on");
 $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_creation", "off");
+$tp_color_picker_presets = TPColorpicker::get_color_presets();
 ?>
 
 <div id="waitaminute" style="<?php echo $waitstyle; ?>">
@@ -43,6 +44,7 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 	var g_settingsObj = {};
 	var rs_pack_page_creation = <?php echo ($pack_page_creation == 'on') ? 'true' : 'false'; ?>;
 	var rs_single_page_creation = <?php echo ($single_page_creation == 'on') ? 'true' : 'false'; ?>;
+	var tp_color_picker_presets = jQuery.parseJSON(<?php echo RevSliderFunctions::jsonEncodeForClientSide($tp_color_picker_presets); ?>);
 	
 	var global_grid_sizes = {
 		'desktop': '<?php echo RevSliderBase::getVar($glval, 'width', 1230); ?>',
@@ -67,7 +69,6 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 <div id="divColorPicker" style="display:none;"></div>
 
 <?php self::requireView("system/dialog-video"); ?>
-<?php self::requireView("system/dialog-global-settings"); ?>
 
 <div class="tp-plugin-version">
 	<span style="margin-right:15px">&copy; All rights reserved, <a href="http://www.themepunch.com" target="_blank">ThemePunch</a>  ver. <?php echo $revSliderVersion; ?></span>
@@ -134,8 +135,15 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 			<span class="rs-premium-benefits-dialogsubtitle"><?php _e('Maybe just a typo? (Click <a target="_blank" href="https://revolution.themepunch.com/direct-customer-benefits/#productactivation">here</a> to find out how to locate your Slider Revolution purchase code.)', 'revslider'); ?></span>
 		</span>
 	</div>
-	<div style="display:none" class="rs-premium-benefits-dialogtitles" id="rs-plugin-update-feedback-title">
+	<div style="display:none" class="rs-premium-benefits-dialogtitles" id="rs-plugin-cachewarning-title">
 		<span class="oppps-icon"></span>
+		<span class="benefits-title-right">
+			<span class="rs-premium-benefits-dialogtitle"><?php _e('Make sure to clear all caches!', 'revslider'); ?></span>
+			<span class="rs-premium-benefits-dialogsubtitle"><?php _e('Here are the most common cache issues explained.', 'revslider'); ?></span>
+		</span>
+	</div>
+	<div style="display:none" class="rs-premium-benefits-dialogtitles" id="rs-plugin-update-feedback-title">
+		<span class="oppps-icon-red"></span>
 		<span class="benefits-title-right">
 			<span class="rs-premium-benefits-dialogtitle"><?php _e('Plugin Activation Required'); ?></span>
 			<span class="rs-premium-benefits-dialogsubtitle"><?php _e('In order to download the <a target="_blank" href="http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380#item-description__update-history">latest update</a> instantly', 'revslider'); ?></span>
@@ -185,6 +193,36 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 		</div>
 		<a target="_blank" class="get_purchase_code" href="http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380?ref=themepunch&license=regular&open_purchase_for_item_id=2751380&purchasable=source"><?php _e('GET A PURCHASE CODE', 'revslider'); ?></a>
 	</div>
+
+	<!-- WARNING BLOCK -->
+	<div id="cachewarning_block" style="display:none">
+		<div class="rs-premium-benefits-block">
+			<h3><i class="big_light"></i><?php _e('Click on the following to learn how to fix issues', 'revslider'); ?></h3>
+			<ul>
+				<li><a target="_blank" href="https://www.themepunch.com/faq/updating-make-sure-clear-caches#hosting"><?php _e('Hosting Cache', 'revslider'); ?></a></li>
+				<li><a target="_blank" href="https://www.themepunch.com/faq/updating-make-sure-clear-caches#plugins"><?php _e('Caching Plugins', 'revslider'); ?></a></li>
+				<li><a target="_blank" href="https://www.themepunch.com/faq/updating-make-sure-clear-caches#cdn"><?php _e('CDNs (Content Delivery Networks)', 'revslider'); ?></a></li>
+				<li><a target="_blank" href="https://www.themepunch.com/faq/updating-make-sure-clear-caches#browser"><?php _e('Browser Cache', 'revslider'); ?></li>
+			</ul>
+		</div>
+		<div class="rs-premium-benefits-block" style="border:none;">
+			<h3><i class="big_diamond"></i><?php _e('Cache Plugins Installed on your Server', 'revslider'); ?></h3>
+			<ul>				
+				<?php
+					$cache_plugins = $rsop->get_installed_cache_plugins();
+					if(!empty($cache_plugins)){
+						foreach($cache_plugins as $name => $url){
+							?>
+							<li><a href="<?php echo esc_url($url); ?>" target="_blank"><?php echo esc_html($name); ?></a></li><?php
+						}
+					}
+					?>
+			</ul>
+		</div>
+		
+	</div>
+
+
 	<div id="basic_objectlibrary_license_block">
 		<div id="license_object_library_type_list_new">						
 			<span data-id="svg_license_content" class="license_obj_library_cats_filter">SVG</span>
@@ -240,6 +278,90 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 		</div>
 	</div>
 </div>
+
+
+<script>
+	
+	var	show_premium_dialog = function(clicked){
+			jQuery('#rs-premium-benefits-dialog').dialog({
+				width:830,
+				height:750,
+				modal:true,
+				resizable:false,
+				open:function(ui) {
+					var dialog = jQuery(ui.target).parent(),						
+						dialogtitle = dialog.find('.ui-dialog-title');
+
+					dialog.addClass("rs-open-premium-benefits-dialog-container");
+					if (!dialogtitle.hasClass("titlechanged")) {
+						dialogtitle.html("");
+						dialogtitle.append(jQuery('#rs-premium-benefits-dialog .rs-premium-benefits-dialogtitles'));
+						dialogtitle.addClass("titlechanged");
+					}
+					
+					//HIDE TITLE
+					jQuery('#rs-library-license-info-dialogtitle, #rs-plugin-object-library-feedback-title, #rs-wrong-purchase-code-title, #rs-plugin-update-feedback-title, #rs-plugin-download-template-feedback-title').hide();
+					jQuery('#rs-premium-benefits-dialog').removeClass("nomainbg")
+					//HIDE CONTENT
+					jQuery('#basic_objectlibrary_license_block, #basic_premium_benefits_block').hide();
+					
+					switch (clicked) {
+						case "regsiter-to-access-update-none":
+							jQuery('#rs-plugin-update-feedback-title').show();
+							jQuery('#basic_premium_benefits_block').show();
+						break;
+						case "regsiter-to-access-store-none":
+							jQuery('#rs-plugin-download-template-feedback-title').show();
+							jQuery('#basic_premium_benefits_block').show();
+						break;
+						case "register-wrong-purchase-code":
+							jQuery('#rs-wrong-purchase-code-title').show();
+							jQuery('#basic_premium_benefits_block').show();
+						break;
+						case "register-to-acess-object-library":
+							jQuery('#rs-plugin-object-library-feedback-title').show();
+							jQuery('#basic_premium_benefits_block').show();
+						break;
+						case "licence_obect_library":						
+							jQuery('#basic_objectlibrary_license_block').show();
+							jQuery('#rs-library-license-info-dialogtitle').show();
+							jQuery('#rs-premium-benefits-dialog').addClass("nomainbg");
+						break;
+						case "cahce-warning-dialog":
+							jQuery('#rs-plugin-cachewarning-title').show();
+							jQuery('#cachewarning_block').show();
+							jQuery('#rs-premium-benefits-dialog').addClass("cachbg");
+							jQuery('#rs-premium-benefits-dialog').height(600)
+						break;
+					}
+				}
+			});
+		}
+	
+</script>
+<?php
+$cvc = get_option('rs_cache_overlay', RevSliderGlobals::SLIDER_REVISION);
+
+if(version_compare(RevSliderGlobals::SLIDER_REVISION, $cvc, '>')){
+	?>
+	<div id="rs-cache-info-dialog" title="">
+		
+		
+		<div><?php _e('Click on the following to learn how to fix issues', 'revslider'); ?></div>
+		
+		
+		
+	</div>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {			
+			show_premium_dialog("cahce-warning-dialog");
+		});				
+	</script>
+	<?php 
+	$cvc = RevSliderGlobals::SLIDER_REVISION;
+}
+update_option('rs_cache_overlay', $cvc);
+?>
 
 <script type="text/javascript">
     <?php
@@ -328,56 +450,8 @@ $single_page_creation = RevSliderFunctions::getVal($glob_vals, "single_page_crea
 			jQuery('.license_deep_content').hide();
 			jQuery("#"+t.data('id')).show();
 		});
-		
+				
 	});
 	
-	function show_premium_dialog(clicked){
-		jQuery('#rs-premium-benefits-dialog').dialog({
-			width:830,
-			height:750,
-			modal:true,
-			resizable:false,
-			open:function(ui) {
-				var dialog = jQuery(ui.target).parent(),						
-					dialogtitle = dialog.find('.ui-dialog-title');
-
-				dialog.addClass("rs-open-premium-benefits-dialog-container");
-				if (!dialogtitle.hasClass("titlechanged")) {
-					dialogtitle.html("");
-					dialogtitle.append(jQuery('#rs-premium-benefits-dialog .rs-premium-benefits-dialogtitles'));
-					dialogtitle.addClass("titlechanged");
-				}
-				
-				//HIDE TITLE
-				jQuery('#rs-library-license-info-dialogtitle, #rs-plugin-object-library-feedback-title, #rs-wrong-purchase-code-title, #rs-plugin-update-feedback-title, #rs-plugin-download-template-feedback-title').hide();
-				jQuery('#rs-premium-benefits-dialog').removeClass("nomainbg")
-				//HIDE CONTENT
-				jQuery('#basic_objectlibrary_license_block, #basic_premium_benefits_block').hide();
-				
-				switch (clicked) {
-					case "regsiter-to-access-update-none":
-						jQuery('#rs-plugin-update-feedback-title').show();
-						jQuery('#basic_premium_benefits_block').show();
-					break;
-					case "regsiter-to-access-store-none":
-						jQuery('#rs-plugin-download-template-feedback-title').show();
-						jQuery('#basic_premium_benefits_block').show();
-					break;
-					case "register-wrong-purchase-code":
-						jQuery('#rs-wrong-purchase-code-title').show();
-						jQuery('#basic_premium_benefits_block').show();
-					break;
-					case "register-to-acess-object-library":
-						jQuery('#rs-plugin-object-library-feedback-title').show();
-						jQuery('#basic_premium_benefits_block').show();
-					break;
-					case "licence_obect_library":						
-						jQuery('#basic_objectlibrary_license_block').show();
-						jQuery('#rs-library-license-info-dialogtitle').show();
-						jQuery('#rs-premium-benefits-dialog').addClass("nomainbg");
-					break;
-				}
-			}
-		});
-	}
+	
 </script>
