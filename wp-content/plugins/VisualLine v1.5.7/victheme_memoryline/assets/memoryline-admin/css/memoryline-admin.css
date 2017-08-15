@@ -1,0 +1,147 @@
+/**
+  Icons
+  **/
+.icon-memoryline {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAKvSURBVHjatNddiFVVFAfw371cG03LD6wBnUJo/ApRsCIKI0iqp0jEF/FFkkEU5sV5UXTAQByQYqBRCopgRKQJoughfFDoQ0spEEYwp2SiZh4GjFCTmGKc8WUNnC733HvOnHsXHM4+e6+91n+vtdfHKXUPdipAX2A1nsHkXASUFaM38DSemquAegA+xxlUMuxPk1PCKZzH/FoMacIfwlY8gus4PscD7sV+TOHhWm5KQ/4femPci3UpfP9WvZP0JE7E+F38ldcFA7gYpvswhecQ3sOvNdZOhgVv4Giaknr+nUYXfoqLVsJMFU9/nf0bwpJv1YuQSgMf3sB6zEsoX4WXsQlLA9htDIfFfgm+LWG90XoKKhku0li8N4dPXwmlaXQRB3EpaxiewwT60JHC14UrERmlBjK34Fv0pKwvx2GM40oZbWgP1KM4G9+z9CY+yGit5MHewa7E3KMhZwzHsBILy3gdu3EtfL0TexL5YKBAxuzHkhhvi7wwHyMxfrYSN3UQp8PELybC7jU8USBVP4Yd+CjqxuG4rF9FlP3PrDORMs8n5p5TnF4KAHdrZdRGpl3ZBACPF6mG5SYAmCyi4LcmAPg9D4B2PI8F8f1jEwBcTkTUC9WXuhzhcDnS6USMh2L967QqlsP85xLF7Xv8gb+jxvSUcSROvTgYbyU2TeLjAgA+jYPNHmYixouijXu71D3YuTHy/M0oPn9WCemItbacyqejio5UzS/DWqzBcCUSw3AdQeNhhX05AXxSQ7lw6Q/xZA6zvsiYeU5/rJld8Vik66z0GX5udlv+fit48wC4mmhO6tGd6Ada8mNyKWPiud8qAN9k4Pkuj8BKTgBDWBFptRZNReltGYB/cCE6p7Twu9dKANujZ6xHBxr8LxS6AzMZeEqttMCXeLUBT64S/mAAPBeMVIPxLecAAAAASUVORK5CYII=") !important;
+  background-position: top left !important;
+}
+
+.icon-memorylinesimple {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAKvSURBVHjatNddiFVVFAfw371cG03LD6wBnUJo/ApRsCIKI0iqp0jEF/FFkkEU5sV5UXTAQByQYqBRCopgRKQJoughfFDoQ0spEEYwp2SiZh4GjFCTmGKc8WUNnC733HvOnHsXHM4+e6+91n+vtdfHKXUPdipAX2A1nsHkXASUFaM38DSemquAegA+xxlUMuxPk1PCKZzH/FoMacIfwlY8gus4PscD7sV+TOHhWm5KQ/4femPci3UpfP9WvZP0JE7E+F38ldcFA7gYpvswhecQ3sOvNdZOhgVv4Giaknr+nUYXfoqLVsJMFU9/nf0bwpJv1YuQSgMf3sB6zEsoX4WXsQlLA9htDIfFfgm+LWG90XoKKhku0li8N4dPXwmlaXQRB3EpaxiewwT60JHC14UrERmlBjK34Fv0pKwvx2GM40oZbWgP1KM4G9+z9CY+yGit5MHewa7E3KMhZwzHsBILy3gdu3EtfL0TexL5YKBAxuzHkhhvi7wwHyMxfrYSN3UQp8PELybC7jU8USBVP4Yd+CjqxuG4rF9FlP3PrDORMs8n5p5TnF4KAHdrZdRGpl3ZBACPF6mG5SYAmCyi4LcmAPg9D4B2PI8F8f1jEwBcTkTUC9WXuhzhcDnS6USMh2L967QqlsP85xLF7Xv8gb+jxvSUcSROvTgYbyU2TeLjAgA+jYPNHmYixouijXu71D3YuTHy/M0oPn9WCemItbacyqejio5UzS/DWqzBcCUSw3AdQeNhhX05AXxSQ7lw6Q/xZA6zvsiYeU5/rJld8Vik66z0GX5udlv+fit48wC4mmhO6tGd6Ada8mNyKWPiud8qAN9k4Pkuj8BKTgBDWBFptRZNReltGYB/cCE6p7Twu9dKANujZ6xHBxr8LxS6AzMZeEqttMCXeLUBT64S/mAAPBeMVIPxLecAAAAASUVORK5CYII=") !important;
+  background-position: top left !important;
+}
+
+.icon-memorylineinner {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMNSURBVHjatNdPiFZlFAbw33zzZTGVkGUykox/JoWsVNCG/iLkIlNDIWihtTDNIXATIoaoqFAZzEY3ZRBIWIs2QV9GbSwlgjRSTJAKEmZoZpGKTE06kLk5n9y+7v3ue2V64G7uPec5577nvOd93o7Nh3olYjKexRNYgpm4F+O4jF9xCkfRwB8ppPUEmx5sw0voyvk+CVPjeQSvRPDD2BeJFaLW5tttQfAT+guCF+EObMI5vBlclRLowXfYGn94s5gUq/ct5qQm8GA4PGTisBDfYFFZAvfhc3SbeEzDF+gtSuBWfBpJpGIvtlewn4qPsz2RTWBnLFURPoiAWQzjUk5S75eUY1drAj3YUpL9TOzBicy7rpYmPRk295dwvYbZ0Nm3Zgq8hb6EefA7TsdAgsexNMoHb8Qs6C/h6owyNDo2H+rtwgjuTKzjlSjHR/gl3s3BWryYSaYMf6K7jpVtgq/BxZgHK3AVz+DrFrtBfBUN1sAt+Axv4y58ksN9O1bU8FSbLPdjMTbgN7ybEzyLL/Fe2G4I3wNt7J+uxcFShBkYiG6fjiMJS9sI2+HwndHG9uEaZlXYxykn3GgFvtk1TEkwHMY1zE2w7Q3b4ZQjvoaONgavhg6YHrVfnUC6GsfCZ3JwFOFaHRdiROZhE57H/Jjlf8eQ+bnAfl7sqs7Y2mdxd5sELtVDMBQlsCBngGzDywX2O8KmefhMK1mtwVrLaE3BOtyT874bL1TkOlGLelUVGcty3i9LlHhZHKvHvh2tMIrhuVBMWayqGHwUjTrGQkD2V3BeEOIzi/kVE/gQY80l24f1FfTf9+HT2gMPJPqPxwl8o2bnY2y+nkjwaJMgg8cq/P1AxPxX0+zG8hJV1MTRmBFZHGzVewU4FbH+I8muRiMNJZBsxD8tz8bEkb4qYuWq4qFYhZH/QRWPhKYYKrsX/Bg1PjOBwc8E5w+pN6PzoREHomNvFuPB0ddsuip3w79CKc/DO6m33YxuOBi+W4IrFx0Vrudd0UBPhoqaFYfYlbgbDMa5cjwuOGMppNcHAM8Am8BdWQwzAAAAAElFTkSuQmCC") !important;
+  background-position: top left !important;
+}
+
+.wpb_memorylineinner,
+.wpb_memoryline {
+  min-height: 72px;
+}
+
+body.compose-mode .vc_memoryline.vc_container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+body.compose-mode .vc_element.vc_memorylineinner {
+  z-index: 4;
+  margin-top: 31px;
+}
+
+body.compose-mode .vc_memoryline .vc_placeholder {
+  display: inline-block !important;
+  float: left !important;
+  width: 200px !important;
+  height: 90px !important;
+}
+
+.vc_editor #wpcontent, .vc_editor #wpfooter {
+  padding-left: 0 !important;
+}
+
+.compose-mode .vc_element {
+  padding-top: 32px;
+}
+
+/** Version 4.3.4 - Customized Backend **/
+.wpb_memorylineinner > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 10px !important;
+}
+
+.wpb_memoryline > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 0 !important;
+}
+
+.wpb_memorylineinner > .wpb_element_wrapper > .wpb_element_title,
+.wpb_memoryline > .wpb_element_wrapper > .wpb_element_title {
+  display: none;
+}
+
+.wpb_memorylineinner > .controls_column,
+.wpb_memoryline > .controls_column {
+  background: #EAD4E7;
+  height: 33px !important;
+  text-align: right !important;
+  position: relative;
+}
+
+.wpb_memorylineinner > .controls_column:first-child,
+.wpb_memoryline > .controls_column:first-child {
+  cursor: pointer;
+}
+
+.wpb_memorylineinner > .controls_column {
+  background: #F5EAF8;
+}
+
+.wpb_memorylineinner > .controls_column:first-child:after,
+.wpb_memoryline > .controls_column:first-child:after {
+  content: 'Memory Line';
+  left: 35px;
+  top: 15px;
+  position: absolute;
+}
+
+.wpb_memorylineinner > .controls_column:first-child:after {
+  content: 'Inner Content'
+}
+
+.wpb_memorylineinner > .controls_column > .vc_control,
+.wpb_memoryline > .controls_column > .vc_control {
+  padding: 5px;
+}
+
+.wpb_memoryline > .wpb_element_wrapper > .vc_admin_label,
+.wpb_memorylineinner > .wpb_element_wrapper > .vc_admin_label {
+  display: inline-block !important;
+  margin-left: 10px;
+  margin-top: 8px;
+}
+
+.wpb_memoryline > .wpb_element_wrapper > .vc_admin_label:last-child,
+.wpb_memorylineinner > .wpb_element_wrapper > .vc_admin_label:last-child {
+  margin-bottom: 10px;
+}
+
+/**
+  Next generation of memory line needs these to work properly
+  **/
+.vc_memorylineinner.reverse,
+.vc_memorylineinner[data-dot-direction="reverse"] {
+  float: right;
+}
+
+.vc_memorylineinner.newrow,
+.vc_memorylineinner[data-new-row="true"] {
+  clear: both !important;
+}
+
+.vc_memorylineinner.vc_container-block {
+  z-index: 5;
+}
+
+.compose-mode .vc_controls > div {
+  z-index: 9;
+}
+
+.vtcore-memoryline .vc_template-wrapper .vc_templates-image {
+  background-image: url(../images/vc.png);
+}
+
+/** 4.7 Fixes **/
+.compose-mode .vc_element-name .vc_btn-content {
+  height: 30px !important;
+}
+
+.compose-mode .vc_control-btn {
+  height: 30px !important;
+  overflow: hidden !important;
+}
+
+.edit_form_line {
+  margin-bottom: 10px;
+}

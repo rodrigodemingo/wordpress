@@ -40,7 +40,6 @@
             }            
             function advanced_styling_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency                     = vc_generate_dependencies_attributes($settings);
                 $param_name     				= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           				= isset($settings['type']) ? $settings['type'] : '';
                 $style_type                     = isset($settings['style_type']) ? $settings['style_type'] : 'border';
@@ -77,7 +76,6 @@
                 $random_id_number               = rand(100000, 999999);
                 $random_id_container            = 'ts-advanced-styling-container-' . $random_id_number;
                 $random_id_input                = 'ts-advanced-styling-input-' . $random_id_number;
-				$url            				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$container_style				= '';
                 // Checkups
                 $all_container                  = (array_key_exists("All", $default_positions) ? 'true' : 'false');

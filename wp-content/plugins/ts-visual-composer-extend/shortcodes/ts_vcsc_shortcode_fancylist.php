@@ -47,6 +47,7 @@
 		$output 						= '';
 		$styling						= '';
 		$wpautop 						= ($content_wpautop == "true" ? true : false);
+		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 		
 		if (!empty($el_id)) {
 			$list_id					= $el_id;
@@ -116,7 +117,9 @@
 		$list_counter					= 0;
 
 		// Create Inline CSS Style
-		$styling .= '<style id="' . $list_id . '-styling" type="text/css">';
+		if ($inline == "false") {
+			$styling .= '<style id="' . $list_id . '-styling" type="text/css">';
+		}
 			$styling .= '#' . $list_id . ' .ts-fancy-list-wrapper {';
 				$styling .= 'margin: 0 0 0 ' . $marker_margin . 'px; list-style-type: ' . ($list_type == "ordered" ? $list_order : $list_marker) . '; list-style-position: ' . $list_position . '; color: ' . $marker_color . '; font-size: ' . $marker_size . 'px; line-height: ' . $line_height . 'px; ' . $list_style;
 				$styling .= TS_VCSC_GetFontFamily($list_id, $content_family, $content_font, false, true, false);
@@ -154,14 +157,22 @@
 					}
 				$styling .= '}';
 		}
-		$styling .= '</style>';
+		if ($inline == "false") {
+			$styling .= '</style>';
+		}
+		if (($styling != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styling));
+		}
+		
 		// Create List Output
-		$output .= TS_VCSC_MinifyCSS($styling);
-		$output .= '<div id="' . $list_id . '" class="ts-fancy-list-container ' . $css_class . '" style="margin-left: ' . $content_intend . 'px; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
+		if ($inline == "false") {
+			$output .= TS_VCSC_MinifyCSS($styling);
+		}
+		$output .= '<div id="' . $list_id . '" class="ts-fancy-list-container ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 			if ($list_type != 'ordered') {
-				$output .= '<ul class="ts-fancy-list-wrapper ts-fancy-list-unordered">';
+				$output .= '<ul class="ts-fancy-list-wrapper ts-fancy-list-unordered" style="padding-left: ' . $content_intend . 'px;">';
 			} else {
-				$output .= '<ol class="ts-fancy-list-wrapper ts-fancy-list-ordered" start="' . ((($list_order == 'decimal') || ($list_order == 'decimal-leading-zero')) ? $order_start1 : $order_start2) . '">';
+				$output .= '<ol class="ts-fancy-list-wrapper ts-fancy-list-ordered" start="' . ((($list_order == 'decimal') || ($list_order == 'decimal-leading-zero')) ? $order_start1 : $order_start2) . '" style="padding-left: ' . $content_intend . 'px;">';
 			}
 				foreach ($list_array as $key => $value){
 					if (substr(trim($value), 0, 4) === "<div") {

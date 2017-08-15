@@ -12,8 +12,6 @@
 				}
             }        
             function image_selector_setting_field($settings, $value){
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
 				$template			= isset($settings['template']) ? $settings['template'] : 'alignfull';				
@@ -28,7 +26,6 @@
 				} else {
 					$data_template	= array();
 				}
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer			= rand(100000, 999999);
                 $output         	= '';
 				$output .= '<div id="ts-image-select-container-' . $randomizer . '" class="ts-image-select-container">';

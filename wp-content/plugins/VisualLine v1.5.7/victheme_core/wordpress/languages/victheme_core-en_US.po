@@ -1,0 +1,1776 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VicTheme Core 1.2\n"
+"POT-Creation-Date: 2016-08-09 13:15+0800\n"
+"PO-Revision-Date: 2016-08-09 13:15+0800\n"
+"Last-Translator: \n"
+"Language-Team: VicTheme.com <support@victheme.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;_n;_x;_ex;esc_attr__;"
+"esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: actions/add_meta_boxes.php:22
+msgid "Custom Templates"
+msgstr ""
+
+#: actions/add_meta_boxes.php:49
+msgid "Custom Header"
+msgstr ""
+
+#: ajax/processor/hs.php:47 ajax/processor/wpaccordion.php:58
+msgid "Error Processing Ajax request"
+msgstr ""
+
+#: ajax/processor/wpicon.php:34 form/wpicon.php:110 form/wpiconset.php:196
+#: form/wpsocial.php:100 form/wpsocial.php:153 widgets/contact.php:272
+#: widgets/social.php:292
+msgid "Icon"
+msgstr ""
+
+#: ajax/processor/wpupdater.php:37
+#, php-format
+msgid "Updating %s successful"
+msgstr ""
+
+#: ajax/processor/wpupdater.php:43
+#, php-format
+msgid "Updating %s failed"
+msgstr ""
+
+#: ajax/router/admin.php:28 ajax/router/anon.php:28
+msgid "Permission Denied."
+msgstr ""
+
+#: customizer/element/font.php:26 form/wpbackground.php:278
+#: form/wpborder.php:89 form/wpfonts.php:235 form/wpfonts.php:266
+#: form/wpfonts.php:291 form/wpiconset.php:340
+msgid "Not set"
+msgstr ""
+
+#: data/icons/library.php:34
+msgid "Font Awesome"
+msgstr ""
+
+#: data/icons/library.php:45
+msgid "Bootstrap Glyphicon"
+msgstr ""
+
+#: data/icons/library.php:56
+msgid "Elegant Icon"
+msgstr ""
+
+#: data/icons/library.php:67
+msgid "Foundation"
+msgstr ""
+
+#: data/icons/library.php:78
+msgid "Typicons"
+msgstr ""
+
+#: data/icons/library.php:89
+msgid "Open Iconic"
+msgstr ""
+
+#: data/icons/library.php:100
+msgid "Entypo"
+msgstr ""
+
+#: data/icons/library.php:140 form/wpterms.php:80
+msgid "-- Select --"
+msgstr ""
+
+#: form/query/authors.php:72
+msgid "Author In"
+msgstr ""
+
+#: form/query/authors.php:73
+msgid ""
+"Select one or multiple author, only posts made by these selected author will "
+"be retrieved by the query."
+msgstr ""
+
+#: form/query/authors.php:85
+msgid "Author Not In"
+msgstr ""
+
+#: form/query/authors.php:86
+msgid ""
+"Select one or multiple author, posts made by these selected author will not "
+"be retrieved by the query."
+msgstr ""
+
+#: form/query/meta.php:62 form/query/taxonomy.php:64
+msgid "Relation"
+msgstr ""
+
+#: form/query/meta.php:63
+msgid "Database relation between each meta entry."
+msgstr ""
+
+#: form/query/meta.php:67 form/query/taxonomy.php:69
+msgid "And"
+msgstr ""
+
+#: form/query/meta.php:68 form/query/taxonomy.php:70
+msgid "Or"
+msgstr ""
+
+#: form/query/meta.php:81 form/query/taxonomy.php:85
+msgid "Data"
+msgstr ""
+
+#: form/query/meta.php:93 form/query/taxonomy.php:97
+msgid "Add Entry"
+msgstr ""
+
+#: form/query/meta.php:146
+msgid "Meta Key"
+msgstr ""
+
+#: form/query/meta.php:147
+msgid "Valid post meta key name."
+msgstr ""
+
+#: form/query/meta.php:160
+msgid "Meta Value"
+msgstr ""
+
+#: form/query/meta.php:161
+msgid "Valid post meta value."
+msgstr ""
+
+#: form/query/meta.php:177
+msgid "Field Type"
+msgstr ""
+
+#: form/query/meta.php:178
+msgid "Meta value data type."
+msgstr ""
+
+#: form/query/meta.php:181
+msgid "Numeric"
+msgstr ""
+
+#: form/query/meta.php:182
+msgid "Binary"
+msgstr ""
+
+#: form/query/meta.php:183
+msgid "Char"
+msgstr ""
+
+#: form/query/meta.php:184
+msgid "Date"
+msgstr ""
+
+#: form/query/meta.php:185
+msgid "DateTime"
+msgstr ""
+
+#: form/query/meta.php:186
+msgid "Decimal"
+msgstr ""
+
+#: form/query/meta.php:187
+msgid "Signed"
+msgstr ""
+
+#: form/query/meta.php:188
+msgid "Time"
+msgstr ""
+
+#: form/query/meta.php:189
+msgid "Unsigned"
+msgstr ""
+
+#: form/query/meta.php:202
+msgid "Comparison"
+msgstr ""
+
+#: form/query/meta.php:203
+msgid "Meta value data comparison mode."
+msgstr ""
+
+#: form/query/orders.php:63
+msgid "No Order"
+msgstr ""
+
+#: form/query/orders.php:64
+msgid "Order by post id"
+msgstr ""
+
+#: form/query/orders.php:65
+msgid "Order by author"
+msgstr ""
+
+#: form/query/orders.php:66
+msgid "Order by title"
+msgstr ""
+
+#: form/query/orders.php:67
+msgid "Order by post name (post slug)"
+msgstr ""
+
+#: form/query/orders.php:68
+msgid "Order by date"
+msgstr ""
+
+#: form/query/orders.php:69
+msgid "Order by last modified date"
+msgstr ""
+
+#: form/query/orders.php:70
+msgid "Order by post/page parent id"
+msgstr ""
+
+#: form/query/orders.php:71
+msgid "Random order"
+msgstr ""
+
+#: form/query/orders.php:72
+msgid "Order by number of comments"
+msgstr ""
+
+#: form/query/orders.php:73
+msgid "Order by Page Order"
+msgstr ""
+
+#: form/query/orders.php:84
+msgid "Order Direction"
+msgstr ""
+
+#: form/query/orders.php:85
+msgid "Set the queried data ordering direction."
+msgstr ""
+
+#: form/query/orders.php:89
+msgid "Descending"
+msgstr ""
+
+#: form/query/orders.php:90
+msgid "Ascending"
+msgstr ""
+
+#: form/query/orders.php:94
+msgid "Order By"
+msgstr ""
+
+#: form/query/orders.php:95
+msgid "Define how to order the queried data value."
+msgstr ""
+
+#: form/query/pagination.php:61
+msgid "Post Per Page"
+msgstr ""
+
+#: form/query/pagination.php:62
+msgid "Number of post to retrieve in a single query"
+msgstr ""
+
+#: form/query/pagination.php:67
+msgid "No Paging"
+msgstr ""
+
+#: form/query/pagination.php:68
+msgid "When enabled, post per page options will be ignored."
+msgstr ""
+
+#: form/query/pagination.php:74
+msgid "Offset"
+msgstr ""
+
+#: form/query/pagination.php:75
+msgid "Set how many post should the query skips before starting the query."
+msgstr ""
+
+#: form/query/pagination.php:80
+msgid "Page"
+msgstr ""
+
+#: form/query/pagination.php:81
+msgid ""
+"Input numerical entry for jumping the query to x page, the number of post "
+"skipped will be related to the post per page options"
+msgstr ""
+
+#: form/query/posts.php:76
+msgid "Post Type"
+msgstr ""
+
+#: form/query/posts.php:77
+msgid "Select one or multiple post type for filtering the query results"
+msgstr ""
+
+#: form/query/posts.php:89
+msgid "Post Status"
+msgstr ""
+
+#: form/query/posts.php:90
+msgid "Select one or multiple post status for filtering the query results"
+msgstr ""
+
+#: form/query/posts.php:100
+msgid "A Published post or page"
+msgstr ""
+
+#: form/query/posts.php:101
+msgid "Post is pending review"
+msgstr ""
+
+#: form/query/posts.php:102
+msgid "A post in draft status"
+msgstr ""
+
+#: form/query/posts.php:103
+msgid "A post to publish in the future"
+msgstr ""
+
+#: form/query/posts.php:104
+msgid "Not Visible to users who are not logged in"
+msgstr ""
+
+#: form/query/posts.php:105
+msgid "A Revision"
+msgstr ""
+
+#: form/query/posts.php:106
+msgid "Post is in trashbin"
+msgstr ""
+
+#: form/query/posts.php:107
+msgid ""
+"Retrieves any status except those from post types with exclude_from_search "
+"set to true"
+msgstr ""
+
+#: form/query/posts.php:111
+msgid "Post Parent In"
+msgstr ""
+
+#: form/query/posts.php:112
+msgid ""
+"Select one or multiple post as the parent value for filtering the query "
+"results"
+msgstr ""
+
+#: form/query/posts.php:124
+msgid "Post Parent Not In"
+msgstr ""
+
+#: form/query/posts.php:125
+msgid ""
+"Select one or multiple post as the not included parent value for filtering "
+"the query results"
+msgstr ""
+
+#: form/query/posts.php:137
+msgid "Post In"
+msgstr ""
+
+#: form/query/posts.php:138
+msgid "Select one or multiple post to include in the result"
+msgstr ""
+
+#: form/query/posts.php:150
+msgid "Post Not In"
+msgstr ""
+
+#: form/query/posts.php:151
+msgid "Select one or multiple post to exclude in the result"
+msgstr ""
+
+#: form/query/posts.php:163
+msgid "Ignore Sticky Post"
+msgstr ""
+
+#: form/query/posts.php:164
+msgid "Ignore or honor the post that is marked as a sticky post"
+msgstr ""
+
+#: form/query/taxonomy.php:65
+msgid "Database relation between each taxonomy terms entry."
+msgstr ""
+
+#: form/query/taxonomy.php:149
+msgid "Terms"
+msgstr ""
+
+#: form/query/taxonomy.php:150
+msgid "Taxonomy term name, id or slug."
+msgstr ""
+
+#: form/query/taxonomy.php:163 form/wpquery.php:165
+msgid "Taxonomy"
+msgstr ""
+
+#: form/query/taxonomy.php:164
+msgid "The terms taxonomy name."
+msgstr ""
+
+#: form/query/taxonomy.php:181
+msgid "Field"
+msgstr ""
+
+#: form/query/taxonomy.php:182
+msgid "Term data type."
+msgstr ""
+
+#: form/query/taxonomy.php:185
+msgid "Term Id"
+msgstr ""
+
+#: form/query/taxonomy.php:186 form/wpanimation.php:78
+msgid "Name"
+msgstr ""
+
+#: form/query/taxonomy.php:187
+msgid "Slug"
+msgstr ""
+
+#: form/query/taxonomy.php:200
+msgid "Compare"
+msgstr ""
+
+#: form/query/taxonomy.php:201
+msgid "Term comparison mode."
+msgstr ""
+
+#: form/query/taxonomy.php:221
+msgid "Include Children"
+msgstr ""
+
+#: form/query/taxonomy.php:222
+msgid "Include the taxonomy term children if available."
+msgstr ""
+
+#: form/wpanimation.php:94
+msgid "Delay"
+msgstr ""
+
+#: form/wpanimation.php:110
+msgid "Duration"
+msgstr ""
+
+#: form/wpanimation.php:126
+msgid "Iteration Count"
+msgstr ""
+
+#: form/wpanimation.php:142 form/wpfotorama.php:604 form/wpgradient.php:155
+msgid "Direction"
+msgstr ""
+
+#: form/wpanimation.php:146 form/wpfonts.php:240 form/wpfonts.php:267
+#: form/wpfonts.php:292
+msgid "Normal"
+msgstr ""
+
+#: form/wpanimation.php:147
+msgid "Reverse"
+msgstr ""
+
+#: form/wpanimation.php:148
+msgid "Alternate"
+msgstr ""
+
+#: form/wpanimation.php:149
+msgid "Alternate Reverse"
+msgstr ""
+
+#: form/wpanimation.php:150 form/wpanimation.php:174 form/wpanimation.php:196
+#: form/wpanimation.php:221 form/wpbackground.php:298 form/wpfonts.php:294
+msgid "Initial"
+msgstr ""
+
+#: form/wpanimation.php:151 form/wpanimation.php:175 form/wpanimation.php:197
+#: form/wpanimation.php:222 form/wpbackground.php:302 form/wpborder.php:91
+#: form/wpfonts.php:236 form/wpfonts.php:270 form/wpfonts.php:295
+#: form/wpiconset.php:342
+msgid "Inherit"
+msgstr ""
+
+#: form/wpanimation.php:166
+msgid "Fill Mode"
+msgstr ""
+
+#: form/wpanimation.php:170 form/wpborder.php:90 form/wpfonts.php:210
+#: form/wpfotorama.php:318 form/wpfotorama.php:453 form/wpfotorama.php:518
+#: form/wpiconset.php:219 form/wpiconset.php:296 form/wpiconset.php:308
+#: form/wpiconset.php:341 metabox/customtemplate.php:89
+msgid "None"
+msgstr ""
+
+#: form/wpanimation.php:171
+msgid "Forwards"
+msgstr ""
+
+#: form/wpanimation.php:172
+msgid "Backwards"
+msgstr ""
+
+#: form/wpanimation.php:173
+msgid "Both"
+msgstr ""
+
+#: form/wpanimation.php:190
+msgid "Play State"
+msgstr ""
+
+#: form/wpanimation.php:194
+msgid "Paused"
+msgstr ""
+
+#: form/wpanimation.php:195
+msgid "Running"
+msgstr ""
+
+#: form/wpanimation.php:212
+msgid "Timing"
+msgstr ""
+
+#: form/wpanimation.php:216 form/wpgradient.php:127
+msgid "Linear"
+msgstr ""
+
+#: form/wpanimation.php:217
+msgid "Ease"
+msgstr ""
+
+#: form/wpanimation.php:218
+msgid "Ease In"
+msgstr ""
+
+#: form/wpanimation.php:219
+msgid "Ease Out"
+msgstr ""
+
+#: form/wpanimation.php:220
+msgid "Ease In Out"
+msgstr ""
+
+#: form/wpbackground.php:122 form/wpiconset.php:264
+msgid "Background Color"
+msgstr ""
+
+#: form/wpbackground.php:143
+msgid "Background Masking"
+msgstr ""
+
+#: form/wpbackground.php:164
+msgid "Parallax Mode"
+msgstr ""
+
+#: form/wpbackground.php:167
+msgid "Disable Parallax"
+msgstr ""
+
+#: form/wpbackground.php:168
+msgid "Vertical Parallax"
+msgstr ""
+
+#: form/wpbackground.php:169
+msgid "Horizontal Parallax"
+msgstr ""
+
+#: form/wpbackground.php:170
+msgid "Diagonal Parallax"
+msgstr ""
+
+#: form/wpbackground.php:200
+msgid "Image"
+msgstr ""
+
+#: form/wpbackground.php:201 form/wpiconset.php:243
+msgid "Settings"
+msgstr ""
+
+#: form/wpbackground.php:207
+msgid "Add Background"
+msgstr ""
+
+#: form/wpbackground.php:215 form/wpfotorama.php:643
+msgid "Animation"
+msgstr ""
+
+#: form/wpbackground.php:274 form/wpgradient.php:141
+msgid "Repeat"
+msgstr ""
+
+#: form/wpbackground.php:279
+msgid "No Repeat"
+msgstr ""
+
+#: form/wpbackground.php:280
+msgid "Repeat All"
+msgstr ""
+
+#: form/wpbackground.php:281
+msgid "Repeat Horizontally"
+msgstr ""
+
+#: form/wpbackground.php:282
+msgid "Repeat Vertically"
+msgstr ""
+
+#: form/wpbackground.php:294
+msgid "Attachment"
+msgstr ""
+
+#: form/wpbackground.php:299
+msgid "Scroll"
+msgstr ""
+
+#: form/wpbackground.php:300 form/wpvideo.php:163
+msgid "Fixed"
+msgstr ""
+
+#: form/wpbackground.php:301
+msgid "Local"
+msgstr ""
+
+#: form/wpbackground.php:317 form/wpgradient.php:166 form/wpiconset.php:291
+#: form/wpvideo.php:158
+msgid "Position"
+msgstr ""
+
+#: form/wpbackground.php:330 form/wpfonts.php:191 form/wpgradient.php:206
+#: form/wpiconset.php:208
+msgid "Size"
+msgstr ""
+
+#: form/wpbackground.php:344
+msgid "Animation Frame"
+msgstr ""
+
+#: form/wpbackground.php:355
+msgid "From"
+msgstr ""
+
+#: form/wpbackground.php:368
+msgid "To"
+msgstr ""
+
+#: form/wpborder.php:76 form/wpfotorama.php:169 form/wpiconset.php:329
+#: form/wpimagesize.php:69 form/wpvideo.php:190
+msgid "Width"
+msgstr ""
+
+#: form/wpborder.php:78 form/wpiconset.php:331
+msgid "Input the icon border size width in pixel. eg 1px"
+msgstr ""
+
+#: form/wpborder.php:83 form/wpfonts.php:262 form/wpiconset.php:335
+msgid "Style"
+msgstr ""
+
+#: form/wpborder.php:84 form/wpiconset.php:336
+msgid "Select the border style"
+msgstr ""
+
+#: form/wpborder.php:92 form/wpiconset.php:343
+msgid "Solid"
+msgstr ""
+
+#: form/wpborder.php:93 form/wpiconset.php:344
+msgid "Dotted"
+msgstr ""
+
+#: form/wpborder.php:94 form/wpiconset.php:345
+msgid "Dashed"
+msgstr ""
+
+#: form/wpborder.php:95 form/wpiconset.php:346
+msgid "Double"
+msgstr ""
+
+#: form/wpborder.php:96 form/wpiconset.php:347
+msgid "Ridge"
+msgstr ""
+
+#: form/wpborder.php:97 form/wpiconset.php:348
+msgid "Inset"
+msgstr ""
+
+#: form/wpborder.php:98 form/wpiconset.php:349
+msgid "Outset"
+msgstr ""
+
+#: form/wpborder.php:99 form/wpiconset.php:350
+msgid "Groove"
+msgstr ""
+
+#: form/wpborder.php:103 form/wpfonts.php:162 form/wpgradient.php:242
+#: form/wpiconset.php:354
+msgid "Color"
+msgstr ""
+
+#: form/wpborder.php:105 form/wpiconset.php:356
+msgid "Choose the border color"
+msgstr ""
+
+#: form/wpborder.php:110 form/wpiconset.php:363
+msgid "Radius"
+msgstr ""
+
+#: form/wpborder.php:112 form/wpiconset.php:365
+msgid ""
+"Set the border radius in the format of top left, top right, bottom right and "
+"bottom left eg. 1px 2px 3px 4px"
+msgstr ""
+
+#: form/wpfonts.php:144
+msgid "Grumpy wizards make toxic brew for the evil Queen and Jack."
+msgstr ""
+
+#: form/wpfonts.php:209 form/wpicon.php:84
+msgid "Family"
+msgstr ""
+
+#: form/wpfonts.php:231
+msgid "Weight"
+msgstr ""
+
+#: form/wpfonts.php:237
+msgid "Thin"
+msgstr ""
+
+#: form/wpfonts.php:238
+msgid "Extra light"
+msgstr ""
+
+#: form/wpfonts.php:239
+msgid "Light"
+msgstr ""
+
+#: form/wpfonts.php:241
+msgid "Medium"
+msgstr ""
+
+#: form/wpfonts.php:242
+msgid "Demi bold"
+msgstr ""
+
+#: form/wpfonts.php:243
+msgid "Bold"
+msgstr ""
+
+#: form/wpfonts.php:244
+msgid "Heavy"
+msgstr ""
+
+#: form/wpfonts.php:245
+msgid "Black"
+msgstr ""
+
+#: form/wpfonts.php:268
+msgid "Oblique"
+msgstr ""
+
+#: form/wpfonts.php:269
+msgid "Italic"
+msgstr ""
+
+#: form/wpfonts.php:287
+msgid "Variant"
+msgstr ""
+
+#: form/wpfonts.php:293
+msgid "Small Caps"
+msgstr ""
+
+#: form/wpfonts.php:315 form/wpiconset.php:273
+msgid "Line Height"
+msgstr ""
+
+#: form/wpfonts.php:333
+msgid "Letter Spacing"
+msgstr ""
+
+#: form/wpfonts.php:351
+msgid "Shadow"
+msgstr ""
+
+#: form/wpfotorama.php:152
+msgid "Min Width"
+msgstr ""
+
+#: form/wpfotorama.php:153
+msgid "Stage container minimum width in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:157 form/wpfotorama.php:174 form/wpfotorama.php:191
+#: form/wpfotorama.php:211 form/wpfotorama.php:228 form/wpfotorama.php:245
+msgid "Invalid size."
+msgstr ""
+
+#: form/wpfotorama.php:170
+msgid "Stage container width in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:186
+msgid "Max Width"
+msgstr ""
+
+#: form/wpfotorama.php:187
+msgid "Stage container maximum width in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:206
+msgid "Min Height"
+msgstr ""
+
+#: form/wpfotorama.php:207
+msgid "Stage container minimum height in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:223 form/wpimagesize.php:86 form/wpvideo.php:196
+msgid "Height"
+msgstr ""
+
+#: form/wpfotorama.php:224
+msgid "Stage container height in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:240
+msgid "Max Height"
+msgstr ""
+
+#: form/wpfotorama.php:241
+msgid "Stage container maximum height in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:258
+msgid "Dimension"
+msgstr ""
+
+#: form/wpfotorama.php:269
+msgid "Captions"
+msgstr ""
+
+#: form/wpfotorama.php:270
+msgid "Captions visibility."
+msgstr ""
+
+#: form/wpfotorama.php:284
+msgid "Shadows"
+msgstr ""
+
+#: form/wpfotorama.php:285
+msgid "Enables shadows."
+msgstr ""
+
+#: form/wpfotorama.php:300 form/wpfotorama.php:304
+msgid "Allow Full Screen"
+msgstr ""
+
+#: form/wpfotorama.php:301
+msgid "Allows fullscreen"
+msgstr ""
+
+#: form/wpfotorama.php:303
+msgid "No Full Screen"
+msgstr ""
+
+#: form/wpfotorama.php:305
+msgid "Native"
+msgstr ""
+
+#: form/wpfotorama.php:312
+msgid "Fit"
+msgstr ""
+
+#: form/wpfotorama.php:313
+msgid "How to fit an image into a fotorama"
+msgstr ""
+
+#: form/wpfotorama.php:315 form/wpfotorama.php:515 form/wpgradient.php:217
+msgid "Contain"
+msgstr ""
+
+#: form/wpfotorama.php:316 form/wpfotorama.php:516 form/wpgradient.php:218
+msgid "Cover"
+msgstr ""
+
+#: form/wpfotorama.php:317 form/wpfotorama.php:517
+msgid "Scale Down"
+msgstr ""
+
+#: form/wpfotorama.php:324
+msgid "Ratio"
+msgstr ""
+
+#: form/wpfotorama.php:325
+msgid "Width divided by height. Recommended if you’re using percentage width."
+msgstr ""
+
+#: form/wpfotorama.php:330 form/wpiconset.php:285
+msgid "Margin"
+msgstr ""
+
+#: form/wpfotorama.php:331
+msgid "Horizontal margins for frames in pixels."
+msgstr ""
+
+#: form/wpfotorama.php:336 form/wpfotorama.php:478 form/wpfotorama.php:488
+#: form/wpfotorama.php:498 form/wpfotorama.php:508 form/wpfotorama.php:620
+msgid "Only numeric character allowed"
+msgstr ""
+
+#: form/wpfotorama.php:340
+msgid "Glimpse"
+msgstr ""
+
+#: form/wpfotorama.php:341
+msgid "Glimpse size of nearby frames in pixels or percents."
+msgstr ""
+
+#: form/wpfotorama.php:345
+msgid "Invalid size"
+msgstr ""
+
+#: form/wpfotorama.php:350
+msgid "Media"
+msgstr ""
+
+#: form/wpfotorama.php:360
+msgid "Keyboard"
+msgstr ""
+
+#: form/wpfotorama.php:361
+msgid "Enables keyboard navigation."
+msgstr ""
+
+#: form/wpfotorama.php:376
+msgid "Click"
+msgstr ""
+
+#: form/wpfotorama.php:377
+msgid "Moving between frames by clicking."
+msgstr ""
+
+#: form/wpfotorama.php:391
+msgid "Swipe"
+msgstr ""
+
+#: form/wpfotorama.php:392
+msgid "Moving between frames by swiping."
+msgstr ""
+
+#: form/wpfotorama.php:406
+msgid "Trackpad"
+msgstr ""
+
+#: form/wpfotorama.php:407
+msgid "Enables trackpad support and horizontal mouse wheel as well."
+msgstr ""
+
+#: form/wpfotorama.php:422
+msgid "Nav"
+msgstr ""
+
+#: form/wpfotorama.php:423
+msgid "Navigation style."
+msgstr ""
+
+#: form/wpfotorama.php:425
+msgid "iPhone Style Dots"
+msgstr ""
+
+#: form/wpfotorama.php:426
+msgid "Thumbnails"
+msgstr ""
+
+#: form/wpfotorama.php:427
+msgid "Nothing"
+msgstr ""
+
+#: form/wpfotorama.php:433
+msgid "Nav Width"
+msgstr ""
+
+#: form/wpfotorama.php:434
+msgid "Navigation width."
+msgstr ""
+
+#: form/wpfotorama.php:439
+msgid "Arrows"
+msgstr ""
+
+#: form/wpfotorama.php:440
+msgid "Turns on navigation arrows over the frames."
+msgstr ""
+
+#: form/wpfotorama.php:442
+msgid "Enable"
+msgstr ""
+
+#: form/wpfotorama.php:443 form/wpgradient.php:126
+msgid "Disable"
+msgstr ""
+
+#: form/wpfotorama.php:444
+msgid "Always"
+msgstr ""
+
+#: form/wpfotorama.php:450
+msgid "Nav Position"
+msgstr ""
+
+#: form/wpfotorama.php:451
+msgid "Navigation container position relative to stage."
+msgstr ""
+
+#: form/wpfotorama.php:454
+msgid "Top"
+msgstr ""
+
+#: form/wpfotorama.php:455
+msgid "Bottom"
+msgstr ""
+
+#: form/wpfotorama.php:463
+msgid "Navigation"
+msgstr ""
+
+#: form/wpfotorama.php:472
+msgid "Thumbnail Width"
+msgstr ""
+
+#: form/wpfotorama.php:473
+msgid "Thumbnail width in pixels."
+msgstr ""
+
+#: form/wpfotorama.php:482
+msgid "Thumbnail Height"
+msgstr ""
+
+#: form/wpfotorama.php:483
+msgid "Thumbnail height in pixels."
+msgstr ""
+
+#: form/wpfotorama.php:492
+msgid "Thumbnail Margin"
+msgstr ""
+
+#: form/wpfotorama.php:493
+msgid "Size of thumbnail margins."
+msgstr ""
+
+#: form/wpfotorama.php:502
+msgid "Thumbnail Border Width"
+msgstr ""
+
+#: form/wpfotorama.php:503
+msgid "Border width of the active thumbnail."
+msgstr ""
+
+#: form/wpfotorama.php:512
+msgid "Thumb Fit"
+msgstr ""
+
+#: form/wpfotorama.php:513
+msgid "How to fit thumbnail into its frame"
+msgstr ""
+
+#: form/wpfotorama.php:525
+msgid "Thumbnail"
+msgstr ""
+
+#: form/wpfotorama.php:536 form/wpvideo.php:176
+msgid "Loop"
+msgstr ""
+
+#: form/wpfotorama.php:537
+msgid "Enables loop."
+msgstr ""
+
+#: form/wpfotorama.php:551
+msgid "Stop Autoplay on touch"
+msgstr ""
+
+#: form/wpfotorama.php:552
+msgid "Stops slideshow at any user action with the fotorama."
+msgstr ""
+
+#: form/wpfotorama.php:566
+msgid "Shuffle"
+msgstr ""
+
+#: form/wpfotorama.php:567
+msgid "Shuffles frames at launch."
+msgstr ""
+
+#: form/wpfotorama.php:582
+msgid "Transition"
+msgstr ""
+
+#: form/wpfotorama.php:583
+msgid "Defines what transition to use"
+msgstr ""
+
+#: form/wpfotorama.php:585 form/wpfotorama.php:596
+msgid "Slide"
+msgstr ""
+
+#: form/wpfotorama.php:586 form/wpfotorama.php:597
+msgid "Crossfade"
+msgstr ""
+
+#: form/wpfotorama.php:587 form/wpfotorama.php:598
+msgid "Dissolve"
+msgstr ""
+
+#: form/wpfotorama.php:593
+msgid "Click Transition"
+msgstr ""
+
+#: form/wpfotorama.php:594
+msgid "Defines alternative transition to use on click."
+msgstr ""
+
+#: form/wpfotorama.php:605
+msgid "Sets the frames direction: ltr or rtl."
+msgstr ""
+
+#: form/wpfotorama.php:607
+msgid "Left to right"
+msgstr ""
+
+#: form/wpfotorama.php:608
+msgid "Right to left"
+msgstr ""
+
+#: form/wpfotorama.php:614
+msgid "Transition Duration"
+msgstr ""
+
+#: form/wpfotorama.php:615
+msgid "Animation length in milliseconds."
+msgstr ""
+
+#: form/wpfotorama.php:624
+msgid "Start Index"
+msgstr ""
+
+#: form/wpfotorama.php:625
+msgid ""
+"Index or id of the frame that will be shown upon initialization of the "
+"fotorama."
+msgstr ""
+
+#: form/wpfotorama.php:629 form/wpfotorama.php:638
+msgid "Only alphanumeric character allowed"
+msgstr ""
+
+#: form/wpfotorama.php:633 form/wpvideo.php:167
+msgid "Autoplay"
+msgstr ""
+
+#: form/wpfotorama.php:634
+msgid ""
+"Enables slideshow. Turn it on with true or any interval in milliseconds."
+msgstr ""
+
+#: form/wpgradient.php:115
+msgid "Mode"
+msgstr ""
+
+#: form/wpgradient.php:128
+msgid "Radial"
+msgstr ""
+
+#: form/wpgradient.php:156
+msgid "left | right | top | bottom | 45deg"
+msgstr ""
+
+#: form/wpgradient.php:172
+msgid "center | top | left | right | bottom | (100px 100px)"
+msgstr ""
+
+#: form/wpgradient.php:186 form/wpiconset.php:303
+msgid "Shape"
+msgstr ""
+
+#: form/wpgradient.php:193 form/wpiconset.php:309
+msgid "Circle"
+msgstr ""
+
+#: form/wpgradient.php:194
+msgid "Ellipse"
+msgstr ""
+
+#: form/wpgradient.php:213
+msgid "Farthest Corner"
+msgstr ""
+
+#: form/wpgradient.php:214
+msgid "Farthest Side"
+msgstr ""
+
+#: form/wpgradient.php:215
+msgid "Closest Corner"
+msgstr ""
+
+#: form/wpgradient.php:216
+msgid "Closest Side"
+msgstr ""
+
+#: form/wpgradient.php:241
+msgid "Stop"
+msgstr ""
+
+#: form/wpgradient.php:248
+msgid "Add Color"
+msgstr ""
+
+#: form/wpicon.php:95
+msgid "Retrieving Icons"
+msgstr ""
+
+#: form/wpiconset.php:211
+msgid "Set the icon size using pixel or em, eg. 12px or 12em"
+msgstr ""
+
+#: form/wpiconset.php:214
+msgid "Flip"
+msgstr ""
+
+#: form/wpiconset.php:217
+msgid "Flip the icon using css3 transform method."
+msgstr ""
+
+#: form/wpiconset.php:220
+msgid "Horizontal"
+msgstr ""
+
+#: form/wpiconset.php:221
+msgid "Vertical"
+msgstr ""
+
+#: form/wpiconset.php:225
+msgid "Spin"
+msgstr ""
+
+#: form/wpiconset.php:228
+msgid "Spin the icon using css3 spin effect"
+msgstr ""
+
+#: form/wpiconset.php:230 pages/config.php:364 pages/config.php:397
+#: pages/config.php:471 pages/config.php:536
+msgid "No"
+msgstr ""
+
+#: form/wpiconset.php:231 pages/config.php:363 pages/config.php:396
+#: pages/config.php:470 pages/config.php:535
+msgid "Yes"
+msgstr ""
+
+#: form/wpiconset.php:235
+msgid "Rotate"
+msgstr ""
+
+#: form/wpiconset.php:239
+msgid ""
+"Rotate the icon using css3 transform rotate, enter the value in the degree"
+msgstr ""
+
+#: form/wpiconset.php:255
+msgid "Icon Color"
+msgstr ""
+
+#: form/wpiconset.php:258
+msgid "Choose the icon color"
+msgstr ""
+
+#: form/wpiconset.php:267
+msgid "Choose the background color for the icon wrapper"
+msgstr ""
+
+#: form/wpiconset.php:276
+msgid "Adjust the icon line height"
+msgstr ""
+
+#: form/wpiconset.php:279
+msgid "Padding"
+msgstr ""
+
+#: form/wpiconset.php:282
+msgid "Adjust the icon inner padding, eg. 10px 10px 10px 10px"
+msgstr ""
+
+#: form/wpiconset.php:288
+msgid "Adjust the icon margin, eg. 10px 10px 10px 10px"
+msgstr ""
+
+#: form/wpiconset.php:294
+msgid "Select the position of the icon relative to the icon wrapper."
+msgstr ""
+
+#: form/wpiconset.php:297 widgets/social.php:215
+msgid "Left"
+msgstr ""
+
+#: form/wpiconset.php:298 widgets/social.php:216
+msgid "Right"
+msgstr ""
+
+#: form/wpiconset.php:299 widgets/social.php:217
+msgid "Center"
+msgstr ""
+
+#: form/wpiconset.php:306
+msgid "Choose the shape of this icon wrapper"
+msgstr ""
+
+#: form/wpiconset.php:310
+msgid "Rounded"
+msgstr ""
+
+#: form/wpiconset.php:311
+msgid "Diamond"
+msgstr ""
+
+#: form/wpiconset.php:316
+msgid "Styling"
+msgstr ""
+
+#: form/wpiconset.php:370
+msgid "Border"
+msgstr ""
+
+#: form/wpimagesize.php:82 form/wpimagesize.php:99
+msgid "Only numerical value allowed"
+msgstr ""
+
+#: form/wpimagesize.php:103
+msgid "Crop"
+msgstr ""
+
+#: form/wpimagesize.php:107
+msgid "Crop Image"
+msgstr ""
+
+#: form/wpimagesize.php:108
+msgid "Don't Crop Image"
+msgstr ""
+
+#: form/wpmultiplemedia.php:97
+msgid "Add Media"
+msgstr ""
+
+#: form/wpmultiplemedia.php:175
+#, php-format
+msgid ""
+"<span class=\"wp-multiplemedia-label\">Type : </span><span class=\"wp-"
+"multiplemedia-type\">%s</span>"
+msgstr ""
+
+#: form/wpmultiplemedia.php:185
+#, php-format
+msgid ""
+"<span class=\"wp-multiplemedia-label\">Filename : </span><span class=\"wp-"
+"multiplemedia-filename\">%s</span>"
+msgstr ""
+
+#: form/wpmultiplemedia.php:195
+#, php-format
+msgid ""
+"<span class=\"wp-multiplemedia-label\">File location : </span><span class="
+"\"wp-multiplemedia-url\">%s</span>"
+msgstr ""
+
+#: form/wpquery.php:113
+msgid "Posts"
+msgstr ""
+
+#: form/wpquery.php:126
+msgid "Authors"
+msgstr ""
+
+#: form/wpquery.php:139
+msgid "Ordering"
+msgstr ""
+
+#: form/wpquery.php:152
+msgid "Pagination"
+msgstr ""
+
+#: form/wpquery.php:178
+msgid "Meta"
+msgstr ""
+
+#: form/wpquery.php:188
+msgid "Parameters"
+msgstr ""
+
+#: form/wpquery.php:190
+msgid "Unique loop ID"
+msgstr ""
+
+#: form/wpquery.php:191
+msgid "This ID can be used for other element to interacts with this query"
+msgstr ""
+
+#: form/wpsocial.php:101
+msgid "Link"
+msgstr ""
+
+#: form/wpsocial.php:110 widgets/contact.php:232 widgets/social.php:239
+msgid "Add New Entry"
+msgstr ""
+
+#: form/wpsocial.php:160 widgets/social.php:297
+msgid "Link URL"
+msgstr ""
+
+#: form/wptermsboxes.php:86
+msgid "No Terms found"
+msgstr ""
+
+#: form/wptermshs.php:148
+msgid "Retrieving Terms"
+msgstr ""
+
+#: form/wpvideo.php:103
+msgid "Video MP4"
+msgstr ""
+
+#: form/wpvideo.php:113
+msgid "Video WEBM"
+msgstr ""
+
+#: form/wpvideo.php:123
+msgid "Video OGV"
+msgstr ""
+
+#: form/wpvideo.php:133
+msgid "Poster Image"
+msgstr ""
+
+#: form/wpvideo.php:162
+msgid "Absolute"
+msgstr ""
+
+#: form/wpvideo.php:171 form/wpvideo.php:185
+msgid "True"
+msgstr ""
+
+#: form/wpvideo.php:172 form/wpvideo.php:186
+msgid "False"
+msgstr ""
+
+#: form/wpvideo.php:181
+msgid "Scale"
+msgstr ""
+
+#: init.php:104
+msgid "Updating custom template"
+msgstr ""
+
+#: metabox/customheader.php:40
+msgid "Heading Image"
+msgstr ""
+
+#: metabox/customheader.php:44
+msgid "Select File"
+msgstr ""
+
+#: metabox/customheader.php:45
+msgid "Select Image"
+msgstr ""
+
+#: metabox/customheader.php:49
+msgid "Heading"
+msgstr ""
+
+#: metabox/customheader.php:54 widgets/contact.php:208 widgets/social.php:204
+msgid "Description"
+msgstr ""
+
+#: metabox/customtemplate.php:44
+msgid "Use custom template for this post entry."
+msgstr ""
+
+#: models/router.php:70
+msgid "Invalid request"
+msgstr ""
+
+#: pages/config.php:17
+msgid "VicTheme Core - Configuration"
+msgstr ""
+
+#: pages/config.php:18
+#, php-format
+msgid "version %s"
+msgstr ""
+
+#: pages/config.php:41
+msgid "Core configuration saved"
+msgstr ""
+
+#: pages/config.php:55
+msgid "Core resetted to default value"
+msgstr ""
+
+#: pages/config.php:80
+msgid "Responsive Image needs Wordpress version 4.4 and above to work."
+msgstr ""
+
+#: pages/config.php:146
+#, php-format
+msgid "Core is caching with %s hour expiration time"
+msgstr ""
+
+#: pages/config.php:151
+msgid ""
+"<strong>WP_DEBUG</strong> is enabled in wp-config.php and set to true."
+"<br><br>\n"
+"      Core will be rebuild cache on every page load. Please disable "
+"<strong>WP_DEBUG</strong> when not on development."
+msgstr ""
+
+#: pages/config.php:157
+msgid "Core Cache Status"
+msgstr ""
+
+#: pages/config.php:173
+msgid "PHP Information"
+msgstr ""
+
+#: pages/config.php:176
+msgid "PHP information about this server"
+msgstr ""
+
+#: pages/config.php:185
+msgid "Version"
+msgstr ""
+
+#: pages/config.php:189
+msgid "Memory Limit"
+msgstr ""
+
+#: pages/config.php:193
+msgid "WP Max Memory Limit"
+msgstr ""
+
+#: pages/config.php:197
+msgid "Execution Time"
+msgstr ""
+
+#: pages/config.php:198
+#, php-format
+msgid "%s seconds"
+msgstr ""
+
+#: pages/config.php:201
+msgid "Upload Size"
+msgstr ""
+
+#: pages/config.php:205
+msgid "Post Size"
+msgstr ""
+
+#: pages/config.php:209
+msgid "OP Code Cache"
+msgstr ""
+
+#: pages/config.php:213
+msgid "Server"
+msgstr ""
+
+#: pages/config.php:226
+msgid "No Cache Available"
+msgstr ""
+
+#: pages/config.php:264
+msgid "Aggregate CSS and Javascript managed by Core when in backend"
+msgstr ""
+
+#: pages/config.php:265
+msgid "Aggregate CSS and Javascript managed by Core when in frontend"
+msgstr ""
+
+#: pages/config.php:271
+#, php-format
+msgid ""
+"Aggregate CSS and Javascript management is disabled because plugin "
+"<strong><em>%s</em></strong> is incompatible with it"
+msgstr ""
+
+#: pages/config.php:276
+msgid "Core Configuration"
+msgstr ""
+
+#: pages/config.php:280
+msgid "Aggregate Backend Assets"
+msgstr ""
+
+#: pages/config.php:288
+msgid "Aggregate Frontend Assets"
+msgstr ""
+
+#: pages/config.php:296
+msgid "Core Cache Expiration"
+msgstr ""
+
+#: pages/config.php:297
+msgid ""
+"Define the global configuration for expiring the core cache, always use high "
+"number for production site and low number for development site."
+msgstr ""
+
+#: pages/config.php:299
+msgid "Hour"
+msgstr ""
+
+#: pages/config.php:322
+msgid "Image Configuration"
+msgstr ""
+
+#: pages/config.php:326
+msgid "Enable Responsive Image"
+msgstr ""
+
+#: pages/config.php:327
+msgid ""
+"Responsive image will be created using HTML5 srcset attributes and you will "
+"need to regenerate thumbnails for previously uploaded image\n"
+"                             to regenerate the responsives image sizes."
+msgstr ""
+
+#: pages/config.php:335
+msgid "Enable Old Javascript Retina"
+msgstr ""
+
+#: pages/config.php:336
+msgid ""
+"Load the old style javascript retina image injection method, this is "
+"deprecated and should only be enabled when needed only."
+msgstr ""
+
+#: pages/config.php:352
+msgid "Save"
+msgstr ""
+
+#: pages/config.php:358
+msgid "Reset"
+msgstr ""
+
+#: pages/config.php:362 pages/config.php:395 pages/config.php:469
+#: pages/config.php:534
+msgid "Are you sure?"
+msgstr ""
+
+#: pages/config.php:374
+msgid "All Core related cached deleted"
+msgstr ""
+
+#: pages/config.php:382
+msgid "Core Cache"
+msgstr ""
+
+#: pages/config.php:386
+msgid ""
+"Caching core will be performed automatically, you can force to clear the "
+"cache by clicking the clear cache button"
+msgstr ""
+
+#: pages/config.php:391
+msgid "Clear Cache"
+msgstr ""
+
+#: pages/config.php:408 pages/config.php:460
+msgid "Update Database"
+msgstr ""
+
+#: pages/config.php:422
+msgid "Available Updates"
+msgstr ""
+
+#: pages/config.php:423
+msgid "Status"
+msgstr ""
+
+#: pages/config.php:457
+msgid ""
+"Review the update log and perform database update to ensure maximum "
+"performances."
+msgstr ""
+
+#: pages/config.php:476
+msgid "Updating Database"
+msgstr ""
+
+#: pages/config.php:492
+msgid "Database is up to date, no need to perform any update."
+msgstr ""
+
+#: pages/config.php:520
+msgid "Merge & Compressed Core Class"
+msgstr ""
+
+#: pages/config.php:524
+msgid ""
+"Merging core class into a single class can improve page loading but it can "
+"increase the memory used when loading the page. Please make sure\n"
+"                      that your server has high memory limit set and PHP is "
+"allowed to write into the plugin folder."
+msgstr ""
+
+#: pages/config.php:530
+msgid "Compress"
+msgstr ""
+
+#: utility.php:266 utility.php:328
+#, php-format
+msgid ""
+"Unable to create directory %s. Is its parent directory writable by the "
+"server?"
+msgstr ""
+
+#: utility.php:290
+msgid "Empty filename"
+msgstr ""
+
+#: utility.php:297
+msgid "Invalid file type"
+msgstr ""
+
+#: utility.php:337
+#, php-format
+msgid "Could not write file %s"
+msgstr ""
+
+#: widgets/contact.php:202 widgets/social.php:198
+msgid "Title"
+msgstr ""
+
+#: widgets/contact.php:223 widgets/social.php:230
+msgid "Content"
+msgstr ""
+
+#: widgets/contact.php:279
+msgid "Label"
+msgstr ""
+
+#: widgets/contact.php:292
+msgid "Separator"
+msgstr ""
+
+#: widgets/contact.php:306
+msgid "Text"
+msgstr ""
+
+#: widgets/social.php:210
+msgid "Alignment"
+msgstr ""
+
+#: widgets/social.php:303
+msgid "Link Target"
+msgstr ""

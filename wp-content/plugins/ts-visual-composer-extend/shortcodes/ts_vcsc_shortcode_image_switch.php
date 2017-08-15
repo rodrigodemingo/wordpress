@@ -78,9 +78,10 @@
 		}
 		wp_enqueue_style('ts-extend-tooltipster');
 		wp_enqueue_script('ts-extend-tooltipster');
-		wp_enqueue_style('ts-extend-imageeffects');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 		
 		// Slide Effect Attributes
 		if ($switch_type == "ts-imageswitch-slide") {

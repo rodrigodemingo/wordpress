@@ -33,8 +33,6 @@
 				}
 			}
 			function gradient_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-				$dependency 					= vc_generate_dependencies_attributes($settings);
 				$param_name 					= isset($settings['param_name']) ? $settings['param_name'] : '';
 				$type 							= isset($settings['type']) ? $settings['type'] : '';
 				$class 							= isset($settings['class']) ? $settings['class'] : '';
@@ -52,7 +50,6 @@
 				$label_preview 					= isset($settings['label_preview']) ? $settings['label_preview'] : __("Gradient Preview", "ts_visual_composer_extend");
 				// Other Settings
 				$random_id_number               = rand(100000, 999999);
-				$url           	 				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$html = '<div id="ts-advanced-gradient-' . $random_id_number . '" class="ts-advanced-gradient ts-settings-parameter-gradient-grey" data-identifier="' . $random_id_number . '" data-border="' . $border . '" data-trianglify="' . $trianglify . '" data-svg="' . $create_svg . '" data-default-color="' . $default_color . '" data-default-type="' . $default_type . '" data-default-shape="' . $default_shape . '">';
 					// Classy Gradient Picker
 					$html .= '<div class="wpb_element_label" style="padding-top: 10px; clear: both;">' . $label_picker . '</div>';
@@ -97,7 +94,7 @@
 						$html .= '<div id="ts-advanced-gradient-preview-' . $random_id_number . '" class="ts-advanced-gradient-preview"></div>';
 					}
 					// Hidden Input with Final Gradient Code
-					$html .= '<input id="ts-advanced-gradient-value-' . $random_id_number . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-advanced-gradient-value" name="' . $param_name . '"  style="display: none;"  value="' . $value . '" ' . $dependency . '/>';
+					$html .= '<input id="ts-advanced-gradient-value-' . $random_id_number . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-advanced-gradient-value" name="' . $param_name . '"  style="display: none;"  value="' . $value . '"/>';
 				$html .= '</div>';
 				return $html;
 			}		

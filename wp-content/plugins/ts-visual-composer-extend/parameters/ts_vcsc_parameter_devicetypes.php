@@ -9,8 +9,6 @@
 				}
 			}		
 			function devicetype_selectors_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-				$dependency                     = vc_generate_dependencies_attributes($settings);
 				$unit 							= isset($settings['unit']) ? $settings['unit'] : 'px';
 				$devices 						= isset($settings['devices']) ? $settings['devices'] : array();
 				$collapsed						= isset($settings['collapsed']) ? $settings['collapsed'] : 'true';
@@ -85,7 +83,7 @@
 					}
 				$output .= '</div></div>';
 					// Create Hidden Input to store final values
-					$output .= '<input id="' . $random_id_container . '" type="hidden" data-unit="' . $unit . '"  name="' . $settings['param_name'] . '" class="wpb_vc_param_value ts-devicetypes-datastring ' . $settings['param_name'] . ' ' . $settings['type'] . '_field" value="' . $value . '" ' . $dependency . ' />';
+					$output .= '<input id="' . $random_id_container . '" type="hidden" data-unit="' . $unit . '"  name="' . $settings['param_name'] . '" class="wpb_vc_param_value ts-devicetypes-datastring ' . $settings['param_name'] . ' ' . $settings['type'] . '_field" value="' . $value . '"/>';
 				$output .= '</div>';			
 				return $output;
 			}

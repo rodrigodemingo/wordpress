@@ -118,8 +118,7 @@
 			$nacho_color					= 'data-backlight="' . $lightbox_backlight_color . '"';
 		} else {
 			$nacho_color					= '';
-		}
-		
+		}		
 		$lightbox_dimensions				= ' ';
 		if ($lightbox_width == "auto") {
 			$lightbox_dimensions			.= '';
@@ -314,7 +313,7 @@
 				if ($content_raw != "") {
 					$content_raw =  rawurldecode(base64_decode(strip_tags($content_raw)));
 					$output .= '<div id="' . $modal_id . '-trigger" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' ' . $css_class . '" style="text-align: center; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-						$output .= '<a href="' . $content_vimeo . '" class="nch-lightbox-media no-ajaxy ' . $vimeo_tooltipclasses . '" ' . $vimeo_tooltipcontent . ' data-title="' . $content_vimeo_title . '" data-videoplay="' . $lightbox_play . '" data-loop="' . $lightbox_loop . '" data-type="vimeo" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . 'style="" target="_blank">';
+						$output .= '<a href="' . $content_vimeo . '" class="nch-lightbox-media no-ajaxy ' . $vimeo_tooltipclasses . '" ' . $vimeo_tooltipcontent . ' data-title="' . $content_vimeo_title . '" data-videoplay="' . $lightbox_play . '" data-loop="' . $lightbox_loop . '" data-type="vimeo" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . ' style="" target="_blank">';
 							$output .= $content_raw;
 						$output .= '</a>';
 					$output .= '</div>';

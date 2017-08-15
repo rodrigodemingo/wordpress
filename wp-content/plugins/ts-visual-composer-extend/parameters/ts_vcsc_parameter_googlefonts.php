@@ -12,9 +12,7 @@
 				}
             }        
             function fonts_setting_field($settings, $value){
-                global $VISUAL_COMPOSER_EXTENSIONS;
                 // Main Settings
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $preview        = isset($settings['preview']) ? $settings['preview'] : 'true';
@@ -45,7 +43,6 @@
                 $width			= isset($settings['width']) ? $settings['width'] : '80';
                 // Other Variables
                 $identifier     = mt_rand(999999, 9999999);
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $image          = TS_VCSC_GetResourceURL('images/other/google_fonts.jpg');
 				if (($opened == "true") && ($value != '') && ($value != 'Default:regular')) {
                     $toggle     = 'true';

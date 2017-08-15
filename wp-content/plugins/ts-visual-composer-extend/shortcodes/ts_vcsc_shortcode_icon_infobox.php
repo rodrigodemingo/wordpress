@@ -6,13 +6,16 @@
 	
 		extract( shortcode_atts( array(
 			// Icon Settings
+			'icon_decoration'				=> 'icon', // none, icon, image
 			'icon_main'						=> '',
+			'icon_image'					=> '',
 			'icon_position'					=> 'left',
-			'icon_usage'					=> 'main', // none, main, other			
+			'icon_usage'					=> 'main', // none, main, other, image			
 			'icon_color'					=> '#ffffff',
 			'icon_backclass'				=> '',
 			'icon_backposition'				=> 'left',
 			'icon_backcolor'				=> 'rgba(255, 255, 255, 0.5)',
+			'icon_backimage'				=> '',
 			'icon_animationtype'			=> 'none',
 			'icon_animationclass'			=> '',
 			'icon_animationname'			=> '',
@@ -51,6 +54,8 @@
 			'style_bordereffect'			=> 'true',			
 			'style_bordercolor1'			=> '#15273a',
 			'style_bordercolor2'			=> '#15273a',
+			'style_borderwidth'				=> 2,
+			'style_borderspace'				=> 2,
 			// Viewport Animation
 			'viewport_usage'				=> 'false',			
 			'viewport_class'				=> '',
@@ -107,6 +112,7 @@
 		$output 							= '';
 		$styles								= '';
 		$wpautop 							= ($content_wpautop == "true" ? true : false);
+		$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 		
 		if (!empty($el_id)) {
 			$info_box_id					= $el_id;
@@ -165,9 +171,9 @@
 		if ($style_bordereffect == "true") {
 			foreach ($style_boxcorners as $key => $value) {
 				if (strpos($value, 'border-top-left-radius') === 0) {
-					$style_boxtopleft 		= $value;
+					$style_boxtopleft 		= $value . ';';
 				} else if (strpos($value, 'border-bottom-right-radius') === 0) {
-					$style_boxbottomright	= $value;
+					$style_boxbottomright	= $value . ';';
 				}
 			}
 		}
@@ -190,7 +196,9 @@
 		}
 		
 		// Styling Rules
-		$styles .= '<style id="' . $info_box_id . '-styles" type="text/css">';
+		if ($inline == "false") {
+			$styles .= '<style id="' . $info_box_id . '-styles" type="text/css">';
+		}
 			$styles .= '#' . $info_box_id . '.ts-icon-info-box-main {';
 				if ($style_backtype == "color") {
 					$styles .= 'background-color: ' . $style_backcolor . ';';
@@ -221,13 +229,22 @@
 				$styles .= '}';
 			}
 			if ($style_bordereffect == "true") {
+				$styles .= '#' . $info_box_id . '.ts-icon-info-box-main.ts-icon-info-box-border {';
+					$styles .= 'margin: ' . ($style_borderwidth + $style_borderspace) . 'px;';
+				$styles .= '}';
 				$styles .= '#' . $info_box_id . '.ts-icon-info-box-main.ts-icon-info-box-border:before {';
 					$styles .= 'border-color: ' . $style_bordercolor1 . ';';
 					$styles .= $style_boxtopleft;
+					$styles .= 'top: -' . ($style_borderwidth + $style_borderspace) . 'px;';
+					$styles .= 'left: -' . ($style_borderwidth + $style_borderspace) . 'px;';
+					$styles .= 'border-width: ' . $style_borderwidth . 'px 0 0 ' . $style_borderwidth . 'px !important;';
 				$styles .= '}';
 				$styles .= '#' . $info_box_id . '.ts-icon-info-box-main.ts-icon-info-box-border:after {';
 					$styles .= 'border-color: ' . $style_bordercolor2 . ';';
 					$styles .= $style_boxbottomright;
+					$styles .= 'bottom: -' . ($style_borderwidth + $style_borderspace) . 'px;';
+					$styles .= 'right: -' . ($style_borderwidth + $style_borderspace) . 'px;';
+					$styles .= 'border-width: 0 ' . $style_borderwidth . 'px ' . $style_borderwidth . 'px 0 !important;';
 				$styles .= '}';
 			}
 			$styles .= '#' . $info_box_id . '.ts-icon-info-box-main .ts-icon-info-box-foreicon {';
@@ -261,25 +278,42 @@
 				$styles .= 'text-align: ' . $content_align . ';';
 				$styles .= 'color: ' . $content_color . ';';
 			$styles .= '}';
-		$styles .= '</style>';
+		if ($inline == "false") {
+			$styles .= '</style>';
+		}
+		if (($styles != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+		}
 		
 		// Animation Data
 		$box_animation						= 'data-viewport-frontend="' . $frontend . '" data-viewport-use="' . $viewport_usage . '" data-viewport-limit="' . $viewport_limit . '" data-viewport-class="' . $viewport_class . '" data-viewport-opacity="1" data-viewport-delay="' . $viewport_delay . '" data-viewport-offset="' . $viewport_offset . '"';
 
 		// Final Output
 		$output .= '<div id="' . $info_box_id . '" class="ts-icon-info-box-main ts-icon-info-box-' . $icon_position . ' ' . $class_shadow . ' ' . $class_fixed . ' ' . $class_viewport . ' ' . $class_border . '" ' . $box_animation . '>';
-			$output .= TS_VCSC_MinifyCSS($styles);			
+			if ($inline == "false") {
+				$output .= TS_VCSC_MinifyCSS($styles);
+			}
 			$output .= '<div class="ts-icon-info-box-wrapper">';
-				if ((($icon_usage == "main") && ($icon_main != "")) || (($icon_usage == "other") && ($icon_backclass != ""))) {
+				if ((($icon_usage == "main") && ($icon_main != "")) || (($icon_usage == "other") && ($icon_backclass != "")) || (($icon_usage == "image") && ($icon_backimage != ""))) {
 					$output .= '<div class="ts-icon-info-box-backicon">';
-						$output .= '<i class="' . ($icon_usage == "main" ? $icon_main : $icon_backclass) . '"></i>';
+						if (($icon_usage == "image") && ($icon_backimage != "")) {
+							$icon_backimage			= wp_get_attachment_image_src($icon_backimage, 'medium');
+							$output .= '<img src="' . $icon_backimage[0] . '"/>';
+						} else {
+							$output .= '<i class="' . ($icon_usage == "main" ? $icon_main : $icon_backclass) . '"></i>';
+						}
 					$output .= '</div>';
 				}
 				$output .= '<div class="ts-icon-info-box-holder">';
 					$output .= '<div class="ts-icon-info-box-inner">';
-						if (($icon_main != "") && (($icon_position == "left") || ($icon_position == "right") || ($icon_position == "top"))) {
+						if (((($icon_decoration == "icon") && ($icon_main != "")) || (($icon_decoration == "image") && ($icon_image != ""))) && (($icon_position == "left") || ($icon_position == "right") || ($icon_position == "top"))) {
 							$output .= '<div class="ts-icon-info-box-foreicon">';
-								$output .= '<i class="' . $icon_main . ' ' . $class_animation . '"></i>';
+								if (($icon_decoration == "image") && ($icon_image != "")) {
+									$icon_image		= wp_get_attachment_image_src($icon_image, 'medium');
+									$output .= '<img class="' . $class_animation . '" src="' . $icon_image[0] . '"/>';
+								} else {
+									$output .= '<i class="' . $icon_main . ' ' . $class_animation . '"></i>';
+								}
 							$output .= '</div>';
 						}
 						$output .= '<div class="ts-icon-info-box-content">';
@@ -310,9 +344,14 @@
 								$output .= '</div>';
 							}
 						$output .= '</div>';
-						if (($icon_main != "") && ($icon_position == "bottom")) {
+						if (((($icon_decoration == "icon") && ($icon_main != "")) || (($icon_decoration == "image") && ($icon_image != ""))) && ($icon_position == "bottom")) {
 							$output .= '<div class="ts-icon-info-box-foreicon">';
-								$output .= '<i class="' . $icon_main . ' ' . $class_animation . '"></i>';
+								if (($icon_decoration == "image") && ($icon_image != "")) {
+									$icon_image		= wp_get_attachment_image_src($icon_image, 'medium');
+									$output .= '<img class="' . $class_animation . '" src="' . $icon_image[0] . '"/>';
+								} else {
+									$output .= '<i class="' . $icon_main . ' ' . $class_animation . '"></i>';
+								}
 							$output .= '</div>';
 						}
 					$output .= '</div>';

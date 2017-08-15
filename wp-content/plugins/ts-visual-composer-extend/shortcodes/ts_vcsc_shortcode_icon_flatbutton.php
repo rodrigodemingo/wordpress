@@ -54,9 +54,6 @@
 			'el_class' 					=> '',
 			'css'						=> '',
 		), $atts ));
-		
-		$output 						= '';
-		$style_body						= '';
 
 		wp_enqueue_style('ts-extend-tooltipster');
 		wp_enqueue_script('ts-extend-tooltipster');
@@ -70,6 +67,10 @@
 		}
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		
+		$output 						= '';
+		$style_body						= '';
+		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 
 		// ID
 		if (!empty($el_id)) {
@@ -124,7 +125,9 @@
 		if ($button_switch == "true") {
 			$buttonclass				= $button_style1 . ' ' . $button_hover1;
 			if (($button_style1 == "ts-dual-buttons-color-custom-flat") || ($button_hover1 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat")) {
-				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+				if ($inline == "false") {
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+				}
 				if ($button_style1 == "ts-dual-buttons-color-custom-flat") {
 					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style1, 'stylecss', '', false, $custom_dual_color1, $custom_dual_shadow1, 'container', '');
 					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style1, 'stylecss', '', false, '', '', 'text', $custom_dual_text1);
@@ -135,17 +138,26 @@
 					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover1, 'stylecss', '', true, '', '', 'text', $custom_dual_text2);
 					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover1, 'stylecss', '', true, '', '', 'icon', $custom_dual_icon2);
 				}
-				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+				if ($inline == "false") {
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+				}
 			}
 		} else {
 			$buttonclass				= $button_style;
 			if ($button_style == "ts-color-button-custom-flat") {
-				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+				if ($inline == "false") {
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+				}
 				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style, 'stylecss', '', false, $custom_single_color, $custom_single_shadow, 'container', '');
 				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style, 'stylecss', '', false, '', '', 'text', $custom_single_text);
 				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style, 'stylecss', '', false, '', '', 'icon', $custom_single_icon);				
-				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+				if ($inline == "false") {
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+				}
 			}
+		}
+		if (($style_body != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($style_body));
 		}
 		
 		$iconstyle						= "margin: " . (($button_height - $font_size - 10 - 2) / 2) . "px auto 0px auto";
@@ -173,7 +185,9 @@
 			$css_class					= '';
 		}
 		
-		$output .= TS_VCSC_MinifyCSS($style_body);
+		if (($style_body != "") && ($inline == "false")) {
+			$output .= TS_VCSC_MinifyCSS($style_body);
+		}
 		$output .= '<div id="' . $button_id . '" class="ts-flat-button-wrapper clearFixMe ' . $el_class . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 			$output .= '<a href="' . $a_href . '" target="' . $a_target . '" style="' . $buttonstyle . '" ' . $a_rel . ' title="' . $a_title . '" ' . $scroll_data . ' class="ts-color-button-container ' . $scroll_class . ' ' . $button_radius . ' ' . $buttonclass . ' ' . $Tooltip_Class . '" ' . $Tooltip_Content . '>';
 				if (($icon != '') && ($icon != 'transparent')) {

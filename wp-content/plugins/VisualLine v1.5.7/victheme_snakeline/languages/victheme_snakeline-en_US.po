@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VicTheme VisualCandy 1.0\n"
+"POT-Creation-Date: 2016-04-21 20:01+0800\n"
+"PO-Revision-Date: 2016-04-21 20:01+0800\n"
+"Last-Translator: \n"
+"Language-Team: VicTheme.com <support@victheme.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;_n;_x;_ex;esc_attr__;"
+"esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: victheme_snakeline.php:27
+msgid ""
+"VicTheme Snake Line depends on VicTheme Core Plugin which is not activated "
+"or missing,\n"
+"        Please enable it first before VicTheme Snake Line can work properly."
+msgstr ""
+
+#: victheme_snakeline.php:31
+#, php-format
+msgid ""
+"VicTheme Snake Line depends on VicTheme Core Plugin API version %s to "
+"operate properly."
+msgstr ""
+
+#: victheme_snakeline.php:53
+msgid ""
+"SnakeLine requires Visual Composer Plugin enabled before it can function "
+"properly."
+msgstr ""
+
+#: victheme_snakeline.php:69
+msgid ""
+"SnakeLine requires Visual Composer Plugin version 4.7.0 and above before it "
+"can function properly."
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:25
+msgid "Simple SnakeLine"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:26
+msgid "Create a simple snake line"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:29
+msgid "VisualLine"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:34
+msgid "Line Size"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:41
+msgid "Line Color"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:48
+msgid "Line Style"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:53
+msgid "Solid"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:54
+msgid "Dotted"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:55
+msgid "Dashed"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:62
+msgid "Items"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:64
+msgid "Enter values for snake line."
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:67 visualcomposer/snakelinesimple.php:77
+#: visualcomposer/snakelinesimple.php:87 visualcomposer/snakelinesimple.php:97
+#: visualcomposer/snakelinesimple.php:107
+msgid "2012"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:69 visualcomposer/snakelinesimple.php:79
+#: visualcomposer/snakelinesimple.php:89 visualcomposer/snakelinesimple.php:99
+#: visualcomposer/snakelinesimple.php:109
+msgid "This is an example text, insert your text here."
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:71 visualcomposer/snakelinesimple.php:81
+#: visualcomposer/snakelinesimple.php:91 visualcomposer/snakelinesimple.php:101
+#: visualcomposer/snakelinesimple.php:111
+msgid "Text"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:122
+msgid "Date"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:130
+msgid "Bubble Text"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:138
+msgid "Link To"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:146
+msgid "Content"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:153
+msgid "Date Color"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:160
+msgid "Content Color"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:167
+msgid "Dot Color"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:174
+msgid "Dot Background"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:181
+msgid "CSS ID"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:189
+msgid "CSS Class"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:197
+msgid "Css"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:199
+msgid "Design options"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:204
+msgid "CSS Animation"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:208
+msgid "No"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:209
+msgid "Top to bottom"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:210
+msgid "Bottom to top"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:211
+msgid "Left to right"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:212
+msgid "Right to left"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:213
+msgid "Appear from center"
+msgstr ""
+
+#: visualcomposer/snakelinesimple.php:215
+msgid ""
+"Select type of animation if you want this element to be animated when it "
+"enters into the browsers viewport. Note: Works only in modern browsers."
+msgstr ""
+
+#~ msgid "Set the default map longitude coordinate."
+#~ msgstr "Set the default map longitude coordinate."

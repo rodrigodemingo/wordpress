@@ -31,6 +31,11 @@
 		$lsScreenOptions['useKeyboardShortcuts'] = 'true';
 	}
 
+	// Deafults: keyboard shortcuts
+	if( ! isset($lsScreenOptions['useNotifyOSD'])) {
+		$lsScreenOptions['useNotifyOSD'] = 'true';
+	}
+
 	// Get phpQuery
 	if( ! defined('LS_phpQuery') ) {
 		libxml_use_internal_errors(true);
@@ -71,12 +76,16 @@
 <div id="ls-screen-options" class="metabox-prefs hidden">
 	<div id="screen-options-wrap" class="hidden">
 		<form id="ls-screen-options-form" method="post">
+			<?php wp_nonce_field('ls-save-screen-options'); ?>
 			<h5><?php _e('Use features', 'LayerSlider') ?></h5>
 			<label>
 				<input type="checkbox" name="showTooltips"<?php echo $lsScreenOptions['showTooltips'] == 'true' ? ' checked="checked"' : ''?>> Tooltips
 			</label>
 			<label>
 				<input type="checkbox" name="useKeyboardShortcuts"<?php echo $lsScreenOptions['useKeyboardShortcuts'] == 'true' ? ' checked="checked"' : ''?>> Keyboard shortcuts
+			</label>
+			<label>
+				<input type="checkbox" name="useNotifyOSD"<?php echo $lsScreenOptions['useNotifyOSD'] == 'true' ? ' checked="checked"' : ''?>> On Screen Notifications
 			</label>
 		</form>
 	</div>
@@ -217,6 +226,12 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 		}
 
 
+		// v6.3.0: Improve compatibility with *really* old sliders
+		if( ! empty( $slideVal['sublayers'] ) && is_array( $slideVal['sublayers'] ) ) {
+			$slideVal['sublayers'] = array_values( $slideVal['sublayers'] );
+		}
+
+
 		$slider['layers'][$slideKey] = $slideVal;
 
 		if(!empty($slideVal['sublayers']) && is_array($slideVal['sublayers'])) {
@@ -320,6 +335,11 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 		<!-- Version number -->
 		<?php include LS_ROOT_PATH . '/templates/tmpl-beta-feedback.php'; ?>
 
+		<div class="ls-notify-osd saved">
+			<i class="dashicons dashicons-yes"></i>
+			<?php _e('Slider saved successfully', 'LayerSlider') ?>
+		</div>
+
 		<!-- Main menu bar -->
 		<div id="ls-main-nav-bar">
 			<a href="#" class="settings <?php echo $settingsTabClass ?>">
@@ -401,10 +421,10 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					sliderWillLoad
-					<figure><span>|</span> <?php _e('Fires before parsing user settings and rendering the UI.', 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fires before parsing user data and rendering the UI.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
-					<textarea name="sliderWillLoad" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
+					<textarea name="sliderWillLoad" cols="20" rows="5" class="ls-codemirror">function( event ) {
 
 }</textarea>
 				</div>
@@ -726,6 +746,13 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 	<div class="ls-publish">
 		<button type="submit" class="button button-primary button-hero"><?php _e('Save changes', 'LayerSlider') ?></button>
 		<div class="ls-save-shortcode">
+
+			<?php
+				$revisions = LS_Revisions::count( $id );
+				if( $revisions > 1 ) : ?>
+				<p class="revisions"><span><i class="dashicons dashicons-backup"></i><?php echo sprintf(__('Revisions Available:', 'LayerSlider'), $revisions) ?></span><br><a href="<?php echo admin_url('admin.php?page=ls-revisions&id='.$id) ?>"><?php echo sprintf(__('Browse %d Revisions', 'LayerSlider'), $revisions) ?></a></p>
+			<?php endif ?>
+
 			<p><span><?php _e('Use shortcode:', 'LayerSlider') ?></span><br><span>[layerslider id="<?php echo !empty($slider['properties']['slug']) ? $slider['properties']['slug'] : $id ?>"]</span></p>
 			<p><span><?php _e('Use PHP function:', 'LayerSlider') ?></span><br><span>&lt;?php layerslider(<?php echo !empty($slider['properties']['slug']) ? "'{$slider['properties']['slug']}'" : $id ?>) ?&gt;</span></p>
 		</div>

@@ -13,12 +13,10 @@
             }        
             function audioselect_settings_field( $settings, $value ) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $audio_format	= isset($settings['audio_format']) ? $settings['audio_format'] : 'mpeg';			
                 $audio_format	= explode(',', $audio_format);
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $output			= '';
                 $args = array(
                     'post_type' 		=> 'attachment',
@@ -52,7 +50,7 @@
                     $audio_length		= '';
                 }			
                 $output 	.= '<div class="ts-audio-selector-wrapper ts_vcsc_audio_select_block" data-format="' . implode(',', $audio_format) . '">';			
-                    $output 	.= '<input style="display: none;" name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-textinput audio_value ' . $param_name . ' ' . $type . '_field" type="text" value="' . $value . '" ' . $dependency . '/>';
+                    $output 	.= '<input style="display: none;" name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-textinput audio_value ' . $param_name . ' ' . $type . '_field" type="text" value="' . $value . '"/>';
                     $output 	.= '<input type="button" class="audio_select button" value="' . __( 'Select Audio', 'ts_visual_composer_extend' ) . '" style="width: 150px; text-align: center;">';
                     $output 	.= '<input type="button" class="audio_remove button" value="' . __( 'Remove Audio', 'ts_visual_composer_extend' ) . '" style="width: 150px; text-align: center; color: red; margin-left: 20px;" ' . $disabled . '>';
                     $output		.= '<div class="audio_metadata_frame" style="width: 100%; margin-top: 20px; ' .$visible . '">';

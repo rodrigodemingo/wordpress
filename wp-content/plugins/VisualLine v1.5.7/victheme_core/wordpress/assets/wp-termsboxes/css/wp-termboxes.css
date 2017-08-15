@@ -1,0 +1,92 @@
+/**
+  Styling the wp-termboxes form element
+  **/
+/** Structure margins **/
+.wp-terms-wrapper:not([data-term-parent="root"]) {
+  margin-left: 19px;
+}
+
+.wp-terms-boxes .form-group {
+  padding-left: 37px;
+  position: relative;
+  margin-top: 0;
+  padding-top: 10px;
+  display: inline-block;
+}
+
+/** Toggle icons **/
+.active[data-term-trigger]:before {
+  content: '\f147';
+  color: #999;
+}
+
+[data-term-trigger]:before {
+  background: #fff ;
+  color: #bbb;
+  content: '\f196';
+  cursor: pointer;
+  display: block;
+  font-family: fontawesome;
+  font-size: 14px;
+  height: 12px;
+  left: 0;
+  line-height: 12px;
+  position: absolute;
+  text-align: left;
+  top: 16px;
+  vertical-align: top;
+  width: 12px;
+  z-index: 1;
+}
+
+/** Horizontal lines **/
+.wp-terms-boxes .form-group:after {
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  background-color: #bbb;
+  left: 5px;
+  top: 21px;
+  content: '';
+  display: block;
+}
+
+.wp-terms-boxes .wp-terms-wrapper > .form-group + .wp-terms-wrapper > .form-group:after {
+  left: -13px;
+  width: 30px;
+}
+
+/** Vertical lines **/
+.wp-terms-wrapper {
+  position: relative;
+}
+
+.wp-terms-wrapper::before {
+  background-color: #bbb;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 5px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.wp-terms-boxes .wp-terms-wrapper > .form-group + .wp-terms-wrapper:before {
+  top: 20px;
+}
+
+.wp-terms-boxes > label + .wp-terms-wrapper:before,
+.wp-terms-boxes > .wp-terms-wrapper:first-child:before {
+  top: 20px;
+}
+
+.wp-terms-wrapper:last-child:before {
+  top: -6px;
+  bottom: 18px;
+}
+
+/** Always show root **/
+[data-term-parent="root"] {
+  display: block !important;
+}

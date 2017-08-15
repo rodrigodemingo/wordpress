@@ -12,8 +12,6 @@
 				}
             }        
             function infotoggle_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';                
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $content        = isset($settings['content']) ? $settings['content'] : '';
@@ -24,7 +22,6 @@
                 $size			= isset($settings['size']) ? $settings['size'] : '12';            
                 $margin_top     = isset($settings['margin_top']) ? $settings['margin_top'] : '10';
                 $margin_bottom  = isset($settings['margin_bottom']) ? $settings['margin_bottom'] : '10';
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $output         = '';
                 if ($content != '') {
                     $output 	.= '<div id="' . $param_name . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . '" name="' . $param_name . '" style="text-align: justify; ' . ($border_top == "true" ? "border-top: 1px solid #dddddd;" : "") . ' ' . ($border_bottom == "true" ? "border-bottom: 1px solid #dddddd;" : "") . ' color: ' . $color . '; margin: ' . $margin_top . 'px 0 ' . $margin_bottom . 'px 0; padding: ' . $padding_top . 'px 0 ' . $padding_bottom . 'px 0; font-size: ' . $size . 'px; font-weight: ' . $weight . ';">' . $message . '</div>';

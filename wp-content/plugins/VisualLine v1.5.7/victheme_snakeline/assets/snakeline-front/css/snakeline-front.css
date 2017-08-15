@@ -1,0 +1,125 @@
+/**
+  Additional css for formatting the
+  snakeline elements
+  **/
+.snakeline-connector {
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  word-break: keep-all;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+/** reset **/
+.snakeline-connector * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.snakeline-canvas {
+  z-index: 1;
+}
+
+.snakeline-content {
+  display: inline-block;
+  width: 180px;
+  float: none;
+  z-index: 3;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+.snakeline-content.first-child {
+  margin-left: 10px;
+}
+
+.snakeline-content.last-child {
+  padding-right: 10px;
+}
+
+
+.snakeline-wrapper {
+  padding: 20px;
+}
+
+.snakeline-date {
+  font-size: 22px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.snakeline-text {
+  font-size: 14px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.snakeline-dot {
+  width: 88px;
+  height: 88px;
+  font-size: 14px;
+  line-height: 84px;
+  text-align: center;
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -44px;
+  vertical-align: middle;
+  top: 50%;
+}
+
+.snakeline-content:nth-child(even) {
+  padding-bottom: 50%;
+}
+
+.snakeline-content:nth-child(odd) {
+  padding-top: 50%;
+}
+
+.snakeline-content:nth-child(even) .snakeline-wrapper {
+  padding-bottom: 60px;
+}
+
+.snakeline-content:nth-child(odd) .snakeline-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.snakeline-content:nth-child(even) .snakeline-dot {
+  margin-top: 30px;
+}
+
+.snakeline-content:nth-child(odd) .snakeline-dot {
+  margin-top: -30px;
+}
+
+
+/** Custom scrollbar **/
+.snakeline-connector .scroll-bar.horizontal {
+  height: 10px !important;
+  background-color: #d7d7d7;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+
+.snakeline-connector .scroll-bar.horizontal .thumb {
+  width: 24px !important;
+  height: 24px !important;
+  margin-top: -7px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #51b2e7;
+  border-radius: 12px;
+  cursor: pointer;
+}

@@ -1,0 +1,82 @@
+/**
+  icon element itself
+  **/
+.wp-icons-effect {
+  display: inline-block;
+}
+
+.wp-icons {
+  display: block;
+}
+
+.wp-icons-wrapper.horizontal .wp-icons {
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+.wp-icons-wrapper.vertical .wp-icons {
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+
+.wp-icons-wrapper.spin .wp-icons {
+  -webkit-animation: wpicons-spin 3s infinite linear;
+  animation: wpicons-spin 3s infinite linear;
+}
+
+.wp-icons-wrapper.text-left {
+  text-align: left;
+}
+
+.wp-icons-wrapper.text-right {
+  text-align: right;
+}
+
+.wp-icons-wrapper.text-center {
+  text-align: center;
+}
+
+@-webkit-keyframes wpicons-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes wpicons-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+/** Icon shapes **/
+.wp-icons-wrapper.circle .wp-icons-effect {
+  border-radius: 100%;
+}
+
+.wp-icons-wrapper.round .wp-icons-effect {
+  border-radius: 8px;
+}
+
+.wp-icons-wrapper.diamond .wp-icons-effect {
+  -ms-transform: rotate(-45deg) scale(0.8);
+  -webkit-transform: rotate(-45deg) scale(0.8);
+  transform: rotate(-45deg) scale(0.8);
+  overflow: hidden;
+}
+
+.wp-icons-wrapper.diamond .wp-icons-effect > .wp-icons {
+  -ms-transform: rotate(45deg) scale(1.2);
+  -webkit-transform: rotate(45deg) scale(1.2);
+  transform: rotate(45deg) scale(1.2);
+}

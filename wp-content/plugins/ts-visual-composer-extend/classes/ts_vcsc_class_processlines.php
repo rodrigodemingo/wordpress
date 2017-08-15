@@ -127,6 +127,7 @@
 				$output								= '';
 				$styles								= '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
+				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_LoadFrontEndWaypoints == "true") && ($animation_view1 != "") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false")) {
 					if (wp_script_is('waypoints', $list = 'registered')) {
@@ -196,7 +197,9 @@
 				}
 				
 				// Create Styles Output
-				$styles .= '<style id="' . $timeline_id . '-styles" type="text/css">';
+				if ($inline == "false") {
+					$styles .= '<style id="' . $timeline_id . '-styles" type="text/css">';
+				}
 					if ($timeline_style == 'style1') {
 						$styles .= '#' . $timeline_id . ' .ts-timeline-1 .ts-timeline-1-date {';
 							$styles .= $date_default;
@@ -341,12 +344,19 @@
 							$styles .= 'color: ' . $timeline_color4title . ';';
 						$styles .= '}';
 					}
-				$styles .= '</style>';
+				if ($inline == "false") {
+					$styles .= '</style>';
+				}
+				if (($styles != "") && ($inline == "true")) {
+					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+				}
 				
 				// Create Final Output
 				if ($frontend_edit == "false") {					
 					$output .= '<div id="' . $timeline_id . '" class="ts-process-line-container ' . $el_class . ' ' . $css_class . ' ' . $timeline_addclass . ' ' . $animation_class . '" ' . $animation_data . ' data-style="' . $timeline_style . '" data-alignment="' . $timeline_alignment . '" data-switchme="' . $timeline_switchme . '" data-switchat="' . $timeline_switchat . '" data-switchto="' . $timeline_switchto . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-						$output .= TS_VCSC_MinifyCSS($styles);
+						if ($inline == "false") {
+							$output .= TS_VCSC_MinifyCSS($styles);
+						}
 						if ($timeline_style == 'style1') {
 							if (function_exists('wpb_js_remove_wpautop')){
 								$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -425,8 +435,12 @@
 					'padding'						=> 'false',
 					'icon_padding'					=> 0,
 					// Icon Animation
+					'animation_trigger'				=> 'infinite',
 					'animation_class'            	=> '',
 					'animation_name'            	=> '',
+					'animation_delay' 				=> 500,
+					'animation_offset'				=> 'bottom-in-view',
+					'animation_mobile'				=> 'false',
 					// Content Data
 					'date'							=> '',
 					'sub_date'						=> '',
@@ -470,8 +484,15 @@
 				$icon_size_adjust					= ($icon_size - 2*$icon_frame_thick - 2*$icon_padding);
 				
 				if ($animation_class != "") {
-					$animation_class				= 'ts-infinite-css-' . $animation_class;
+					if ($animation_trigger == "viewport") {						
+						$animation_data				= 'data-animation-trigger="' . $animation_trigger . '" data-animation-type="ts-' . $animation_trigger . '-css-' . $animation_class . '" data-animation-frontend="' . $frontend_edit . '" data-animation-offset="' . $animation_offset . '" data-animation-delay="' . $animation_delay . '" data-animation-mobile="' . $animation_mobile . '"';
+						$animation_class			= 'ts-process-icon-viewport';
+					} else {						
+						$animation_class			= 'ts-' . $animation_trigger . '-css-' . $animation_class;
+						$animation_data				= 'data-animation-trigger="' . $animation_trigger . '" data-animation-type="' . $animation_class . '"';
+					}					
 				} else {
+					$animation_data					= '';
 					$animation_class				= '';
 				}
 				
@@ -510,15 +531,15 @@
 							$output .= '<div class="ts-timeline-1-container">';
 								if (($icon_replace == "false") && (!empty($icon))) {
 									$output .= '<div class="ts-timeline-1-icon" style="height: ' . $icon_size_adjust . 'px; width: ' . $icon_size_adjust . 'px; background-color:' . ($icon_background == "" ? "transparent" : $icon_background) . ';">';
-										$output .= '<i class="ts-font-icon ' . $icon . ' ' . $icon_frame_radius . ' ' . $animation_class . '" style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
+										$output .= '<i class="ts-font-icon ' . $icon . ' ' . $icon_frame_radius . ' ' . $animation_class . '" ' . $animation_data . ' style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
 									$output .= '</div>';
 								} else if (($icon_replace == "true") && (isset($image_path[0]))) {
 									$output .= '<div class="ts-timeline-1-img" style="height: ' . $icon_size . 'px; width: ' . $icon_size . 'px; background-color:' . ($icon_background == "" ? "transparent" : $icon_background) . ';">';
-										$output .= '<img class="ts-font-icon ' . $animation_class . ' ' . $icon_frame_radius . '" src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
+										$output .= '<img class="ts-font-icon ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
 									$output .= '</div>';
 								} else if (($icon_replace == "string") && ($string != "")) {
 									$output .= '<div class="ts-timeline-1-icon" style="height: ' . $icon_size_adjust . 'px; width: ' . $icon_size_adjust . 'px; background-color:' . ($icon_background == "" ? "transparent" : $icon_background) . ';">';
-										$output .= '<i class="ts-font-icon ' . $icon_frame_radius . ' ' . $animation_class . '" style="font-style: normal; ' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
+										$output .= '<i class="ts-font-icon ' . $icon_frame_radius . ' ' . $animation_class . '" ' . $animation_data . ' style="font-style: normal; ' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
 									$output .= '</div>';
 								}
 								$output .= '<div class="ts-timeline-1-content' . (isset($image_path[0]) ? " ts-timeline-1-hasimg" : "") . '">';
@@ -533,16 +554,15 @@
 								$output .= '</div>';
 							$output .= '</div>';
 						$output .= '</div>';
-					}
-					if ($timeline_style == "style2") {	
+					} else if ($timeline_style == "style2") {	
 						$output .= '<li id="' . $timeline_id . '" class="ts-timeline-2-item ' . $el_class . '">';
 							$output .= '<time class="ts-timeline-2-time"><span>' . $date . '</span> <span>' . $sub_date . '</span></time>';
 							if (($icon_replace == "false") && (!empty($icon))) {
-								$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-2-icon ' . $animation_class . '" style="' . $icon_style . '"></i>';
+								$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-2-icon ' . $animation_class . '" ' . $animation_data . ' style="' . $icon_style . '"></i>';
 							} else if (($icon_replace == "true") && (isset($image_path[0]))) {
-								$output .= '<img class="ts-font-icon ts-timeline-2-image ' . $animation_class . ' ' . $icon_frame_radius . '" src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
+								$output .= '<img class="ts-font-icon ts-timeline-2-image ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
 							} else if (($icon_replace == "string") && ($string != "")) {
-								$output .= '<i class="ts-font-icon ts-timeline-2-icon ' . $animation_class . '" style="font-style: normal; ' . $icon_style . '">' . $string . '</i>';
+								$output .= '<i class="ts-font-icon ts-timeline-2-icon ' . $animation_class . '" ' . $animation_data . ' style="font-style: normal; ' . $icon_style . '">' . $string . '</i>';
 							}
 							$output .= '<div class="ts-timeline-2-label">';
 								$output .= '<div class="ts-timeline-2-label-title">' . $title . '</div>';
@@ -555,8 +575,7 @@
 								$output .= '</div>';
 							$output .= '</div>';
 						$output .= '</li>';
-					}
-					if ($timeline_style == "style3") {
+					} else if ($timeline_style == "style3") {
 						$output .= '<li id="' . $timeline_id . '" class="ts-timeline-3-item ' . $el_class . '">';
 							$output .= '<div class="ts-timeline-3-content-main">';
 								$output .= '<div class="flag-wrapper">';
@@ -567,11 +586,11 @@
 								}
 								$output .= '<div class="desc-wrapper">';
 									if (($icon_replace == "false") && (!empty($icon))) {
-										$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-3-icon ' . $animation_class . ' ' . $icon_frame_radius . '" style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
+										$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-3-icon ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
 									} else if (($icon_replace == "true") && (isset($image_path[0]))) {
-										$output .= '<img class="ts-font-icon ts-timeline-3-image ' . $animation_class . ' ' . $icon_frame_radius . '" src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
+										$output .= '<img class="ts-font-icon ts-timeline-3-image ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
 									} else if (($icon_replace == "string") && ($string != "")) {
-										$output .= '<i class="ts-font-icon ts-timeline-3-icon ' . $animation_class . ' ' . $icon_frame_radius . '" style="font-style: normal; ' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
+										$output .= '<i class="ts-font-icon ts-timeline-3-icon ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' style="font-style: normal; ' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
 									}
 									$output .= '<div class="desc">';
 										if (function_exists('wpb_js_remove_wpautop')){
@@ -583,16 +602,15 @@
 								$output .= '</div>';
 							$output .= '</div>';
 						$output .= '</li>';
-					}
-					if ($timeline_style == "style4") {
+					} else if ($timeline_style == "style4") {
 						$output .= '<div class="ts-timeline-4-item">';
 							$output .= '<div class="ts-timeline-4-graphic" style="background: ' . ($icon_background == "" ? "transparent" : $icon_background) . ';">';
 								if (($icon_replace == "false") && (!empty($icon))) {
-									$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-4-icon ' . $animation_class . ' ' . $icon_frame_radius . '" style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
+									$output .= '<i class="ts-font-icon ' . $icon . ' ts-timeline-4-icon ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' style="' . $icon_style . ' ' . $icon_border_style . '"></i>';
 								} else if (($icon_replace == "true") && (isset($image_path[0]))) {
-									$output .= '<img class="ts-font-icon ts-timeline-4-image ' . $animation_class . ' ' . $icon_frame_radius . '" src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
+									$output .= '<img class="ts-font-icon ts-timeline-4-image ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' src="' . $image_path[0] . '" alt="" style="' . $image_style . ' ' . $icon_border_style . '">';
 								} else if (($icon_replace == "string") && ($string != "")) {
-									$output .= '<i class="ts-font-icon ts-timeline-4-icon ' . $animation_class . ' ' . $icon_frame_radius . '" style="font-style: normal;' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
+									$output .= '<i class="ts-font-icon ts-timeline-4-icon ' . $animation_class . ' ' . $icon_frame_radius . '" ' . $animation_data . ' style="font-style: normal;' . $icon_style . ' ' . $icon_border_style . '">' . $string . '</i>';
 								}								
 							$output .= '</div>';					 
 							$output .= '<div class="ts-timeline-4-content">';
@@ -770,7 +788,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_view1",
-							"standard"					=> "false",
 							"prefix"					=> "ts-viewport-css-",
 							"connector"					=> "animation_name1",
 							"noneselect"				=> "true",
@@ -793,7 +810,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_view2",
-							"standard"					=> "false",
 							"prefix"					=> "ts-viewport-css-",
 							"connector"					=> "animation_name2",
 							"noneselect"				=> "true",
@@ -816,7 +832,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation (Odd)", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_view3",
-							"standard"					=> "false",
 							"prefix"					=> "ts-viewport-css-",
 							"connector"					=> "animation_name3",
 							"noneselect"				=> "true",
@@ -839,7 +854,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation (Even)", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_view4",
-							"standard"					=> "false",
 							"prefix"					=> "ts-viewport-css-",
 							"connector"					=> "animation_name4",
 							"noneselect"				=> "true",
@@ -1656,28 +1670,61 @@
 							"type"              		=> "seperator",
 							"param_name"        		=> "seperator_4",
 							"seperator"					=> "Step Icon Animation",
-							"dependency"        		=> array( 'element' => "timeline_style", 'value' => array('style1', 'style3') ),
 							"group"						=> "Step Icon",
 						),
 						array(
 							"type"						=> "css3animations",
-							"heading"					=> __("Step Icon: Animation", "ts_visual_composer_extend"),
+							"heading"					=> __("Step Icon: Animation Style", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_class",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "animation_name",
 							"noneselect"				=> "true",
 							"default"					=> "",
 							"value"						=> "",
-							"description"				=> __("Select the optional infinite animation for the step icon.", "ts_visual_composer_extend"),
+							"description"				=> __("Select the optional animation style for the step icon.", "ts_visual_composer_extend"),
 							"group"						=> "Step Icon",
 						),
 						array(
 							"type"						=> "hidden_input",
-							"heading"					=> __( "Step Icon: Animation", "ts_visual_composer_extend" ),
+							"heading"					=> __( "Step Icon: Animation Style", "ts_visual_composer_extend" ),
 							"param_name"				=> "animation_name",
 							"value"						=> "",
 							"admin_label"       		=> true,
+							"group"						=> "Step Icon",
+						),
+						array(
+							"type"              		=> "dropdown",
+							"heading"           		=> __( "Step Icon: Animation Type", "ts_visual_composer_extend" ),
+							"param_name"        		=> "animation_trigger",
+							"value"             		=> array(
+								__( "Infinite Repeating Animation", "ts_visual_composer_extend" )		=> "infinite",
+								__( "Viewport Entry Animation", "ts_visual_composer_extend" )			=> "viewport",
+								__( "Icon Hover Animation", "ts_visual_composer_extend" )				=> "hover",
+							),
+							"dependency"        => array( 'element' => "animation_class", 'not_empty' => true ),
+							"description"       		=> __( "Define how the icon animation should be triggered.", "ts_visual_composer_extend" ),
+							"group"						=> "Step Icon",
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Animation Items Delay", "ts_visual_composer_extend" ),
+							"param_name"       		 	=> "animation_delay",
+							"value"             		=> "500",
+							"min"               		=> "000",
+							"max"               		=> "2000",
+							"step"              		=> "100",
+							"unit"              		=> 'ms',
+							"description"       		=> __( "Define a delay before the viewport animation for the icon is triggered.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "animation_trigger", 'value' => 'viewport' ),
+							"group"						=> "Step Icon",
+						),
+						array(
+							"type"						=> "switch_button",
+							"heading"           		=> __( "Allow on Mobile", "ts_visual_composer_extend" ),
+							"param_name"        		=> "animation_mobile",
+							"value"             		=> "false",
+							"description"       		=> __( "Switch the toggle to allow the viewport animation to be used on mobile devices.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "animation_trigger", 'value' => 'viewport' ),
 							"group"						=> "Step Icon",
 						),
 					)

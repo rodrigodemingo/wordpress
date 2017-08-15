@@ -21,6 +21,24 @@ class mfnImport {
 			'categories'	=> array( 'bus', 'blo', 'por' ),
 			'plugins'		=> array( 'cf7', 'rev' ),
 		),
+		'oculist' => array(
+			'name'			=> 'Oculist',
+			'categories'	=> array( 'bus' ),
+			'plugins'		=> array( 'cf7', 'rev' ),
+		),
+		'sportsclub' => array(
+			'name'			=> 'Sports Club',
+			'categories'	=> array( 'bus', 'ent' ),
+			'plugins'		=> array( 'cf7', 'rev' ),
+		),
+		'productions' => array(
+			'categories'	=> array( 'bus', 'ent' ),
+			'plugins'		=> array( 'cf7', 'rev' ),
+		),
+		'diet' => array(
+			'categories'	=> array( 'blo' ),
+			'plugins'		=> array( 'cf7' ),
+		),
 		'boutique' => array(
 			'categories'	=> array( 'bus', 'blo' ),
 			'plugins'		=> array( 'cf7', 'rev' ),
@@ -1522,6 +1540,16 @@ class mfnImport {
 						// Builder 3.0 | Loop | Wraps ----------------
 						if( isset( $sec['wraps'] ) && is_array( $sec['wraps'] ) ){
 							foreach( $sec['wraps'] as $wrap_key => $wrap ){
+								
+								// Loop | Wrap Attributes ----------------
+								if( isset( $wrap['attr'] ) && is_array( $wrap['attr'] ) ){
+									foreach( $wrap['attr'] as $attr_key => $attr ){
+								
+										$attr = str_replace( $old_url, $new_url, $attr );
+										$meta_value[$sec_key]['wraps'][$wrap_key]['attr'][$attr_key] = $attr;
+								
+									}
+								}
 						
 								// Loop | Items ----------------
 								if( isset( $wrap['items'] ) && is_array( $wrap['items'] ) ){

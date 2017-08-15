@@ -495,8 +495,10 @@
 					wp_enqueue_style('ts-extend-tooltipster');
 					wp_enqueue_script('ts-extend-tooltipster');	
 					wp_enqueue_style('ts-extend-animations');
-					wp_enqueue_script('ts-visual-composer-extend-front');
+					wp_enqueue_script('ts-visual-composer-extend-front');					
+					wp_enqueue_script('ts-extend-imageeffects');
 				}
+				wp_enqueue_style('ts-extend-imageeffects');
 				wp_enqueue_style('ts-visual-composer-extend-front');				
 				
 				extract( shortcode_atts( array(
@@ -991,7 +993,6 @@
 							"type"					=> "css3animations",
 							"heading"				=> __("Viewport Animation", "ts_visual_composer_extend"),
 							"param_name"			=> "viewport_animation",
-							"standard"				=> "false",
 							"prefix"				=> "ts-viewport-css-",
 							"connector"				=> "viewport_name",
 							"noneselect"			=> "true",

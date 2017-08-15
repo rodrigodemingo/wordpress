@@ -32,6 +32,7 @@
 				ob_start();
 				
 				wp_enqueue_style('ts-extend-csstimeline');
+				wp_enqueue_style('ts-visual-composer-extend-front');
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {					
 					wp_enqueue_script('ts-extend-csstimeline');	
 					wp_enqueue_script('ts-extend-hammer');
@@ -167,6 +168,7 @@
 				$output 							= '';
 				$styles								= '';
 				$rules								= '';
+				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$vcinline_status				= 'true';
@@ -379,10 +381,14 @@
 							}
 							// Final Output
 							if ($rules != '') {
-								$styles .= '<style id="' . $timeline_container_id . '-styles" type="text/css">';
-									$styles .= $rules;
-								$styles .= '</style>';
-								echo TS_VCSC_MinifyCSS($styles);
+								if ($inline == "false") {
+									$styles .= '<style id="' . $timeline_container_id . '-styles" type="text/css">';
+										$styles .= $rules;
+									$styles .= '</style>';
+									echo TS_VCSC_MinifyCSS($styles);
+								} else if ($inline == "true") {
+									wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($rules));
+								}
 							}
 						}
 						// Controls Section

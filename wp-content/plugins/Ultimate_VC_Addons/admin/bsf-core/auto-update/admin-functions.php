@@ -815,7 +815,6 @@ if( ! function_exists( 'bsf_theme_deactivation' ) ) {
 
 	function bsf_theme_deactivation() {
 
-		delete_option( 'brainstrom_bundled_products' );
 		delete_site_transient( 'bsf_get_bundled_products' );
 		delete_site_option( 'bsf_installer_menu' );
 		update_option( 'bsf_force_check_extensions', false );

@@ -12,14 +12,11 @@
 				}
             }        
 			function viewportoffset_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
 				$class				= isset($settings['class']) ? $settings['class'] : '';
 				// Other Settings
 				$random_id_number	= rand(100000, 999999);
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $output         	= '';				
 				if (strpos($value, '%') !== FALSE) {
 					$handler		= 'percentage';
@@ -65,7 +62,7 @@
 						$output .= '<span class="ts-viewportoffset-nouislider-input-max">' . number_format_i18n(500, 0) . '</span>';
 					$output .= '</div>';				
 					// Hidden Input with Final Value
-					$output .= '<input id="ts-viewportoffset-final-value-' . $random_id_number . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-viewportoffset-final-value" name="' . $param_name . '"  type="hidden" style="display: none;"  value="' . $value . '" ' . $dependency . '/>';
+					$output .= '<input id="ts-viewportoffset-final-value-' . $random_id_number . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-viewportoffset-final-value" name="' . $param_name . '"  type="hidden" style="display: none;"  value="' . $value . '"/>';
 				$output .= '</div>';
 				return $output;
 			}

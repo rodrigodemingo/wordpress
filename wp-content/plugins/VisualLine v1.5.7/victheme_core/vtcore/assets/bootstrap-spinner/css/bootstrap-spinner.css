@@ -1,0 +1,75 @@
+/**
+  Bootstrap Spinner
+  Only use this in conjuction with jquery-spinner
+  @author jason.xie@victheme.com
+  **/
+.bootstrap-spinner {
+  position: relative;
+}
+
+.input-group > .bootstrap-spinner {
+  display: table-cell;
+}
+.form-group > .bootstrap-spinner {
+  display: block;
+}
+.bootstrap-spinner .form-control {
+  padding-right: 30px !important;
+  height: 40px;
+}
+
+
+.bootstrap-spinner .bootstrap-spinner-buttons {
+  bottom: 0;
+  display: block;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  top: 1px;
+  width: 30px;
+  z-index: 2;
+  background: #f9fafc;
+  border-left: 1px solid #CBD5DD;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons > button {
+  background: none;
+  border: none;
+  height: 20px;
+  margin: 0 !important;
+  padding: 0;
+  position: absolute;
+  width: 30px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #CBD5DD;
+  line-height: 18px;
+  font-size: 12px;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons .bootstrap-spinner-spin-up {
+  top: 0;
+  right: 0;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons > button:focus {
+  color: #208fbc;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons .bootstrap-spinner-spin-down {
+  top: 50%;
+  right: 0;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons .bootstrap-spinner-spin-up:after {
+  display: inline-block;
+  content: '\f0d8';
+  font-family: fontawesome;
+}
+
+.bootstrap-spinner .bootstrap-spinner-buttons .bootstrap-spinner-spin-down:after {
+  display: inline-block;
+  content: '\f0d7';
+  font-family: fontawesome;
+}

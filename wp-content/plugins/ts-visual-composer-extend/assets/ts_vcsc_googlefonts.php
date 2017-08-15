@@ -45,11 +45,9 @@
 			}
 		}
 		TS_VCSC_SortMultiArray($font_array, 'name');
-		
-		// Retrieve current Google Font List (Format via: http://textmechanic.com/)
 		/*
-		$apikey 							= 'AIzaSyD_U0AhhCkp48BUbww17v7LoAhp0LEeKvY';
-		$url 								= 'https://www.googleapis.com/webfonts/v1/webfonts?key=' . $apikey;
+		// Retrieve current Google Font List (Format via: http://textmechanic.com/)
+		$url 								= 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCgepCbgScRX7bUXrXb1NWHRIO_jk_VfXw';
 		$ch 								= curl_init();
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, false);
@@ -63,6 +61,7 @@
 		$items 								= $data['items'];
 		$current_array						= array();
 		$format_array 						= array();
+		$names_array 						= array();
 		$i 									= 0;
 		foreach ($items as $item) {			
 			$key							= $item['family'];
@@ -70,6 +69,8 @@
 			foreach ($item['variants'] as $variant) {
 			  $variants[] 					= $variant;
 			}
+			// Array (Names Only)
+			array_push($names_array, str_replace(' ', '+', $item['family']));
 			// Array (for manual Format)
 			$font_data = array(
 				"google" 					=> '"' . str_replace(' ', '+', $item['family']) . '",',
@@ -88,10 +89,12 @@
 			$current_array[$key]			= $font_data;			
 			$i++;
 		}
-		var_dump($current_array);
-		print "<pre>";
-		print_r($format_array);
-		print "</pre>";
+		var_dump($names_array);
+		//var_dump($current_array);
+		//print "<pre>";
+		//print_r($format_array);
+		//print "</pre>";		
+		//file_put_contents($VISUAL_COMPOSER_EXTENSIONS->assets_dir . 'Current_Google_Fonts.txt', json_encode($names_array));		
 		Exit();
 		*/
 	}
@@ -147,8 +150,7 @@
 				<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-format-video"></i>How to use the Google Fonts Manager</div>
 				<div class="ts-vcsc-section-content slideFade" style="display: none;">				
 					<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						The selections you make in this "Google Fonts Manager" will directly impact the elements that are able to utilzie Google Fonts, so activate/deactivate fonts carefully. Naturally, the more Google fonts
-						you activate, the more it will affect the speed at which settings panels for elements will render, when editing a page or post.
+						The selections you make in this "Google Fonts Manager" will directly impact the elements that are able to utilzie Google Fonts, so activate/deactivate fonts carefully. Naturally, the more Google fonts you activate, the more it will affect the speed at which settings panels for elements will render, when editing a page or post.
 					</div>	
 					<div style="width: 50%; height: 100%;">
 						<div class="ts-video-container">
@@ -156,19 +158,15 @@
 						</div>
 					</div>
 				</div>
-			</div>		
-			
+			</div>
 			<div id="ts-vcsc-welcome-links" class="ts-vcsc-section-main">
 				<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-edit"></i>Font Selections</div>
 				<div class="ts-vcsc-section-content">
 					<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						The following tabs, sorted by alphabet, will give you access to all <?php echo $fonts_total; ?> Google Fonts currently registered with this add-on. Simply click on any font you want to add to your personal collection, and once you created
-						your personal set, save the collection. For quick access to your favorite fonts, which will be listed first in the font selectbox when editing an element, you can mark fonts as "favorite" as well.
+						The following tabs, sorted by alphabet, will give you access to all <?php echo $fonts_total; ?> Google Fonts currently registered with this add-on. Simply click on any font you want to add to your personal collection, and once you created your personal set, save the collection. For quick access to your favorite fonts, which will be listed first in the font selectbox when editing an element, you can mark fonts as "favorite" as well.
 					</div>
 					<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						For performance reasons, the Google Fonts Manager intentionally is not loading the respective CSS font files for each font. With <?php echo $fonts_total; ?> fonts total, that can result in extended load times,
-						although the individual font files are fairly small, the combined amount is a different story. But you have the option to manually trigger the loading of those files by clicking on the respective button located
-						in each tab, or the "load all" button above the tabs. <strong>Once a CSS font file has been loaded, you will be able to see how the font will actually look like.</strong>
+						For performance reasons, the Google Fonts Manager intentionally is not loading the respective CSS font files for each font. With <?php echo $fonts_total; ?> fonts total, that can result in extended load times, although the individual font files are fairly small, the combined amount is a different story. But you have the option to manually trigger the loading of those files by clicking on the respective button located in each tab, or the "load all" button above the tabs. <strong>Once a CSS font file has been loaded, you will be able to see how the font will actually look like.</strong>
 					</div>
 					<?php
 						echo '<div class="ts-googlefont-manager-toggles" style="margin-top: 20px; margin-bottom: 20px;">';						
@@ -199,21 +197,25 @@
 						<i id="ts-vcsc-google-font-reset" class="ts-vcsc-google-font-reset dashicons-dismiss"></i>
 					</div>	
 					<?php
-						echo '<div class="ts-googlefont-manager-tabs" style="margin-bottom: 10px;">';
-							echo '<ul class="ts-googlefont-manager-tab-links">';
-								$tabcounter 						= 0;
-								foreach ($group_array as $group) {
-									$tabcounter++;
-									$fontcount						= TS_VCSC_CountArrayMatches($font_array, 'group', $group);
-									echo '<li id="ts-googlefont-manager-tab-trigger' . $group . '" class="' . (($tabcounter == 1) ? "active" : "") . '"><a href="#ts-googlefont-manager-tab' . $group . '"><span>' . $group . ' </span><span style="font-size: 10px;">(' . $fontcount . ')</span><i id="ts-googlefont-manager-tab-flagged' . $group . '" class="ts-googlefont-manager-tab-flagged dashicons-yes" style="display: none;"></i></a></li>';
-								}
-							echo '</ul>';
-							echo '<div class="ts-googlefont-manager-tab-content">';
+						echo '<div id="ts-googlefont-manager-tabs" class="ts-simpletabs-tabs-wrapper" style="margin-bottom: 10px;">';
+							echo '<div class="ts-simpletabs-tabs-navigation">';
+								echo '<ul class="ts-simpletabs-tabs-tab-links">';
+									$tabcounter 						= 0;
+									foreach ($group_array as $group) {
+										$tabcounter++;
+										$fontcount						= TS_VCSC_CountArrayMatches($font_array, 'group', $group);
+										echo '<li id="ts-googlefont-manager-tab-trigger' . $group . '" class="' . (($tabcounter == 1) ? "active" : "") . '"><a href="#ts-googlefont-manager-tab' . $group . '"><span>' . $group . ' </span><span style="font-size: 10px;">(' . $fontcount . ')</span><i id="ts-googlefont-manager-tab-flagged' . $group . '" class="ts-googlefont-manager-tab-flagged dashicons-yes" style="display: none;"></i></a></li>';
+									}
+								echo '</ul>';
+								echo '<div id="ts-simpletabs-tab-prev" class="ts-simpletabs-tabs-scroll" data-direction="left"><span><i class="dashicons dashicons-arrow-left-alt2"></i></span></div>';
+								echo '<div id="ts-simpletabs-tab-next" class="ts-simpletabs-tabs-scroll" data-direction="right"><span><i class="dashicons dashicons-arrow-right-alt2"></i></span></div>';
+							echo '</div>';
+							echo '<div class="ts-simpletabs-tabs-content">';
 								$tabcounter 						= 0;
 								foreach ($group_array as $group) {
 									$Font_Count						= TS_VCSC_CountArrayMatches($font_array, 'group', $group);
 									$tabcounter++;
-									echo '<div id="ts-googlefont-manager-tab' . $group . '" class="ts-googlefont-manager-tab-single ' . (($tabcounter == 1) ? "active" : "") . ' clearFixMe" data-link="ts-googlefont-manager-tab-trigger' . $group . '" data-group="' . $group . '" style="">';										
+									echo '<div id="ts-googlefont-manager-tab' . $group . '" class="ts-simpletabs-tabs-tab-single ' . (($tabcounter == 1) ? "active" : "") . ' clearFixMe" data-link="ts-googlefont-manager-tab-trigger' . $group . '" data-group="' . $group . '" style="">';										
 										echo '<div class="ts-googlefont-manager-toggles" style="margin-top: 10px; margin-bottom: 10px;">';
 											echo '<div class="ts-advanced-link-button-wrapper ts-advanced-link-tooltip-holder ts-advanced-link-tooltip-right" style="float: right;">';
 												echo '<span class="ts-advanced-link-tooltip-content">' . sprintf(__("Click here to load all %d respective CSS files for all Google fonts in group %s.", "ts_visual_composer_extend"), $Font_Count, $group) . '</span>';

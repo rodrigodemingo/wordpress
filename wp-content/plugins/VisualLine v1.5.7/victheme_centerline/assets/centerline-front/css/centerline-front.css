@@ -1,0 +1,33 @@
+/**
+  Additional css for formatting the
+  centerline elements
+  **/
+.centerline-elements {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.centerline-wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.vc_centerlineinner {
+  z-index: 5;
+}
+
+
+.centerline-simple .centerline-simple-left {
+  margin-top: -60px;
+}
+
+.centerline-simple .centerline-simple-center {
+  margin-top: 60px;
+}
+
+.centerline-simple .centerline-simple-right {
+  margin-top: -60px;
+}

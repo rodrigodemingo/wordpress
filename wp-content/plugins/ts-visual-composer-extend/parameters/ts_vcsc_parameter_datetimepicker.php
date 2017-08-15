@@ -33,8 +33,6 @@
 				return $minutes_intval;
 			}
             function datetimepicker_setting_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
                 $radios         	= isset($settings['options']) ? $settings['options'] : '';
@@ -43,7 +41,6 @@
 				$text_start			= isset($settings['text_start']) ? $settings['text_start'] : __('Start:', 'ts_visual_composer_extend');
 				$text_end			= isset($settings['text_end']) ? $settings['text_end'] : __('End:', 'ts_visual_composer_extend');
 				$spacing			= isset($settings['spacing']) ? $settings['spacing'] : 0;
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer			= rand(100000, 999999);
 				// Other Variables
 				$minutes_full		= array('0', 0, '00');

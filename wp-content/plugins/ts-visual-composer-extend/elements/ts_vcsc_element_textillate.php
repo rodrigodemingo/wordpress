@@ -104,7 +104,7 @@
 				"heading"           	=> __( "Animation Delay", "ts_visual_composer_extend" ),
 				"param_name"        	=> "animation_delay",
 				"value"             	=> "100",
-				"min"               	=> "100",
+				"min"               	=> "0",
 				"max"               	=> "20000",
 				"step"              	=> "100",
 				"unit"              	=> 'ms',

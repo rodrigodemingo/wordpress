@@ -146,7 +146,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		color: <?php mfn_opts_show( 'color-button', '#747474' ) ?>;
 	}
 	
-	.button-stroke a.button, .button-stroke a.button .button_icon i, .button-stroke a.tp-button {
+	.button-stroke a.button, .button-stroke a.button.action_button, .button-stroke a.button .button_icon i, .button-stroke a.tp-button {
 	    border-color: <?php mfn_opts_show( 'background-button', '#f7f7f7' ) ?>;
 	    color: <?php mfn_opts_show( 'color-button', '#747474' ) ?>;
 	}
@@ -162,7 +162,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		color: #fff;
 	}
 	
-	.button-stroke a.button.button_theme:not(.action_button), .button-stroke a.button.button_theme:not(.action_button),
+	.button-stroke a.button.button_theme:not(.action_button),
 	.button-stroke a.button.button_theme .button_icon i, .button-stroke a.tp-button.button_theme,
 	.button-stroke button, .button-stroke input[type="submit"], .button-stroke input[type="reset"], .button-stroke input[type="button"] {
 	    border-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
@@ -192,24 +192,81 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		border-bottom-color: <?php mfn_opts_show( 'background-fancy-link-hover', '#2275ac' ) ?>;
 	}
 	
+	
 /* Shop buttons */
+
+	.woocommerce #respond input#submit,
 	.woocommerce a.button,
-	.woocommerce .quantity input.plus,
-	.woocommerce .quantity input.minus {
-		background-color: <?php mfn_opts_show( 'background-button', '#f7f7f7' ) ?> !important;
-		color: <?php mfn_opts_show( 'color-button', '#747474' ) ?> !important;
+	.woocommerce button.button,
+	.woocommerce input.button,
+	.woocommerce #respond input#submit:hover,
+	.woocommerce a.button:hover,
+	.woocommerce button.button:hover,
+	.woocommerce input.button:hover{
+		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
+		color: #fff;
 	}
 	
-	.woocommerce button.button, 
-	.woocommerce a.button_theme:not(.action_button),
-	.woocommerce a.checkout-button,
-	.woocommerce input[type="button"],
-	.woocommerce input[type="reset"],
-	.woocommerce input[type="submit"],
-	.button-stroke .woocommerce a.checkout-button {
+	.woocommerce #respond input#submit.alt,
+	.woocommerce a.button.alt,
+	.woocommerce button.button.alt,
+	.woocommerce input.button.alt,
+	.woocommerce #respond input#submit.alt:hover,
+	.woocommerce a.button.alt:hover,
+	.woocommerce button.button.alt:hover,
+	.woocommerce input.button.alt:hover{
+		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
+		color: #fff;
+	}
+	
+	.woocommerce #respond input#submit.disabled,
+	.woocommerce #respond input#submit:disabled,
+	.woocommerce #respond input#submit[disabled]:disabled,
+	.woocommerce a.button.disabled,
+	.woocommerce a.button:disabled,
+	.woocommerce a.button[disabled]:disabled,
+	.woocommerce button.button.disabled,
+	.woocommerce button.button:disabled,
+	.woocommerce button.button[disabled]:disabled,
+	.woocommerce input.button.disabled,
+	.woocommerce input.button:disabled,
+	.woocommerce input.button[disabled]:disabled{
+		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
+		color: #fff;
+	}
+	
+	.woocommerce #respond input#submit.disabled:hover,
+	.woocommerce #respond input#submit:disabled:hover,
+	.woocommerce #respond input#submit[disabled]:disabled:hover,
+	.woocommerce a.button.disabled:hover,
+	.woocommerce a.button:disabled:hover,
+	.woocommerce a.button[disabled]:disabled:hover,
+	.woocommerce button.button.disabled:hover,
+	.woocommerce button.button:disabled:hover,
+	.woocommerce button.button[disabled]:disabled:hover,
+	.woocommerce input.button.disabled:hover,
+	.woocommerce input.button:disabled:hover,
+	.woocommerce input.button[disabled]:disabled:hover{
+		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
+		color: #fff;
+	}
+
+	.button-stroke.woocommerce-page #respond input#submit,
+	.button-stroke.woocommerce-page a.button:not(.action_button),
+	.button-stroke.woocommerce-page button.button,
+	.button-stroke.woocommerce-page input.button{
+		border: 2px solid <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?> !important;
+		color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?> !important;
+	}
+	
+	.button-stroke.woocommerce-page #respond input#submit:hover,
+	.button-stroke.woocommerce-page a.button:not(.action_button):hover,
+	.button-stroke.woocommerce-page button.button:hover,
+	.button-stroke.woocommerce-page input.button:hover{
 		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?> !important;
 		color: #fff !important;
 	}
+
 	
 /* Lists */
 	.column_column ul, .column_column ol, .the_content_wrapper ul, .the_content_wrapper ol {
@@ -235,8 +292,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		.highlight-right .wrap:last-child {
 			background: <?php mfn_opts_show( 'background-highlight-section', '#0095eb' ) ?>;
 		}
-	}	
-	
+	}
 	
 	
 /* ==============================================================================================================================
@@ -398,9 +454,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		color: <?php mfn_opts_show( 'color-side-menu-a-hover', '#ffffff' ) ?>;
 	}
 	
-	#Side_slide #menu ul li.current-menu-item > a,#Side_slide #menu ul li.current_page_item > a,
-	#Side_slide #menu ul li.current-menu-parent > a,#Side_slide #menu ul li.current-page-parent > a,
-	#Side_slide #menu ul li.current-menu-ancestor > a,#Side_slide #menu ul li.current-page-ancestor > a,#Side_slide #menu ul li.current_page_ancestor > a,
+	#Side_slide #menu ul li.current-menu-item > a,
+	#Side_slide #menu ul li.current_page_item > a,
+	#Side_slide #menu ul li.current-menu-parent > a,
+	#Side_slide #menu ul li.current-page-parent > a,
+	#Side_slide #menu ul li.current-menu-ancestor > a,
+	#Side_slide #menu ul li.current-page-ancestor > a,
+	#Side_slide #menu ul li.current_page_ancestor > a,
 	#Side_slide #menu ul li.hover > a,#Side_slide #menu ul li:hover > a{
 		color: <?php mfn_opts_show( 'color-side-menu-a-hover', '#ffffff' ) ?>;
 	}
@@ -463,26 +523,48 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	#Footer h6, #Footer h6 a, #Footer h6 a:hover {
 		color: <?php mfn_opts_show( 'color-footer-heading', '#ffffff' ) ?>;
 	}
-	
-/* Theme color */
+/
 	#Footer .themecolor, #Footer .widget_meta ul, #Footer .widget_pages ul, #Footer .widget_rss ul, #Footer .widget_mfn_recent_comments ul li:after, #Footer .widget_archive ul, 
 	#Footer .widget_recent_comments ul li:after, #Footer .widget_nav_menu ul, #Footer .widget_price_filter .price_label .from, #Footer .widget_price_filter .price_label .to,
 	#Footer .star-rating span {
 		color: <?php mfn_opts_show( 'color-footer-theme', '#0095eb' ) ?>;
 	}
-	
-/* Theme background */
+
 	#Footer .themebg, #Footer .widget_categories ul, #Footer .Recent_posts ul li .desc:after, #Footer .Recent_posts ul li .photo .c,
 	#Footer .widget_recent_entries ul li:after, #Footer .widget_mfn_menu ul li a:hover, #Footer .widget_product_categories ul {
 		background-color: <?php mfn_opts_show( 'color-footer-theme', '#0095eb' ) ?>;
 	}
-	
-/* Grey */
+
 	#Footer .Recent_posts ul li a .desc .date, #Footer .widget_recent_entries ul li .post-date, #Footer .tp_recent_tweets .twitter_time, 
 	#Footer .widget_price_filter .price_label, #Footer .shop-filters .woocommerce-result-count, #Footer ul.product_list_widget li .quantity, 
 	#Footer .widget_shopping_cart ul.product_list_widget li dl {
 		color: <?php mfn_opts_show( 'color-footer-note', '#a8a8a8' ) ?>;
 	}
+
+	#Footer .footer_copy .social li a,
+	#Footer .footer_copy .social-menu a{
+		color: <?php mfn_opts_show( 'color-footer-social', '#65666C' ) ?>;
+	}
+	
+	#Footer .footer_copy .social li a:hover,
+	#Footer .footer_copy .social-menu a:hover{
+		color: <?php mfn_opts_show( 'color-footer-social-hover', '#ffffff' ) ?>;
+	}
+	
+	a#back_to_top.button.button_js{
+		color: <?php mfn_opts_show( 'color-footer-backtotop', '#65666C' ) ?>;
+		<?php if( mfn_opts_get( 'background-footer-backtotop' ) ): ?>
+			background: <?php mfn_opts_show( 'background-footer-backtotop' ); ?>;
+		<?php else: ?>
+			background:transparent;-webkit-box-shadow:0 0 0 0 transparent;box-shadow:0 0 0 0 transparent;
+		<?php endif; ?>
+	}
+	
+	<?php if( ! mfn_opts_get( 'background-footer-backtotop' ) ): ?>
+	a#back_to_top.button.button_js:after{
+		display:none;
+	}
+	<?php endif; ?>
 	
 	
 

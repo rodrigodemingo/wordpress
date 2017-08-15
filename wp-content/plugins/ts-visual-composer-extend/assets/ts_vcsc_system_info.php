@@ -263,9 +263,8 @@
 								} else {
 									if (stripos($plugin['Name'], 'WPBakery') !== false) {
 										$wpbakery		= 'Yes';
-									} else if (stripos($plugin['TextDomain'], 'ts_visual_composer_extend') !== false) {
-										$vcextensions	= 'v' . $plugin['Version'];
 									}
+									$vcextensions		= 'v' . COMPOSIUM_VERSION;
 									echo '<li>' . $plugin['Name'] . ' v' . $plugin['Version'] . "</li>";
 									$system_summary .= $plugin['Name'] .' v' . $plugin['Version'] . '<br/>';
 								}

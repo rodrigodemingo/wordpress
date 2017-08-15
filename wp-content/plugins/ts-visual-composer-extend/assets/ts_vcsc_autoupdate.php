@@ -185,6 +185,7 @@
 		 * @return bool|object
 		 */
 		public function check_info($result, $action = null, $args = null) {
+			global $VISUAL_COMPOSER_EXTENSIONS;
 			// Check if Plugin Matches
 			$relevant 								= (($action == 'plugin_information') && isset($args->slug) && ($args->slug == $this->slug));			
 			if (!$relevant) {

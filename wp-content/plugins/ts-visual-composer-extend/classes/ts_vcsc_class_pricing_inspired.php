@@ -372,6 +372,7 @@
 				}
 				
 				wp_enqueue_style('ts-font-ecommerce');
+				wp_enqueue_script('ts-visual-composer-extend-front');
 				wp_enqueue_style('ts-extend-pricinginspired');
 				
 				// Load Default Fonts
@@ -383,6 +384,7 @@
 				$output 							= '';
 				$styles								= '';
 				$wpautop 							= ($table_wpautop == "true" ? true : false);
+				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if (!empty($el_id)) {
 					$inspired_id					= $el_id;
@@ -406,7 +408,9 @@
 				$content  							= str_replace($replace_search, $replace_replace, $replace_subject);
 
 				// Create Custom Styling
-				$styles .= '<style id="ts-pricing-inspired-styles-' . $randomizer . '-styles" type="text/css">';
+				if ($inline == "false") {
+					$styles .= '<style id="ts-pricing-inspired-styles-' . $randomizer . '-styles" type="text/css">';
+				}
 					$styles .= 'body #' . $inspired_id . '.ts-pricing-inspired-' . $table_style . ' .ts-pricing-inspired-item {';
 						$styles .= '-webkit-flex: 0 1 ' . $table_width . 'px;';
 						$styles .= '-moz-flex: 0 1 ' . $table_width . 'px;';
@@ -422,10 +426,17 @@
 							$styles .= 'line-height: ' . $table_lineheight . 'px;';
 						$styles .= '}';
 					}
-				$styles .= '</style>';
+				if ($inline == "false") {
+					$styles .= '</style>';
+				}
+				if (($styles != "") && ($inline == "true")) {
+					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+				}
 				
 				// Create Final Output
-				$output .= TS_VCSC_MinifyCSS($styles);
+				if ($inline == "false") {
+					$output .= TS_VCSC_MinifyCSS($styles);
+				}
 				$output .= '<div id="' . $inspired_id . '" class="' . $css_class . ' clearFixMe ts-pricing-inspired-' . $table_style . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 					if (function_exists('wpb_js_remove_wpautop')){
 						$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);

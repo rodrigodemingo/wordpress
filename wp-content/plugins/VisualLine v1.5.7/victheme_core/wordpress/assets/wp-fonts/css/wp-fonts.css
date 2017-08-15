@@ -1,0 +1,13 @@
+/**
+  Styling the font picker element
+  **/
+.wp-font-picker-preview {
+  min-height: 60px;
+  max-height: 120px;
+  text-align: center;
+  margin: 0 0 30px;
+  border: 1px solid #cbd5dd;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}

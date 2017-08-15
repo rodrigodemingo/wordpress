@@ -23,11 +23,11 @@
     
     // Add Content for Contextual Help Section
     function TS_VCSC_Logos_Post_Help( $contextual_help, $screen_id, $screen ) { 
-        if ( 'edit-ts_testimonials' == $screen->id ) {
+        if ( 'edit-ts_logos' == $screen->id ) {
             $contextual_help = '<h2>Logos</h2>
             <p>Logos are an easy way to display customers you provided work for, partner businesses on your website.</p> 
             <p>You can view/edit the details of each logo by clicking on its name, or you can perform bulk actions using the dropdown menu and selecting multiple items.</p>';
-        } else if ('ts_testimonials' == $screen->id) {
+        } else if ('ts_logos' == $screen->id) {
             $contextual_help = '<h2>Editing Logos</h2>
             <p>This page allows you to view/modify logo details. Please make sure to fill out the available boxes with the appropriate details. Logo information can only be used with the Visual Composer Extensions Plugin.</p>';
         }
@@ -149,12 +149,25 @@
 		}
 	}
 	
+	// Remove RevSlider + Essential Grid Metaboxes
+	function TS_VCSC_Logos_RemoveExternalMetaboxes() { 
+		global $pagenow;
+		$screen = TS_VCSC_GetCurrentPostType();
+		if ($screen=='ts_logos') {
+			if ($pagenow=='post-new.php' || $pagenow=='post.php') {
+				remove_meta_box('eg-meta-box', 'ts_logos', 'normal'); 
+				remove_meta_box('mymetabox_revslider_0', 'ts_logos', 'normal'); 
+			} 
+		} 
+	}
+	
 	// Call All Routines
 	if (is_admin()) {
 		add_filter('post_updated_messages', 						'TS_VCSC_Logos_Post_Messages');
 		add_action('contextual_help', 								'TS_VCSC_Logos_Post_Help', 					10, 3);
 		add_filter('cs_metabox_options', 							'TS_VCSC_Logos_Codestar');
 		add_action('admin_enqueue_scripts',							'TS_VCSC_Logos_Post_Files', 				9999999999);
+		add_action('add_meta_boxes', 								'TS_VCSC_Logos_RemoveExternalMetaboxes', 	9999999999);
 		add_filter('manage_ts_logos_posts_columns', 				'TS_VCSC_Add_Logos_Image_Column');
 		add_action('manage_ts_logos_posts_custom_column', 			'TS_VCSC_Show_Logos_Image_Column', 			10, 2 );
 	}

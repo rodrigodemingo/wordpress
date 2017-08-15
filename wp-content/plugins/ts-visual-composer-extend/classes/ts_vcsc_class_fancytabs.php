@@ -1280,7 +1280,6 @@
 								"type" 							=> 'extensions',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon for the tab.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
-							"dependency"            	=> "",
 						),						
 						array(
 							'type' 						=> 'dropdown',
@@ -1294,10 +1293,8 @@
 						),	
 						array(
 							"type"						=> "css3animations",
-							"class"						=> "",
 							"heading"					=> __("Icon Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_class",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "css3animations_in",
 							"noneselect"				=> "true",

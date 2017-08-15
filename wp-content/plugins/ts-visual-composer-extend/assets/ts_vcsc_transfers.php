@@ -107,7 +107,7 @@
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_visualSelector'] = ($ts_vcsc_extend_settings_visualSelector);	
 	$ts_vcsc_extend_settings_nativePaginator					= get_option('ts_vcsc_extend_settings_nativePaginator', 			'200');
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_nativePaginator'] = ($ts_vcsc_extend_settings_nativePaginator);
-	$ts_vcsc_extend_settings_dashboard							= get_option('ts_vcsc_extend_settings_dashboard', 					1);
+	$ts_vcsc_extend_settings_dashboard							= get_option('ts_vcsc_extend_settings_dashboard', 					0);
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_dashboard'] = ($ts_vcsc_extend_settings_dashboard);	
 	$ts_vcsc_extend_settings_shortcodesalways					= get_option('ts_vcsc_extend_settings_shortcodesalways',			0);
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_shortcodesalways'] = ($ts_vcsc_extend_settings_shortcodesalways);	
@@ -143,8 +143,10 @@
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_customSidebars'] = ($ts_vcsc_extend_settings_customSidebars);	
 	$ts_vcsc_extend_settings_allowShortcodesWidgets				= get_option('ts_vcsc_extend_settings_allowShortcodesWidgets',		1);	
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowShortcodesWidgets'] = ($ts_vcsc_extend_settings_allowShortcodesWidgets);
-	$ts_vcsc_extend_settings_allowAutoParagraphs				= get_option('ts_vcsc_extend_settings_allowAutoParagraphs',		1);	
+	$ts_vcsc_extend_settings_allowAutoParagraphs				= get_option('ts_vcsc_extend_settings_allowAutoParagraphs',			1);	
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowAutoParagraphs'] = ($ts_vcsc_extend_settings_allowAutoParagraphs);
+	$ts_vcsc_extend_settings_allowFullOptions					= get_option('ts_vcsc_extend_settings_allowFullOptions',			0);	
+	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowFullOptions'] = ($ts_vcsc_extend_settings_allowFullOptions);
 
 	// Extended Row + Column Settings
 	$ts_vcsc_extend_settings_additionsColumns					= get_option('ts_vcsc_extend_settings_additionsColumns',			0);

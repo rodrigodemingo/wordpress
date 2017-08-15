@@ -12,8 +12,6 @@
 				}
             }        
             function imagehotspot_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     		= vc_generate_dependencies_attributes($settings);
                 $param_name     		= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           		= isset($settings['type']) ? $settings['type'] : '';
                 $min            		= isset($settings['min']) ? $settings['min'] : '';
@@ -23,7 +21,6 @@
                 $decimals				= isset($settings['decimals']) ? $settings['decimals'] : 0;
                 $suffix        	 		= isset($settings['suffix']) ? $settings['suffix'] : '';
                 $class          		= isset($settings['class']) ? $settings['class'] : '';
-                $url            		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $coordinates			= explode(",", $value);
 				// Other Settings
 				$random_id_number		= rand(100000, 999999);

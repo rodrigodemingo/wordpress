@@ -36,10 +36,11 @@
 			'post_size'					=> 36,
 			'title_html'				=> 'false',
 			'title_strings'				=> '',
-			'title_advanced'			=> '',
+			'title_advanced'			=> '',			
 			'whitespace'				=> 'pre-wrap',
 			'padding'					=> 15,
 			'showall'					=> 'false',
+			'showbreaks'				=> 1,
 			'showdelay'					=> 1000,
 			'font_size'					=> 36,
 			'font_color'				=> '#000000',
@@ -126,7 +127,7 @@
 			$css_class					= '';
 		}
 	
-		$output .= '<div id="' . $typewriter_id . '" class="ts-title-typed-container ' . $css_class . ' ' . $title_class . '" style="width: 100%; ' . $style_setting . '" data-frontend="' . $editor_frontend . '" data-mobilecolor="' . $mobile_color . '" data-mobile="' . $mobile . '" data-wrapper="' . $wrapper . '" data-title="' . $title_mobile . '" data-viewport="' . $viewport . '" data-usehtml="' . $title_html . '" data-strings="' . $title_content . '" data-pretext="' . $fixed_string . '" data-posttext="' . $post_string . '" data-showall="' . $showall . '" data-showdelay="' . $showdelay . '" data-showcursor="' . $showcursor . '" data-cursorcolor="' . $cursorcolor . '" data-removecursor="' . $removecursor . '" data-loop="' . $loop . '" data-loopcount="' . ($loopcount == 0 ? "false" : $loopcount) . '" data-startdelay="' . $startdelay . '" data-backdelay="' . $backdelay . '" data-typespeed="' . $typespeed . '" data-backspeed="' . $backspeed . '">';
+		$output .= '<div id="' . $typewriter_id . '" class="ts-title-typed-container ' . $css_class . ' ' . $title_class . '" style="width: 100%; ' . $style_setting . '" data-frontend="' . $editor_frontend . '" data-mobilecolor="' . $mobile_color . '" data-mobile="' . $mobile . '" data-wrapper="' . $wrapper . '" data-title="' . $title_mobile . '" data-viewport="' . $viewport . '" data-usehtml="' . $title_html . '" data-strings="' . $title_content . '" data-pretext="' . $fixed_string . '" data-posttext="' . $post_string . '" data-showall="' . $showall . '" data-showbreaks="' . $showbreaks . '" data-showdelay="' . $showdelay . '" data-showcursor="' . $showcursor . '" data-cursorcolor="' . $cursorcolor . '" data-removecursor="' . $removecursor . '" data-loop="' . $loop . '" data-loopcount="' . ($loopcount == 0 ? "false" : $loopcount) . '" data-startdelay="' . $startdelay . '" data-backdelay="' . $backdelay . '" data-typespeed="' . $typespeed . '" data-backspeed="' . $backspeed . '">';
 			if ($mobile == "false") {
 				$output .= '<' . $wrapper . ' class="ts-title-typed-mobile" style="color: ' . $mobile_color . '; margin: 0; padding: 0; text-align: ' . $font_align . '; line-height: 120%; font-size: ' . $font_size . '; font-weight: ' . $font_weight . '; display: none;">';
 					$output .= $title_mobile;

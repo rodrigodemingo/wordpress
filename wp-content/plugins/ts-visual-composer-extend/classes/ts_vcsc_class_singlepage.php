@@ -46,7 +46,10 @@
 					'animation_class'				=> '',
 					'external'						=> 'false',
 					'link'							=> '',
+					'phone'							=> '',
+					'skype'							=> '',
 					'itemid'						=> '',
+					'placement'						=> 'standard',
 					'tooltip'						=> '',
 					'background'					=> '#000000',
 					'color'							=> '#999999',
@@ -77,7 +80,7 @@
 						$item_link					= "";
 					}				
 					$item_target					= "_parent";
-				} else {
+				} else if ($external == "true") {
 					$link 							= TS_VCSC_Advancedlinks_GetLinkData($link);
 					$a_href							= $link['url'];
 					$a_title 						= $link['title'];
@@ -87,10 +90,24 @@
 					if ((TS_VCSC_checkValidURL($item_link) == false) || (substr($item_link, 0, 1) === '#')) {
 						$external					= 'false';
 					}
+				} else if ($external == "phone") {
+					if ($phone != '') {
+						$item_link					= ((substr($phone, 0, 4) === 'tel:') ? $phone : "tel://" . $phone);
+					} else {
+						$item_link					= '';
+					}					
+					$item_target					= "_parent";
+				} else if ($external == "skype") {
+					if ($skype != '') {
+						$item_link					= ((substr($skype, 0, 6) === 'skype:') ? $skype : "skype:" . $skype);
+					} else {
+						$item_link					= '';
+					}					
+					$item_target					= "_parent";
 				}
 				
 				if ($frontend == "false") {
-					$output .= '<div class="ts-singlepage-navigator-item" data-icon="' . $icon . '" data-type="standard" data-placement="standard" data-class="' . $el_class . '" data-animation="' . $icon_animation . '" data-external="' . $external . '" data-link="' . $item_link . '" data-target="' . $item_target . '" data-tooltip="' . rawurldecode(base64_decode(strip_tags($tooltip))) . '" data-background="' . $background . '" data-color="' . $color . '"></div>';
+					$output .= '<div class="ts-singlepage-navigator-item" data-icon="' . $icon . '" data-type="standard" data-placement="' . $placement . '" data-class="' . $el_class . '" data-animation="' . $icon_animation . '" data-external="' . $external . '" data-link="' . $item_link . '" data-target="' . $item_target . '" data-tooltip="' . strip_tags($tooltip) . '" data-background="' . $background . '" data-color="' . $color . '"></div>';
 				} else {
 					$output .= '<div class="ts-singlepage-navigator-item" style="margin: 5px 0; padding: 5px 10px; border: 1px solid #ededed;">';
 						$output .= '<div style="display: block;">Icon: ' . $icon . '<i class="' . $icon . '" style="font-size: 14px; margin-left: 10px;"></i></div>';
@@ -98,6 +115,10 @@
 						$output .= '<div style="display: block;">External: ' . $external . '</div>';
 						if ($external == 'false') {
 							$output .= '<div style="display: block;">Anchor: ' . ($item_link != "" ? $item_link : "N/A") . '</div>';
+						} else if ($external == 'phone') {
+							$output .= '<div style="display: block;">Phone: ' . ($item_link != "" ? $item_link : "N/A") . '</div>';
+						} else if ($external == 'skype') {
+							$output .= '<div style="display: block;">Skype: ' . ($item_link != "" ? $item_link : "N/A") . '</div>';
 						} else {
 							$output .= '<div style="display: block;">Link: ' . ($item_link != "" ? $item_link : "N/A") . '</div>';
 						}
@@ -145,7 +166,7 @@
 				}
 				
 				if ($frontend == "false") {
-					$output .= '<div class="ts-singlepage-navigator-item" data-icon="' . $icon . '" data-type="totop" data-placement="' . $placement . '" data-class="' . $el_class . '" data-animation="' . $icon_animation . '" data-external="false" data-link="#ts-singlepage-navigator-totop" data-target="_parent" data-tooltip="' . rawurldecode(base64_decode(strip_tags($tooltip))) . '" data-background="' . $background . '" data-color="' . $color . '"></div>';
+					$output .= '<div class="ts-singlepage-navigator-item" data-icon="' . $icon . '" data-type="totop" data-placement="' . $placement . '" data-class="' . $el_class . '" data-animation="' . $icon_animation . '" data-external="false" data-link="#ts-singlepage-navigator-totop" data-target="_parent" data-tooltip="' . strip_tags($tooltip) . '" data-background="' . $background . '" data-color="' . $color . '"></div>';
 				} else {
 					$output .= '<div class="ts-singlepage-navigator-item" style="margin: 5px 0; padding: 5px 10px; border: 1px solid #ededed;">';
 						$output .= '<div style="display: block;">Icon: ' . $icon . '<i class="' . $icon . '" style="font-size: 14px; margin-left: 10px;"></i></div>';
@@ -659,7 +680,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Icon Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_class",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "css3animations_in",
 							"noneselect"				=> "true",
@@ -672,13 +692,20 @@
 							"heading"					=> __( "Icon Animation", "ts_visual_composer_extend" ),
 							"param_name"				=> "css3animations_in",
 							"value"						=> "",
-						),		
+						),
 						array(
-							"type"              		=> "switch_button",
-							"heading"			    	=> __( "External Link", "ts_visual_composer_extend" ),
-							"param_name"		    	=> "external",
-							"value"             		=> "false",
-							"description"		    	=> __( "Switch the toggle if you want to apply an external link to this menu item.", "ts_visual_composer_extend" ),
+							"type"                 	 	=> "dropdown",
+							"heading"               	=> __( "Link Type", "ts_visual_composer_extend" ),
+							"param_name"            	=> "external",
+							"width"                 	=> 150,
+							"value" 					=> array(									
+								__( "Page Section by ID", "ts_visual_composer_extend" )					=> "false",
+								__( "External Page/Post", "ts_visual_composer_extend" )					=> "true",
+								__( "Phone Link", "ts_visual_composer_extend" )							=> "phone",
+								__( "Skype Link", "ts_visual_composer_extend" )							=> "skype",
+							),
+							"admin_label"				=> true,
+							"description"           	=> __( "Define what type of link you want to add to this menu item.", "ts_visual_composer_extend" ),
 						),
 						array(
 							"type"						=> "textfield",
@@ -696,6 +723,24 @@
 							"admin_label"				=> true,
 							"description" 				=> __("Provide a link to another site/page for the menu item.", "ts_visual_composer_extend"),
 							"dependency"            	=> array( 'element' => "external", 'value' => 'true' ),
+						),
+						array(
+							"type"						=> "textfield",
+							"heading"					=> __( "Phone Number", "ts_visual_composer_extend" ),
+							"param_name"				=> "phone",
+							"value"						=> "",
+							"admin_label"				=> true,
+							"description"				=> __( "Enter the phone number this menu item should be connected to.", "ts_visual_composer_extend" ),
+							"dependency"            	=> array( 'element' => "external", 'value' => 'phone' ),
+						),
+						array(
+							"type"						=> "textfield",
+							"heading"					=> __( "Skype Profile", "ts_visual_composer_extend" ),
+							"param_name"				=> "skype",
+							"value"						=> "",
+							"admin_label"				=> true,
+							"description"				=> __( "Enter the skype user this menu item should be connected to.", "ts_visual_composer_extend" ),
+							"dependency"            	=> array( 'element' => "external", 'value' => 'skype' ),
 						),
 						array(
 							"type"              		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorBase64TinyMCE == "true" ? "wysiwyg_base64" : "textarea_raw_html"),
@@ -751,8 +796,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,								
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
 								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'navigator',
 							),
 							"admin_label"				=> true,
@@ -784,7 +830,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Icon Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_class",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "css3animations_in",
 							"noneselect"				=> "true",

@@ -14,8 +14,6 @@
 				}
             }        
             function standardpostcat_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     				= vc_generate_dependencies_attributes($settings);
                 $param_name     				= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $posttype						= isset($settings['posttype']) ? $settings['posttype'] : '';
                 $posttaxonomy					= isset($settings['posttaxonomy']) ? $settings['posttaxonomy'] : '';
@@ -24,7 +22,6 @@
                 $postclass						= isset($settings['postclass']) ? $settings['postclass'] : '';
                 $type           				= isset($settings['type']) ? $settings['type'] : '';
 				$method							= isset($settings['method']) ? $settings['method'] : 'exclude';
-                $url            				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer						= mt_rand(999999, 9999999);
                 $output         				= '';
                 $posts_fields 					= array();
@@ -79,13 +76,10 @@
                 return $output;
             }
 			function standardpoststati_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     				= vc_generate_dependencies_attributes($settings);
                 $param_name     				= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $posttype						= isset($settings['posttype']) ? $settings['posttype'] : '';		
                 $type           				= isset($settings['type']) ? $settings['type'] : '';
 				$method							= isset($settings['method']) ? $settings['method'] : 'include';
-                $url            				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer						= mt_rand(999999, 9999999);
                 $output         				= '';
 				$poststati						= get_post_stati(array(), 'names', 'and');

@@ -1497,7 +1497,7 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 						$output .= '<iframe class="scale-with-grid" src="http'. mfn_ssl() .'://player.vimeo.com/video/'. $video .'" allowFullScreen></iframe>'."\n";
 					} else {
 						// YouTube
-						$output .= '<iframe class="scale-with-grid" src="http'. mfn_ssl() .'://www.youtube.com/embed/'. $video .'?wmode=opaque" allowfullscreen></iframe>'."\n";
+						$output .= '<iframe class="scale-with-grid" src="http'. mfn_ssl() .'://www.youtube.com/embed/'. $video .'?wmode=opaque&rel=0" allowfullscreen></iframe>'."\n";
 					}
 				} elseif( get_post_meta( $postID, 'mfn-post-video-mp4', true ) ){
 					$output .= mfn_jplayer( $postID );		
@@ -2080,7 +2080,7 @@ if( ! function_exists( 'mfn_register_required_plugins' ) )
 				'slug'     				=> 'LayerSlider',
 				'source'   				=> THEME_DIR .'/plugins/layerslider.zip',
 				'required' 				=> false,
-				'version' 				=> '6.1.6',
+				'version' 				=> '6.3.0',
 			),
 	
 			array(
@@ -2088,7 +2088,7 @@ if( ! function_exists( 'mfn_register_required_plugins' ) )
 				'slug'     				=> 'js_composer',
 				'source'   				=> THEME_DIR .'/plugins/js_composer.zip',
 				'required' 				=> false,
-				'version' 				=> '5.1',
+				'version' 				=> '5.1.1',
 			),
 	
 		);

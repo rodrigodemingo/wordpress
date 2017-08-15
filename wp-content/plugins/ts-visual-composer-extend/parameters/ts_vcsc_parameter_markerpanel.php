@@ -13,13 +13,11 @@
             }        
             function mapmarker_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $pattern_select	= isset($settings['value']) ? $settings['value'] : '';
                 $encoding       = isset($settings['encoding']) ? $settings['encoding'] : '';
 				$height		    = isset($settings['height']) ? $settings['height'] : 250;
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $dir 			= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginDir;
 				$randomizer		= mt_rand(999999, 9999999);
                 $output         = '';

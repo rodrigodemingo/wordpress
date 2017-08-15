@@ -12,7 +12,6 @@
 				}
             }        
             function messenger_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $message        = isset($settings['message']) ? $settings['message'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';

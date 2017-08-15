@@ -1,0 +1,93 @@
+/**
+  Stylesheet for vtcore multiplemedia form elements
+  **/
+.form-wpmultiplemedia .panel-title {
+  padding: 10px 15px;
+  display: inline-block;
+}
+
+.form-wpmultiplemedia .panel-heading button {
+  float: right;
+  margin: 10px;
+}
+
+.form-wpmultiplemedia .panel-heading button:focus {
+  outline: 0;
+}
+
+.form-wpmultiplemedia .panel-heading:after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.form-wpmultiplemedia table {
+  margin: 0;
+  border-bottom: none;
+}
+
+.form-wpmultiplemedia table tr {
+  border-top: 1px solid #d7d7d7;
+  border-bottom: none;
+}
+
+.form-wpmultiplemedia table td {
+  font-size: 12px;
+}
+
+.form-wpmultiplemedia table td:nth-child(2) {
+  width: 40%;
+}
+
+.form-wpmultiplemedia table td:nth-child(3) {
+  padding-top: 15px;
+}
+
+.form-wpmultiplemedia table i {
+  font-size: 14px;
+}
+
+.form-wpmultiplemedia .drag-icon:after {
+  background: transparent url("images/draggable.png") no-repeat scroll left center;
+  display: block;
+  content: '';
+  height: 23px;
+  margin: 15px;
+  width: 15px;
+}
+
+.wp-multiple-uploader-placeholder-helper {
+  width: 100%;
+  background: #FF9900 !important;
+  height: 40px;
+  border-top: 1px solid #FF9900;
+  border-bottom: 1px solid #FF9900;
+  display: table-row;
+}
+
+.form-wpmultiplemedia tbody tr:nth-child(odd) td,
+.form-wpmultiplemedia tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+.form-wpmultiplemedia tbody tr:nth-child(even) td,
+.form-wpmultiplemedia tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.form-wpmultiplemedia .form-wpmedia [data-media-type="preview"] > * {
+  margin: 0;
+  vertical-align: middle;
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-wpmultiplemedia .wp-multiplemedia-info {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.form-wpmultiplemedia .wp-multiplemedia-label {
+  font-weight: bold;
+}

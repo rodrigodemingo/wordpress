@@ -19,8 +19,6 @@
                 }
             }        
             function custompost_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	            = vc_generate_dependencies_attributes($settings);
                 $param_name     	            = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $posttype			            = isset($settings['posttype']) ? $settings['posttype'] : '';
                 $posttaxonomy		            = isset($settings['posttaxonomy']) ? $settings['posttaxonomy'] : '';
@@ -147,7 +145,6 @@
             }
             function custompostcat_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	                = vc_generate_dependencies_attributes($settings);
                 $param_name     	                = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $posttype			                = isset($settings['posttype']) ? $settings['posttype'] : '';
                 $posttaxonomy		                = isset($settings['posttaxonomy']) ? $settings['posttaxonomy'] : '';
@@ -275,8 +272,6 @@
                 return $output;
             }
             function custompostcatid_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	            = vc_generate_dependencies_attributes($settings);
                 $param_name     	            = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $posttype			            = isset($settings['posttype']) ? $settings['posttype'] : '';
                 $posttaxonomy		            = isset($settings['posttaxonomy']) ? $settings['posttaxonomy'] : '';

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>VicTheme TimeLine Premium Theme</title>
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="VicTheme TimeLine Premium Theme Documentation"/>
+    <meta name="author" content="support@victheme.com"/>
+    <link type="text/css" href="assets/dark_theme/css/production.min.css" media="all" rel="stylesheet"/>
+    <link type="text/css" href="assets/favicon/favicon.ico" media="all" rel="shortcut icon"/>
+    <script type="text/javascript" src="assets/dark_theme/js/production.min.js"></script>
+</head>
+<body>
+<header id="main-header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="row">
+            <div id="top-logo" class="col-xs-6 col-sm-6 col-md-2 col-lg-2"><img
+                    src="assets/dark_theme/css/images/logo.png"/></div>
+            <div id="top-navigation" class="hidden-xs hidden-sm col-md-6 col-lg-6"></div>
+            <h3 id="top-version" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">VicTheme TimeLine Plugin
+                <small>4.x-1.5.0</small>
+            </h3>
+        </div>
+    </div>
+</header>
+<div id="main-content">
+    <div class="container">
+        <div class="equalheightRow row">
+            <div id="sidebar" class="items col-xs-12 col-sm-4 col-md-3 col-lg-3,">
+                <ul class="nav nav-stacked nav-pills hidden-xs hidden-sd">
+                    <li><a href="#install--files">How To Install</a>
+                        <ul class="nav nav-stacked nav-pills">
+                            <li><a href="#install--files">Plugin Files</a></li>
+                            <li><a href="#install--install">Installing Plugin</a></li>
+                        </ul>
+                    </li>
+                    <li></li>
+                    <li><a href="#timeline">Timeline Wrapper</a></li>
+                    <li></li>
+                    <li><a href="#timeend">Timeline End Element</a></li>
+                    <li></li>
+                    <li><a href="#timeevents">Timeline Events Element</a></li>
+                    <li></li>
+                    <li><a href="#timemajor">Timeline Major Element</a></li>
+                    <li></li>
+                    <li><a href="#skins">Custom Skins</a></li>
+                    <li></li>
+                    <li><a href="#grid">CSS Grid</a></li>
+                    <li></li>
+                    <li><a href="#Credit">Credits</a></li>
+                </ul>
+            </div>
+            <div id="content" class="items col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <div id="install--files" class="section"><h3 class="separator">Plugin Files</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Check File Integrity</h3></div>
+                        <div class="panel-body">
+                            <div class="thumbnail"><img src="assets/images/file.png"/></div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Check The Downloaded File</h4>Please check that the
+                                    downloaded archive file must contain the same file as the image above and not
+                                    corrupted.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Corrupted File</h4>If you have missing files or
+                                    corrupted file, please redownload them again and if the problem persist,
+                                    please contact our <a href="mailto:support@victheme.com">our support team</a> for
+                                    further assistance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="install--install" class="section"><h3 class="separator">Installing Plugin</h3>
+
+                    <div class="alert alert-success"><span
+                            class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                        <div class="text-with-icon">This plugin should be installed as a normal WordPress would using
+                            <strong>WordPress Plugin Uploader.</strong></div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">WordPress Uploader </h3></div>
+                        <div class="panel-body">
+                            <div class="thumbnail"><img src="assets/images/wpupload.jpg"/></div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Upload Form</h4>Visit the uploader form in your site
+                                    admin : http://example.com/wp-admin/theme-install.php?tab=upload to get WordPress
+                                    plugin uploader form.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VicTheme Core</h4>Upload the victheme_core.zip first if
+                                    you don't have VicTheme Core Plugin installed on your server as the plugin won't
+                                    work without it.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VicTheme Timeline</h4>Upload the victheme_timeline.zip
+                                    to install the plugin.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VisualComposer</h4>Visual Composer must be installed
+                                    before this plugin can be activated and working properly. The WP Bakery Visual
+                                    Composer plugin is not included
+                                    with this plugin and must be purchased separately.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Bundled with theme</h4>If this plugin is bundled with
+                                    themes, you can skip this step and check on the theme documentation on how to
+                                    install the plugin properly.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="timeline" class="section"><h3 class="separator">Timeline Wrapper</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer</h3></div>
+                        <div class="panel-body"><p>Timeline wrapper is the main shortcode for wrapping all of the
+                            timeline elements, in this shortcode you can define the layout of the element and the
+                            direction of the timeline alignment.</p>
+
+                            <div class="thumbnail"><img src="assets/images/timeline-wrapper.png"/></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+                        <div class="panel-body"><pre>
+
+[timeline
+  class=&quot;some class&quot;
+  id=&quot;someid&quot;
+  align=&quot;left|right|center|top|bottom&quot;
+  layout=&quot;vertical|horizontal&quot;
+  ]
+   [timemajor
+      css=&quot;valid css class separated by empty space&quot;
+      id=&quot;valid css id&quot;
+      direction=&quot;left|right|top|bottom|center&quot;
+    ]
+
+      Some text to represent major events
+    [/timemajor]
+
+   [timeevents
+     datetime=&quot;YYYY-MM-DDTHH:MM&quot;
+     date=&quot;the date text&quot;
+     time=&quot;the time text&quot;
+     icon=&quot;fontawesome icon name&quot;
+     text=&quot;the event title&quot;
+     direction=&quot;left|right&quot; // only applicable if the parent didn't specify align (centered)
+   ]
+    Some content representing the event content
+  [/timeevents]
+
+
+  [timeend
+    css=&quot;valid css class separated by empty space&quot;
+    id=&quot;valid css id&quot;
+    direction=&quot;left|right|top|bottom|center&quot;
+    ]
+
+    Some text to represent major events
+  [/timeend]
+
+[/timeline]
+          
+          </pre>
+                        </div>
+                        <table class="form-table table table-striped">
+                            <thead class="table-header">
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr>
+                                <td>layout</td>
+                                <td>vertical|horizontal</td>
+                                <td>define the major layour for the timeline elements, vertical layout will stack all
+                                    timeline elements vertically and horizontal layout will
+                                    stack the timeline elements horizontally.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>align</td>
+                                <td>left|right|center|top|bottom</td>
+                                <td>The timeline line alignment, left, right and center only works with vertical layout
+                                    while top and bottom only works with horizontal layout
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>class</td>
+                                <td>valid css class separated by empty space</td>
+                                <td>You can inject additional css class by specifing the valid css class separated by
+                                    empty space
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>valid css id</td>
+                                <td>You can define custom css id by specifying valid css / html id string</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="timeend" class="section"><h3 class="separator">Timeline End Element</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer</h3></div>
+                        <div class="panel-body"><p>This shortcode will create a timeline end element, if using visual
+                            composer, it will create a wrapper that can be filled with any visual composer
+                            elements.</p>
+
+                            <div class="thumbnail"><img src="assets/images/timeline-end.png"/></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+                        <div class="panel-body"><pre>
+
+[timeend
+  css=&quot;valid css class separated by empty space&quot;
+  id=&quot;valid css id&quot;
+  direction=&quot;left|right|top|bottom|center&quot;
+  ]
+  Some text to represent major events
+[/timeend]
+
+          </pre>
+                        </div>
+                        <table class="form-table table table-striped">
+                            <thead class="table-header">
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr>
+                                <td>direction</td>
+                                <td>left|right|center|top|bottom</td>
+                                <td>The timeline line alignment, left, right and center only works with vertical layout
+                                    while top and bottom only works with horizontal layout
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>class</td>
+                                <td>valid css class separated by empty space</td>
+                                <td>You can inject additional css class by specifing the valid css class separated by
+                                    empty space
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>valid css id</td>
+                                <td>You can define custom css id by specifying valid css / html id string</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="timeevents" class="section"><h3 class="separator">Timeline Events Element</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer</h3></div>
+                        <div class="panel-body"><p>This shortcode allows you to create the timeline events element, you
+                            can also specify which icons to use, the direction used to format the element position,
+                            specify the date, time, day and years of the timeline event
+                            and specify the css class and id to mark the element for custom css</p>
+
+                            <div class="thumbnail"><img src="assets/images/timeline-events.png"/></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+                        <div class="panel-body"><pre>
+
+[timeevents
+ datetime=&quot;YYYY-MM-DDTHH:MM&quot;
+ date=&quot;the date text&quot;
+ time=&quot;the time text&quot;
+ icon=&quot;fontawesome icon name&quot;
+ text=&quot;the event title&quot;
+ direction=&quot;left|right|center&quot;
+]
+
+   Some content representing the event content
+[/timeevents]
+
+          </pre>
+                        </div>
+                        <table class="form-table table table-striped">
+                            <thead class="table-header">
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr>
+                                <td>datetime</td>
+                                <td>YYYY-MM-DDTHH:MM</td>
+                                <td>This element will create datetime element and it must be in the format of
+                                    {year}-{month}-{dayThour:minute}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>date</td>
+                                <td>string</td>
+                                <td>This element will create date element and you can specify any generic string</td>
+                            </tr>
+                            <tr>
+                                <td>time</td>
+                                <td>string</td>
+                                <td>This element will create time element and you can specify any generic string</td>
+                            </tr>
+                            <tr>
+                                <td>icon</td>
+                                <td>fontawesome icon name</td>
+                                <td>The icon element to mark the time events, you must specify valid fontawesome icon
+                                    class
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>This element will create the heading of the time events element</td>
+                            </tr>
+                            <tr>
+                                <td>direction</td>
+                                <td>left|right|center|top|bottom</td>
+                                <td>The timeline line alignment, left, right and center only works with vertical layout
+                                    while top and bottom only works with horizontal layout
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>class</td>
+                                <td>valid css class separated by empty space</td>
+                                <td>You can inject additional css class by specifing the valid css class separated by
+                                    empty space
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>valid css id</td>
+                                <td>You can define custom css id by specifying valid css / html id string</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="timemajor" class="section"><h3 class="separator">Timeline Major Element</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer</h3></div>
+                        <div class="panel-body"><p>This shortcode will build the timeline major marker, you can specify
+                            the content of the marker, the css class and id for the marker</p>
+
+                            <div class="thumbnail"><img src="assets/images/timeline-major.png"/></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+                        <div class="panel-body"><pre>
+
+[timemajor
+  css=&quot;valid css class string separated by empty space&quot;
+  id=&quot;valid css id string&quot;
+  ]
+  Some text to represent major events
+[/timemajor]
+
+          </pre>
+                        </div>
+                        <table class="form-table table table-striped">
+                            <thead class="table-header">
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr>
+                                <td>class</td>
+                                <td>valid css class separated by empty space</td>
+                                <td>You can inject additional css class by specifing the valid css class separated by
+                                    empty space
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>valid css id</td>
+                                <td>You can define custom css id by specifying valid css / html id string</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="skins" class="section"><h3 class="separator">Custom Skins</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Custom Templates</h3></div>
+                        <div class="panel-body"><p>You can override the default timeline skins cleanly by overriding the
+                            timeline-skins assets in your theme.
+                            <br>
+                            <br>
+                            Steps to override the timeline-skins assets :
+                            <br>
+                            <br>
+
+                            1. Copy the <code>victheme_timeline/assets/timeline-skins</code> folder to your folder of
+                            choice. <code>example /your-theme/templates</code>
+
+                            <br>
+                            <br>
+
+
+                            2. In your theme <code>functions.php</code>, Register the target folder <code>(eg.
+                                /your-theme/templates)</code> to VicTheme Core plugin asset manager :
+
+                            <br>
+                            <br>
+
+<pre class="hljs php">
+// Setup the VTCore asset factory
+VTCore_Wordpress_Init::getFactory('assets')
+  ->get('library')
+  ->detect({some_path_to_target_folder_roots} . '/your-theme/templates', get_template_directory_uri() . '/templates');
+</pre>
+                            <br>
+                            <br>
+
+                            3. Invoke the asset manager to load the timeline skins, this is best to be performed inside
+                            <code>wp_enqueue_scripts</code> action hook.
+
+                            <br>
+                            <br>
+
+<pre class="hljs php">
+// Load the timeline skins
+VTCore_Wordpress_Utility::loadAsset('timeline-skins');
+</pre>
+
+                            <br>
+                            <br>
+
+                            4. Edit the cloned css file to suit your needs.
+                            </p></div>
+                    </div>
+                </div>
+                <div id="grid" class="section"><h3 class="separator">CSS Grid</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Bootstrap Grids</h3></div>
+                        <div class="panel-body"><p>
+
+                            <p>Plugin by default will use the default VisualComposer CSS Rules for the grid system to
+                                ensure maximum compatibility with different kind of themes.</p>
+
+                            <p>The VisualComposer Grid css covers these rules :</p>
+                            <ul>
+                                <li>vc_col-{xs|sm|md|lg}-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-push-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-pull-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                                <li>vc_hidden-{xs|sm|md|lg}</li>
+                                <li>vc_visible-{xs|sm|md|lg}</li>
+                                <li>vc_push-{left|right}</li>
+                                <li>vc_txt_align_{left|center|right}</li>
+                            </ul>
+                            <p>If your theme is capable to use bootstrap or you want to force to use bootstrap grid
+                                rules instead, please invoke these function in your theme functions.php</p>
+                            </p><pre>
+// Force to load victheme_core bootstrap access,
+// only use this if your theme doesn't have bootstrap asset loaded
+// and you want to force plugin to load bootstrap asset.
+add_theme_support('load_core_bootstrap');
+
+// Notify plugin that your theme is bootstrap compatible and has load bootstrap asset
+// Only use this if your theme is bootstrap compatible and it has loaded bootstrap css assets.
+add_theme_support('bootstrap');
+          </pre>
+                        </div>
+                    </div>
+                </div>
+                <div id="Credit" class="section"><h3 class="separator">Credits</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Credits</h3></div>
+                        <div class="panel-body"><p>Thank you for the plugins authors that made this theme possible
+
+                            <ul>
+                                <li><h4>Javascript</h4>
+                                    <ul>
+                                        <li>Custom ScrollBar - <strong>Malihu</strong></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

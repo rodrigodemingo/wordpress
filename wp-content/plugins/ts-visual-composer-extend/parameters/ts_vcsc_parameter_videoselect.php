@@ -12,12 +12,9 @@
 				}
             }        
             function videoselect_settings_field( $settings, $value ) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $video_format	= isset($settings['video_format']) ? $settings['video_format'] : 'mp4';
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $video_format	= explode(',', $video_format);
                 $output			= '';
                 $args = array(
@@ -56,7 +53,7 @@
                     $video_length		= '';
                 }			
                 $output 	.= '<div class="ts-video-selector-wrapper ts_vcsc_video_select_block" data-format="' . implode(',', $video_format) . '">';			
-                    $output 	.= '<input style="display: none;" name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-textinput video_value ' . $param_name . ' ' . $type . '_field" type="text" value="' . $value . '" ' . $dependency . '/>';
+                    $output 	.= '<input style="display: none;" name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-textinput video_value ' . $param_name . ' ' . $type . '_field" type="text" value="' . $value . '"/>';
                     $output 	.= '<input type="button" class="video_select button" value="' . __( 'Select Video', 'ts_visual_composer_extend' ) . '" style="width: 150px; text-align: center;">';
                     $output 	.= '<input type="button" class="video_remove button" value="' . __( 'Remove Video', 'ts_visual_composer_extend' ) . '" style="width: 150px; text-align: center; color: red; margin-left: 20px;" ' . $disabled . '>';
                     $output		.= '<div class="video_metadata_frame" style="width: 100%; margin-top: 20px; ' .$visible . '">';

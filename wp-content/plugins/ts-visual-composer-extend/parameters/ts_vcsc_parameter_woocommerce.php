@@ -26,7 +26,6 @@
             }        
             // Function to generate param type "wc_single_product"
             function wc_single_product_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $attr 			= array("post_type" => "product", "orderby" => "name", "order" => "asc", 'posts_per_page' => -1);
@@ -45,7 +44,6 @@
             }
             // Function to generate param type "wc_multiple_products"
             function wc_multiple_products_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $value_arr 		= $value;
@@ -69,7 +67,6 @@
             }
             // Function to generate param type "wc_single_product_category"
             function wc_single_product_category_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $categories 	= get_terms('product_cat');
@@ -87,7 +84,6 @@
             }
             // Function to generate param type "wc_multiple_product_categories"
             function wc_multiple_product_categories_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $value_arr 		= $value;
@@ -110,7 +106,6 @@
             }
             // Function to generate param type "wc_product_attributes"        
             function wc_product_attributes_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $taxonomies 	= wc_get_attribute_taxonomies();
@@ -128,7 +123,6 @@
             }
             // Function to generate param type "wc_product_terms"            
             function wc_product_terms_settings_field($settings, $value) {
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $value_arr 		= $value;

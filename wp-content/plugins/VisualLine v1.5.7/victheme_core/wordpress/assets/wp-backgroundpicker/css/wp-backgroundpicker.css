@@ -1,0 +1,58 @@
+/**
+  Styling the background picker element
+  @todo Integrate with Customizer
+  **/
+td.wp-background-picker-settings {
+  max-width: 200px;
+  width: 60% !important;
+}
+
+td.wp-background-image {
+  max-width: 200px;
+  width: 30% !important;
+}
+
+.wp-background-picker .drag-element {
+  max-width: 35px;
+  padding: 0;
+}
+
+.wp-background-picker td {
+  padding: 10px;
+  vertical-align: middle !important;
+}
+
+.wp-background-picker td .form-group {
+  margin: 10px 0 15px;
+  display: block !important;
+}
+
+.wp-background-picker td label {
+  font-size: 13px;
+}
+
+.wp-background-picker-preview {
+  height: 120px;
+  margin: 0 0 20px;
+  border: 1px solid #cbd5dd;
+  padding: 1px;
+  position: relative;
+}
+
+.wp-background-picker-masking {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.wp-background-image .wp-media-wrapper {
+  max-width: 240px;
+  max-height: 240px;
+}
+
+.form-group.wp-animation {
+  padding-top: 10px;
+}

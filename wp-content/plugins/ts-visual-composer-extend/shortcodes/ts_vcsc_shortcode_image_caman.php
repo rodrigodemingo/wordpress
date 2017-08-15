@@ -40,9 +40,10 @@
 			wp_enqueue_script('ts-extend-tooltipster');
 		}
 		wp_enqueue_style('ts-extend-animations');
-		wp_enqueue_style('ts-extend-imageeffects');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 		
 		$caman_margin 					= 'margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;';		
 		$output 						= "";

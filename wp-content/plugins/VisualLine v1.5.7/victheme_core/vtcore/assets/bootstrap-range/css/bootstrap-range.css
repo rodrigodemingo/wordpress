@@ -1,0 +1,51 @@
+/**
+  CSS for formatting bootstrap range element
+  **/
+.bootstrap-range > .input-group {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.bootstrap-range .hidden {
+  display: none !important;
+}
+
+.bootstrap-range .form-range-slider {
+  border: 1px solid #cbd5dd;
+  margin: 10px 0;
+}
+
+.bootstrap-range .noUi-tooltip {
+  display: none;
+}
+
+.bootstrap-range .noUi-active .noUi-tooltip {
+  display: block;
+}
+
+.bootstrap-range .noUi-horizontal .noUi-handle-lower .noUi-tooltip {
+  top: auto;
+}
+
+.bootstrap-range .noUi-horizontal .noUi-tooltip {
+  bottom: -40px;
+  margin-top: 5px;
+}
+
+.bootstrap-range .form-range-max-label,
+.bootstrap-range .form-range-min-label {
+  width: 50%;
+  display: inline-block;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.bootstrap-range .form-range-min-label {
+  padding-right: 5px;
+  text-align: left;
+}
+
+.bootstrap-range .form-range-max-label {
+  padding-left: 5px;
+  text-align: right;
+}

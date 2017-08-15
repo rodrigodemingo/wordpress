@@ -1,0 +1,72 @@
+.wp-media-wrapper {
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	overflow: hidden;
+}
+
+.form-wpmedia .input-group-addon {
+	border: none;
+	background: #f7f7f7;
+	color: #158FBF;
+  padding: 0;
+	transition: ease-out .3s;
+  -webkit-transition: ease-out .3s;
+  -moz-transition: ease-out .3s;
+  -o-transition: ease-out .3s;
+  -ms-transition: ease-out .3s;
+}
+
+.form-wpmedia .input-group-addon:hover {
+  color: #FD801B;
+}
+
+.form-wpmedia .input-group-addon .faplus{
+	cursor: pointer;
+}
+
+.form-wpmedia input.form-control {
+	border: none;
+	box-shadow: none;
+	margin:0;
+	background: none;
+}
+
+.form-wpmedia .faplus.hidden,
+.form-wpmedia input.form-control.hidden {
+  display: none;
+}
+
+.form-wpmedia .faplus {
+	width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.form-wpmedia label {
+	display: block !important;
+	margin: 10px;
+}
+.form-wpmedia [data-media-type="preview"] {
+	max-height: 200px;
+	text-align: center;
+	overflow: hidden;
+}
+.form-wpmedia [data-media-type="preview"] > * {
+	max-width: 80%;
+	width: 80%;
+	margin: 10%;
+	max-height: 200px;
+	display: inline-block;
+}
+
+.form-wpmedia .help-block {
+	font-size: 12px;
+	padding: 10px;
+	display: block;
+}
+
+.form-wpmedia ::-webkit-input-placeholder { font-size: 12px; }
+.form-wpmedia ::-moz-placeholder { font-size: 12px; } /* firefox 19+ */
+.form-wpmedia :-ms-input-placeholder { font-size: 12px; } /* ie */
+.form-wpmedia input:-moz-placeholder { font-size: 12px; }

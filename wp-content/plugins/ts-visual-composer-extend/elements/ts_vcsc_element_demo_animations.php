@@ -23,7 +23,7 @@
 				"heading"           	=> __( "Icon Font", "ts_visual_composer_extend" ),
 				"param_name"        	=> "font",
 				"width"             	=> 150,
-				"value"             	=> $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Default_Icon_Fonts,
+				"value"             	=> (isset($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Default_Icon_Fonts) ? $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Default_Icon_Fonts : array()),
 				"admin_label"       	=> true,
 			),
 			array(

@@ -13,14 +13,14 @@
             }        
             function livepreview_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
+				$class 				= isset($settings['class']) ? $settings['class'] : '';
 				$preview			= isset($settings['preview']) ? $settings['preview'] : 'preloaders';
 				$shownone			= isset($settings['shownone']) ? $settings['shownone'] : 'true';
 				$prefix				= isset($settings['prefix']) ? $settings['prefix'] : '';
 				$connector			= isset($settings['connector']) ? $settings['connector'] : '';
-				$random_id_number	= rand(100000, 999999);
+				$randomizer			= rand(100000, 999999);
                 $output         	= '';				
                 $output .= '<div id="ts-live-review-wrapper-' . $randomizer . '" class="ts-live-preview-wrapper clearFixMe ts-settings-parameter-gradient-grey" data-preview="' . $preview . '" data-connector="' . $connector . '" data-prefix="' . $prefix . '">';
 					$output .= '<div class="ts-live-preview-selector">';
@@ -42,7 +42,7 @@
 						if ($preview == "preloaders") {
 							foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Preloader_Styles as $key => $index) {
 								if ($index != "-1") {
-									$output .= TS_VCSC_CreatePreloaderCSS("ts-live-preview-preloader-" . $random_id_number . "-" . $index, "ts-live-preview-hidden", $index, "true");
+									$output .= TS_VCSC_CreatePreloaderCSS("ts-live-preview-preloader-" . $randomizer . "-" . $index, "ts-live-preview-hidden", $index, "true");
 								}
 							}
 						}

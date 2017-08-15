@@ -2,6 +2,7 @@
 	global $VISUAL_COMPOSER_EXTENSIONS;
 	global $TS_VCSC_tinymceCustomCount;
 	global $TS_VCSC_Icons_Custom;
+	global $wp_filesystem;
 	
 	function TS_VCSC_RecursiveRMDIR($dir) {
 		foreach (scandir($dir) as $file) {
@@ -26,6 +27,7 @@
 		$upload_replace   			= ((isset($_POST['ts_vcsc_custom_pack_replace'])) ? $_POST['ts_vcsc_custom_pack_replace'] : 'off');
 		$upload_relative   			= ((isset($_POST['ts_vcsc_custom_pack_relative'])) ? $_POST['ts_vcsc_custom_pack_relative'] : 'off');
 		$upload_debugme   			= ((isset($_POST['ts_vcsc_custom_pack_debug'])) ? $_POST['ts_vcsc_custom_pack_debug'] : 'off');
+		$upload_nocurl   			= ((isset($_POST['ts_vcsc_custom_pack_nocurl'])) ? $_POST['ts_vcsc_custom_pack_nocurl'] : 'off');
 		if ($upload_debugme == "on") {
 			$upload_debugtxt		= '<br/><br/>';
 		} else {
@@ -38,15 +40,13 @@
 		$upload_overrides 			= array('test_form' => false);
 		$upload_directory 			= wp_upload_dir();		
 		$font_directory				= $upload_directory['basedir'] . '/ts-vcsc-icons/custom-pack';
-		// TO DO
-		// get filename dynamically so user doesn't need to customize zip name
-		// ERROR CHECKING SO ONLY .ZIP's ARE UPLOADED
-		// hide ajax loader if no pack is uploaded
-		// export json file for importing back to icomoon - spit back out json file 
-		// create a 'Download Pack' button and 'Download .json' button  
-		/*
-		$filename = $uploadedFile
-		*/
+		
+		// Check + Force Initialize WordPress Filesystem
+		if (!$wp_filesystem || !is_object($wp_filesystem)) {
+			WP_Filesystem();
+		}
+
+		//$filename 				= $uploadedFile
 		$filename 					= $_FILES["custom_icon_pack"]["name"];
 		$source 					= $_FILES["custom_icon_pack"]["tmp_name"];
 		$type 						= $_FILES["custom_icon_pack"]["type"]; 
@@ -76,7 +76,12 @@
 		mkdir($targetdir, 0777);
 		/* here it is really happening */
 		if (move_uploaded_file($source, $targetzip)) {
-			if (class_exists('ZipArchive')) {
+			if (function_exists('unzip_file')){
+				$dest_path 			= $upload_directory['path'];
+				$dest_url			= $upload_directory['url'];				
+				//$unzipfile 		= unzip_file($dest_path . '/' . $filename, $dest_path);
+				$unzipfile 			= unzip_file($dest_path . '/' . $filenameClear, $dest_path);
+			} else if (class_exists('ZipArchive')) {
 				$zip 				= new ZipArchive();
 				$x 					= $zip->open($targetzip);  				// open the zip file to extract
 				if ($x === true) {
@@ -87,14 +92,12 @@
 					$unzipfile		= false;
 				}
 			} else {
-				$dest_path 			= $upload_directory['path'];
-				$dest_url			= $upload_directory['url'];				
-				//$unzipfile 		= unzip_file($dest_path . '/' . $filename, $dest_path);
-				$unzipfile 			= unzip_file($dest_path . '/' . $filenameClear, $dest_path);
+				$unzipfile			= false;
 			}
 			$movefile 				= true;
 		} else {	
 			$movefile 				= false;
+			$unzipfile				= false;
 		}		
 		// If Upload was Successful
 		if ($movefile) {	
@@ -108,8 +111,6 @@
 					jQuery(".ts-vcsc-custom-pack-buttons").after("<div class=updated><p class=fontPackUploadedSuccess>Custom Font Pack successfully uploaded!</p></div>");
 				});
 			</script>';
-			// unzip the file contents to the same directory
-			WP_Filesystem();
 			$dest 					= wp_upload_dir();
 			$dest_path 				= $dest['path'];
 			$dest_url				= $dest['url'];
@@ -142,7 +143,7 @@
 						$file_put_contents 					= file_put_contents($styleCSS, $newStyles);
 					}
 				} else if ($upload_replace == 'on') {
-					$basicCheck = false;
+					$basicCheck 	= false;
 				}
 				// Delete unecessary files / add error checking
 				if (file_exists($dest_path . '/demo-files')) {
@@ -159,21 +160,24 @@
 				};
 				if (($basicCheck == true) && ($filesFound == true)) {
 					// Process JSON File to create and store Font Array
-					$Custom_JSON_URL 							= $dest_url . '/ts-vcsc-custom-pack.json';
-					
+					$Custom_JSON_URL 								= $dest_url . '/ts-vcsc-custom-pack.json';
+					// Add to Debug Message
 					if ($upload_debugme == "on") {
 						if (($upload_user != '') && ($upload_password != '')) {
-							$upload_debugtxt 					.= 'Authorization: ' . $upload_user . ' / ' . $upload_password . '<br/>';
+							$upload_debugtxt 						.= 'Authorization: ' . $upload_user . ' / ' . $upload_password . '<br/>';
 						} else {
-							$upload_debugtxt 					.= 'Authorization: N/A<br/>';
+							$upload_debugtxt 						.= 'Authorization: N/A<br/>';
 						}
-						$upload_debugtxt 						.= 'JSON Reference #1: ' . $dest_path . '/ts-vcsc-custom-pack.json' . '<br/>';
-						$upload_debugtxt 						.= 'JSON Reference #2: ' . $Custom_JSON_URL . '<br/>';
+						$upload_debugtxt 							.= 'JSON Reference #1: ' . $dest_path . '/ts-vcsc-custom-pack.json' . '<br/>';
+						$upload_debugtxt 							.= 'JSON Reference #2: ' . $Custom_JSON_URL . '<br/>';
 					}
-					
-					if (function_exists('curl_init')) {
-						$ch 									= curl_init();
-						$timeout 								= 30;
+					// Load JSON File
+					if ((function_exists('curl_init')) && ($upload_nocurl == "off")) {
+						if ($upload_debugme == "on") {
+							$upload_debugtxt 						.= 'JSON Retrieval Method: cURL<br/>';
+						}
+						$ch 										= curl_init();
+						$timeout 									= 30;
 						curl_setopt($ch, CURLOPT_URL, 				$Custom_JSON_URL);
 						curl_setopt($ch, CURLOPT_HEADER,			0);
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 	1);
@@ -181,6 +185,7 @@
 						curl_setopt($ch, CURLOPT_PROTOCOLS,			CURLPROTO_ALL);
 						curl_setopt($ch, CURLOPT_HTTPAUTH, 			CURLAUTH_ANY);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 	0);
+						curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 	0);
 						curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 	1);
 						curl_setopt($ch, CURLOPT_UNRESTRICTED_AUTH, 1);
 						if (($upload_user != '') && ($upload_password != '')) {
@@ -197,28 +202,31 @@
 						}
 						curl_close($ch);
 					} else if (ini_get('allow_url_fopen') == '1') {
+						if ($upload_debugme == "on") {
+							$upload_debugtxt 						.= 'JSON Retrieval Method: file_get_contents()<br/>';
+						}
 						if (($upload_user != '') && ($upload_password != '')) {
 							$context = stream_context_create(array (
 								'http' => array (
 									'header' => 'Authorization: Basic ' . base64_encode("$upload_user:$upload_password")
 								)
 							));
-							$Custom_JSON 						= file_get_contents($Custom_JSON_URL, false, $context);	
+							$Custom_JSON 							= file_get_contents($Custom_JSON_URL, false, $context);	
 						} else {
-							$Custom_JSON						= file_get_contents($Custom_JSON_URL);
+							$Custom_JSON							= file_get_contents($Custom_JSON_URL);
 						}
 					}
 					if (!is_wp_error($Custom_JSON) && !empty($Custom_JSON)) {
 						
 						//echo $Custom_JSON;
 						
-						$Custom_Code                        	= json_decode($Custom_JSON, true);
-						$Custom_MultiColored					= "false";
+						$Custom_Code                        		= json_decode($Custom_JSON, true);
+						$Custom_MultiColored						= "false";
 						
 						if ($upload_debugme == "on") {
-							$upload_debugtxt					.= '<br/>';
-							$upload_debugtxt 					.= 'CSS File URL #1: ' . $dest_url . '/style.css' . '<br/>';
-							$upload_debugtxt 					.= 'CSS File URL #2: ' . str_replace(home_url(), '', $dest_url . '/style.css') . '<br/>';
+							$upload_debugtxt						.= '<br/>';
+							$upload_debugtxt 						.= 'CSS File URL #1: ' . $dest_url . '/style.css' . '<br/>';
+							$upload_debugtxt 						.= 'CSS File URL #2: ' . str_replace(home_url(), '', $dest_url . '/style.css') . '<br/>';
 						}
 						//var_dump($Custom_Code);
 						
@@ -320,10 +328,12 @@
 								$output .="<div id='ts-vcsc-extend-preview-date'>Uploaded: " . 			get_option('ts_vcsc_extend_settings_tinymceCustomDate', '') . "</div>";
 								$output .= "<div id='ts-vcsc-extend-preview-list' class=''>";
 								$icon_counter = 0;
-								foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Custom as $key => $option ) {
-									$font = explode('-', $key);
-									$output .= "<div class='ts-vcsc-icon-preview ts-freewall-active' data-name='" . $key . "' data-code='" . $option . "' data-font='" . strtolower($iconfont) . "' data-count='" . $icon_counter . "' rel='" . $key . "'><span class='ts-vcsc-icon-preview-icon'><i class='" . $key . "'></i></span><span class='ts-vcsc-icon-preview-name'>" . $key . "</span></div>";
-									$icon_counter = $icon_counter + 1;
+								if ((isset($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Custom)) && (is_array($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Custom))) {
+									foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Custom as $key => $option ) {
+										$font = explode('-', $key);
+										$output .= "<div class='ts-vcsc-icon-preview ts-freewall-active' data-name='" . $key . "' data-code='" . $option . "' data-font='" . strtolower($iconfont) . "' data-count='" . $icon_counter . "' rel='" . $key . "'><span class='ts-vcsc-icon-preview-icon'><i class='" . $key . "'></i></span><span class='ts-vcsc-icon-preview-name'>" . $key . "</span></div>";
+										$icon_counter = $icon_counter + 1;
+									}
 								}
 								$output .= "</div>";
 							$output .= "</div>";
@@ -562,6 +572,10 @@
 						<div class="ts-vcsc-custom-pack-overwrite" style="display: block; width: 100%; margin-top: 10px; margin-bottom: 10px;">
 							<input type="checkbox" id="ts_vcsc_custom_pack_debug" class="ts_vcsc_custom_pack_debug" name="ts_vcsc_custom_pack_debug">
 							<label id="ts_vcsc_custom_pack_debug_label" class="" for="ts_vcsc_custom_pack_debug"><span>Show Debug Information</span></label>
+						</div>
+						<div class="ts-vcsc-custom-pack-overwrite" style="display: block; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+							<input type="checkbox" id="ts_vcsc_custom_pack_nocurl" class="ts_vcsc_custom_pack_nocurl" name="ts_vcsc_custom_pack_nocurl">
+							<label id="ts_vcsc_custom_pack_nocurl_label" class="" for="ts_vcsc_custom_pack_nocurl"><span>Force "file_get_contents" over "cURL"</span></label>
 						</div>
 						<!-- Authorization Settings -->
 						<div id="ts-vcsc-custom-pack-authorization-message" class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; font-size: 13px; text-align: justify;">

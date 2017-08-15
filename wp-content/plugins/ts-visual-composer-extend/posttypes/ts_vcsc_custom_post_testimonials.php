@@ -143,13 +143,26 @@
 		}
 	}
 	
+	// Remove RevSlider + Essential Grid Metaboxes
+	function TS_VCSC_Testimonials_RemoveExternalMetaboxes() { 
+		global $pagenow;
+		$screen = TS_VCSC_GetCurrentPostType();
+		if ($screen=='ts_testimonials') {
+			if ($pagenow=='post-new.php' || $pagenow=='post.php') {
+				remove_meta_box('eg-meta-box', 'ts_testimonials', 'normal'); 
+				remove_meta_box('mymetabox_revslider_0', 'ts_testimonials', 'normal'); 
+			} 
+		} 
+	}
+	
 	// Call All Routines
 	if (is_admin()) {
 		add_filter('post_updated_messages', 						'TS_VCSC_Testimonials_Post_Messages');
 		add_action('contextual_help', 								'TS_VCSC_Testimonials_Post_Help', 				10, 3);
 		add_filter('cs_metabox_options', 							'TS_VCSC_Testimonials_Codestar');
 		add_action('admin_enqueue_scripts',							'TS_VCSC_Testimonials_Post_Files', 				9999999999);
-		add_filter('manage_ts_testimonials_posts_columns', 			'TS_VCSC_Add_Testimonials_Image_Column' );
+		add_action('add_meta_boxes', 								'TS_VCSC_Testimonials_RemoveExternalMetaboxes', 9999999999);
+		add_filter('manage_ts_testimonials_posts_columns', 			'TS_VCSC_Add_Testimonials_Image_Column');
 		add_action('manage_ts_testimonials_posts_custom_column', 	'TS_VCSC_Show_Testimonials_Image_Column', 		10, 2);
 	}
 ?>

@@ -1,0 +1,54 @@
+/**
+  Additional css for formatting the
+  centerline elements
+  **/
+.memoryline-connector {
+  position: relative;
+  z-index: 0;
+}
+
+.memoryline-canvas {
+  z-index: 1;
+}
+
+.memoryline-content {
+  min-height: 60px;
+  margin-top: 40px;
+  z-index: 2;
+}
+
+.memoryline-content[data-dot-direction="reverse"] {
+  float: right;
+}
+
+.memoryline-content[data-new-row="true"] {
+  clear: both !important;
+}
+
+.memoryline-simple .memoryline-content {
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+
+.memoryline-connector .lazylinepainter,
+.memoryline-connector .lazylinepainter svg {
+  width: 100%;
+  height: 100%;
+  position:absolute !important;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.memoryline-content.with-animation {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 0.6s ease;
+}
+
+.memoryline-content.with-animation.animated {
+  opacity: 1;
+  transform: translateX(0);
+}

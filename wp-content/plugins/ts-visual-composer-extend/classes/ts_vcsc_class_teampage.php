@@ -925,7 +925,6 @@
 							"type"				    	=> "css3animations",
 							"heading"			    	=> __("Icons Hover Animation", "ts_visual_composer_extend"),
 							"param_name"		    	=> "social_icon_hover",
-							"standard"			    	=> "false",
 							"prefix"			    	=> "ts-hover-css-",
 							"connector"			    	=> "social_css3animations_in",
 							"noneselect"		    	=> "true",

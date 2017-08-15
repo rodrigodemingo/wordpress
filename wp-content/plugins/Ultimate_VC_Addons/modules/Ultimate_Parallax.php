@@ -77,7 +77,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 				"parallax_content" => "",
 				"parallax_content_sense"	=> "30",
 				"disable_on_mobile"			=> "",
-				"disable_on_mobile_img_parallax" => "",
+				"disable_on_mobile_img_parallax" => "off",
 				"enable_overlay" 			=> "",
 				"overlay_color"				=> "",
 				"overlay_pattern" 			=> "",
@@ -191,7 +191,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 				//else
 					$disable_on_mobile = 'true';
 
-				if($disable_on_mobile_img_parallax == 'off')
+				if($disable_on_mobile_img_parallax == 'off' || $disable_on_mobile_img_parallax == '' )
 					$disable_on_mobile_img_parallax = 'true';
 				else
 					$disable_on_mobile_img_parallax = 'false';

@@ -278,7 +278,9 @@
 					}					
 				}
 				// Create Styling Output
-				$styling .= '<style id="' . $textbox_id . '-style" type="text/css">';
+				if ($inline == "false") {
+					$styling .= '<style id="' . $textbox_id . '-style" type="text/css">';
+				}
 					// Default Styling
 					$styling .= 'body #' . $textbox_id . ' {';
 						$styling .= $font_default;
@@ -315,7 +317,9 @@
 					$styling .= '}';
 					// Segment Styling
 					$styling .= $styling_types;
-				$styling .= '</style>';
+				if ($inline == "false") {
+					$styling .= '</style>';
+				}
 				if (($styling != "") && ($inline == "true")) {
 					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styling));
 				}
@@ -468,7 +472,7 @@
 							"heading"           		=> __( "Background Image", "ts_visual_composer_extend" ),
 							"param_name"        		=> "background_image",
 							"value"             		=> "",
-							"description"       		=> __( "Select an image or pattern to be used as background for the icon box.", "ts_visual_composer_extend" ),
+							"description"       		=> __( "Select an image or pattern to be used as background for the element.", "ts_visual_composer_extend" ),
 							"dependency"        		=> array( 'element' => "background_type", 'value' => 'image' ),
 							"group"						=> "Global Styling",
 						),		
@@ -546,7 +550,7 @@
 								__( "Diagonal Lines Medium", "ts_visual_composer_extend")		=> "ts-patternbolt-diagonal-lines-medium",
 								__( "Diagonal Lines Light", "ts_visual_composer_extend")		=> "ts-patternbolt-diagonal-lines-light",					
 							),
-							"description" 				=> __("Select which Patternbolt pattern you want to use as row background.", "ts_visual_composer_extend"),
+							"description" 				=> __("Select which Patternbolt pattern you want to use as background.", "ts_visual_composer_extend"),
 							"dependency"        		=> array( 'element' => "background_type", 'value' => 'patternbolt' ),
 							"group"						=> "Global Styling",
 						),
@@ -1325,7 +1329,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "effect_viewportclass",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "effect_viewportname",
 							"noneselect"				=> "true",

@@ -1,3 +1,6 @@
+04.04.2017 - ver 5.1.1
+   Added: extra security check for grid ajax calls to harden security
+
 09.03.2017 - ver 5.1
    Added: Element Id for all elements
    Added: Image size control for Grid Builder media elements

@@ -407,7 +407,19 @@
 			default:
 				break;
 		}
-	}   
+	}
+	
+	// Remove RevSlider + Essential Grid Metaboxes
+	function TS_VCSC_Downpages_RemoveExternalMetaboxes() { 
+		global $pagenow;
+		$screen = TS_VCSC_GetCurrentPostType();
+		if ($screen=='ts_downtime') {
+			if ($pagenow=='post-new.php' || $pagenow=='post.php') {
+				remove_meta_box('eg-meta-box', 'ts_downtime', 'normal'); 
+				remove_meta_box('mymetabox_revslider_0', 'ts_downtime', 'normal'); 
+			} 
+		} 
+	}
 	
 	// Call All Routines
 	if (is_admin()) {
@@ -415,6 +427,7 @@
 		add_action('contextual_help', 								'TS_VCSC_Downpages_Post_Help', 					10, 3);
 		add_filter('cs_metabox_options', 							'TS_VCSC_Downpages_Codestar');
 		add_action('admin_enqueue_scripts',							'TS_VCSC_Downpages_Post_Files', 				9999999999);
+		add_action('add_meta_boxes', 								'TS_VCSC_Downpages_RemoveExternalMetaboxes', 	9999999999);
 		add_filter('manage_edit-ts_downtime_columns', 				'TS_VCSC_Downpages_PostsColumnsOrder') ;
 		add_action('manage_ts_downtime_posts_custom_column', 		'TS_VCSC_Downpages_PostsColumnsOutput', 		10, 2);
 	}

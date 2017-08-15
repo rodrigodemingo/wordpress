@@ -17,9 +17,10 @@
 		wp_enqueue_style('ts-extend-nacho');
 		wp_enqueue_style('ts-extend-tooltipster');
 		wp_enqueue_script('ts-extend-tooltipster');
-		wp_enqueue_style('ts-extend-imageeffects');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 		
 		extract( shortcode_atts( array(
 			'image'							=> '',
@@ -75,6 +76,7 @@
 		$output 							= "";
 		$styles 							= "";
 		$wpautop 							= ($content_wpautop == "true" ? true : false);
+		$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 		
 		if (!empty($el_id)) {
 			$scroll_image_id				= $el_id;
@@ -157,8 +159,7 @@
 			$nacho_color					= 'data-color="' . $lightbox_backlight_color . '"';
 		} else if ($lightbox_backlight == "hideit") {
 			$nacho_color					= 'data-color="rgba(0, 0, 0, 0)"';
-		}
-		
+		}		
 		
 		// Link Output
 		$linkString 						= '';
@@ -201,7 +202,9 @@
 		}
 		
 		// Style Output
-		$styles .= '<style id="' . $scroll_image_id . '-styles" type="text/css">';
+		if ($inline == "false") {
+			$styles .= '<style id="' . $scroll_image_id . '-styles" type="text/css">';
+		}
 			$styles .= '#' . $scroll_image_id . ' .ts-image-scroll-holder {';
 				$styles .= 'min-height: ' . $scroll_height . 'px;';
 			$styles .= '}';
@@ -230,7 +233,12 @@
 					$styles .= 'transition-duration: ' . $scroll_speed_down . 's !important;';
 				$styles .= '}';
 			}
-		$styles .= '</style>';
+		if ($inline == "false") {
+			$styles .= '</style>';
+		}
+		if (($styles != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+		}
 		
 		if (function_exists('vc_shortcode_custom_css_class')) {
 			$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Image_Scroll', $atts);
@@ -241,7 +249,9 @@
 		$content_title						= '';
 
 		$output .= '<div id="' . $scroll_image_id . '" class="ts-image-scroll-container ts-image-hover-frame ' . $Tooltip_Class . ' ' . $el_class . ' ' . $css_class . '"' . $Tooltip_Content . ' style="' . $picstrips_margin . '">';
-			$output .= TS_VCSC_MinifyCSS($styles);
+			if ($inline == "false") {
+				$output .= TS_VCSC_MinifyCSS($styles);
+			}
 			if ($overlay_handle_show == "true") {
 				$output .= '<div class="" style="width: 100%; height: 100%; ' . $overlay_margin . '">';
 			}

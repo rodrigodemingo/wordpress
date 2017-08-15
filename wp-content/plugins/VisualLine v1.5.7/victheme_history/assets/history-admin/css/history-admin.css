@@ -1,0 +1,138 @@
+/**
+  Icons
+  **/
+.icon-history {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAJ/SURBVHjaxNdbqE5pGAfw37etnchxQiQXspMUZpoaLhQxhpBjDqGcZhiyXchcEBdySCilnMppy6FcOCdKyoULOTMkEmMigxwvSNhunl1fX9/+9vft2Xv516q1nvdd7/Nfz/s8//dZmcqqCpiK+egoHXzGJSxJMAn7pI/u6JfgjzCcwp6UnLfAZnRL0CSMH/E6JQJf8QUS7MVAjIsrTTwuw27Mw9+oTsnxK5zAr2Vh2IZeeJcSgUqMwv0y3xm5BN6m5Pd9bQR+wfFGdPwc42P/8xL4D6MxoxGicTjy7HC2MallchXOYSeGhHTuxoMinfXAdGRCWxbWprZJgUX+xVD8ifWYhrVxfarlnQwWYGLcn8bveFJsEuaiGlvRB1ewArcwOM/cLjiDTaFyczG8kPO6IpCNBxiARViJsziEqzHePGq7Lc5jJh4Ws3AmjuNS0BO70DfH/gFLIwJfi10sqUc230F/9I59rsGzusLdUASgAhNyCNyPyFQ3JoGyKKk1aIaXkQe/xfgUzMI/9ZXiQuga2rAxnMNdLM6aMwg3MbshCWQwBzeiEupCK+zASXT6vwQ6R6u2HS1L3K4R0WNMri+BaSE6w/KMvQhp3h/3G3AxTwL+gIOhGe2K1YEOoX657dkjHMURXKjp6fJEbDTGxnaV5xx0c3GsEIFx4bxDPN/KcnqtxC1oi5EYE1FsHvZ9oZpv8hF4g9ZZz20a6FjeEn1nDabiQKll2CioEaLyqOHynPHrpeh6AeQmYF9cxr1MZVVF+zhGf0r54z9jWYJV4fwjnqbkvGlUzJoEP4ZxdZBJA5loUNsluB3d8F9RMmmgWeRFdYLl8W/YFT+nnAfrvg0AaPCHqhHFxhMAAAAASUVORK5CYII=") !important;
+  background-position: top left !important;
+}
+
+.icon-historyinner {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMeSURBVHjaxNdbiJVVFAfw33yexi6IRBlS8xLNWxhRDwejIOqlrKwsKzN7kNQg7KFCzHrp6thbEVQPXcbsBjk2WhYR3aAoaNIIoiKKbj50ISQYSJTp5f/F7nCcmTOeOa6Xb+39rfOt/15rr/Vfp2/98OCJeB5z9V52NbAKlzk60mzg3GLjrx45PhbHYV4D/cWLBTjUAwD34EGo8GPxYmUPnPdjWfSJCi8Xp34CzVl03odncE7Wb1XYm5DA8diJgVkMfR3lX7CmymILno1+CnZjXpedX4/7o49jKX6tCoNb8V70RdiGOd0qt4S+DxNYgT3QKIwOBOXHGAzCR3AnTsD2DgGN4vGk87WkFzYlzVoBwO+4HJ9iPu7At0nPqYnMdOXFAN+NhdkbxlBpVLX54Tcpk4NZP4bzsSQXZzoyhK0BUYN+H2tbDavDfOBd3F7U7Ui61xLsn8L5CwnzUNII3+G6pHlaAOqe8Gj0+XgT+xKdA5MAX41bcFf29uOKpFcnAOQCvh59EK/gg3ahLFLXzOWTBrcMXx/OwVQADuEmfJn1xUnDNvzdYvtqTru54Jf1iYqZAqhD+FIbwvqkxW5vnifn+UdAOVIAl+CB6P/kNsNYi90Xeb5dABltYduOASwKWdUNaB2+j/55YXcQP0TfiM+iLy46YMcAFmBHKqCu7eHifQng56JvjOPqomesxN2dAuhP+M7Iemdquwa2LpUwUdhvTrkdE+dXBYwMH8vbOWpMwtmLs94T8rgoJ7mwDSecltDDn0nbhpx+JN98Dj+lzU8agY0tnL00kdiRMpyKkE7CbXg6UdxUzBojrbNGK4DleKjI5TW5+aMzmA9uwL0FLwihvVEw4/8ANBOmmrNXpba34/QZzgH35RBr8GH2zkpfmVMCGIijkrNHwgcXHOEMuBVn4tqQkqT14RrAXOzKRarZbCizwOouTEP1nFnhyoJNN+DmCjfi7Gx+FKfNTEPdkoHMBl8lEvUUvqWB8wrDFaHa8dzibsq+PN/Bk6mUhY2MTbVcWuhjszCWry2q4b9G9Fth8FSv/51WxcBxNGTs3wEA+Z6qIo4uoy4AAAAASUVORK5CYII=") !important;
+  background-position: top left !important;
+}
+
+.wpb_historyinner,
+.wpb_history {
+  min-height: 72px;
+}
+
+.wpb_history > .wpb_element_wrapper > .vc_admin_label,
+.wpb_historyinner > .wpb_element_wrapper > .vc_admin_label {
+  display: inline-block !important;
+  margin-left: 10px;
+  margin-top: 8px;
+}
+
+.wpb_history > .wpb_element_wrapper > .vc_admin_label:last-child,
+.wpb_historyinner > .wpb_element_wrapper > .vc_admin_label:last-child {
+  margin-bottom: 10px;
+}
+
+body.compose-mode .vc_history.vc_container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+body.compose-mode .vc_element.vc_historyinner {
+  z-index: 4;
+}
+
+body.compose-mode .vc_history .vc_placeholder {
+  display: inline-block !important;
+  float: left !important;
+  width: 200px !important;
+  height: 90px !important;
+}
+
+.vc_editor #wpcontent, .vc_editor #wpfooter {
+  padding-left: 0 !important;
+}
+
+.compose-mode .vc_element {
+  padding-top: 32px;
+}
+
+/** Version 4.3.4 - Customized Backend **/
+.wpb_historyinner > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 10px !important;
+}
+
+.wpb_history > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 0 !important;
+}
+
+.wpb_historyinner > .wpb_element_wrapper > .wpb_element_title,
+.wpb_history > .wpb_element_wrapper > .wpb_element_title {
+  display: none;
+}
+
+.wpb_historyinner > .controls_column,
+.wpb_history > .controls_column {
+  background: #D9EAD4;
+  height: 33px !important;
+  text-align: right !important;
+  position: relative;
+}
+
+.wpb_historyinner > .controls_column:first-child,
+.wpb_history > .controls_column:first-child {
+  cursor: pointer;
+}
+
+.wpb_historyinner > .controls_column {
+  background: #ECF8EA;
+}
+
+.wpb_historyinner > .controls_column:first-child:after,
+.wpb_history > .controls_column:first-child:after {
+  content: 'History Element';
+  left: 35px;
+  top: 15px;
+  position: absolute;
+}
+
+.wpb_historyinner > .controls_column:first-child:after {
+  content: 'Events'
+}
+
+.wpb_historyinner > .controls_column > .vc_control,
+.wpb_history > .controls_column > .vc_control {
+  padding: 5px;
+}
+
+.vc_historyinner {
+  z-index: 5;
+}
+
+.compose-mode .vc_controls > div {
+  z-index: 9;
+}
+
+.vtcore-history .vc_template-wrapper .vc_templates-image {
+  background-image: url(../images/vc.png);
+}
+
+/** 4.7 Fixes **/
+.compose-mode .vc_element-name .vc_btn-content {
+  height: 30px !important;
+}
+
+.compose-mode .vc_control-btn {
+  height: 30px !important;
+  overflow: hidden !important;
+}
+
+.edit_form_line {
+  margin-bottom: 10px;
+}
+
+.vc_clearboth {
+  clear: both;
+}
+
+.vc_edit-form-tab [data-vc-shortcode-param-name="gradienttwo"],
+.vc_edit-form-tab [data-vc-shortcode-param-name="gradientone"] {
+  visibility: visible !important;
+  display: block !important;
+}

@@ -10,9 +10,10 @@
 		wp_enqueue_script('ts-extend-snapsvg');
 		wp_enqueue_style('ts-extend-tooltipster');
 		wp_enqueue_script('ts-extend-tooltipster');
-		wp_enqueue_style('ts-extend-imageeffects');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 	
 		extract( shortcode_atts( array(
 			'style'							=> 'imagesvg1',

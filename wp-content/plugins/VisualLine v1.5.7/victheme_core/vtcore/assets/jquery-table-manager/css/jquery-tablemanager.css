@@ -1,0 +1,93 @@
+.table-manager {
+	margin-bottom: 15px;
+}
+
+.table-manager table {
+  background: #fefefe;
+  width: 100%;
+  margin-bottom: 15px !important;
+  border-spacing:0;
+  border-collapse:collapse;
+  border: 1px solid #d7d7d7;
+  cursor: move;
+  margin-top: 20px;
+}
+
+.table-manager thead {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.table-manager tbody tr:nth-child(odd) {
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.table-manager tbody tr:nth-child(even) {
+  margin-bottom: 15px;
+  background: #f9f9f9;
+}
+
+.table-manager th {
+  background: #f7f7f7;
+  padding: 9px 10px;
+  text-align: left;
+  font-size: 13px;
+  display: table-cell !important;
+}
+
+.table-manager td {
+  vertical-align: top;	
+  display: table-cell !important;
+}
+
+.table-manager .drag-icon {
+  background: transparent url("images/draggable.png") no-repeat left top;
+  display: block;
+  height: 15px;
+  width: 15px;
+  margin: 0 15px;
+}
+
+.table-manager .drag-element {
+  width: 45px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tablemanager-placeholder-helper {
+  width: 100%;
+  background: #FF9900 !important;
+  height: 40px;
+  border-top: 1px solid #FF9900;
+  border-bottom: 1px solid #FF9900;
+  display: table-row;
+}
+
+.table-manager [data-tablemanager-type="removerow"] {
+  background: #158FBF;
+  border: none;
+  border-radius: 100%;
+  box-shadow: none;
+  color: #FFFFFF;
+  float: right;
+  font-size: 11px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 23px;
+  margin-top: 4px;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 24px;
+  margin-right: 10px;  
+  transition: ease-out .3s;
+  -webkit-transition: ease-out .3s;
+  -moz-transition: ease-out .3s;
+  -o-transition: ease-out .3s;
+  -ms-transition: ease-out .3s;
+}
+
+.table-manager [data-tablemanager-type="removerow"]:hover {
+	background: #FD801B;
+	color: #fff;
+}

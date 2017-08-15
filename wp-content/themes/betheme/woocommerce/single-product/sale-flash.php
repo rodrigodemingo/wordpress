@@ -26,4 +26,6 @@ global $post, $product;
 
 	<?php echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale"><i class="icon-star"></i></span>', $post, $product ); ?>
 
-<?php endif; ?>
+<?php endif;
+
+/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

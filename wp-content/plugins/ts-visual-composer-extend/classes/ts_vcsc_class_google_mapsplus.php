@@ -12,6 +12,7 @@
 						add_action('init',									array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Container'), 9999999);
 						add_action('init',									array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Marker'), 9999999);
 						add_action('init',									array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Overlay'), 9999999);
+						add_action('init',									array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Curveline'), 9999999);
 						add_action('init',									array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Single'), 9999999);
 					}
 				} else {
@@ -21,12 +22,14 @@
 						add_action('admin_init',							array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Container'), 9999999);
 						add_action('admin_init',							array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Marker'), 9999999);
 						add_action('admin_init',							array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Overlay'), 9999999);
+						add_action('admin_init',							array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Curveline'), 9999999);
 						add_action('admin_init',							array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Single'), 9999999);
 					}
 				}
 				if ((is_admin() == false) || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginAJAX == "true") || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginAlways == "true")) {
 					add_shortcode('TS_VCSC_GoogleMapsPlus_Marker',			array($this, 'TS_VCSC_GoogleMapsPlus_Marker'));
 					add_shortcode('TS_VCSC_GoogleMapsPlus_Overlay',			array($this, 'TS_VCSC_GoogleMapsPlus_Overlay'));
+					add_shortcode('TS_VCSC_GoogleMapsPlus_Curveline',		array($this, 'TS_VCSC_GoogleMapsPlus_Curveline'));
 					add_shortcode('TS_VCSC_GoogleMapsPlus_Container',		array($this, 'TS_VCSC_GoogleMapsPlus_Container'));
 					add_shortcode('TS_VCSC_GoogleMapsPlus_Single',			array($this, 'TS_VCSC_GoogleMapsPlus_Single'));
 				}
@@ -38,7 +41,17 @@
 				vc_lean_map('TS_VCSC_GoogleMapsPlus_Container', 			array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Container'), null);
 				vc_lean_map('TS_VCSC_GoogleMapsPlus_Marker', 				array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Marker'), null);
 				vc_lean_map('TS_VCSC_GoogleMapsPlus_Overlay', 				array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Overlay'), null);
+				vc_lean_map('TS_VCSC_GoogleMapsPlus_Curveline', 			array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Curveline'), null);
 				vc_lean_map('TS_VCSC_GoogleMapsPlus_Single', 				array($this, 'TS_VCSC_Add_GoogleMapsPlus_Element_Single'), null);
+			}
+			
+			// Marker Conversion Callback
+			function TS_VCSC_GoogleMapsPlus_Image($marker) {
+				if (substr($marker, -4) == ".png") {
+					return $marker;
+				} else {
+					return str_replace("ts-mapmarker-", "", $marker) . ".png";
+				}				
 			}
 	
 			// Google Maps Marker
@@ -138,6 +151,7 @@
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
 					if (($marker_style == "internal") && ($marker_internal != '')) {
+						$marker_internal 			= $this->TS_VCSC_GoogleMapsPlus_Image($marker_internal);
 						$marker_icon				= urlencode(TS_VCSC_GetResourceURL('images/marker/' . $marker_internal));
 						$marker_size				= 'width: 32px; height: 37px;';
 					} else if (($marker_style == "image") && ($marker_image != '')) {
@@ -163,6 +177,9 @@
 				if ($marker_style == "internal") {
 					$marker_width					= 32;
 					$marker_height					= 37;
+				} else if (($marker_style == "image") || ($marker_style == "external")) {
+					$marker_width					= $marker_width;
+					$marker_height					= $marker_height;
 				} else if ($marker_style == "default") {
 					$marker_width					= 32;
 					$marker_height					= 32;
@@ -389,6 +406,7 @@
 					$poly_coordinates				= preg_replace('/\s+/', '', $poly_coordinates);
 				}
 				
+				
 				// Create Data Strings
 				$data_style							= 'data-style-strokergba="' . $style_stroke_rgba . '" data-style-strokeweight="' . $style_stroke_weight . '" data-style-fillrgba="' . $style_fill_rgba . '"';
 				$data_window						= 'data-window-type="' . $window_type . '" data-window-offset="' . $window_offset . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '" ';
@@ -473,6 +491,282 @@
 				return $myvariable;
 			}
 			
+			// Googe Maps Curveline
+			function TS_VCSC_GoogleMapsPlus_Curveline ($atts, $content = null) {
+				global $VISUAL_COMPOSER_EXTENSIONS;
+				ob_start();
+				
+				extract( shortcode_atts( array(
+					// Curveline Settings
+					'curveline_title'				=> '',
+					'curveline_group'				=> '',
+					'curveline_draggable'			=> 'false',
+					'curveline_output'				=> '',
+					'curveline_identifier'			=> '',
+					// Start + End Settings
+					'curveline_startlat'			=> '',
+					'curveline_startlng'			=> '',
+					'curveline_endlat'				=> '',
+					'curveline_endlng'				=> '',
+					'curveline_curvature'			=> 20,
+					'curveline_position'			=> 'right',
+					'curveline_zindex'				=> -1,
+					// Style Settings
+					'style_stroke_rgba'				=> 'rgba(255, 0, 0, 1)',
+					'style_stroke_weight'			=> 2,
+					// Start Marker Settings
+					'marker1_style'					=> 'default',			// default, internal, image, external, hide
+					'marker1_internal'				=> '',
+					'marker1_image'					=> '',
+					'marker1_external'				=> '',
+					'marker1_width'					=> 32,
+					'marker1_height'				=> 32,
+					'marker1_window'				=> 'custom',			// custom, none
+					'marker1_reuse'					=> 'true',
+					'marker1_title'					=> '',
+					'marker1_content'				=> '',
+					'marker1_popup'					=> 'false',
+					'marker1_link'					=> 'false',
+					'marker1_url'					=> '',
+					'marker1_button'				=> (isset($this->TS_VCSC_Google_MapPLUS_Language['OtherLink'])			? $this->TS_VCSC_Google_MapPLUS_Language['OtherLink']			: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Google_MapPLUS_Language_Defaults['OtherLink']),
+					// End Marker Settings
+					'marker2_style'					=> 'inherit',			// inherit, default, internal, image, external, hide
+					'marker2_internal'				=> '',
+					'marker2_image'					=> '',
+					'marker2_external'				=> '',
+					'marker2_width'					=> 32,
+					'marker2_height'				=> 32,
+					'marker2_window'				=> 'inherit',			// inherit, custom, none
+					'marker2_reuse'					=> 'true',
+					'marker2_title'					=> '',
+					'marker2_content'				=> '',
+					'marker2_popup'					=> 'false',
+					'marker2_link'					=> 'false',
+					'marker2_url'					=> '',
+					'marker2_button'				=> (isset($this->TS_VCSC_Google_MapPLUS_Language['OtherLink'])			? $this->TS_VCSC_Google_MapPLUS_Language['OtherLink']			: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Google_MapPLUS_Language_Defaults['OtherLink']),
+					// Infowindow Style
+					'window_type'					=> 'global',			// global, google, override
+					'window_shadow'					=> 'false',
+					'window_background'				=> '#333333',
+					'window_fontcolor'				=> '#ffffff',
+					'window_arrowshow'				=> 'true',
+					'window_arrowcolor'				=> '#333333',
+					'window_maxwdidth'				=> 800,
+					'window_offset'					=> 0,
+					'window_closer'					=> 'topright',	
+					// Other Settings
+					'css'							=> '',
+				), $atts ));
+				
+				$map_random                    		= mt_rand(999999, 9999999);
+				$map_valid							= "false";
+				$map_markers						= 2;
+				$output 							= '';
+				$window								= '';
+
+				// Check for Missing Location
+				if ((($curveline_startlat == "") || ($curveline_startlng == "") || ($curveline_endlat == "") || ($curveline_endlng == ""))) {
+					$map_valid						= "false";
+				} else {
+					$map_valid						= "true";
+				}
+				if (($map_valid == "false") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false")) {
+					echo $output;
+					$myvariable 					= ob_get_clean();
+					return $myvariable;
+				}
+				
+				if (!empty($curveline_identifier)) {
+					$curveline_elemid				= $curveline_identifier;
+					$curveline_dataid				= $curveline_identifier;
+				} else {
+					$curveline_elemid				= 'ts-advanced-google-map-curveline-single-' . $map_random;
+					$curveline_dataid				= 'map-curveline-single-' . $map_random;
+				}
+	
+				// Link Values
+				if (($marker1_link == "true") && ($marker1_url != '')) {
+					$link1 							= TS_VCSC_Advancedlinks_GetLinkData($marker1_url);
+					$a1_href						= $link1['url'];
+					$a1_title 						= $link1['title'];
+					$a1_target 						= $link1['target'];
+					$a1_rel 						= $link1['rel'];
+					if (!empty($a1_rel)) {
+						$a1_rel 					= 'rel="' . esc_attr(trim($a1_rel)) . '"';
+					}
+				} else {
+					$a1_href						= '';
+					$a1_title 						= '';
+					$a1_target 						= '';
+					$a1_rel							= '';
+				}
+				if (($marker2_link == "true") && ($marker2_url != '')) {
+					$link2 							= TS_VCSC_Advancedlinks_GetLinkData($marker2_url);
+					$a2_href						= $link2['url'];
+					$a2_title 						= $link2['title'];
+					$a2_target 						= $link2['target'];
+					$a2_rel 						= $link2['rel'];
+					if (!empty($a2_rel)) {
+						$a2_rel 					= 'rel="' . esc_attr(trim($a2_rel)) . '"';
+					}
+				} else {
+					$a2_href						= '';
+					$a2_title 						= '';
+					$a2_target 						= '';
+					$a2_rel							= '';
+				}
+				
+				// Marker Titles
+				if ($marker1_reuse == "true") {
+					$marker1_title					= $curveline_title;
+				}
+				if ($marker2_reuse == "true") {
+					$marker2_title					= $curveline_title;
+				}
+
+				// Start Marker Settings
+				if ($marker1_style == "hide") {
+					$map_markers--;
+					$marker1_icon					= urlencode(TS_VCSC_GetResourceURL('images/defaults/default_mapmarker.png'));
+				} else if (($marker1_style == "internal") && ($marker1_internal != '')) {
+					$marker1_internal 				= $this->TS_VCSC_GoogleMapsPlus_Image($marker1_internal);
+					$marker1_icon					= urlencode(TS_VCSC_GetResourceURL('images/marker/' . $marker1_internal));
+				} else if (($marker1_style == "image") && ($marker1_image != '')) {
+					$marker1_icon 					= wp_get_attachment_image_src($marker1_image, 'full');						
+					$marker1_icon					= urlencode($marker1_icon[0]);
+				} else if (($marker1_style == "external") && ($marker1_external != '')) {
+					$marker1_icon					= $marker1_external;
+				} else {
+					$marker1_icon					= urlencode(TS_VCSC_GetResourceURL('images/defaults/default_mapmarker.png'));
+				}
+				if ($marker1_style == "internal") {
+					$marker1_width					= 32;
+					$marker1_height					= 37;
+				} else if (($marker1_style == "image") || ($marker1_style == "external")) {
+					$marker1_width					= $marker1_width;
+					$marker1_height					= $marker1_height;
+				} else if (($marker1_style == "hide") || ($marker1_style == "default")) {
+					$marker1_width					= 32;
+					$marker1_height					= 32;
+				}
+				$marker1_data						= 'data-marker1-style="' . $marker1_style . '" data-marker1-icon="' . $marker1_icon . '" data-marker1-width="' . $marker1_width . '" data-marker1-height="' . $marker1_height . '"';
+				// End Marker Settings
+				if ($marker2_style == "inherit") {
+					$marker2_style					= $marker1_style;
+					$marker2_icon					= $marker1_icon;
+				} else if ($marker2_style == "hide") {
+					$map_markers--;
+					$marker2_icon					= urlencode(TS_VCSC_GetResourceURL('images/defaults/default_mapmarker.png'));
+				} else if (($marker2_style == "internal") && ($marker2_internal != '')) {
+					$marker2_internal 				= $this->TS_VCSC_GoogleMapsPlus_Image($marker2_internal);
+					$marker2_icon					= urlencode(TS_VCSC_GetResourceURL('images/marker/' . $marker2_internal));
+				} else if (($marker2_style == "image") && ($marker2_image != '')) {
+					$marker2_icon 					= wp_get_attachment_image_src($marker2_image, 'full');						
+					$marker2_icon					= urlencode($marker2_icon[0]);
+				} else if (($marker2_style == "external") && ($marker2_external != '')) {
+					$marker2_icon					= $marker2_external;
+				} else {
+					$marker2_icon					= urlencode(TS_VCSC_GetResourceURL('images/defaults/default_mapmarker.png'));
+				}
+				if ($marker2_style == "internal") {
+					$marker2_width					= 32;
+					$marker2_height					= 37;
+				} else if (($marker2_style == "image") || ($marker2_style == "external")) {
+					$marker2_width					= $marker2_width;
+					$marker2_height					= $marker2_height;
+				} else if (($marker2_style == "hide") || ($marker2_style == "default")) {
+					$marker2_width					= 32;
+					$marker2_height					= 32;
+				}
+				$marker2_data						= 'data-marker2-style="' . $marker2_style . '" data-marker2-icon="' . $marker2_icon . '" data-marker2-width="' . $marker2_width . '" data-marker2-height="' . $marker2_height . '"';
+			
+				// Create Data Strings
+				$data_style							= 'data-style-strokergba="' . $style_stroke_rgba . '" data-style-strokeweight="' . $style_stroke_weight . '"';
+				$data_window						= 'data-window-type="' . $window_type . '" data-window-offset="' . $window_offset . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '" ';
+				$data_total							= 'data-id="' . $curveline_dataid . '" data-processed="false" data-editable="' . $curveline_draggable . '" data-popup="false" data-output="' . $curveline_output . '" data-draggable="' . $curveline_draggable . '" data-group="' . $curveline_group . '" data-title="' . $curveline_title . '" data-curveline-type="curveline" ' . $data_style . ' ' . $data_window . ' ';
+				$data_total							.= 'data-curveline-markers="' . $map_markers . '" data-curveline-curvature="' . $curveline_curvature . '" data-curveline-position="' . $curveline_position . '" data-curveline-zindex="' . $curveline_zindex . '" data-curveline-startlat="' . $curveline_startlat . '" data-curveline-startlng="' . $curveline_startlng . '" data-curveline-endlat="' . $curveline_endlat . '" data-curveline-endlng="' . $curveline_endlng . '" ' . $marker1_data . ' ' . $marker2_data . '';
+				
+				if (function_exists('vc_shortcode_custom_css_class')) {
+					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-advanced-google-map-curveline-single ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_GoogleMapsPlus_Curveline', $atts);
+				} else {
+					$css_class						= 'ts-advanced-google-map-overlay-single';
+				}
+				
+				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
+					$output .= '<div id="' . $curveline_elemid . '" class="' . $css_class . '" ' . $data_total . '>';
+						$output .= '<div id="ts-advanced-google-map-curveline-start-' . $map_random . '" class="ts-advanced-google-map-curveline-start" data-popup="' . $marker1_popup . '">';
+							if ($marker1_window == "custom") {							
+								if ($marker1_title != '') {
+									$window .= '<div class="ts-advanced-google-map-curveline-title">' . $marker1_title . '</div>';
+								}
+								if (($marker1_content != '') || (($marker1_link == "true") && ($a1_href != ''))) {
+									$window .= '<div class="ts-advanced-google-map-curveline-content">';
+										if ($marker1_content != '') {
+											$window .= do_shortcode(rawurldecode(base64_decode(strip_tags($marker1_content))));
+										}
+										if (($marker1_link == "true") && ($a1_href != '')) {
+											$window .= '<div class="ts-advanced-google-map-curveline-controls">';
+												$window .= '<a class="ts-advanced-google-map-curveline-link" href="' . $a1_href . '" target="' . $a1_target . '" title="' . $a1_title . '" ' . $a1_rel . '>' . $marker1_button . '</a>';
+											$window .= '</div>';
+										}
+									$window .= '</div>';
+								}
+							}
+							$output .= $window;
+						$output .= '</div>';
+						$output .= '<div id="ts-advanced-google-map-curveline-end-' . $map_random . '" class="ts-advanced-google-map-curveline-end" data-popup="' . $marker2_popup . '">';
+							if (($marker2_window == "inherit") || ($marker2_window == "custom")) {
+								if ($marker2_window == "inherit") {
+									$output .= $window;
+								} else {
+									if ($marker2_title != '') {
+										$output .= '<div class="ts-advanced-google-map-curveline-title">' . $marker2_title . '</div>';
+									}
+									if (($marker2_content != '') || (($marker2_link == "true") && ($a2_href != ''))) {
+										$output .= '<div class="ts-advanced-google-map-curveline-content">';
+											if ($marker2_content != '') {
+												$output .= do_shortcode(rawurldecode(base64_decode(strip_tags($marker2_content))));
+											}
+											if (($marker2_link == "true") && ($a2_href != '')) {
+												$output .= '<div class="ts-advanced-google-map-curveline-controls">';
+													$output .= '<a class="ts-advanced-google-map-curveline-link" href="' . $a2_href . '" target="' . $a2_target . '" title="' . $a2_title . '" ' . $a2_rel . '>' . $marker2_button . '</a>';
+												$output .= '</div>';
+											}
+										$output .= '</div>';
+									}
+								}
+							}
+						$output .= '</div>';
+					$output .= '</div>';
+					$output .= '<div id="ts-advanced-google-map-curveline-listing-' . $map_random . '" class="ts-advanced-google-map-curveline-listing ts-advanced-google-map-details-listing" data-id="' . $curveline_dataid . '" data-style="curveline" data-type="curveline" data-title="' . $curveline_title . '" data-group="' . $curveline_group . '">';
+						$output .= '<svg class="ts-advanced-google-map-curveline-icon ts-advanced-google-map-curveline-curveline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" style="stroke: ' . $style_stroke_rgba . '; stroke-width: ' . $style_stroke_weight . '; fill:none;">';
+							$output .= '<path d="M24,32 Q32,0 0,' . $style_stroke_weight . '"/>';
+						$output .= '</svg>';
+						$output .= '<div class="ts-advanced-google-map-curveline-title">' . $curveline_title . '</div>';
+						if ($curveline_group != "") {
+							$output .= '<div class="ts-advanced-google-map-curveline-groups">' . str_replace(array("|", " , "), array(", ", ", "), $curveline_group) . '</div>';
+						} else {
+							$output .= '<div class="ts-advanced-google-map-curveline-groups">...</div>';
+						}
+					$output .= '</div>';
+				} else {
+					$output .= '<div class="ts-advanced-google-map-settings-edit-curveline">';
+						$output .= '<svg class="ts-advanced-google-map-curveline-icon ts-advanced-google-map-curveline-curveline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" style="stroke: ' . $style_stroke_rgba . '; stroke-width: ' . $style_stroke_weight . '; fill:none;">';
+							$output .= '<path d="M24,32 Q32,0 0,' . $style_stroke_weight . '"/>';
+						$output .= '</svg>';
+						$output .= '<div class="ts-advanced-google-map-settings-edit-excerpt">';
+							$output .= 'Title: ' . ($curveline_title != '' ? $curveline_title : 'N/A') . '<br/>';
+							$output .= 'Group: ' . ($curveline_group != '' ? $curveline_group : 'N/A') . '<br/>';
+						$output .= '</div>';
+					$output .= '</div>';
+				}
+				
+				echo $output;
+				
+				$myvariable 						= ob_get_clean();
+				return $myvariable;
+			}
+			
 			// Google Maps Container
 			function TS_VCSC_GoogleMapsPlus_Container ($atts, $content = null) {
 				global $VISUAL_COMPOSER_EXTENSIONS;
@@ -512,7 +806,11 @@
 					'import_path_marker'			=> '',
 					'import_height_marker'			=> 32,
 					'import_width_marker'			=> 32,
+					// KML File Import
+					'import_kml_file'				=> 'false',
+					'import_kml_path'				=> '',
 					// Cluster Settings
+					'clusterer_curves'				=> 'false',
 					'clusterer_type'				=> 'default', 			// default, pins, singlepin, people, conversations, hearts, custom
 					'clusterer_custom'				=> 1,
 					'clusterer_level1_image'		=> '',
@@ -762,7 +1060,7 @@
 				$map_data							= 'data-initialized="false" data-mapheight="' . $googlemap_height . '" data-singleinfo="' . $googlemap_singleinfo . '" data-listeners="' . $googlemap_listeners . '" data-externalwatch="' . $googlemap_external . '" data-delay="' . $googlemap_delay . '" data-mapsearch="' . $controls_search . '" data-activate="' . $googlemap_mobile . '" data-metric="' . $googlemap_metric . '" data-centertype="' . $center_type . '" data-latitude="' . ($center_type == 'coordinates' ? $center_latitude : '') . '" data-longitude="' . ($center_type == 'coordinates' ? $center_longitude : '') . '" data-address="' . ($center_type == 'address' ? $center_address : '') . '" data-zoom="' . $googlemap_zoom . '" data-maptype="' . $googlemap_type . '" data-mapstyle="' . $googlemap_style . '" data-poistyle="' . $googlemap_pois . '" data-openlayers="' . $googlemap_openlayers . '" data-mapresize="' . $googlemap_resize . '"';
 				$map_preloader						= 'data-preloader-use="' . $preloader_use . '"';
 				$map_marker							= 'data-marker-default="' . urlencode(TS_VCSC_GetResourceURL('images/defaults/default_mapmarker.png')) . '" data-marker-height="37" data-marker-width="32"';
-				$map_clusterer						= 'data-mapclusters="' . $googlemap_clusters . '" data-clusterer-type="' . $clusterer_type . '" data-clusterer-path="' . TS_VCSC_GetResourceURL('images/clusterer') . '" data-clusterer-custom="' . $clusterer_count . '" data-clusterer-data="' . $clusterer_data . '" ';
+				$map_clusterer						= 'data-mapclusters="' . $googlemap_clusters . '" data-clusterer-curves="' . $clusterer_curves . '" data-clusterer-type="' . $clusterer_type . '" data-clusterer-path="' . TS_VCSC_GetResourceURL('images/clusterer') . '" data-clusterer-custom="' . $clusterer_count . '" data-clusterer-data="' . $clusterer_data . '" ';
 				$map_street							= 'data-street-split="' . $googlemap_splitview . '" data-street-width="' . $googlemap_splitwidth . '" data-street-height="' . $googlemap_height . '"';
 				$map_controls						= 'data-controls-floatwidth="' . $controls_floatwidth . '" data-controls-listings="' . $controls_listings . '" data-controls-fullscreen="' . $controls_fullscreen . '" data-controls-home="' . $controls_home . '" data-controls-bounds="' . $controls_bounds . '" data-controls-types="' . $controls_types . '" data-controls-pan="' . $controls_pan . '" data-controls-zoomer="' . $controls_zoomer . '" data-controls-wheel="' . $controls_wheel . '" data-controls-styler="' . $controls_styler . '" data-controls-groups="' . $controls_groups . '" data-controls-select="' . $controls_select . '" data-controls-street="' . $controls_street . '" data-controls-scaler="' . $controls_scaler . '"';
 				$map_filter							= 'data-filter-screenlimit="' . $filter_screenlimit . '" data-filter-zoomlevel="' . $filter_zoomlevel . '" data-filter-multiple="' . $filter_multiple . '" data-filter-confirm="' . $filter_confirm . '" data-filter-search="' . $filter_search . '" data-filter-initial="' . $filter_initial . '"';
@@ -781,7 +1079,7 @@
 				if ($import_json_marker == "false") {
 					$import_path_marker				= '';
 				}
-				$map_import							= 'data-import-markerjson="' . $import_json_marker . '" data-import-markerpath="' . $import_path_marker . '" data-import-markerheight="' . $import_height_marker . '" data-import-markerwidth="' . $import_width_marker . '"';
+				$map_import							= 'data-import-markerjson="' . $import_json_marker . '" data-import-markerpath="' . $import_path_marker . '" data-import-markerheight="' . $import_height_marker . '" data-import-markerwidth="' . $import_width_marker . '" data-import-kmlfile="' . $import_kml_file . '" data-import-kmlpath="' . $import_kml_path . '"';
 				$map_window							= 'data-window-global="' . $window_global . '" data-window-offset="' . $window_offset . '" data-window-mapclick="' . $window_mapclick . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '"';
 				
 				// Compile Language Settings
@@ -1127,8 +1425,7 @@
 					$a_href							= '';
 					$a_title 						= '';
 					$a_target 						= '';
-				}
-				
+				}				
 				
 				if ($marker_position == "coordinates") {
 					$google_directions				= 'https://www.google.com/maps?saddr=My+Location&daddr=' . $marker_latitude . ',' . $marker_longitude . '';
@@ -1140,6 +1437,7 @@
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
 					if (($marker_style == "internal") && ($marker_internal != '')) {
+						$marker_internal 			= $this->TS_VCSC_GoogleMapsPlus_Image($marker_internal);
 						$marker_icon				= urlencode(TS_VCSC_GetResourceURL('images/marker/' . $marker_internal));
 					} else if (($marker_style == "image") && ($marker_image != '')) {
 						$marker_icon 				= wp_get_attachment_image_src($marker_image, 'full');
@@ -1155,7 +1453,7 @@
 				
 				$marker_data						= 'data-id="map-marker-single-' . $map_random . '" data-processed="false" data-group="" data-streetview="' . $marker_streetview . '" data-draggable="' . $marker_draggable . '" data-title="' . $marker_title . '" ';
 				$marker_data						.= 'data-source="' . $marker_style . '" data-icon="' . $marker_icon . '" data-animation-allow="' . $marker_animation . '" data-animation-type="' . $marker_entry . '" data-latitude="' . ($marker_position == 'coordinates' ? $marker_latitude : '') . '" data-longitude="' . ($marker_position == 'coordinates' ? $marker_longitude : '') . '" data-address="' . ($marker_position == 'address' ? $marker_address : '') . '" data-draggable="false" data-popup="' . $marker_popup . '" ';
-				$marker_data						.= 'data-window-type="' . $window_global . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '" ';
+				$marker_data						.= 'data-window-type="' . $window_global . '" data-window-closer="' . $window_closer . '" data-window-offset="' . $window_offset . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '" ';
 				if ($marker_style == "internal") {
 					$marker_width					= 32;
 					$marker_height					= 37;
@@ -1164,7 +1462,7 @@
 					$marker_height					= 32;
 				}
 				$marker_data						.= 'data-marker-width="' . $marker_width . '" data-marker-height="' . $marker_height . '" ';
-				
+
 				if (function_exists('vc_shortcode_custom_css_class')) {
 					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-advanced-google-map-container ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_GoogleMapsPlus_Container', $atts);
 				} else {
@@ -1199,7 +1497,7 @@
 				}
 				$map_import							= 'data-import-markerjson="' . $import_json_marker . '" data-import-markerpath="' . $import_path_marker . '" data-import-markerheight="' . $import_height_marker . '" data-import-markerwidth="' . $import_width_marker . '"';
 				$map_window							= 'data-window-global="' . $window_global . '" data-window-offset="' . $window_offset . '" data-window-mapclick="' . $window_mapclick . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '"';
-				
+
 				// Compile Language Settings
 				$map_language						= 'data-string-otherlink="' . $string_other_link . '" data-string-markerplaceholder="' . $string_marker_placeholder . '" ';			
 				$map_language						.= 'data-string-mobileshow="' . $string_mobile_show . '" data-string-mobilehide="' . $string_mobile_hide . '" data-string-listenersstart="' . $string_listeners_start . '" data-string-listenersstop="' . $string_listeners_stop . '" ';
@@ -1319,7 +1617,7 @@
 					"base"                              => "TS_VCSC_GoogleMapsPlus_Container",
 					"icon"                              => "ts-composer-element-icon-google-maps-container",
 					"category"                          => __("VC Extensions", "ts_visual_composer_extend"),
-					"as_parent"                         => array('only' => 'TS_VCSC_GoogleMapsPlus_Marker,TS_VCSC_GoogleMapsPlus_Overlay'),
+					"as_parent"                         => array('only' => 'TS_VCSC_GoogleMapsPlus_Marker,TS_VCSC_GoogleMapsPlus_Overlay,TS_VCSC_GoogleMapsPlus_Curveline'),
 					"description"                       => __("Create an advanced Google Map (multiple marker)", "ts_visual_composer_extend"),
 					"js_view"                           => "VcColumnView",
 					"controls" 							=> "full",
@@ -1470,7 +1768,7 @@
 						),	
 						array(
 							"type"			        	=> "dropdown",
-							"heading"               	=> __( "Map Center / Zoom", "ts_visual_composer_extend" ),
+							"heading"               	=> __( "Map Center / Home", "ts_visual_composer_extend" ),
 							"param_name"            	=> "center_type",
 							"value"			        	=> array(
 								__( "First Marker", "ts_visual_composer_extend" )        	=> "markers",
@@ -1490,7 +1788,7 @@
 							"step"                  	=> "1",
 							"unit"                  	=> '',
 							"admin_label"           	=> true,
-							"description"           	=> __( "Define the initial zoom level for the map.", "ts_visual_composer_extend" ),
+							"description"           	=> __( "Define the initial and home button zoom level for the map.", "ts_visual_composer_extend" ),
 							"dependency"            	=> array( 'element' => "center_type", 'value' => array('markers', 'coordinates', 'address') ),
 						),		
 						array(
@@ -1569,7 +1867,7 @@
 						array(
 							"type"                      => "seperator",
 							"param_name"                => "seperator_2",
-							"seperator"                 => "JSON Import",
+							"seperator"                 => "JSON File Import",
 						),
 						array(
 							"type"              		=> "switch_button",
@@ -1610,11 +1908,41 @@
 							"unit"                      => 'px',
 							"description"               => __( "Define the default height for all custom marker icons defined in the JSON import file.", "ts_visual_composer_extend" ),
 							"dependency"            	=> array( 'element' => "import_json_marker", 'value' => 'true' ),
+						),						
+						// KML File Import
+						array(
+							"type"                      => "seperator",
+							"param_name"                => "seperator_3",
+							"seperator"                 => "KML File Import",
+						),
+						array(
+							"type"              		=> "switch_button",
+							"heading"               	=> __( "Import Data from KML File", "ts_visual_composer_extend" ),
+							"param_name"            	=> "import_kml_file",
+							"value"                 	=> "false",
+							"description"           	=> __( "Switch the toggle if you want to import marker and overlay data from a Google My Map generated KML file.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type"              		=> "messenger",
+							"param_name"        		=> "messenger_1",
+							"color"						=> "#006BB7",
+							"size"						=> "13",
+							"layout"					=> "notice",
+							"message"            		=> __( "Please be aware that advanced features like group filter, direct location selectors, marker clusterer and others will not work with markers and overlays that have been added to the map via KML file.", "ts_visual_composer_extend" ),
+							"dependency"            	=> array( 'element' => "import_kml_file", 'value' => 'true' ),
+						),
+						array(
+							"type"		            	=> "textfield",
+							"heading"               	=> __( "KML: File Path", "ts_visual_composer_extend" ),
+							"param_name"            	=> "import_kml_path",
+							"value"                	 	=> "",							
+							"description"	        	=> __( "Please provide the full path to the KML file that you generated via Google My Map.", "ts_visual_composer_extend" ),
+							"dependency"            	=> array( 'element' => "import_kml_file", 'value' => 'true' ),
 						),
 						// Infowindows Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_3",
+							"param_name"                => "seperator_4",
 							"seperator"                 => "Infowindows Settings",
 							"dependency"            	=> array( 'element' => "googlemap_listeners", 'value' => 'false' ),
 						),
@@ -1653,8 +1981,8 @@
 							"heading"               	=> __( "Infowindow Offset", "ts_visual_composer_extend" ),
 							"param_name"            	=> "window_offset",
 							"value"                 	=> "0",
-							"min"                   	=> "-50",
-							"max"                   	=> "50",
+							"min"                   	=> "-100",
+							"max"                   	=> "100",
 							"step"                  	=> "1",
 							"unit"                  	=> 'px',
 							"description"           	=> __( "Define an optional vertical offset for the infowindow in relation to the marker image.", "ts_visual_composer_extend" ),
@@ -1723,7 +2051,7 @@
 						// Preloader Setting
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_4",
+							"param_name"                => "seperator_5",
 							"seperator"					=> "Preloader Settings",
 						),
 						array(
@@ -1754,7 +2082,7 @@
 						// API Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_5",
+							"param_name"                => "seperator_6",
 							"seperator"                 => "API Settings",
 						),
 						array(
@@ -1785,7 +2113,7 @@
 						// Marker Clusterer Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6",
+							"param_name"                => "seperator_7",
 							"seperator"                 => "Clusterer Settings",
 							"group"						=> "Clusterer",
 						),
@@ -1796,7 +2124,16 @@
 							"value"                 	=> "false",
 							"description"           	=> __( "Switch the toggle if you want to apply an automatic marker clusterer to the map.", "ts_visual_composer_extend" ),
 							"group"						=> "Clusterer",
-						),						
+						),
+						array(
+							"type"              		=> "switch_button",
+							"heading"               	=> __( "Include Curvelines", "ts_visual_composer_extend" ),
+							"param_name"            	=> "clusterer_curves",
+							"value"                 	=> "false",
+							"description"           	=> __( "Switch the toggle if you want to include any curveline elements within the marker clusterer.", "ts_visual_composer_extend" ),
+							"dependency"            	=> array( 'element' => "googlemap_clusters", 'value' => 'true' ),
+							"group"						=> "Clusterer",
+						),
 						array(
 							"type"                  	=> "dropdown",
 							"heading"               	=> __("Clusterer Style", "ts_visual_composer_extend"),
@@ -1837,7 +2174,7 @@
 						),
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6a",
+							"param_name"                => "seperator_7a",
 							"seperator"                 => "Cluster Level 1",
 							"uppercase"					=> "false",
 							"fontsize"					=> 16,
@@ -1895,7 +2232,7 @@
 						),						
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6b",
+							"param_name"                => "seperator_7b",
 							"seperator"                 => "Cluster Level 2",
 							"uppercase"					=> "false",
 							"fontsize"					=> 16,
@@ -1953,7 +2290,7 @@
 						),	
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6c",
+							"param_name"                => "seperator_7c",
 							"seperator"                 => "Cluster Level 3",
 							"uppercase"					=> "false",
 							"fontsize"					=> 16,
@@ -2011,7 +2348,7 @@
 						),	
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6d",
+							"param_name"                => "seperator_7d",
 							"seperator"                 => "Cluster Level 4",
 							"uppercase"					=> "false",
 							"fontsize"					=> 16,
@@ -2069,7 +2406,7 @@
 						),	
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6e",
+							"param_name"                => "seperator_7e",
 							"seperator"                 => "Cluster Level 5",
 							"uppercase"					=> "false",
 							"fontsize"					=> 16,
@@ -2128,7 +2465,7 @@
 						// Standard Controls
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_7",
+							"param_name"                => "seperator_8",
 							"seperator"                 => "Map Controls",
 							"group" 			        => "Map Controls",
 						),
@@ -2219,7 +2556,7 @@
 						// Custom Controls
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_8",
+							"param_name"                => "seperator_9",
 							"seperator"                 => "General Options",
 							"group" 			        => "Map Features",
 						),
@@ -2242,7 +2579,7 @@
 						// Layer Controls
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_9",
+							"param_name"                => "seperator_10",
 							"seperator"                 => "Layer Options",
 							"group" 			        => "Map Features",
 						),
@@ -2273,7 +2610,7 @@
 						// Advanced Features
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_10",
+							"param_name"                => "seperator_11",
 							"seperator"                 => "Advanced Feature Controls",
 							"group" 			        => "Map Features",
 						),
@@ -2318,7 +2655,7 @@
 						// Style Selector
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_11",
+							"param_name"                => "seperator_12",
 							"seperator"                 => "Snazzy Style Selector",
 							"bordertype"				=> "dashed",
 							"fontsize"					=> 16,
@@ -2357,7 +2694,7 @@
 						// Location Selector
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_12",
+							"param_name"                => "seperator_13",
 							"seperator"                 => "Location Selector",
 							"bordertype"				=> "dashed",
 							"fontsize"					=> 16,
@@ -2496,7 +2833,7 @@
 						// Filter Feature
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_13",
+							"param_name"                => "seperator_14",
 							"seperator"                 => "Filter Feature",
 							"bordertype"				=> "dashed",
 							"fontsize"					=> 16,
@@ -2588,7 +2925,7 @@
 						// Search Feature
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_14",
+							"param_name"                => "seperator_15",
 							"seperator"                 => "Search Feature",
 							"bordertype"				=> "dashed",
 							"fontsize"					=> 16,
@@ -2696,13 +3033,13 @@
 						// Text Strings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_15",
+							"param_name"                => "seperator_16",
 							"seperator"                 => "Text Strings",
 							"group" 			        => "Text Strings",
 						),
 						array(
 							"type"              		=> "messenger",
-							"param_name"        		=> "messenger",
+							"param_name"        		=> "messenger_2",
 							"color"						=> "#006BB7",
 							"size"						=> "13",
 							"layout"					=> "notice",
@@ -2936,7 +3273,7 @@
 						// Other Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_16",
+							"param_name"                => "seperator_17",
 							"seperator"                 => "Other Settings",
 							"group" 			        => "Other Settings",
 						),
@@ -3207,8 +3544,8 @@
 							"heading"               => __( "Infowindow Offset", "ts_visual_composer_extend" ),
 							"param_name"            => "window_offset",
 							"value"                 => "0",
-							"min"                   => "-50",
-							"max"                   => "50",
+							"min"                   => "-100",
+							"max"                   => "100",
 							"step"                  => "1",
 							"unit"                  => 'px',
 							"description"           => __( "Define an optional vertical offset for the infowindow in relation to the marker image.", "ts_visual_composer_extend" ),
@@ -3297,8 +3634,24 @@
 								__( "Default Marker", "ts_visual_composer_extend")           	=> "default",
 								__( "Marker Selection", "ts_visual_composer_extend" )        	=> "internal",
 								__( "Wordpress Image", "ts_visual_composer_extend" )			=> "image",
-								__( "External Image", "ts_visual_composer_extend" )          	=> "external",
+								__( "External Image", "ts_visual_composer_extend" )          	=> "external",								
 							),
+							"group"					=> "Marker Style",
+						),						
+						array(
+							"type" 					=> "icons_panel",
+							"heading" 				=> __( 'Marker Icon', 'ts_visual_composer_extend' ),
+							"param_name" 			=> 'marker_internal',
+							"value"					=> "",
+							"settings" 				=> array(
+								"emptyIcon" 			=> false,
+								"emptyIconValue"		=> 'transparent',
+								"iconsPerPage"			=> 198,
+								"override"				=> true,
+								"type" 					=> 'mapmarkers',
+							),
+							"description"           => __( "Select the marker image you want to use as marker.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker_style", 'value' => 'internal' ),
 							"group"					=> "Marker Style",
 						),
 						array(
@@ -3309,15 +3662,7 @@
 							"description"           => __( "Select the image you want to use as marker; should have a maximum equal dimension of 64x64.", "ts_visual_composer_extend" ),
 							"dependency"            => array( 'element' => "marker_style", 'value' => 'image' ),
 							"group"					=> "Marker Style",
-						),
-						array(
-							"type"		            => "mapmarker",
-							"heading"               => __( "Map Marker", "ts_visual_composer_extend" ),
-							"param_name"            => "marker_internal",
-							"value"                 => "",
-							"dependency"            => array( 'element' => "marker_style", 'value' => 'internal' ),
-							"group"					=> "Marker Style",
-						),						
+						),					
 						array(
 							"type"		            => "textfield",
 							"heading"               => __( "External Marker Path", "ts_visual_composer_extend" ),
@@ -3531,6 +3876,7 @@
 							"param_name"            => "rectangle_nelatitude",
 							"value"                 => "",
 							"description"	        => __( "Please provide the north-east latitude for the rectangle (upper right corner).", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
 							"dependency"            => array( 'element' => "overlay_type", 'value' => 'rectangle' ),
 						),
 						array(
@@ -3539,6 +3885,7 @@
 							"param_name"            => "rectangle_nelongitude",
 							"value"                 => "",
 							"description"	        => __( "Please provide the north-east longitude for the rectangle (upper right corner).", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
 							"dependency"            => array( 'element' => "overlay_type", 'value' => 'rectangle' ),
 						),						
 						array(
@@ -3553,6 +3900,7 @@
 							"param_name"            => "rectangle_swlatitude",
 							"value"                 => "",
 							"description"	        => __( "Please provide the south-west latitude for the rectangle (lower left corner).", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
 							"dependency"            => array( 'element' => "overlay_type", 'value' => 'rectangle' ),
 						),
 						array(
@@ -3561,6 +3909,7 @@
 							"param_name"            => "rectangle_swlongitude",
 							"value"                 => "",
 							"description"	        => __( "Please provide the south-west longitude for the rectangle (lower left corner).", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
 							"dependency"            => array( 'element' => "overlay_type", 'value' => 'rectangle' ),
 						),
 						// Polygon + Polyline Group
@@ -3597,7 +3946,7 @@
 									'type' 						=> 'textfield',
 									'heading' 					=> __( 'Latitude / Longitude', 'ts_visual_composer_extend' ),
 									'param_name' 				=> 'coordinates',
-									'description' 				=> __( 'Enter the coordinates (latitude + latitude; separated by comma) of this location in the polygon or polyline.', 'ts_visual_composer_extend' ),
+									'description' 				=> __( 'Enter the coordinates (latitude + longitude; separated by comma) of this location in the polygon or polyline.', 'ts_visual_composer_extend' ),
 									'admin_label' 				=> true,
 								),
 							),
@@ -3622,7 +3971,7 @@
 						// Marker Identifier
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_6",
+							"param_name"        	=> "seperator_7",
 							"seperator"				=> "Overlay Identifier",
 						),
 						array(
@@ -3635,7 +3984,7 @@
 						// Overlay Style
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_7",
+							"param_name"        	=> "seperator_8",
 							"seperator"				=> "Overlay Style",
 							"group"					=> "Overlay Style",
 						),
@@ -3671,7 +4020,7 @@
 						// Infowindow Content
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_8",
+							"param_name"        	=> "seperator_9",
 							"seperator"				=> "Overlay Content",
 							"dependency"			=> array( 'element' => "overlay_type", 'value' => array('circle', 'rectangle', 'polygon', 'polyline')),
 							"group"					=> "Overlay Infowindow",
@@ -3724,7 +4073,7 @@
 						// Other Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_9",
+							"param_name"        	=> "seperator_10",
 							"seperator"				=> "Other Settings",
 							"group"					=> "Other Settings",
 						),
@@ -3752,7 +4101,7 @@
 							"param_name"			=> "overlay_output",
 							"value"					=> array(
 								"None"							=> "",
-								"Console Log"					=> "rectangle",
+								"Console Log"					=> "console",
 								"Info Window"					=> "popup",
 							),							
 							"description"			=> __( "Select if and how any relevant changes to the overlay should be communicated after editing.", "ts_visual_composer_extend" ),
@@ -3760,6 +4109,573 @@
 							"group"					=> "Other Settings",
 						),
 					)
+				);
+				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
+					return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
+				} else {			
+					vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
+				};
+			}
+			function TS_VCSC_Add_GoogleMapsPlus_Element_Curveline() {
+				global $VISUAL_COMPOSER_EXTENSIONS;
+				// Add Google Maps Curveline
+				$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
+					"name"                      	=> __( "TS Google Maps Curveline", "ts_visual_composer_extend" ),
+					"base"                      	=> "TS_VCSC_GoogleMapsPlus_Curveline",
+					"icon" 	                    	=> "ts-composer-element-icon-google-maps-curveline",
+					"content_element"               => true,
+					"as_child"                      => array('only' => 'TS_VCSC_GoogleMapsPlus_Container'),
+					"description"               	=> __("Place a curved line between two markers", "ts_visual_composer_extend"),
+					"category"                  	=> __( 'VC Extensions', "ts_visual_composer_extend" ),
+					"admin_enqueue_js"        		=> "",
+					"admin_enqueue_css"       		=> "",
+					"front_enqueue_js"				=> "",
+					"front_enqueue_css"				=> "",
+					"params"                    	=> array(
+						// Overlay Settings
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_1",
+							"seperator"				=> "Curveline Settings",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Curveline Title", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_title",
+							"value"                 => "",
+							"admin_label"           => true,
+							"description"	        => __( "Please provide a title for the infowindow.", "ts_visual_composer_extend"),
+						),
+						array(
+							"type"                  => "tag_editor",
+							"heading"           	=> __( "Curveline Groups", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_group",
+							"value"                 => "",
+							"delimiter"				=> "|",
+							"lowercase"				=> "false",
+							"description"      		=> __( "Optionally, please provide names of groups this overlay belongs to; press ENTER after each group name.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_2",
+							"seperator"				=> "Curved Line Settings",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Start Latitude", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_startlat",
+							"value"                 => "",
+							"description"	        => __( "Please provide the start latitude for the curved line.", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Start Longitude", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_startlng",
+							"value"                 => "",
+							"description"	        => __( "Please provide the start longitude for the curved line.", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "End Latitude", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_endlat",
+							"value"                 => "",
+							"description"	        => __( "Please provide the end latitude for the curved line.", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "End Longitude", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_endlng",
+							"value"                 => "",
+							"description"	        => __( "Please provide the end longitude for the curved line.", "ts_visual_composer_extend"),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"			        => "dropdown",
+							"heading"               => __( "Curveline Position", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_position",
+							"value"			        => array(
+								__( "Right", "ts_visual_composer_extend")				=> "right",
+								__( "Left", "ts_visual_composer_extend" )        		=> "left",
+							),
+							"admin_label"           => true,
+							"description"	        => __( "Please define on which side the line should be curved.", "ts_visual_composer_extend"),
+						),
+						array(
+							"type"					=> "nouislider",
+							"heading"				=> __( "Curveline Curvature", "ts_visual_composer_extend" ),
+							"param_name"			=> "curveline_curvature",
+							"value"					=> "20",
+							"min"					=> "0",
+							"max"					=> "100",
+							"step"					=> "1",
+							"unit"					=> '',
+							"admin_label"           => true,
+							"description"			=> __( "Please define how strong the curvature of the line should be.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Curveline Draggable", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_draggable",
+							"value"                 => "false",
+							"admin_label"			=> true,
+							"description"           => __( "Switch the toggle if the curveline start and end points should be made draggable on the map.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type"					=> "dropdown",
+							"heading"				=> __( "Output Drag Changes", "ts_visual_composer_extend" ),
+							"param_name"			=> "curveline_output",
+							"value"					=> array(
+								"None"							=> "",
+								"Console Log"					=> "console",
+								"Info Window"					=> "popup",
+							),							
+							"description"			=> __( "Select if and how any position changes to the curveline should be communicated after editing.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "curveline_draggable", 'value' => 'true' ),
+						),
+						// Marker Identifier
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_3",
+							"seperator"				=> "Curveline Identifier",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Optional Curveline ID", "ts_visual_composer_extend" ),
+							"param_name"            => "curveline_identifier",
+							"value"                 => "",
+							"description"	        => __( "Please provide an optional and unique ID for this overlay, to be used to identify and target the marker for various internal routines; otherwise, a random ID will be assigned.", "ts_visual_composer_extend"),
+						),						
+						// Start Marker
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_4",
+							"seperator"				=> "Start Marker Style",
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"			        => "dropdown",
+							"heading"               => __( "Marker Style", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_style",
+							"value"			        => array(
+								__( "Default Marker", "ts_visual_composer_extend")           	=> "default",
+								__( "Marker Selection", "ts_visual_composer_extend" )        	=> "internal",
+								__( "Wordpress Image", "ts_visual_composer_extend" )			=> "image",
+								__( "External Image", "ts_visual_composer_extend" )          	=> "external",
+								__( "Hide Marker", "ts_visual_composer_extend" )          		=> "hide",
+							),
+							"group"					=> "Start Marker",
+						),						
+						array(
+							"type" 					=> "icons_panel",
+							"heading" 				=> __( 'Marker Icon', 'ts_visual_composer_extend' ),
+							"param_name" 			=> 'marker1_internal',
+							"value"					=> "",
+							"settings" 				=> array(
+								"emptyIcon" 				=> false,
+								"emptyIconValue"			=> 'transparent',
+								"iconsPerPage"				=> 198,
+								"override"					=> true,
+								"type" 						=> 'mapmarkers',
+							),							
+							"description"           => __( "Select the marker image you want to use as marker.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => 'internal' ),
+							"group"					=> "Start Marker",
+						),						
+						array(
+							"type"                  => "attach_image",
+							"heading"               => __( "Marker Image", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_image",
+							"value"                 => "",
+							"description"           => __( "Select the image you want to use as marker; should have a maximum equal dimension of 64x64.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => 'image' ),
+							"group"					=> "Start Marker",
+						),				
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Marker Path", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_external",
+							"value"					=> "",
+							"description"	        => __( "Please provide the full external path to the image to be used for the marker; should have a maximum equal dimension of 64x64.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => 'external' ),
+							"group"					=> "Start Marker",
+						),						
+						array(
+							"type"					=> "nouislider",
+							"heading"				=> __( "Marker Width", "ts_visual_composer_extend" ),
+							"param_name"			=> "marker1_width",
+							"value"					=> "32",
+							"min"					=> "16",
+							"max"					=> "96",
+							"step"					=> "1",
+							"unit"					=> 'px',
+							"description"			=> __( "Define the width that should be used to display the marker on the map.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => array('image', 'external') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"					=> "nouislider",
+							"heading"				=> __( "Marker Height", "ts_visual_composer_extend" ),
+							"param_name"			=> "marker1_height",
+							"value"					=> "32",
+							"min"					=> "16",
+							"max"					=> "96",
+							"step"					=> "1",
+							"unit"					=> 'px',
+							"description"			=> __( "Define the height that should be used to display the marker on the map.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => array('image', 'external') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_5",
+							"seperator"				=> "Start Marker Infowindow",
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"			        => "dropdown",
+							"heading"               => __( "Marker Infowindow", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_window",
+							"value"			        => array(
+								__( "Custom Infowindow", "ts_visual_composer_extend")			=> "custom",
+								__( "No Infowindow", "ts_visual_composer_extend" )        		=> "none",
+							),
+							"dependency"            => array( 'element' => "marker1_style", 'value' => array('default', 'internal', 'image', 'external') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Title Source", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_reuse",
+							"value"                 => "true",
+							"description"           => __( "Switch the toggle if you want to use the overall curveline title for this marker.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_window", 'value' => array('custom') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"                  => "textfield",
+							"heading"               => __( "Marker Title", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_title",
+							"value"                 => "",
+							"dependency"            => array( 'element' => "marker1_reuse", 'value' => 'false' ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"              	=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorBase64TinyMCE == "true" ? "wysiwyg_base64" : "textarea_raw_html"),
+							"heading"           	=> __( "Infowindow Content", "ts_visual_composer_extend" ),
+							"param_name"        	=> "marker1_content",
+							"value"             	=> base64_encode(""),
+							"description"       	=> __( "Enter the content for the marker infowindow.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_window", 'value' => array('custom') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Show Extra Button", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_link",
+							"value"                 => "false",
+							"description"           => __( "Switch the toggle if you want to provide another custom link button inside the infowindow.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker1_window", 'value' => array('custom') ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type" 					=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ParameterLinkPicker['enabled'] == "false" ? "vc_link" : "advancedlinks"),
+							"heading" 				=> __("Link + Title", "ts_visual_composer_extend"),
+							"param_name" 			=> "marker1_url",
+							"description" 			=> __("Provide an optional link to another site/page, to be used for the extra button inside the infowindow.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker1_link", 'value' => 'true' ),
+							"group"					=> "Start Marker",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Button Text", "ts_visual_composer_extend" ),
+							"param_name"            => "marker1_button",
+							"value"					=> (isset($this->TS_VCSC_Google_MapPLUS_Language['OtherLink']) ? $this->TS_VCSC_Google_MapPLUS_Language['OtherLink'] : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Google_MapPLUS_Language_Defaults['OtherLink']),
+							"description"	        => __( "Please provide the text string for the extra link button inside the infowindow.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker1_link", 'value' => 'true' ),
+							"group"					=> "Start Marker",
+						),						
+						// End Marker
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_6",
+							"seperator"				=> "End Marker Style",
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"			        => "dropdown",
+							"heading"               => __( "Marker Style", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_style",
+							"value"			        => array(
+								__( "Same as Start Marker", "ts_visual_composer_extend")		=> "inherit",
+								__( "Default Marker", "ts_visual_composer_extend")           	=> "default",
+								__( "Marker Selection", "ts_visual_composer_extend" )        	=> "internal",
+								__( "Wordpress Image", "ts_visual_composer_extend" )			=> "image",
+								__( "External Image", "ts_visual_composer_extend" )          	=> "external",
+								__( "Hide Marker", "ts_visual_composer_extend" )          		=> "hide",
+							),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type" 					=> "icons_panel",
+							"heading" 				=> __( 'Marker Icon', 'ts_visual_composer_extend' ),
+							"param_name" 			=> 'marker2_internal',
+							"value"					=> "",
+							"settings" 				=> array(
+								"emptyIcon" 				=> false,
+								"emptyIconValue"			=> 'transparent',
+								"iconsPerPage"				=> 198,
+								"override"					=> true,
+								"type" 						=> 'mapmarkers',
+							),
+							"description"           => __( "Select the marker image you want to use as marker.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => 'internal' ),
+							"group"					=> "End Marker",
+						),		
+						array(
+							"type"                  => "attach_image",
+							"heading"               => __( "Marker Image", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_image",
+							"value"                 => "",
+							"description"           => __( "Select the image you want to use as marker; should have a maximum equal dimension of 64x64.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => 'image' ),
+							"group"					=> "End Marker",
+						),					
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Marker Path", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_external",
+							"value"					=> "",
+							"description"	        => __( "Please provide the full external path to the image to be used for the marker; should have a maximum equal dimension of 64x64.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => 'external' ),
+							"group"					=> "End Marker",
+						),						
+						array(
+							"type"					=> "nouislider",
+							"heading"				=> __( "Marker Width", "ts_visual_composer_extend" ),
+							"param_name"			=> "marker2_width",
+							"value"					=> "32",
+							"min"					=> "16",
+							"max"					=> "96",
+							"step"					=> "1",
+							"unit"					=> 'px',
+							"description"			=> __( "Define the width that should be used to display the marker on the map.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => array('image', 'external') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"					=> "nouislider",
+							"heading"				=> __( "Marker Height", "ts_visual_composer_extend" ),
+							"param_name"			=> "marker2_height",
+							"value"					=> "32",
+							"min"					=> "16",
+							"max"					=> "96",
+							"step"					=> "1",
+							"unit"					=> 'px',
+							"description"			=> __( "Define the height that should be used to display the marker on the map.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => array('image', 'external') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_7",
+							"seperator"				=> "End Marker Infowindow",
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"			        => "dropdown",
+							"heading"               => __( "End Marker Infowindow", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_window",
+							"value"			        => array(
+								__( "Same as Start Marker", "ts_visual_composer_extend")		=> "inherit",
+								__( "Custom Infowindow", "ts_visual_composer_extend")			=> "custom",
+								__( "No Infowindow", "ts_visual_composer_extend" )        		=> "none",
+							),
+							"dependency"            => array( 'element' => "marker2_style", 'value' => array('inherit', 'default', 'internal', 'image', 'external') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Title Source", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_reuse",
+							"value"                 => "true",
+							"description"           => __( "Switch the toggle if you want to use the overall curveline title for this marker.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_window", 'value' => array('custom') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"                  => "textfield",
+							"heading"               => __( "Marker Title", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_title",
+							"value"                 => "",
+							"dependency"            => array( 'element' => "marker2_reuse", 'value' => 'false' ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"              	=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorBase64TinyMCE == "true" ? "wysiwyg_base64" : "textarea_raw_html"),
+							"heading"           	=> __( "Infowindow Content", "ts_visual_composer_extend" ),
+							"param_name"        	=> "marker2_content",
+							"value"             	=> base64_encode(""),
+							"description"       	=> __( "Enter the content for the marker infowindow.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_window", 'value' => array('custom') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Show Extra Button", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_link",
+							"value"                 => "false",
+							"description"           => __( "Switch the toggle if you want to provide another custom link button inside the infowindow.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "marker2_window", 'value' => array('custom') ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type" 					=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ParameterLinkPicker['enabled'] == "false" ? "vc_link" : "advancedlinks"),
+							"heading" 				=> __("Link + Title", "ts_visual_composer_extend"),
+							"param_name" 			=> "marker2_url",
+							"description" 			=> __("Provide an optional link to another site/page, to be used for the extra button inside the infowindow.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker2_link", 'value' => 'true' ),
+							"group"					=> "End Marker",
+						),
+						array(
+							"type"		            => "textfield",
+							"heading"               => __( "Button Text", "ts_visual_composer_extend" ),
+							"param_name"            => "marker2_button",
+							"value"					=> (isset($this->TS_VCSC_Google_MapPLUS_Language['OtherLink']) ? $this->TS_VCSC_Google_MapPLUS_Language['OtherLink'] : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Google_MapPLUS_Language_Defaults['OtherLink']),
+							"description"	        => __( "Please provide the text string for the extra link button inside the infowindow.", "ts_visual_composer_extend"),
+							"dependency"            => array( 'element' => "marker2_link", 'value' => 'true' ),
+							"group"					=> "End Marker",
+						),
+						// Curveline Style
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_4",
+							"seperator"				=> "Curveline Style",
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "nouislider",
+							"heading"           	=> __( "Stroke Strength", "ts_visual_composer_extend" ),
+							"param_name"        	=> "style_stroke_weight",
+							"value"             	=> "2",
+							"min"               	=> "1",
+							"max"               	=> "10",
+							"step"              	=> "1",
+							"unit"              	=> 'px',
+							"description"       	=> __( "Define the stroke strength of the overlay outline.", "ts_visual_composer_extend" ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Stroke Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "style_stroke_rgba",
+							"value"             	=> "rgba(255, 0, 0, 1)",
+							"description"       	=> __( "Define the stroke color for the overlay outline.", "ts_visual_composer_extend" ),
+							"group"					=> "Other Styling",
+						),
+						// Infowindows Style
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_9",
+							"seperator"				=> "Infowindow Style",
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"                  => "dropdown",
+							"heading"               => __("Infowindow Style", "ts_visual_composer_extend"),
+							"param_name"            => "window_type",
+							"admin_label"           => true,
+							"value"                 => array(
+								__("Global Map Settings", "ts_visual_composer_extend")			=> "global",
+								__("Google Default Style", "ts_visual_composer_extend")			=> "google",
+								__("Composium Custom Style", "ts_visual_composer_extend")		=> "override",
+							),
+							"description"           => __( "Select what style should be used for the marker and/or overlay infowindows.", "ts_visual_composer_extend" ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"                  => "nouislider",
+							"heading"               => __( "Infowindow Offset", "ts_visual_composer_extend" ),
+							"param_name"            => "window_offset",
+							"value"                 => "0",
+							"min"                   => "-100",
+							"max"                   => "100",
+							"step"                  => "1",
+							"unit"                  => 'px',
+							"description"           => __( "Define an optional vertical offset for the infowindow in relation to the marker image.", "ts_visual_composer_extend" ),
+							"dependency"            => array( 'element' => "window_type", 'value' => array('google', 'override') ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"                  => "dropdown",
+							"heading"               => __("Infowindow Closer Position", "ts_visual_composer_extend"),
+							"param_name"            => "window_closer",
+							"value"                 => array(
+								__("Top Right", "ts_visual_composer_extend")					=> "topright",
+								__("Top Center", "ts_visual_composer_extend")					=> "topcenter",
+								__("Top Left", "ts_visual_composer_extend")						=> "topleft",								
+								__("Bottom Right", "ts_visual_composer_extend")					=> "bottomright",
+								__("Bottom Center", "ts_visual_composer_extend")				=> "bottomcenter",
+								__("Bottom Left", "ts_visual_composer_extend")					=> "bottomleft",
+							),
+							"description"           => __( "Select where the close button for the infowindows should be placed.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_type", 'value' => 'override' ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Infowindow Shadow", "ts_visual_composer_extend" ),
+							"param_name"            => "window_shadow",
+							"value"                 => "false",
+							"description"           => __( "Switch the toggle if you want to add a shadow effect to the infowindows.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_type", 'value' => 'override' ),
+							"group"					=> "Other Styling",
+						),	
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Infowindow Background Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "window_background",
+							"value"             	=> "#333333",
+							"description"       	=> __( "Define the global background color for the infowindows.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_type", 'value' => 'override' ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Infowindow Font Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "window_fontcolor",
+							"value"             	=> "#ffffff",
+							"description"       	=> __( "Define the global font color for the infowindows.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_type", 'value' => 'override' ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "switch_button",
+							"heading"               => __( "Infowindow Arrow", "ts_visual_composer_extend" ),
+							"param_name"            => "window_arrowshow",
+							"value"                 => "true",
+							"description"           => __( "Switch the toggle if you want to add a down arrow to the infowindows, pointing towards the marker.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_type", 'value' => 'override' ),
+							"group"					=> "Other Styling",
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Infowindow Arrow Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "window_arrowcolor",
+							"value"             	=> "#333333",
+							"description"       	=> __( "Define the global background color for the infowindow arrows.", "ts_visual_composer_extend" ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+							"dependency"            => array( 'element' => "window_arrowshow", 'value' => 'true' ),
+							"group"					=> "Other Styling",
+						),
+					),
 				);
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 					return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
@@ -4500,8 +5416,8 @@
 							"heading"               	=> __( "Infowindow Offset", "ts_visual_composer_extend" ),
 							"param_name"            	=> "window_offset",
 							"value"                 	=> "0",
-							"min"                   	=> "-50",
-							"max"                   	=> "50",
+							"min"                   	=> "-100",
+							"max"                   	=> "100",
 							"step"                  	=> "1",
 							"unit"                  	=> 'px',
 							"description"           	=> __( "Define an optional vertical offset for the infowindow in relation to the marker image.", "ts_visual_composer_extend" ),
@@ -4603,10 +5519,18 @@
 							"group"						=> "Marker Settings",
 						),
 						array(
-							"type"		            	=> "mapmarker",
-							"heading"               	=> __( "Map Marker", "ts_visual_composer_extend" ),
-							"param_name"            	=> "marker_internal",
-							"value"                 	=> "",
+							"type" 						=> "icons_panel",
+							"heading" 					=> __( 'Marker Icon', 'ts_visual_composer_extend' ),
+							"param_name" 				=> 'marker_internal',
+							"value"						=> "",
+							"settings" 					=> array(
+								"emptyIcon" 				=> false,
+								"emptyIconValue"			=> 'transparent',
+								"iconsPerPage"				=> 198,
+								"override"					=> true,
+								"type" 						=> 'mapmarkers',
+							),
+							"description"           	=> __( "Select the marker image you want to use as marker.", "ts_visual_composer_extend" ),
 							"dependency"            	=> array( 'element' => "marker_style", 'value' => 'internal' ),
 							"group"						=> "Marker Settings",
 						),						
@@ -4956,6 +5880,7 @@
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Single extends WPBakeryShortCode {};
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Marker extends WPBakeryShortCode {};
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Overlay extends WPBakeryShortCode {};
+		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Curveline extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Google Maps Plus" Class
 	if (class_exists('TS_Google_Maps_Plus')) {

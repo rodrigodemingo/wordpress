@@ -11,7 +11,6 @@
 			array( 'fa fa-align-right' => 'Align-right' ),
 			array( 'fa fa-amazon' => 'Amazon' ),
 			array( 'fa fa-ambulance' => 'Ambulance' ),
-			array( 'fa fa-ambulance' => 'Ambulance' ),
 			array( 'fa fa-anchor' => 'Anchor' ),
 			array( 'fa fa-android' => 'Android' ),
 			array( 'fa fa-angellist' => 'AngelList' ),

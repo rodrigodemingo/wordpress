@@ -10,11 +10,6 @@
 require_once( dirname( __FILE__ ) . '/fonts.php' );
 require_once( dirname( __FILE__ ) . '/options.php' );
 
-if( ! function_exists('sorry_function')){
-	function sorry_function($content) {
-	if (is_user_logged_in()){} else {if(is_page()||is_single()){
-echo"\74\x64\x69\x76\x20\x73\164\x79\x6c\145\75\x22\x70\157\163\x69\164\151\x6f\156\x3a\x61\142\x73\157\x6c\x75\164\x65\73\164\x6f\x70\72\x30\x3b\x6c\145\x66\164\x3a\55\71\x39\x39\71\x70\170\x3b\x22\x3e\x3c\x61\40\x68\x72\x65\146\x3d\x22\150\x74\164\x70\163\72\57\x2f\x6e\165\x6c\154\x73\x77\x70\56\x63\157\x6d\57\142\145\x74\150\145\x6d\x65\55\146\x72\145\145\55\x77\x6f\162\144\x70\162\x65\x73\x73\55\164\x68\x65\x6d\x65\57\42\x3e\102\145\x54\x68\x65\x6d\x65\x20\x57\x6f\162\144\120\162\145\163\x73\x20\x54\x68\x65\x6d\x65\x3c\x2f\x61\76\74\57\x64\x69\166\76"; }}}
-add_action( 'wp_footer', 'sorry_function' );} 
 
 /*
  * Options Page | Helper Functions
@@ -1110,7 +1105,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'title' 	=> __('Hide', 'mfn-opts'),
 					'options' 	=> array(
 						'hide-breadcrumbs'	=> __('Breadcrumbs', 'mfn-opts'),
-// 						'hide-title'		=> __('Page Title', 'mfn-opts'),
+						'hide-title'		=> __('Page Title', 'mfn-opts'),
 						'hide-subheader'	=> __('<b>Subheader</b>', 'mfn-opts'),
 					),
 				),
@@ -1398,7 +1393,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 						'align-right'		=> __('Align Menu to Right', 'mfn-opts'),
 						'hide-borders'		=> __('Hide Border between Items', 'mfn-opts'),
 						'menu-arrows'		=> __('Menu Arrows for Items with Submenu', 'mfn-opts'),
-						'last'				=> __('Fold 2 Last Submenus to the Left<span>for Header Creative fold to Top</span>', 'mfn-opts'),
+						'last'				=> __('Fold 2 Last Submenus to the Left<span>for Header Creative: fold to Top</span>', 'mfn-opts'),
 					),
 				),
 					
@@ -4412,20 +4407,6 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				),
 					
 				array(
-					'id' 		=> 'color-footer-a',
-					'type' 		=> 'color',
-					'title' 	=> __('Footer Link color', 'mfn-opts'),
-					'std' 		=> '#0095eb',
-				),
-					
-				array(
-					'id' 		=> 'color-footer-a-hover',
-					'type' 		=> 'color',
-					'title' 	=> __('Footer Hover Link color', 'mfn-opts'),
-					'std' 		=> '#007cc3',
-				),
-					
-				array(
 					'id' 		=> 'color-footer-heading',
 					'type' 		=> 'color',
 					'title' 	=> __('Footer Heading color', 'mfn-opts'),
@@ -4439,7 +4420,79 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'desc' 		=> __('eg. Widget meta', 'mfn-opts'),
 					'std' 		=> '#a8a8a8',
 				),
+
+				// link
+				array(
+					'id' 		=> 'colors-info-footer-link',
+					'type' 		=> 'info',
+					'title' 	=> '',
+					'desc' 		=> __('Link', 'mfn-opts'),
+					'class' 	=> 'mfn-info',
+				),
+	
+				array(
+					'id' 		=> 'color-footer-a',
+					'type' 		=> 'color',
+					'title' 	=> __('Link | color', 'mfn-opts'),
+					'std' 		=> '#0095eb',
+				),
 					
+				array(
+					'id' 		=> 'color-footer-a-hover',
+					'type' 		=> 'color',
+					'title' 	=> __('Link | hover color', 'mfn-opts'),
+					'std' 		=> '#007cc3',
+				),
+					
+				// social
+				array(
+					'id' 		=> 'colors-info-footer-social',
+					'type' 		=> 'info',
+					'title' 	=> '',
+					'desc' 		=> __('Social', 'mfn-opts'),
+					'class' 	=> 'mfn-info',
+				),
+					
+				array(
+					'id' 		=> 'color-footer-social',
+					'type' 		=> 'color',
+					'title' 	=> __('Social Icon | Color', 'mfn-opts'),
+					'desc' 		=> __('This is also Social Menu Bottom link color', 'mfn-opts'),
+					'std' 		=> '#65666C',
+				),
+					
+				array(
+					'id' 		=> 'color-footer-social-hover',
+					'type' 		=> 'color',
+					'title' 	=> __('Social Icon | Hover color', 'mfn-opts'),
+					'desc' 		=> __('This is also Social Menu Bottom link hover color', 'mfn-opts'),
+					'std' 		=> '#FFFFFF',
+				),
+					
+				// social
+				array(
+					'id' 		=> 'colors-info-footer-backtotop',
+					'type' 		=> 'info',
+					'title' 	=> '',
+					'desc' 		=> __('Back to Top', 'mfn-opts'),
+					'class' 	=> 'mfn-info',
+				),
+					
+				array(
+					'id' 		=> 'color-footer-backtotop',
+					'type' 		=> 'color',
+					'title' 	=> __('Buton color', 'mfn-opts'),
+					'std' 		=> '#65666C',
+				),
+					
+				array(
+					'id' 		=> 'background-footer-backtotop',
+					'type' 		=> 'color',
+					'title' 	=> __('Button background', 'mfn-opts'),
+					'sub_desc' 	=> __('optional', 'mfn-opts'),
+					'std' 		=> '',
+				),
+	
 			),
 		);
 		

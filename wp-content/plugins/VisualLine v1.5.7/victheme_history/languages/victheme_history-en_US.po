@@ -1,0 +1,554 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VicTheme History 1.0\n"
+"POT-Creation-Date: 2016-07-12 19:20+0800\n"
+"PO-Revision-Date: 2016-07-12 19:20+0800\n"
+"Last-Translator: \n"
+"Language-Team: VicTheme.com <support@victheme.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;_n;_x;_ex;esc_attr__;"
+"esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: filters/vc_load_default_templates.php:15
+msgid "* History Elements"
+msgstr ""
+
+#: victheme_history.php:26
+msgid ""
+"VicTheme History depends on VicTheme Core Plugin which is not activated or "
+"missing,\n"
+"        Please enable it first before VicTheme History can work properly."
+msgstr ""
+
+#: victheme_history.php:30
+#, php-format
+msgid ""
+"VicTheme History depends on VicTheme Core Plugin API version %s to operate "
+"properly."
+msgstr ""
+
+#: victheme_history.php:51
+msgid ""
+"History requires Visual Composer Plugin enabled before it can function "
+"properly."
+msgstr ""
+
+#: victheme_history.php:67
+msgid ""
+"HistoryLine requires Visual Composer Plugin version 4.7.0 and above before "
+"it can function properly.\n"
+"             For older visual composer please use HistoryLine version 1.4.x."
+msgstr ""
+
+#: visualcomposer/history.php:123
+msgid "History"
+msgstr ""
+
+#: visualcomposer/history.php:124
+msgid "Element Wrapper"
+msgstr ""
+
+#: visualcomposer/history.php:127 visualcomposer/historyinner.php:123
+#: visualcomposer/historysimple.php:35
+msgid "VisualLine"
+msgstr ""
+
+#: visualcomposer/history.php:139
+msgid "Point Connector"
+msgstr ""
+
+#: visualcomposer/history.php:143 visualcomposer/historyinner.php:160
+#: visualcomposer/historyinner.php:171 visualcomposer/historyinner.php:231
+#: visualcomposer/historyinner.php:300 visualcomposer/historyinner.php:529
+msgid "Disable"
+msgstr ""
+
+#: visualcomposer/history.php:144 visualcomposer/historyinner.php:159
+#: visualcomposer/historyinner.php:170 visualcomposer/historyinner.php:230
+#: visualcomposer/historyinner.php:299 visualcomposer/historyinner.php:528
+msgid "Enable"
+msgstr ""
+
+#: visualcomposer/history.php:146
+msgid "Enable point connector created by canvas element"
+msgstr ""
+
+#: visualcomposer/history.php:151 visualcomposer/historyinner.php:209
+msgid "CSS ID"
+msgstr ""
+
+#: visualcomposer/history.php:158 visualcomposer/historyinner.php:217
+msgid "CSS Class"
+msgstr ""
+
+#: visualcomposer/history.php:165 visualcomposer/historyinner.php:579
+msgid "Css"
+msgstr ""
+
+#: visualcomposer/history.php:167 visualcomposer/historyinner.php:581
+msgid "Design options"
+msgstr ""
+
+#: visualcomposer/history.php:172 visualcomposer/historyinner.php:586
+msgid "CSS Animation"
+msgstr ""
+
+#: visualcomposer/history.php:176 visualcomposer/historyinner.php:590
+msgid "No"
+msgstr ""
+
+#: visualcomposer/history.php:177 visualcomposer/historyinner.php:591
+msgid "Top to bottom"
+msgstr ""
+
+#: visualcomposer/history.php:178 visualcomposer/historyinner.php:592
+msgid "Bottom to top"
+msgstr ""
+
+#: visualcomposer/history.php:179 visualcomposer/historyinner.php:593
+msgid "Left to right"
+msgstr ""
+
+#: visualcomposer/history.php:180 visualcomposer/historyinner.php:594
+msgid "Right to left"
+msgstr ""
+
+#: visualcomposer/history.php:181 visualcomposer/historyinner.php:595
+msgid "Appear from center"
+msgstr ""
+
+#: visualcomposer/history.php:183 visualcomposer/historyinner.php:597
+msgid ""
+"Select type of animation if you want this element to be animated when it "
+"enters into the browsers viewport. Note: Works only in modern browsers."
+msgstr ""
+
+#: visualcomposer/history.php:190 visualcomposer/historyinner.php:602
+msgid "Quadratic Curve X"
+msgstr ""
+
+#: visualcomposer/history.php:193 visualcomposer/history.php:204
+#: visualcomposer/history.php:215 visualcomposer/history.php:226
+#: visualcomposer/history.php:237 visualcomposer/history.php:248
+#: visualcomposer/history.php:259 visualcomposer/history.php:270
+#: visualcomposer/history.php:284 visualcomposer/history.php:293
+#: visualcomposer/historyinner.php:605 visualcomposer/historyinner.php:616
+#: visualcomposer/historyinner.php:627 visualcomposer/historyinner.php:638
+#: visualcomposer/historyinner.php:649 visualcomposer/historyinner.php:660
+#: visualcomposer/historyinner.php:671 visualcomposer/historyinner.php:682
+#: visualcomposer/historyinner.php:696 visualcomposer/historyinner.php:705
+msgid "Pointer"
+msgstr ""
+
+#: visualcomposer/history.php:196 visualcomposer/historyinner.php:608
+msgid ""
+"The connector line quadratic curve point x coordinates related to starting "
+"point"
+msgstr ""
+
+#: visualcomposer/history.php:201 visualcomposer/historyinner.php:613
+msgid "Quadratic Curve Y"
+msgstr ""
+
+#: visualcomposer/history.php:207 visualcomposer/historyinner.php:619
+msgid ""
+"The connector line quadratic curve point y coordinates related to starting "
+"point"
+msgstr ""
+
+#: visualcomposer/history.php:212 visualcomposer/historyinner.php:624
+msgid "Offset Start X"
+msgstr ""
+
+#: visualcomposer/history.php:218 visualcomposer/historyinner.php:630
+msgid "The connector line starting point x offset"
+msgstr ""
+
+#: visualcomposer/history.php:223 visualcomposer/historyinner.php:635
+msgid "Offset Start Y"
+msgstr ""
+
+#: visualcomposer/history.php:229 visualcomposer/historyinner.php:641
+msgid "The connector line starting point y offset"
+msgstr ""
+
+#: visualcomposer/history.php:234 visualcomposer/historyinner.php:646
+msgid "Offset End X"
+msgstr ""
+
+#: visualcomposer/history.php:240 visualcomposer/historyinner.php:652
+msgid "The connector line ending point x offset"
+msgstr ""
+
+#: visualcomposer/history.php:245 visualcomposer/historyinner.php:657
+msgid "Offset End Y"
+msgstr ""
+
+#: visualcomposer/history.php:251 visualcomposer/historyinner.php:663
+msgid "The connector line ending point y offset"
+msgstr ""
+
+#: visualcomposer/history.php:256 visualcomposer/historyinner.php:668
+#: visualcomposer/historysimple.php:58
+msgid "Line Width"
+msgstr ""
+
+#: visualcomposer/history.php:262 visualcomposer/historyinner.php:674
+#: visualcomposer/historysimple.php:63
+msgid "The connector line width in pixel"
+msgstr ""
+
+#: visualcomposer/history.php:267 visualcomposer/historyinner.php:679
+#: visualcomposer/historysimple.php:68
+msgid "Line Type"
+msgstr ""
+
+#: visualcomposer/history.php:273 visualcomposer/historyinner.php:685
+#: visualcomposer/historysimple.php:73
+msgid "Round"
+msgstr ""
+
+#: visualcomposer/history.php:274 visualcomposer/historyinner.php:686
+#: visualcomposer/historysimple.php:74
+msgid "Square"
+msgstr ""
+
+#: visualcomposer/history.php:275 visualcomposer/historyinner.php:687
+#: visualcomposer/historysimple.php:75
+msgid "Butt"
+msgstr ""
+
+#: visualcomposer/history.php:277 visualcomposer/historyinner.php:689
+#: visualcomposer/historysimple.php:77
+msgid "The connector line type"
+msgstr ""
+
+#: visualcomposer/history.php:282 visualcomposer/historyinner.php:694
+#: visualcomposer/historysimple.php:100
+msgid "Line Connector Color One"
+msgstr ""
+
+#: visualcomposer/history.php:286 visualcomposer/historyinner.php:698
+#: visualcomposer/historysimple.php:103
+msgid "Set the first color for the line connector gradient"
+msgstr ""
+
+#: visualcomposer/history.php:291 visualcomposer/historyinner.php:703
+#: visualcomposer/historysimple.php:108
+msgid "Line Connector Color Two"
+msgstr ""
+
+#: visualcomposer/history.php:295 visualcomposer/historyinner.php:707
+#: visualcomposer/historysimple.php:111
+msgid "Set the second color for the line connector gradient"
+msgstr ""
+
+#: visualcomposer/history.php:315
+msgid "Grids"
+msgstr ""
+
+#: visualcomposer/historyinner.php:119
+msgid "History Content"
+msgstr ""
+
+#: visualcomposer/historyinner.php:120
+msgid "The content element for history"
+msgstr ""
+
+#: visualcomposer/historyinner.php:138
+msgid "Direction"
+msgstr ""
+
+#: visualcomposer/historyinner.php:141 visualcomposer/historyinner.php:263
+msgid "Left"
+msgstr ""
+
+#: visualcomposer/historyinner.php:142 visualcomposer/historyinner.php:265
+msgid "Right"
+msgstr ""
+
+#: visualcomposer/historyinner.php:143 visualcomposer/historyinner.php:264
+msgid "Center"
+msgstr ""
+
+#: visualcomposer/historyinner.php:155
+msgid "Enable Title"
+msgstr ""
+
+#: visualcomposer/historyinner.php:166
+msgid "Enable SubTitle"
+msgstr ""
+
+#: visualcomposer/historyinner.php:177 visualcomposer/historysimple.php:202
+msgid "Title"
+msgstr ""
+
+#: visualcomposer/historyinner.php:185
+msgid "Title Extra CSS Class"
+msgstr ""
+
+#: visualcomposer/historyinner.php:193
+msgid "Sub Title"
+msgstr ""
+
+#: visualcomposer/historyinner.php:201
+msgid "Subtitle Extra CSS Class"
+msgstr ""
+
+#: visualcomposer/historyinner.php:225
+msgid "Enable Image"
+msgstr ""
+
+#: visualcomposer/historyinner.php:228 visualcomposer/historyinner.php:243
+#: visualcomposer/historyinner.php:252 visualcomposer/historyinner.php:261
+#: visualcomposer/historyinner.php:275 visualcomposer/historyinner.php:284
+msgid "Image options"
+msgstr ""
+
+#: visualcomposer/historyinner.php:238 visualcomposer/historysimple.php:186
+msgid "Image"
+msgstr ""
+
+#: visualcomposer/historyinner.php:241 visualcomposer/historysimple.php:189
+msgid "Select image from media library."
+msgstr ""
+
+#: visualcomposer/historyinner.php:248 visualcomposer/historysimple.php:82
+msgid "Image size"
+msgstr ""
+
+#: visualcomposer/historyinner.php:250 visualcomposer/historysimple.php:85
+msgid ""
+"Enter image size. Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
+"other sizes defined by current theme. Alternatively enter image size in "
+"pixels: 200x100 (Width x Height). Leave empty to use \"thumbnail\" size."
+msgstr ""
+
+#: visualcomposer/historyinner.php:258
+msgid "Image alignment"
+msgstr ""
+
+#: visualcomposer/historyinner.php:273 visualcomposer/historysimple.php:91
+msgid "Image style"
+msgstr ""
+
+#: visualcomposer/historyinner.php:281
+msgid "Border color"
+msgstr ""
+
+#: visualcomposer/historyinner.php:286
+msgid "Border color."
+msgstr ""
+
+#: visualcomposer/historyinner.php:294
+msgid "Enable Icon"
+msgstr ""
+
+#: visualcomposer/historyinner.php:297 visualcomposer/historyinner.php:308
+#: visualcomposer/historyinner.php:326 visualcomposer/historyinner.php:344
+#: visualcomposer/historyinner.php:362 visualcomposer/historyinner.php:380
+#: visualcomposer/historyinner.php:403 visualcomposer/historyinner.php:421
+#: visualcomposer/historyinner.php:439 visualcomposer/historyinner.php:455
+#: visualcomposer/historyinner.php:465 visualcomposer/historyinner.php:475
+#: visualcomposer/historyinner.php:485 visualcomposer/historyinner.php:497
+#: visualcomposer/historyinner.php:505 visualcomposer/historyinner.php:513
+msgid "Icon options"
+msgstr ""
+
+#: visualcomposer/historyinner.php:312 visualcomposer/historysimple.php:46
+msgid "Icon"
+msgstr ""
+
+#: visualcomposer/historyinner.php:330
+msgid "Size"
+msgstr ""
+
+#: visualcomposer/historyinner.php:348
+msgid "Rotate"
+msgstr ""
+
+#: visualcomposer/historyinner.php:366
+msgid "Flip"
+msgstr ""
+
+#: visualcomposer/historyinner.php:384
+msgid "Spin"
+msgstr ""
+
+#: visualcomposer/historyinner.php:407
+msgid "Border"
+msgstr ""
+
+#: visualcomposer/historyinner.php:425
+msgid "Shape"
+msgstr ""
+
+#: visualcomposer/historyinner.php:443
+msgid "Position"
+msgstr ""
+
+#: visualcomposer/historyinner.php:456
+msgid "Inner Padding"
+msgstr ""
+
+#: visualcomposer/historyinner.php:457
+msgid "Example : 10px 10px 10px 10px"
+msgstr ""
+
+#: visualcomposer/historyinner.php:466
+msgid "Font size"
+msgstr ""
+
+#: visualcomposer/historyinner.php:467
+msgid "Example: 12px or 12em"
+msgstr ""
+
+#: visualcomposer/historyinner.php:476
+msgid "Width"
+msgstr ""
+
+#: visualcomposer/historyinner.php:477
+msgid "Example: 48px"
+msgstr ""
+
+#: visualcomposer/historyinner.php:486
+msgid "Height"
+msgstr ""
+
+#: visualcomposer/historyinner.php:487
+msgid "Example: 30px"
+msgstr ""
+
+#: visualcomposer/historyinner.php:498 visualcomposer/historysimple.php:116
+msgid "Icon Color"
+msgstr ""
+
+#: visualcomposer/historyinner.php:506 visualcomposer/historyinner.php:570
+msgid "Background Color"
+msgstr ""
+
+#: visualcomposer/historyinner.php:514
+msgid "Border Color"
+msgstr ""
+
+#: visualcomposer/historyinner.php:523
+msgid "Enable Label"
+msgstr ""
+
+#: visualcomposer/historyinner.php:526 visualcomposer/historyinner.php:536
+#: visualcomposer/historyinner.php:545 visualcomposer/historyinner.php:561
+#: visualcomposer/historyinner.php:569
+msgid "Label options"
+msgstr ""
+
+#: visualcomposer/historyinner.php:535
+msgid "Label Text"
+msgstr ""
+
+#: visualcomposer/historyinner.php:538
+msgid "Input the text for the label element."
+msgstr ""
+
+#: visualcomposer/historyinner.php:544
+msgid "Label Type"
+msgstr ""
+
+#: visualcomposer/historyinner.php:548
+msgid "Select the pre-defined color for the label element"
+msgstr ""
+
+#: visualcomposer/historyinner.php:550
+msgid "Default"
+msgstr ""
+
+#: visualcomposer/historyinner.php:551
+msgid "Primary"
+msgstr ""
+
+#: visualcomposer/historyinner.php:552
+msgid "Success"
+msgstr ""
+
+#: visualcomposer/historyinner.php:553
+msgid "Info"
+msgstr ""
+
+#: visualcomposer/historyinner.php:554
+msgid "Warning"
+msgstr ""
+
+#: visualcomposer/historyinner.php:555
+msgid "Danger"
+msgstr ""
+
+#: visualcomposer/historyinner.php:562
+msgid "Font Color"
+msgstr ""
+
+#: visualcomposer/historyinner.php:713
+msgid "Element Grids"
+msgstr ""
+
+#: visualcomposer/historyinner.php:714
+msgid "Left Grids"
+msgstr ""
+
+#: visualcomposer/historyinner.php:715
+msgid "Right Grids"
+msgstr ""
+
+#: visualcomposer/historysimple.php:31
+msgid "Simple History"
+msgstr ""
+
+#: visualcomposer/historysimple.php:32
+msgid "Simple History Element"
+msgstr ""
+
+#: visualcomposer/historysimple.php:124
+msgid "Icon Background Color"
+msgstr ""
+
+#: visualcomposer/historysimple.php:132
+msgid "Label Font Color"
+msgstr ""
+
+#: visualcomposer/historysimple.php:140
+msgid "Label Background Color"
+msgstr ""
+
+#: visualcomposer/historysimple.php:148 visualcomposer/historysimple.php:150
+msgid "Items"
+msgstr ""
+
+#: visualcomposer/historysimple.php:155 visualcomposer/historysimple.php:162
+#: visualcomposer/historysimple.php:169 visualcomposer/historysimple.php:176
+msgid "Example Title"
+msgstr ""
+
+#: visualcomposer/historysimple.php:156 visualcomposer/historysimple.php:163
+#: visualcomposer/historysimple.php:170 visualcomposer/historysimple.php:177
+msgid "Example SubTitle"
+msgstr ""
+
+#: visualcomposer/historysimple.php:195
+msgid "Label"
+msgstr ""
+
+#: visualcomposer/historysimple.php:209
+msgid "Subtitle"
+msgstr ""
+
+#: visualcomposer/historysimple.php:216
+msgid "Content"
+msgstr ""
+
+#~ msgid "Set the default map longitude coordinate."
+#~ msgstr "Set the default map longitude coordinate."

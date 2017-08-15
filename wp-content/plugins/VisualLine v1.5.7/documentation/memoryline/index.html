@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>VicTheme MemoryLine Premium Theme</title>
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="VicTheme MemoryLine Premium Theme Documentation"/>
+    <meta name="author" content="support@victheme.com"/>
+    <link type="text/css" href="assets/dark_theme/css/production.min.css" media="all" rel="stylesheet"/>
+    <link type="text/css" href="assets/favicon/favicon.ico" media="all" rel="shortcut icon"/>
+    <script type="text/javascript" src="assets/dark_theme/js/production.min.js"></script>
+</head>
+<body>
+<header id="main-header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="row">
+            <div id="top-logo" class="col-xs-6 col-sm-6 col-md-2 col-lg-2"><img
+                    src="assets/dark_theme/css/images/logo.png"/></div>
+            <div id="top-navigation" class="hidden-xs hidden-sm col-md-6 col-lg-6"></div>
+            <h3 id="top-version" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">VicTheme MemoryLine Plugin
+                <small>4.x-1.5.0</small>
+            </h3>
+        </div>
+    </div>
+</header>
+<div id="main-content">
+    <div class="container">
+        <div class="equalheightRow row">
+            <div id="sidebar" class="items col-xs-12 col-sm-4 col-md-3 col-lg-3,">
+                <ul class="nav nav-stacked nav-pills hidden-xs hidden-sd">
+                    <li><a href="#install--files">How To Install</a>
+                        <ul class="nav nav-stacked nav-pills">
+                            <li><a href="#install--files">Plugin Files</a></li>
+                            <li><a href="#install--install">Installing Plugin</a></li>
+                        </ul>
+                    </li>
+                    <li></li>
+                    <li><a href="#anatomy">Memory Line Output</a></li>
+                    <li></li>
+                    <li><a href="#memoryline">Memory Line Wrapper</a></li>
+                    <li></li>
+                    <li><a href="#memorylinecontent">Memory Line Content</a></li>
+                    <li></li>
+                    <li><a href="#grid">CSS Grid</a></li>
+                    <li></li>
+                    <li><a href="#credit">Credits</a></li>
+                </ul>
+            </div>
+            <div id="content" class="items col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <div id="install--files" class="section"><h3 class="separator">Plugin Files</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Check File Integrity</h3></div>
+                        <div class="panel-body">
+                            <div class="thumbnail"><img src="assets/images/file.png"/></div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Check The Downloaded File</h4>Please check that the
+                                    downloaded archive file must contain the same file as the image above and not
+                                    corrupted.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Corrupted File</h4>If you have missing files or
+                                    corrupted file, please redownload them again and if the problem persist,
+                                    please contact our <a href="mailto:support@victheme.com">our support team</a> for
+                                    further assistance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="install--install" class="section"><h3 class="separator">Installing Plugin</h3>
+
+                    <div class="alert alert-success"><span
+                            class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                        <div class="text-with-icon">This plugin should be installed as a normal WordPress would using
+                            <strong>WordPress Plugin Uploader.</strong></div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">WordPress Uploader </h3></div>
+                        <div class="panel-body">
+                            <div class="thumbnail"><img src="assets/images/wpupload.jpg"/></div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Upload Form</h4>Visit the uploader form in your site
+                                    admin : http://example.com/wp-admin/theme-install.php?tab=upload to get WordPress
+                                    plugin uploader form.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VicTheme Core</h4>Upload the victheme_core.zip first if
+                                    you don't have VicTheme Core Plugin installed on your server as the plugin won't
+                                    work without it.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VicTheme Timeline</h4>Upload the victheme_memoryline.zip
+                                    to install the plugin.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>VisualComposer</h4>Visual Composer must be installed
+                                    before this plugin can be activated and working properly. The WP Bakery Visual
+                                    Composer plugin is not included
+                                    with this plugin and must be purchased separately.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Bundled with theme</h4>If this plugin is bundled with
+                                    themes, you can skip this step and check on the theme documentation on how to
+                                    install the plugin properly.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="anatomy" class="section"><h3 class="separator">Memory Line Output</h3></div>
+                <div id="memoryline" class="section"><h3 class="separator">Memory Line Wrapper</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - General Tabs</h3></div>
+                        <div class="panel-body"><p>The output of properly configured memory line instance.</p>
+
+                            <div class="thumbnail"><img src="assets/images/memoryline-output.png"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="memorylinecontent" class="section"><h3 class="separator">Memory Line Content</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - General Tabs</h3></div>
+                        <div class="panel-body"><p>This shortcode will create the inner content for the memory line
+                            wrapper and should only be used inside the
+                            memory line wrapper. The general tabs allows you to configure the color for title and text,
+                            extra css classes and id, the
+                            text string for the title heading, title and content css classes.</p>
+
+                            <div class="thumbnail"><img src="assets/images/memoryline-content-general.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Points Tabs</h3></div>
+                        <div class="panel-body"><p>This tabs will allows you to configure the individual memory content
+                            elements.</p>
+
+                            <div class="thumbnail"><img src="assets/images/memoryline-content-points.png"/>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Mark as new row</h4>This settings is important for
+                                    marking the element as a new row, without this configured properly the
+                                    lines drawn by canvas element might not work properly
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Dot Direction</h4>This settings must be used properly
+                                    like for example : <br>
+                                    - Elements in row 1 = left <br>
+                                    - Elements in row 2 = right <br>
+                                    - Elements in row 3 = left <br>
+                                    - Elements in row 4 = right<br>
+
+                                    <br><br>
+                                    without proper alignment the lines drawn by canvas will be broken.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Dot Radius</h4>This settings will be used as the dot
+                                    size, specify number in pixels as the cicle radius size
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Dot Offset X</h4>This settings can be used to adjust the
+                                    horizontal alignment of the individual dots for this element only. If not set the
+                                    element
+                                    will fallback to the default settings defined by the memoryline wrapper
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Dot Offset Y</h4>This settings can be used to adjust the
+                                    vertical alignment of the individual dots for this element only. If not set the
+                                    element
+                                    will fallback to the default settings defined by the memoryline wrapper
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Line Width</h4>This settings can be used to adjust size
+                                    of the line for this single element only, define number in pixels. If not set the
+                                    element
+                                    will fallback to the default settings defined by the memoryline wrapper
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Line Type</h4>This settings can be used to set the type
+                                    of the line. If not set the element
+                                    will fallback to the default settings defined by the memoryline wrapper
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Line Color</h4>This settings can be used to set the
+                                    color of the line. If not set the element
+                                    will fallback to the default settings defined by the memoryline wrapper
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="panel-body"><span
+                                    class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                                <div class="text-with-icon"><h4>Dot Color</h4>This settings can be used to define the
+                                    color of the dot element.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Grid Tabs</h3></div>
+                        <div class="panel-body"><p>The settings used here will be used to format single content element
+                            grid wrapper, The grid system utilizes bootstrap
+                            grid system rule.</p>
+
+                            <div class="thumbnail"><img src="assets/images/memoryline-content-grid.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Title Grid Tabs</h3></div>
+                        <div class="panel-body"><p>The settings used here will be used to format the title element only,
+                            this is useful if you wanted to create a side
+                            by side title and content element</p>
+
+                            <div class="thumbnail"><img src="assets/images/memoryline-content-titlegrid.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Element Grid Tabs</h3></div>
+                        <div class="panel-body"><p>The settings used here will be used to format the content element
+                            only, this is useful if you wanted to create a side
+                            by side title and content element</p>
+
+                            <div class="thumbnail"><img
+                                    src="assets/images/memoryline-content-elementgrid.png"/></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+                        <div class="panel-body"><pre>
+
+[memorylineinner
+  id=&quot;x&quot;
+  class=&quot;class_one class_two&quot;
+  titlecolor=&quot;the title color&quot;
+  titlecss=&quot;extra css class for the title element&quot;
+  textcolor=&quot;the text color&quot;
+  textcss=&quot;extra css class for the text element&quot;
+  title=&quot;the title text&quot;
+  data___dot_direction=&quot;x&quot;
+  data___dot_radius=&quot;x&quot;
+  data___dot_color=&quot;x&quot;
+  data___dot_offset_x=&quot;x&quot;
+  data___dot_offset_y=&quot;x&quot;
+  data___line_color=&quot;x&quot;
+  data___line_width=&quot;x&quot;
+  data___line_type=&quot;x&quot;
+  newrow=&quot;true|false&quot;
+]
+          
+          </pre>
+                        </div>
+                        <table class="form-table table table-striped">
+                            <thead class="table-header">
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-rows">
+                            <tr>
+                                <td>titlecolor</td>
+                                <td>color hex value</td>
+                                <td>Define the color for the title element</td>
+                            </tr>
+                            <tr>
+                                <td>titlecss</td>
+                                <td>valid css class string separated by empty space</td>
+                                <td>Specify additional css class for the title element</td>
+                            </tr>
+                            <tr>
+                                <td>textcolor</td>
+                                <td>color hex value</td>
+                                <td>Define the color for the text element</td>
+                            </tr>
+                            <tr>
+                                <td>textcss</td>
+                                <td>valid css class string separated by empty space</td>
+                                <td>Specify additional css class for the text content element</td>
+                            </tr>
+                            <tr>
+                                <td>title</td>
+                                <td>string</td>
+                                <td>String text used for the title element</td>
+                            </tr>
+                            <tr>
+                                <td>data___dot_direction</td>
+                                <td>left|right</td>
+                                <td>The dot direction</td>
+                            </tr>
+                            <tr>
+                                <td>data___dot_radius</td>
+                                <td>number</td>
+                                <td>Number in pixel to define the size of the dot element</td>
+                            </tr>
+                            <tr>
+                                <td>data___dot_color</td>
+                                <td>color hex value</td>
+                                <td>the color of the dot element</td>
+                            </tr>
+                            <tr>
+                                <td>data___dot_offset_x</td>
+                                <td>number</td>
+                                <td>Number in pixel to define horizontal offset of the dot element against the line</td>
+                            </tr>
+                            <tr>
+                                <td>data___dot_offset_y</td>
+                                <td>number</td>
+                                <td>Number in pixel to define vertical offset of the dot element against the line</td>
+                            </tr>
+                            <tr>
+                                <td>data___line_color</td>
+                                <td>color hex value</td>
+                                <td>The line color value</td>
+                            </tr>
+                            <tr>
+                                <td>data___line_width</td>
+                                <td>number</td>
+                                <td>Number in pixel to define size of the line</td>
+                            </tr>
+                            <tr>
+                                <td>data___line_type</td>
+                                <td>round|square|butt</td>
+                                <td>The type of line</td>
+                            </tr>
+                            <tr>
+                                <td>newrow</td>
+                                <td>true|false</td>
+                                <td>This can be used to mark the element as the start of new row</td>
+                            </tr>
+                            <tr>
+                                <td>class</td>
+                                <td>valid css class separated by empty space</td>
+                                <td>You can inject additional css class by specifing the valid css class separated by
+                                    empty space
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>valid css id</td>
+                                <td>You can define custom css id by specifying valid css / html id string</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="grid" class="section"><h3 class="separator">CSS Grid</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Bootstrap Grids</h3></div>
+                        <div class="panel-body"><p>
+
+                            <p>Plugin by default will use the default VisualComposer CSS Rules for the grid system to
+                                ensure maximum compatibility with different kind of themes.</p>
+
+                            <p>The VisualComposer Grid css covers these rules :</p>
+                            <ul>
+                                <li>vc_col-{xs|sm|md|lg}-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-push-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-pull-{size}</li>
+                                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                                <li>vc_hidden-{xs|sm|md|lg}</li>
+                                <li>vc_visible-{xs|sm|md|lg}</li>
+                                <li>vc_push-{left|right}</li>
+                                <li>vc_txt_align_{left|center|right}</li>
+                            </ul>
+                            <p>If your theme is capable to use bootstrap or you want to force to use bootstrap grid
+                                rules instead, please invoke these function in your theme functions.php</p>
+                            </p><pre>
+// Force to load victheme_core bootstrap access,
+// only use this if your theme doesn't have bootstrap asset loaded
+// and you want to force plugin to load bootstrap asset.
+add_theme_support('load_core_bootstrap');
+
+// Notify plugin that your theme is bootstrap compatible and has load bootstrap asset
+// Only use this if your theme is bootstrap compatible and it has loaded bootstrap css assets.
+add_theme_support('bootstrap');
+          </pre>
+                        </div>
+                    </div>
+                </div>
+                <div id="credit" class="section"><h3 class="separator">Credits</h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Credits</h3></div>
+                        <div class="panel-body"><p>Thank you for the plugins authors that made this theme possible
+
+                            <ul>
+                                <li><h4>Javascript</h4>
+                                    <ul>
+                                        <li>Point connector - <strong>Victheme Teams</strong></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

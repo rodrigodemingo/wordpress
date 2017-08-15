@@ -1,3 +1,10 @@
+3.16.10 - 07-Apr-2017
+- Fix: Google Fonts Manager loading fonts with http instead of https in the preview.
+- Fix: Google Fonts URL returning 404 if the generated URL had duplicate '|' character.
+- Fix: JavaScript error on WooCommerce v3.0 product pages.
+- Fix: Option disable parallax on mobile not working.
+- Fix: Info list aligning besides each other instead of one below other.
+
 3.16.9 - 07-Mar-2017
 - Fix: Token invalid error appearing for some users when activating the license. We apologize for the inconvenience.
 - Fix: Dual button icon images not aligned to center.
@@ -41,7 +48,7 @@
 - Lots of minor bug fixes and browser compatibility fixes.
 
 3.16.6
-- Fixed: Font Icons - SSL issue for $_SERVER[HTTPS] failing 
+- Fixed: Font Icons - SSL issue for $_SERVER[HTTPS] failing
 - Fixed: Icon Manager - Font zip are not showing after being uploaded
 - Fixed: Icon Manager - Filetype x-zip allowed to upload
 - Fixed: Advacned Button - Animation issue while background image applied

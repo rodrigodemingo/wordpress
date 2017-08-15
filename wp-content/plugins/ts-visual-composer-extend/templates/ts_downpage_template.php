@@ -1,5 +1,7 @@
 <?php
 	function TS_VCSC_DownpageGetData($id, $type) {
+		global $VISUAL_COMPOSER_EXTENSIONS;
+		// Set Return Variable
 		$Downpage_Return					= "";
 		// Check for Codestar Migration
 		$codestarRetrieve					= "false";
@@ -14,7 +16,28 @@
 			$Downpage_Settings				= array();
 		}
 		// Create Return Data
-		if ($type == 'title') {
+		if ($type == "expiration") {
+			$Timer_Scope					= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['timer'];
+			$Timer_Current					= time();
+			if ($Timer_Scope == "dateonly") {
+				$Timer_Target				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['dateonly'];
+				$Timer_Target				= strtotime($Timer_Target);
+				$Timer_Target				= $Timer_Target - $Timer_Current;
+			} else if ($Timer_Scope == "datetime") {
+				$Timer_Target				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['datetime'];
+				$Timer_Target				= strtotime($Timer_Target);
+				$Timer_Target				= $Timer_Target - $Timer_Current;
+			} else if ($Timer_Scope == "timerange") {
+				$Timer_Target				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['timerange'];
+				$Timer_Target				= strtotime($Timer_Target);
+				$Timer_Target				= $Timer_Target - $Timer_Current;
+			} else if ($Timer_Scope == "endless") {
+				$Timer_Target				= '86400';
+			}
+			$Downpage_Return				= $Timer_Target;
+		} else if ($type == 'status') {
+			$Downpage_Return				= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['downstatus'];
+		} else if ($type == 'title') {
 			$Downpage_TitleSource			= "site";
 			if ($codestarRetrieve == "true") {
 				if (isset($Downpage_Settings['ts_vcsc_downpages_meta_titlesource'])) {
@@ -117,8 +140,8 @@
 				$Downpage_Fontcolor			= get_post_meta($id, 'ts_vcsc_downpages_layout_fontcolor', true);
 			}
 			// Create Downpage CSS Settings
-			$Downpage_Styling				= "";
-			$Downpage_Styling .= '<style id="ts-downpage-styling-' . $id . '" media="all" type="text/css">';
+			$Downpage_Styling 				= "";
+			$Downpage_Return .= '<style id="ts-downpage-styling-' . $id . '" media="all" type="text/css">';
 				$Downpage_Styling .= 'body {
 					width: 					100%;
 					height: 				100%;
@@ -143,21 +166,40 @@
 					-moz-box-sizing:		border-box;
 					box-sizing:				border-box;
 				}';
-			$Downpage_Styling .= '</style>';
-			$Downpage_Return				= TS_VCSC_MinifyJS($Downpage_Styling);
+			$Downpage_Return .= TS_VCSC_MinifyJS($Downpage_Styling);
+			$Downpage_Return .= '</style>';
+			
 		};
 		// Send Return Data
 		return $Downpage_Return;
 	}
 
-	echo '<!doctype html>';
-	echo '<html lang="' . TS_VCSC_DownpageGetData(get_the_ID(), 'locale') . '">';
+	// Set Maintenance Header Status
+	$Downpage_ID							= get_the_ID();
+	$Downpage_Protocol 						= $_SERVER["SERVER_PROTOCOL"];
+	$Downpage_Status						= TS_VCSC_DownpageGetData($Downpage_ID, 'status');
+	$Downpage_RetryAfter					= TS_VCSC_DownpageGetData($Downpage_ID, 'expiration');
+	if ("HTTP/1.1" != $Downpage_Protocol && "HTTP/1.0" != $Downpage_Protocol) {
+		$Downpage_Protocol					= "HTTP/1.0";
+	}
+	if ($Downpage_Status == "503") {
+		header("$Downpage_Protocol 503 Service Temporarily Unavailable", true, 503);
+		header("Status: 503 Service Temporarily Unavailable");
+		header("Content-Type: text/html; charset=utf-8");
+		header("Retry-After: $Downpage_RetryAfter");
+	} else {
+		header("Content-Type: text/html; charset=utf-8");
+	}
+	
+	// Create Page Output
+	echo '<!DOCTYPE html>';
+	echo '<html lang="' . TS_VCSC_DownpageGetData($Downpage_ID, 'locale') . '" xmlns="http://www.w3.org/1999/xhtml">';
 		echo '<head>';
-			echo '<title>' . TS_VCSC_DownpageGetData(get_the_ID(), 'title') . '</title>';
+			echo '<title>' . TS_VCSC_DownpageGetData($Downpage_ID, 'title') . '</title>';
 			echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">';
-			echo '<meta name="description" content="' . TS_VCSC_DownpageGetData(get_the_ID(), 'bloginfo') . '" />';			
+			echo '<meta name="description" content="' . TS_VCSC_DownpageGetData($Downpage_ID, 'bloginfo') . '" />';			
 			wp_head();							
-			echo TS_VCSC_DownpageGetData(get_the_ID(), 'style');
+			echo TS_VCSC_DownpageGetData($Downpage_ID, 'style');
 		echo '</head>';
 		echo '<body>';
 			echo '<div class="ts-downpage-container">';

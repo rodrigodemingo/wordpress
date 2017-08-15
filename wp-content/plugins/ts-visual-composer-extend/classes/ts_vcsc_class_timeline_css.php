@@ -1830,7 +1830,8 @@
 				global $VISUAL_COMPOSER_EXTENSIONS;
 				ob_start();
 				
-				wp_enqueue_style('ts-extend-csstimeline');					
+				wp_enqueue_style('ts-extend-csstimeline');
+				wp_enqueue_style('ts-visual-composer-extend-front');
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
 					wp_enqueue_script('ts-extend-csstimeline');
 					wp_enqueue_script('ts-extend-hammer');
@@ -2048,6 +2049,7 @@
 				$styles									= '';
 				$rules									= '';
 				$wpautop 								= ($content_wpautop == "true" ? true : false);
+				$inline									= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$vcinline_status					= 'true';
@@ -2474,10 +2476,14 @@
 						}
 						// Final Output
 						if ($rules != '') {
-							$styles .= '<style id="' . $timeline_container_id . '-styles" type="text/css">';
-								$styles .= $rules;
-							$styles .= '</style>';
-							$output .= TS_VCSC_MinifyCSS($styles);
+							if ($inline == "false") {
+								$styles .= '<style id="' . $timeline_container_id . '-styles" type="text/css">';
+									$styles .= $rules;
+								$styles .= '</style>';
+								echo TS_VCSC_MinifyCSS($styles);
+							} else if ($inline == "true") {
+								wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($rules));
+							}
 						}
 					}
 					// Controls Section
@@ -4417,7 +4423,7 @@
 							'value'						=> '',
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
 								"type" 							=> 'extensions',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon to be shown with the section content.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -4556,7 +4562,7 @@
 							'value'						=> '',
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
 								"type" 							=> 'extensions',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon to be shown with the section content.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -4753,7 +4759,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'timeline',
 							),
 							"dependency"        		=> array( 'element' => "event_date", 'not_empty' => true ),
@@ -4812,7 +4820,7 @@
 							'value'						=> '',
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
 								"type" 							=> 'extensions',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon to be shown with the section content.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -5131,7 +5139,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'timeline',
 							),
 							"dependency"        		=> array( 'element' => "event_date", 'not_empty' => true ),

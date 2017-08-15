@@ -73,7 +73,7 @@
     font-style: inherit !important;
     line-height: inherit !important;
 }
-@-keyframes ult-blink {
+@keyframes ult-blink {
     0 {
         opacity: 1
     }

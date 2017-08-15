@@ -1921,11 +1921,13 @@
 		$( '.chart' ).waypoint({
 			
 			offset		: '100%',
+			triggerOnce	: true,
 			handler		: function(){
 
-				var lineW = simple ? 4 : 8;
+				var el 		= $( this.element ).length ? $( this.element ) : $( this );
+				var lineW 	= simple ? 4 : 8;
 				
-				$( this.element ).easyPieChart({
+				el.easyPieChart({
 					animate		: 1000,
 					lineCap		: 'circle',
 					lineWidth	: lineW,
@@ -1948,9 +1950,12 @@
 		$( '.bars_list' ).waypoint({
 			
 			offset		: '100%',
+			triggerOnce	: true,
 			handler		: function(){
 				
-				$( this.element ).addClass( 'hover' );
+				var el = $( this.element ).length ? $( this.element ) : $( this );
+				
+				el.addClass( 'hover' );
 				
 				if( typeof this.destroy !== 'undefined' && $.isFunction( this.destroy ) ){
 					this.destroy();
@@ -1966,9 +1971,10 @@
 		$('.progress_icons').waypoint({
 			
 			offset		: '100%',
+			triggerOnce	: true,
 			handler		: function(){
 				
-				var el 		= $( this.element );
+				var el 		= $( this.element ).length ? $( this.element ) : $( this );
 				var active 	= el.attr( 'data-active' );
 				var color 	= el.attr( 'data-color' );
 				var icon 	= el.find( '.progress_icon' );
@@ -1999,9 +2005,10 @@
 		$('.animate-math .number').waypoint({
 			
 			offset		: '100%',
+			triggerOnce	: true,
 			handler		: function(){
 				
-				var el			= $( this.element );
+				var el			= $( this.element ).length ? $( this.element ) : $( this );
 				var duration	= Math.floor( ( Math.random() * 1000 ) + 1000 );
 				var to			= el.attr( 'data-to' );
 

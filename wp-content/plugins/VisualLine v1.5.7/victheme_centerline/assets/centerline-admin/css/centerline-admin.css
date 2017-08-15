@@ -1,0 +1,166 @@
+
+/**
+  Icons
+  **/
+.icon-centerline {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAALkSURBVHjatNdbiFVVGAfwn3O82zQqZaYiQanggyIVKZpoYoiEUz2YSG9BeMmiQnrooZcUEdQsxMIQk4jqQUR6UEc0oYdAqUhRRLNIK1IZjxe66Gi9fEdWiz0zO8/2D4ezv7W+tfd/f/fdZ8VHDymJfpiGeZiOkRiFGuo4hcPYi33oKnPTPv+DQBu+wIwSur/jPWzE1d4ItOJZDOhGpwt78AvG4HRYowx+wxLs6k6hLz7BU73c6Fc8gLP4Go/H+lW0YHA35+7HTqzHSvyTK7SEH3vDqLgZrIkYGIxWDAn3TMVb+Cm3Ml7HtoiX/6D22DPDD2F4mOt0PKxvAYl3cAkncSYLsr/DRQexKfZnYFCiMzmI7s4t8C0WYi62YKDm0IUPMQXfZXsvoz0n0MDQiNyq8DNm4Ujmjk24q4jASxiRyOcqIHEpArwzWRuN5TmB/nglO7yyQku8UeCKWkpgNu5JFE7g4wrdsQ0/Zlk1OyUwPzuwFTcjM+DPzIy3E5hbs7UnUwJTss2O+G+PoFnQW0ktgb2Z/Kgk38dnbI/G9aH4VYHjmfxgaoG2ZOMirqseV8KVaXO7RaCW9Yc7hb+ymnCLQD3ZGFZBNSxC/+gdDXSmBE5lyhMqeOB4vIZxIU/KrPtDSuBwUYo0gRZ8iXU4EHJ7pvNNSqAj23yhyVhoTdr36Ai45zKdfSmBPbiQueD5Cv2/OHFFY1LanxK4hs3ZodVZeW4GqzJ5YyPV0264HuezceqzijIirTNn05dNCdSjS6V4Itxzb4XueBGXiwjAp1H7U8yMyWZRo3g0gU48jQ+wAROLvgtq+DxG9RzHorXujtrRKK0D8TDuw44web0EoRMtBYs3YkZ8v2BvItbie/wRE8/lIPIV3kzG9fMlCFzvLtdvYGlMue/2EAN3Z/IkjI0paE68SL8e+sL2Mp9mQ/EqlpVMy4MxB5aaH8pUu3p8cLwdJXouHol+3pbonIyHd2Rdr0f8OwD82pplKmeE9QAAAABJRU5ErkJggg==") !important;
+  background-position: top left !important;
+}
+
+.icon-centerlinesimple {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAALkSURBVHjatNdbiFVVGAfwn3O82zQqZaYiQanggyIVKZpoYoiEUz2YSG9BeMmiQnrooZcUEdQsxMIQk4jqQUR6UEc0oYdAqUhRRLNIK1IZjxe66Gi9fEdWiz0zO8/2D4ezv7W+tfd/f/fdZ8VHDymJfpiGeZiOkRiFGuo4hcPYi33oKnPTPv+DQBu+wIwSur/jPWzE1d4ItOJZDOhGpwt78AvG4HRYowx+wxLs6k6hLz7BU73c6Fc8gLP4Go/H+lW0YHA35+7HTqzHSvyTK7SEH3vDqLgZrIkYGIxWDAn3TMVb+Cm3Ml7HtoiX/6D22DPDD2F4mOt0PKxvAYl3cAkncSYLsr/DRQexKfZnYFCiMzmI7s4t8C0WYi62YKDm0IUPMQXfZXsvoz0n0MDQiNyq8DNm4Ujmjk24q4jASxiRyOcqIHEpArwzWRuN5TmB/nglO7yyQku8UeCKWkpgNu5JFE7g4wrdsQ0/Zlk1OyUwPzuwFTcjM+DPzIy3E5hbs7UnUwJTss2O+G+PoFnQW0ktgb2Z/Kgk38dnbI/G9aH4VYHjmfxgaoG2ZOMirqseV8KVaXO7RaCW9Yc7hb+ymnCLQD3ZGFZBNSxC/+gdDXSmBE5lyhMqeOB4vIZxIU/KrPtDSuBwUYo0gRZ8iXU4EHJ7pvNNSqAj23yhyVhoTdr36Ai45zKdfSmBPbiQueD5Cv2/OHFFY1LanxK4hs3ZodVZeW4GqzJ5YyPV0264HuezceqzijIirTNn05dNCdSjS6V4Itxzb4XueBGXiwjAp1H7U8yMyWZRo3g0gU48jQ+wAROLvgtq+DxG9RzHorXujtrRKK0D8TDuw44web0EoRMtBYs3YkZ8v2BvItbie/wRE8/lIPIV3kzG9fMlCFzvLtdvYGlMue/2EAN3Z/IkjI0paE68SL8e+sL2Mp9mQ/EqlpVMy4MxB5aaH8pUu3p8cLwdJXouHol+3pbonIyHd2Rdr0f8OwD82pplKmeE9QAAAABJRU5ErkJggg==") !important;
+  background-position: top left !important;
+}
+
+
+.icon-centerlineinner {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAcCAYAAAAAwr0iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAFLSURBVHjaxNe9SkNBEIbhJ8HaxCIhprDyp0ivIlio6RUs7O29AK8gN2FjaSPYWQQtRPAGLIKdTdA0mgswNhtIsQls2JN8sEwzZ76X2VnObunqdlNEW+igjYq8+kUX1/hYiSRs4w1rilEF5zjBXjmS0Anmj2iilHk1Q+0qOjGAdoiX6BfQgX6oDe0YwOpEYlEa114tW7JyAdzhFbVlAWzgAM+pEDGA8bSm6BTvaKVC5OrAN47ngcg5hHNB5D4FyRBFHMMkiDJeMMq8voK5EB8W2YGYRrMADgv44dTDFgjxbJEdqIV9bwXzIwwWBZBknhugnmqeE6COp1TzaQCjWVM7RQ/zmMNKpg584i9M+yDlw1wAF8u+kGS9EQ1DXC/Qd1x7GAPohniDRgHmjVAbuqXIy2gnPEyqBXf/B/uxDvSwi/uJ7cipYai9i97/AD7tXANx6UuOAAAAAElFTkSuQmCC") !important;
+  background-position: top left !important;
+}
+
+.wpb_centerlineimage,
+.wpb_centerlineinner,
+.wpb_centerline {
+  min-height: 72px; 
+}
+
+.wpb_centerlineimage > .wpb_element_wrapper > .vc_admin_label,
+.wpb_centerline > .wpb_element_wrapper > .vc_admin_label,
+.wpb_centerlineinner > .wpb_element_wrapper > .vc_admin_label {
+  display: inline-block !important;
+  margin-left: 10px;
+  margin-top: 8px;
+}
+
+.wpb_centerlineimage > .wpb_element_wrapper > .vc_admin_label:last-child,
+.wpb_centerline > .wpb_element_wrapper > .vc_admin_label:last-child,
+.wpb_centerlineinner > .wpb_element_wrapper > .vc_admin_label:last-child {
+	margin-bottom: 10px;
+}
+
+
+body.compose-mode .vc_centerline.vc_container {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+body.compose-mode .vc_element.vc_centerlineimage
+body.compose-mode .vc_element.vc_centerlineinner {
+	z-index: 4;
+}
+
+
+body.compose-mode  .vc_centerline .vc_placeholder {
+  display: inline-block !important;
+  float: left !important;
+  width: 200px !important;
+  height: 90px !important;
+}
+
+.vc_editor #wpcontent, .vc_editor #wpfooter {
+  padding-left: 0 !important;
+}
+
+.compose-mode .vc_element {
+  padding-top: 32px;
+}
+
+/** Version 4.3.4 - Customized Backend **/
+.wpb_centerlineimage > .wpb_element_wrapper > .vc_container_for_children,
+.wpb_centerlineinner > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 10px !important;
+}
+
+.wpb_centerline > .wpb_element_wrapper > .vc_container_for_children {
+  margin: 0 !important;
+}
+
+.wpb_centerlineimage > .wpb_element_wrapper > .wpb_element_title,
+.wpb_centerlineinner > .wpb_element_wrapper > .wpb_element_title, 
+.wpb_centerline > .wpb_element_wrapper > .wpb_element_title {
+	display: none;
+}
+
+.wpb_centerlineimage > .controls_column,
+.wpb_centerlineinner > .controls_column,
+.wpb_centerline > .controls_column {
+	background: #EAE9D4;
+	height: 33px !important;
+	text-align: right !important;
+	position: relative;
+}
+
+.wpb_centerlineimage > .controls_column:first-child,
+.wpb_centerlineinner > .controls_column:first-child,
+.wpb_centerline > .controls_column:first-child {
+	cursor: pointer;
+}
+
+.wpb_centerlineimage > .controls_column {
+	background: #e1f8e6;
+}
+.wpb_centerlineinner > .controls_column {
+	background: #F8F7EA;
+}
+
+.wpb_centerlineimage > .controls_column:first-child:after,
+.wpb_centerlineinner > .controls_column:first-child:after,
+.wpb_centerline > .controls_column:first-child:after {
+	content: 'Center Line';
+	left: 35px;
+	top: 15px;
+	position: absolute;
+}
+
+.wpb_centerlineimage > .controls_column:first-child:after {
+  content: 'Image Pointer Source'
+}
+
+.wpb_centerlineinner > .controls_column:first-child:after {
+	content: 'Inner Content'
+}
+
+.wpb_centerlineimage > .controls_column > .vc_control,
+.wpb_centerlineinner > .controls_column > .vc_control,
+.wpb_centerline > .controls_column > .vc_control {
+	padding: 5px;
+}
+
+.vc_centerlineimage,
+.vc_centerlineinner {
+  z-index: 5;
+}
+
+.centerline-elements {
+  overflow: hidden;
+}
+
+.vtcore-centerline .vc_template-wrapper .vc_templates-image {
+  background-image: url(../images/vc.png);
+}
+
+
+/** 4.7 Fixes **/
+.compose-mode .vc_element-name .vc_btn-content {
+  height: 30px !important;
+}
+
+.compose-mode .vc_control-btn {
+  height: 30px !important;
+  overflow: hidden !important;
+}
+
+.compose-mode .vc_element.vc_empty .centerline-centerpoint.vc_empty-element:after,
+.view-mode .vc_element.vc_empty .centerline-centerpoint.vc_empty-element:after {
+  display: none;
+}
+
+.compose-mode .vc_element.vc_empty .centerline-centerpoint.vc_empty-element:empty:after,
+.view-mode .vc_element.vc_empty .centerline-centerpoint.vc_empty-element:empty:after {
+  display: block;
+}
+
+.edit_form_line {
+  margin-bottom: 10px;
+}

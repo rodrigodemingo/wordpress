@@ -191,7 +191,7 @@ blockquote {
 		<?php if( strpos( $aFont['big']['weight_style'], 'italic' ) ) echo 'font-style: italic;' ?>
 	}
 	
-	#menu > ul > li > a, .action_button {
+	#menu > ul > li > a, a.button.action_button {
 		font-size: <?php echo $aFont['menu']['size']; ?>px;
 		font-weight: <?php echo str_replace( 'italic', '', $aFont['menu']['weight_style'] ) ?>;	
 		letter-spacing: <?php echo $aFont['menu']['letter_spacing']; ?>px;
@@ -295,7 +295,7 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, .action_button {
+		#menu > ul > li > a, a.button.action_button {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
 		}
 		#Subheader .title {
@@ -381,7 +381,7 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, .action_button {
+		#menu > ul > li > a, a.button.action_button {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
 		}
 		#Subheader .title {
@@ -467,7 +467,7 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, .action_button {
+		#menu > ul > li > a, a.button.action_button {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
 		}
 		#Subheader .title {

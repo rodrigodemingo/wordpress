@@ -12,12 +12,9 @@
 				}
             }        
             function hiddeninput_setting_field($settings, $value){
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $radios         = isset($settings['options']) ? $settings['options'] : '';
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer		= rand(100000, 999999);
                 $output 		= '';
 				$output .= '<div id="ts-hidden-input-wrapper-' . $randomizer . '" class="ts-hidden-input-wrapper" data-name="' . $param_name . '" style="display: none;">';

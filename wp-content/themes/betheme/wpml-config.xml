@@ -420,4 +420,8 @@
 		</key>
 	</admin-texts>
 	
+	<language-switcher-settings>
+		<key name="additional_css">.wpml-ls-display{display:inline!important;}</key>
+	</language-switcher-settings>
+	
 </wpml-config>

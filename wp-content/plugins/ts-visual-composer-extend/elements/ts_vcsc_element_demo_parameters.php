@@ -161,7 +161,6 @@
 				"class"					=> "",
 				"heading"				=> __("CSS3 Animation", "ts_visual_composer_extend"),
 				"param_name"			=> "demo_animationcss3",
-				"standard"				=> "false",
 				"prefix"				=> "",
 				"connector"				=> "demo_animationin",
 				"noneselect"			=> "true",

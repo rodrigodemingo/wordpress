@@ -74,6 +74,9 @@
 				
 				$output 							= '';
 	
+                // Check for Conversion of VC Animations
+                $animation							= TS_VCSC_ConvertLegacyAnimation($animation);
+	
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$style 							= 'width: 100%; margin-top: ' . ($margin_top < 35 ? 35 : $margin_top) . 'px; margin-bottom: ' . $margin_bottom . 'px;';
 				} else {
@@ -81,47 +84,47 @@
 				}
 				
 				if ($enable == "true") {
-					$style					.= ' opacity: 0;';
+					$style							.= ' opacity: 0;';
 					if ($viewport == "true"){
-						$containerclass		= 'ts-animation-container-enabled ts-animation-frame ts-animation-container-viewport';
+						$containerclass				= 'ts-animation-container-enabled ts-animation-frame ts-animation-container-viewport';
 					} else {
-						$containerclass	 	= 'ts-animation-container-enabled ts-animation-frame ts-animation-container-instant';
+						$containerclass	 			= 'ts-animation-container-enabled ts-animation-frame ts-animation-container-instant';
 					}
 				
 					if ($infinite == "true"){
-						$repeat 			= 'infinite';
-						$animation			= 'ts-infinite-css-' . $animation;
-						$style				.= ' -webkit-animation-iteration-count:  		infinite;';
-						$style				.= ' -moz-animation-iteration-count:			infinite;';
-						$style				.= ' -ms-animation-iteration-count:				infinite;';
-						$style				.= ' -o-animation-iteration-count:          	infinite;';
-						$style				.= ' animation-iteration-count:          		infinite;';
-						$style				.= ' -webkit-animation-duration: 				' . ($duration / 1000) . 's;';
-						$style				.= ' -moz-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' -ms-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' -o-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' animation-duration: 						' . ($duration / 1000) . 's;';
+						$repeat 					= 'infinite';
+						$animation					= 'ts-infinite-css-' . $animation;
+						$style						.= ' -webkit-animation-iteration-count: infinite;';
+						$style						.= ' -moz-animation-iteration-count: infinite;';
+						$style						.= ' -ms-animation-iteration-count: infinite;';
+						$style						.= ' -o-animation-iteration-count: infinite;';
+						$style						.= ' animation-iteration-count: infinite;';
+						$style						.= ' -webkit-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -moz-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -ms-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -o-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' animation-duration: ' . ($duration / 1000) . 's;';
 					} else {
-						$animation			= 'ts-viewport-css-' . $animation;
-						$style				.= ' -webkit-animation-iteration-count:  		' . $repeat . ';';
-						$style				.= ' -moz-animation-iteration-count:			' . $repeat . ';';
-						$style				.= ' -ms-animation-iteration-count:				' . $repeat . ';';
-						$style				.= ' -o-animation-iteration-count:          	' . $repeat . ';';
-						$style				.= ' animation-iteration-count:          		' . $repeat . ';';
-						$style				.= ' -webkit-animation-duration: 				' . ($duration / 1000) . 's;';
-						$style				.= ' -moz-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' -ms-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' -o-animation-duration: 					' . ($duration / 1000) . 's;';
-						$style				.= ' animation-duration: 						' . ($duration / 1000) . 's;';
+						$animation					= 'ts-viewport-css-' . $animation;
+						$style						.= ' -webkit-animation-iteration-count: ' . $repeat . ';';
+						$style						.= ' -moz-animation-iteration-count: ' . $repeat . ';';
+						$style						.= ' -ms-animation-iteration-count: ' . $repeat . ';';
+						$style						.= ' -o-animation-iteration-count: ' . $repeat . ';';
+						$style						.= ' animation-iteration-count: ' . $repeat . ';';
+						$style						.= ' -webkit-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -moz-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -ms-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' -o-animation-duration: ' . ($duration / 1000) . 's;';
+						$style						.= ' animation-duration: ' . ($duration / 1000) . 's;';
 					}
 				} else {
-					$containerclass	 		= 'ts-animation-container-disabled';
+					$containerclass	 				= 'ts-animation-container-disabled';
 				}
 				
 				if (function_exists('vc_shortcode_custom_css_class')) {
-					$css_class 	= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, '' . $containerclass . ' ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Animation_Frame', $atts);
+					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, '' . $containerclass . ' ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Animation_Frame', $atts);
 				} else {
-					$css_class 	= $containerclass . ' ' . $el_class;
+					$css_class 						= $containerclass . ' ' . $el_class;
 				}
 				
 				if ($enable == "true") {
@@ -179,7 +182,6 @@
 							"type" 						=> "css3animations",
 							"heading" 					=> __("Animation Type", "ts_visual_composer_extend"),
 							"param_name" 				=> "animation",
-							"standard"					=> "true",
 							"prefix"					=> "",
 							"connector"					=> "css3animations_name",
 							"default"					=> "",

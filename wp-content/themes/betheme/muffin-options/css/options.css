@@ -155,7 +155,7 @@
 #mfn-wrapper .form-table { margin:0; clear:none;}
 #mfn-wrapper .form-table .mfn-opts-section-desc { padding:15px 0; border-bottom: 1px solid #e5e5e5;}
 
-#mfn-wrapper .form-table tr { border-bottom: 1px solid #ebecec;}
+#mfn-wrapper .form-table tr{float:none;border-bottom:1px solid #ebecec}
 
 #mfn-wrapper .form-table tr th { font-size:14px; color:#39464e; font-weight:bold; padding:15px 10px 15px 0;}
 #mfn-wrapper .form-table tr td { padding:15px 0 15px 10px;}
@@ -237,6 +237,7 @@
 
 
 /* -------------- .mfnf-checkbox -------------- */
+#mfn-wrapper .form-table .mfnf-checkbox{float:left;}
 #mfn-wrapper .form-table .mfnf-checkbox ul { margin-top:0; }
 #mfn-wrapper .form-table .mfnf-checkbox.float-left ul li { float:left; width:200px;}
 #mfn-wrapper .form-table .mfnf-checkbox .description { clear:both;}

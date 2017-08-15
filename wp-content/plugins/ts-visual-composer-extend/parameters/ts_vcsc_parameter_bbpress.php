@@ -21,12 +21,9 @@
                 }
             }        
             function bbpress_forumslist_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $allforums		= isset($settings['allforums']) ? $settings['allforums'] : 'false';
-				$url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $value_arr 		= $value;
                 $args = array(
                     'post_type' 	=> bbp_get_forum_post_type(),
@@ -54,11 +51,8 @@
             }
             // Function to generate param type "bbpress_topicslist"
             function bbpress_topicslist_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
-				$url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $args = array(
                     'post_type' 	=> bbp_get_topic_post_type(),
                     'orderby' 		=> 'title',
@@ -82,11 +76,8 @@
             }
             // Function to generate param type "bbpress_replieslist"
             function bbpress_replieslist_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
-				$url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $args = array(
                     'post_type' 	=> bbp_get_reply_post_type(),
                     'orderby' 		=> 'title',
@@ -110,11 +101,8 @@
             }
             // Function to generate param type "bbpress_tagslist"            
             function bbpress_tagslist_settings_field($settings, $value) {
-				global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
-				$url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $tags 			= get_terms('topic-tag');
                 $output			= '';
                 $output .= '<select name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-input wpb-select ' . $settings['param_name'] . ' ' . $settings['type'] . '">';

@@ -5,7 +5,7 @@
 		if (trim ($_POST['ts_vcsc_extend_settings_true']) == 1) {
 			
 			echo '<div id="ts_vcsc_extend_settings_save" style="position: relative; margin: 20px auto 20px auto; width: 128px; height: 128px;">';
-				echo TS_VCSC_CreatePreloaderCSS("ts-settings-panel-loader", "", 4, "false");
+				echo TS_VCSC_CreatePreloaderCSS("ts-settings-panel-loader", "", 22, "false");
 			echo '</div>';
 			
 			// Form Data Sent
@@ -70,6 +70,9 @@
 				}
 			}
 			update_option('ts_vcsc_extend_settings_variablesPriority', 				intval(((isset($_POST['ts_vcsc_extend_settings_variablesPriority'])) 		?	$_POST['ts_vcsc_extend_settings_variablesPriority']			: '6')));
+			
+			// Simple / Extended Options
+			update_option('ts_vcsc_extend_settings_allowFullOptions', 				intval(((isset($_POST['ts_vcsc_extend_settings_allowFullOptions']))			?	$_POST['ts_vcsc_extend_settings_allowFullOptions']			: 0)));
 			
 			// Google Font Manager
 			update_option('ts_vcsc_extend_settings_allowGoogleManager', 			intval(((isset($_POST['ts_vcsc_extend_settings_allowGoogleManager']))		?	$_POST['ts_vcsc_extend_settings_allowGoogleManager']		: 0)));
@@ -335,6 +338,25 @@
 			);
 			update_option('ts_vcsc_extend_settings_translationsMagnify', 			$TS_VCSC_Magnify_Language);
 			
+			// Language Settings: Plyr Video Player
+			$TS_VCSC_PlyrVideo_Language = array (
+				'restart'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerRestart']),
+				'rewind'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerRewind']),
+				'play'				=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerPlay']),
+				'pause'				=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerPause']),
+				'forward'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerForward']),
+				'played'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerPlayed']),
+				'buffered'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerBuffered']),
+				'currenttime'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerCurrentYime']),
+				'duration'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerDuration']),
+				'volume'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerVolume']),
+				'togglemute'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleMute']),
+				'togglecaptions'	=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleCaptions']),
+				'togglefullscreen'	=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleFullscreen']),
+				'frametitle'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerFrameTitle']),
+			);
+			update_option('ts_vcsc_extend_settings_translationsPlyrPlayer',			$TS_VCSC_PlyrVideo_Language);
+			
 			// Language Settings: Isotope Posts
 			$TS_VCSC_Isotope_Posts_Language = array(
 				'ButtonFilter'		=> trim ($_POST['ts_vcsc_extend_settings_languageIsotopePostsButtonFilter']),
@@ -418,6 +440,7 @@
 				'tapping'			=> ((isset($_POST['ts_vcsc_extend_settings_defaultLightboxTapping'])) 					?	$_POST['ts_vcsc_extend_settings_defaultLightboxTapping'] 			: 0),	// true/false
 				'scrollblock'		=> ((isset($_POST['ts_vcsc_extend_settings_defaultLightboxScrollBlock'])) 				?	$_POST['ts_vcsc_extend_settings_defaultLightboxScrollBlock'] 		: 'js'),
 				'protection'		=> ((isset($_POST['ts_vcsc_extend_settings_defaultLightboxProtection'])) 				?	$_POST['ts_vcsc_extend_settings_defaultLightboxProtection'] 		: 'none'),
+				'historyclose'		=> ((isset($_POST['ts_vcsc_extend_settings_defaultLightboxHistoryClose']))				?	$_POST['ts_vcsc_extend_settings_defaultLightboxHistoryClose']		: 0),	// true/false
 			);
 			update_option('ts_vcsc_extend_settings_defaultLightboxSettings',					$TS_VCSC_Lightbox_Defaults);
 			update_option('ts_vcsc_extend_settings_defaultLightboxSocialAPIs',					$defaultsocialapis);
@@ -582,10 +605,10 @@
 		$ts_vcsc_extend_settings_containerToggle					= get_option('ts_vcsc_extend_settings_containerToggle',				0);
 		$ts_vcsc_extend_settings_elementFilter						= get_option('ts_vcsc_extend_settings_elementFilter',				0);
 		$ts_vcsc_extend_settings_backgroundIndicator				= get_option('ts_vcsc_extend_settings_backgroundIndicator', 		1);
-		$ts_vcsc_extend_settings_tinymceEncoded						= get_option('ts_vcsc_extend_settings_tinymceEncoded', 			1);
+		$ts_vcsc_extend_settings_tinymceEncoded						= get_option('ts_vcsc_extend_settings_tinymceEncoded', 				1);
 		$ts_vcsc_extend_settings_visualSelector						= get_option('ts_vcsc_extend_settings_visualSelector', 				1);
 		$ts_vcsc_extend_settings_nativePaginator					= get_option('ts_vcsc_extend_settings_nativePaginator', 			'200');
-		$ts_vcsc_extend_settings_dashboard							= get_option('ts_vcsc_extend_settings_dashboard', 					1);		
+		$ts_vcsc_extend_settings_dashboard							= get_option('ts_vcsc_extend_settings_dashboard', 					0);		
 		$ts_vcsc_extend_settings_shortcodesalways					= get_option('ts_vcsc_extend_settings_shortcodesalways',			0);		
 		$ts_vcsc_extend_settings_frontendEditor						= get_option('ts_vcsc_extend_settings_frontendEditor', 				1);
 		$ts_vcsc_extend_settings_builtinLightbox					= get_option('ts_vcsc_extend_settings_builtinLightbox', 			1);
@@ -630,6 +653,9 @@
 		// Language Settings: Image Magnify
 		$TS_VCSC_Magnify_Language 									= get_option('ts_vcsc_extend_settings_translationsMagnify',			$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Magnify_Language_Defaults);
 		
+		// Language Settings: Plyr Video Player
+		$TS_VCSC_PlyrVideo_Language 								= get_option('ts_vcsc_extend_settings_translationsPlyrPlayer',		$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Plyr_Player_Language_Defaults);
+		
 		// Language Settings: Isotope Posts
 		$TS_VCSC_Isotope_Posts_Language 							= get_option('ts_vcsc_extend_settings_translationsIsotopePosts',	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Isotope_Posts_Language_Defaults);
 		
@@ -641,6 +667,9 @@
 		
 		// Default Settings: Menu Positions
 		$TS_VCSC_Menu_Positions 									= get_option('ts_vcsc_extend_settings_menuPositions',				$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Menu_Positions_Defaults);
+		
+		// Simple / Extended Options Mode
+		$ts_vcsc_extend_settings_allowFullOptions					= get_option('ts_vcsc_extend_settings_allowFullOptions', 			0);
 		
 		// Google Font Manager
 		$ts_vcsc_extend_settings_allowGoogleManager					= get_option('ts_vcsc_extend_settings_allowGoogleManager', 			1);
@@ -709,6 +738,13 @@
 		update_option('ts_vcsc_extend_settings_updated',	0);
 	}
 
+	// Simple / Extended Options Class
+	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginFullOptions == "true") {
+		$TS_VCSC_SimpleOptionsClass									= 'ts-settings-simple-options-show';
+	} else {
+		$TS_VCSC_SimpleOptionsClass									= 'ts-settings-simple-options-hide';
+	}
+	
 	// License Message Check
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginIsMultiSiteActive == "true") {
 		if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "false") {
@@ -722,9 +758,38 @@
 	
 	// Visual Composer 5.x Check
 	if (TS_VCSC_VersionCompare(WPB_VC_VERSION, '5.0.0') >= 0) {
-		$TS_VCSC_ComposerSectionElement 	= "true";
+		$TS_VCSC_ComposerSectionElement 							= "true";
 	} else {
-		$TS_VCSC_ComposerSectionElement 	= "false";
+		$TS_VCSC_ComposerSectionElement 							= "false";
+	}
+	// Render Function for Toggle Switch
+	function TS_VCSC_CodeStarButton_Settings_Field($settings, $value) {
+		$param_name     = isset($settings['param_name'])    ? $settings['param_name']   : '';
+		$type           = isset($settings['type'])          ? $settings['type']         : '';
+		$on            	= isset($settings['on'])            ? $settings['on']           : __( "Yes", "ts_visual_composer_extend" );
+		$off            = isset($settings['off'])           ? $settings['off']          : __( "No", "ts_visual_composer_extend" );
+		$label			= isset($settings['label'])			? $settings['label']		: '';
+		$order			= isset($settings['order'])			? $settings['order']		: '1';
+		$class          = isset($settings['class'])         ? $settings['class']        : '';
+		$output         = '';
+		// Value Conversion
+		if (($value === "true") || ($value === 1) || ($value === true)) {
+			$value		= "1";
+		} else if (($value === "false") || ($value === 0) || ($value === false)) {
+			$value		= "0";
+		}
+		// Final Output		
+		$output .= '<div class="ts-switch-button ts-codestar-field-switcher ' . $class . '" data-value="' . $value . '">';
+			$output .= '<div class="ts-codestar-fieldset">';
+				$output .= '<label class="ts-codestar-label">';
+					$output .= '<input id="' . $param_name . '" data-order="' . $order . '" value="' . $value . '" class="ts-codestar-checkbox ' . $param_name . '" name="' . $param_name . '" type="checkbox" ' . ($value == 1 ? 'checked="checked"' : '') . '>';
+					$output .= '<em data-on="' . $on . '" data-off="' . $off . '"></em>';
+					$output .= '<span></span>';
+				$output .= '</label>';
+			$output .= '</div>';
+		$output .= '</div>';
+		$output .= '<label class="labelToggleBox" for="' . $param_name . '">' . $label . '</label>';
+		return $output;
 	}
 ?>
 
@@ -814,7 +879,7 @@
 						}
 					}
 				?>				
-				<li id="link-ts-settings-files" 		data-tab="ts-settings-files" 			data-order="17"		data-name="External Files"			class="link-data"><i class="dashicons-download"></i>External Files<span id="errorTab17" class="errorMarker"></span></li>
+				<li id="link-ts-settings-files" 		data-tab="ts-settings-files" 			data-order="17"		data-name="External Files"			class="link-data <?php echo $TS_VCSC_SimpleOptionsClass; ?>"><i class="dashicons-download"></i>External Files<span id="errorTab17" class="errorMarker"></span></li>
 				<?php
 					if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseGoogleFontManager == "true") {
 						echo '<a href="admin.php?page=TS_VCSC_GoogleFonts" target="_parent" style="color: #000000;">';
@@ -840,15 +905,15 @@
 					if (current_user_can('manage_options')) {
 						if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseSidebarsManager == "true") {
 							echo '<a href="admin.php?page=TS_VCSC_Sidebars" target="_parent" style="color: #000000;">';
-								echo '<li id="link-ts-settings-sidebars"	data-tab="ts-settings-sidebars"			data-order="21"		data-name="Sidebars Manager"	class="link-url"><i class="dashicons-welcome-widgets-menus"></i>Sidebars Manager<span id="errorTab21" class="errorMarker"></span></li>';
+								echo '<li id="link-ts-settings-sidebars"	data-tab="ts-settings-sidebars"			data-order="21"		data-name="Sidebars Manager"		class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-welcome-widgets-menus"></i>Sidebars Manager<span id="errorTab21" class="errorMarker"></span></li>';
 							echo '</a>';
 						}
 						if ((($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_codeeditors', 1) == 1)) || (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "false"))) {
 							echo '<a href="admin.php?page=TS_VCSC_CSS" target="_parent" style="color: #000000;">';
-								echo '<li id="link-ts-settings-customcss" 	data-tab="ts-settings-customcss"		data-order="22"		data-name="Add Custom CSS"			class="link-url"><i class="dashicons-media-code"></i>Custom CSS<span id="errorTab22" class="errorMarker"></span></li>';
+								echo '<li id="link-ts-settings-customcss" 	data-tab="ts-settings-customcss"		data-order="22"		data-name="Add Custom CSS"			class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-media-code"></i>Custom CSS<span id="errorTab22" class="errorMarker"></span></li>';
 							echo '</a>';
 							echo '<a href="admin.php?page=TS_VCSC_JS" target="_parent" style="color: #000000;">';
-								echo '<li id="link-ts-settings-customjs" 	data-tab="ts-settings-customjs" 		data-order="23"		data-name="Add Custom JS"			class="link-url"><i class="dashicons-media-code"></i>Custom JS<span id="errorTab32" class="errorMarker"></span></li>';
+								echo '<li id="link-ts-settings-customjs" 	data-tab="ts-settings-customjs" 		data-order="23"		data-name="Add Custom JS"			class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-media-code"></i>Custom JS<span id="errorTab32" class="errorMarker"></span></li>';
 							echo '</a>';
 						}
 						if (function_exists('file_get_contents')) {
@@ -856,7 +921,7 @@
 						}
 						if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UserIsAdministrator == "true") {
 							echo '<a href="admin.php?page=TS_VCSC_Usage" target="_parent" style="color: #000000;">';
-								echo '<li id="link-ts-settings-statistics" 		data-tab="ts-settings-statistics" 		data-order="25"		data-name="Usage Statistics"		class="link-url"><i class="dashicons-image-filter"></i>Usage Statistics<span id="errorTab25" class="errorMarker"></span></li>';
+								echo '<li id="link-ts-settings-statistics" 		data-tab="ts-settings-statistics" 		data-order="25"		data-name="Usage Statistics"	class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-image-filter"></i>Usage Statistics<span id="errorTab25" class="errorMarker"></span></li>';
 							echo '</a>';
 						}
 						echo '<a href="admin.php?page=TS_VCSC_System" target="_parent" style="color: #000000;">';
@@ -868,7 +933,7 @@
 							echo '</a>';
 						}
 						echo '<a href="admin.php?page=TS_VCSC_Transfers" target="_parent" style="color: #000000;">';
-							echo '<li id="link-ts-settings-transfers" 		data-tab="ts-settings-transfers"		data-order="28"		data-name="Transfer Settings"		class="link-url"><i class="dashicons-migrate"></i>Transfer Settings<span id="errorTab28" class="errorMarker"></span></li>';
+							echo '<li id="link-ts-settings-transfers" 		data-tab="ts-settings-transfers"		data-order="28"		data-name="Transfer Settings"		class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-migrate"></i>Transfer Settings<span id="errorTab28" class="errorMarker"></span></li>';
 						echo '</a>';
 					}
 					if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ShowNotificationPage == "true") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseUpdateNotification == "true")) {

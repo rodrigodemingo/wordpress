@@ -177,6 +177,7 @@
 				$output								= '';
 				$style								= '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
+				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if (!empty($el_id)) {
 					$steps_id						= $el_id;
@@ -207,7 +208,10 @@
 					$step_back_path 			= wp_get_attachment_image_src($icon_back_image, $icon_back_size);
 				}
 				
-				$style .= '<style id="' . $steps_id . '-style" type="text/css">';					
+				// Custom Styling
+				if ($inline == "false") {
+					$style .= '<style id="' . $steps_id . '-style" type="text/css">';
+				}
 					$shadow_default				= "-webkit-box-shadow: 0 0 0 2px " . $header_default_color . "; -moz-box-shadow: 0 0 0 2px " . $header_default_color . "; box-shadow: 0 0 0 2px " . $header_default_color . ";";
 					$shadow_hover				= "-webkit-box-shadow: 0 0 0 6px " . $header_hover_color . "; -moz-box-shadow: 0 0 0 6px " . $header_hover_color . "; box-shadow: 0 0 0 6px " . $header_hover_color . ";";
 					if (($icon_back_switch == "single") || ($icon_back_switch == "false")) {
@@ -245,7 +249,12 @@
 							$style .= 'color: ' . $icon_color_hover . ';';
 						$style .= '}';
 					}
-				$style .= '</style>';
+				if ($inline == "false") {
+					$style .= '</style>';
+				}
+				if (($style != "") && ($inline == "true")) {
+					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($style));
+				}
 				
 				// Tooltip
 				$tooltipclasses					= 'ts-has-tooltipster-tooltip';
@@ -268,7 +277,9 @@
 				}
 				
 				$output .= '<li id="' . $steps_id . '" class="' . $css_class . ' ts-box-icon ' . ($frontend == "true" ? "ts-horizontal-steps-break" : "") . ' ' . $Tooltip_Class . '" ' . $Tooltip_Content . ' data-frontend="' . $frontend . '" style="' . ($frontend == "true" ? "float: none;" : "") . '">';
-					$output .= TS_VCSC_MinifyCSS($style);
+					if ($inline == "false") {
+						$output .= TS_VCSC_MinifyCSS($style);
+					}
 					if (($icon_back_type == "iconback") || ($icon_back_type == "icononly")) {
 						$icon_class				= $step_animation;
 					} else {
@@ -431,7 +442,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Viewport Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_view",
-							"standard"					=> "false",
 							"prefix"					=> "ts-viewport-css-",
 							"connector"					=> "css3animations_view",
 							"noneselect"				=> "true",
@@ -809,7 +819,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Icon Hover Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "step_animation",
-							"standard"					=> "false",
 							"prefix"					=> "ts-hover-css-",
 							"connector"					=> "css3animations_name",
 							"noneselect"				=> "true",

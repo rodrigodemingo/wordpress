@@ -120,26 +120,14 @@
 							echo '<div style="font-weight: bold; font-size: 14px; margin: 0;">Extend Options for Visual Composer Rows:</div>';
 							echo '<p style="font-size: 12px;">Extend Row Options with Background Effects and Viewport Animation Settings:</p>';
 						}
-					?>
-					<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_additionsRows == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-						<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_additionsRows" class="toggle-check ts_vcsc_extend_settings_additionsRows" name="ts_vcsc_extend_settings_additionsRows" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_additionsRows); ?>/>
-						<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-							<div class="toggle-slide">
-								<div class="toggle-inner">
-									<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_additionsRows == 1 ? 'active' : ''); ?>">Yes</div>
-									<div class="toggle-blob"></div>
-									<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_additionsRows == 0 ? 'active' : ''); ?>">No</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<?php
-						if ($TS_VCSC_ComposerSectionElement == "true") {
-							echo '<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsRows">Extend Section + Row Options</label>';
-						} else {
-							echo '<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsRows">Extend Row Options</label>';
-						}
-					?>					
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_additionsRows",
+							"label"				=> ($TS_VCSC_ComposerSectionElement == "true" ? "Extend Section + Row Options" : "Extend Row Options"),
+							"value"             => $ts_vcsc_extend_settings_additionsRows,
+							"order"				=> 1,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_additionsRows);
+					?>				
 				</div>
 				<div id="ts_vcsc_extend_settings_additionsRows_true" style="margin-top: 30px; margin-bottom: 10px; margin-left: 25px; <?php echo ($ts_vcsc_extend_settings_additionsRows == 0 ? 'display: none;' : 'display: block;'); ?>">
 					<div id="ts_vcsc_extend_settings_rowAllowableOptionsWrap" class="ts-multiselect-holder" style="display: block; height: auto; margin: 20px 0 10px 0;">
@@ -201,20 +189,14 @@
 										Up until version 4.0.0 of this add-on, the extended row options also included settings to define a top/bottom padding to the row and left/right margins to the background style. Due to the historic names of the setting parameters, conflicts with some themes could occur that used the same names for their custom setting options for rows. In order to avoid such problems, the padding and margin options have been disabled by default but can easily be re-enabled using the setting below. If you notice any conflicts or layout issues with the option enabled, you should keep it disabled.
 									</div>';
 								}
-							?>							
-							<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_additionsOffsets == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-								<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_additionsOffsets" class="toggle-check ts_vcsc_extend_settings_additionsOffsets" name="ts_vcsc_extend_settings_additionsOffsets" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_additionsOffsets); ?>/>
-								<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-									<div class="toggle-slide">
-										<div class="toggle-inner">
-											<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_additionsOffsets == 1 ? 'active' : ''); ?>">Yes</div>
-											<div class="toggle-blob"></div>
-											<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_additionsOffsets == 0 ? 'active' : ''); ?>">No</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsRows">Enable Padding/Margin Options</label>	
+								$settings = array(
+									"param_name"        => "ts_vcsc_extend_settings_additionsOffsets",
+									"label"				=> "Enable Padding/Margin Options",
+									"value"             => $ts_vcsc_extend_settings_additionsOffsets,
+									"order"				=> 1,
+								);
+								echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_additionsOffsets);
+							?>
 						</div>
 						<div id="ts_vcsc_extend_settings_rowAllowableVisibilityWrap" style="display: block; width: 100%; margin: 20px 0 0 0;">
 							<?php
@@ -286,20 +268,14 @@
 								} else {
 									echo '<p style="font-size: 12px;">When a row background has been applied with the extended row options, a background indicator can be shown next to the row control options:</p>';
 								}
+								$settings = array(
+									"param_name"        => "ts_vcsc_extend_settings_backgroundIndicator",
+									"label"				=> "Show Background Indicator",
+									"value"             => $ts_vcsc_extend_settings_backgroundIndicator,
+									"order"				=> 1,
+								);
+								echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_backgroundIndicator);
 							?>
-							<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_backgroundIndicator == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-								<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_backgroundIndicator" class="toggle-check ts_vcsc_extend_settings_backgroundIndicator" name="ts_vcsc_extend_settings_backgroundIndicator" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_backgroundIndicator); ?>/>
-								<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-									<div class="toggle-slide">
-										<div class="toggle-inner">
-											<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_backgroundIndicator == 1 ? 'active' : ''); ?>">Yes</div>
-											<div class="toggle-blob"></div>
-											<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_backgroundIndicator == 0 ? 'active' : ''); ?>">No</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsRows">Show Background Indicator</label>
 						</div>
 						<div id="ts_vcsc_extend_settings_rowAllowableBreakpointWrap" class="" style="display: block; width: 100%; margin: 20px 0 0 0;">							
 							<?php
@@ -344,7 +320,7 @@
 							<option value="seperators" <?php selected($TS_VCSC_RowEffectSeperators, "true"); ?> data-initial="<?php echo $TS_VCSC_RowEffectSeperators; ?>"><?php echo ($TS_VCSC_ComposerSectionElement == "true" ? "Section + Row Seperators / Shapes" : "Row Seperators / Shapes") ?></option>
 							<option value="overlays" <?php selected($TS_VCSC_RowEffectOverlays, "true"); ?> data-initial="<?php echo $TS_VCSC_RowEffectOverlays; ?>">Background Overlays</option>
 							<option value="kenburns" <?php selected($TS_VCSC_RowEffectKenburns, "true"); ?> data-initial="<?php echo $TS_VCSC_RowEffectKenburns; ?>">Background KenBurns Effect</option>							
-							<option value="blurring" <?php selected($TS_VCSC_RowEffectBlurring, "true"); ?> data-initial="<?php echo $TS_VCSC_RowEffectBlurring; ?>">Background Blur</option>														
+							<option value="blurring" <?php selected($TS_VCSC_RowEffectBlurring, "true"); ?> data-initial="<?php echo $TS_VCSC_RowEffectBlurring; ?>">Background Blur</option>						
 						</select>
 					</div>	
 				</div>
@@ -363,19 +339,15 @@
 						}
 					?>
 					<p style="font-size: 12px;">Extend Column Options with Viewport Animation & Equal Height Settings:</p>
-					<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_additionsColumns == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-						<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_additionsColumns" class="toggle-check ts_vcsc_extend_settings_additionsColumns" name="ts_vcsc_extend_settings_additionsColumns" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_additionsColumns); ?>/>
-						<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-							<div class="toggle-slide">
-								<div class="toggle-inner">
-									<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_additionsColumns == 1 ? 'active' : ''); ?>">Yes</div>
-									<div class="toggle-blob"></div>
-									<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_additionsColumns == 0 ? 'active' : ''); ?>">No</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsColumns">Extend Column Options</label>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_additionsColumns",
+							"label"				=> "Extend Column Options",
+							"value"             => $ts_vcsc_extend_settings_additionsColumns,
+							"order"				=> 1,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_additionsColumns);
+					?>
 				</div>
 			</div>
 		</div>

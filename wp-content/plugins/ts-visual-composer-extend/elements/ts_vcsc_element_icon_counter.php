@@ -489,7 +489,6 @@
 				"type"				=> "css3animations",
 				"heading"			=> __("Icon / Image Animation", "ts_visual_composer_extend"),
 				"param_name"		=> "animation_icon",
-				"standard"			=> "false",
 				"prefix"			=> "",
 				"connector"			=> "css3animations_in",
 				"noneselect"		=> "true",

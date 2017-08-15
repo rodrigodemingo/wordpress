@@ -12,7 +12,6 @@
 			"type" 						=> "css3animations",
 			"heading" 					=> __("Viewport Animation", "ts_visual_composer_extend"),
 			"param_name" 				=> "animation_view",
-			"standard"					=> "false",
 			"prefix"					=> "",
 			"connector"					=> "css3animations_in",
 			"noneselect"				=> "true",

@@ -13,7 +13,6 @@
             }        
             function iconspanel_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
                 $default			= isset($settings['default']) ? $settings['default'] : '';
@@ -31,8 +30,26 @@
 					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_NavigatorIconsCompliant;
 				} else if ($icons_type == "timeline") {
 					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_TimelineDateTimeCompliant;
+				} else if ($icons_type == "mapmarkers") {					
+					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_GoogleMapMarkersCompliant;
 				} else {
 					$icons_source   = isset($parameters['source']) ? $parameters['source'] : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_List_Icons_Compliant;
+				}
+				// Check Value
+				if (($value == "") && ($default != "")) {
+					$value			= $default;
+				}
+				if ($icons_type == "mapmarkers") {
+					if (substr($value, -4) == ".png") {
+						$value		= "ts-mapmarker-" . substr($value, 0, -4);
+					}
+				}
+				// Retrieve Settings
+				$icons_override		= isset($parameters['override']) ? $parameters['override'] : "false";
+				if ($icons_override == true) {
+					$icons_override	= "true";
+				} else if ($icons_override == false) {
+					$icons_override	= "false";
 				}
 				$icons_empty		= isset($parameters['emptyIcon']) ? $parameters['emptyIcon'] : "true";
 				if ($icons_empty == true) {
@@ -49,16 +66,11 @@
 				}				
 				$icons_pagination	= isset($parameters['iconsPerPage']) ? $parameters['iconsPerPage'] : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorPager;
 				// Other Settings
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer			= mt_rand(999999, 9999999);
                 $output         	= '';
 				// Icon Picker Output
-                if (($visual == "true") || ($override == "true")) {
+                if (($visual == "true") || ($icons_override == "true")) {
 					$output .= '<div id="ts-font-icons-picker-parent-' . $randomizer . '" class="ts-font-icons-picker-parent">';
-						// Icon Picker
-						if (($value == "") && ($default != "")) {
-							$value	= $default;
-						}
                         $output .= '<div id="ts-font-icons-picker-' . $param_name . '" class="ts-visual-selector ts-font-icons-picker" data-value="' . $value . '" data-theme="inverted" data-empty="' . $icons_empty . '" data-transparent="' . $icons_transparent . '" data-search="' . $icons_search . '" data-pagecount="' . $icons_pagination . '">';
 							$iconGroups 			= array();
 							$output .= '<select id="' . $param_name . '" name="' . $param_name . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . '" value="' . $value . '">';
@@ -71,7 +83,7 @@
 									}
 								}
 								// Add Built-In Fonts (based on provided Source)              
-								foreach ($icons_source as $group => $icons) {
+								foreach ($icons_source as $group => $icons) {									
 									if (!is_array($icons) || !is_array(current($icons))) {
 										$font		= "";
 									} else {									
@@ -83,37 +95,39 @@
 									}									
 									if (!is_array($icons) || !is_array(current($icons))) {
 										$class_key      = key($icons);
+										$class_label	= (isset($icons[$class_key]) ? $icons[$class_key] : $class_key);
 										$class_group    = explode('-', esc_attr($class_key));
 										if (($class_group[0] != "dashicons") && ($class_group[0] != "transparent")) {
 											if ($value == esc_attr($class_key)) {
-												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 											} else {
-												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 											}
 										} else {
 											if ($value == esc_attr($class_key)) {
-												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 											} else {
-												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 											}
 										}
 									} else {
 										foreach ($icons as $key => $label) {
 											$class_key      = key($label);
+											$class_label	= (isset($label[$class_key]) ? $label[$class_key] : $class_key);
 											$class_group    = explode('-', esc_attr($class_key));
 											$font           = str_replace("(", "", strtolower(strtolower(esc_attr($group))));
 											$font           = str_replace(")", "", strtolower($font));
 											if (($class_group[0] != "dashicons") && ($class_group[0] != "transparent")) {
 												if ($value == esc_attr($class_key)) {
-													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 												} else {
-													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 												}
 											} else {
 												if ($value == esc_attr($class_key)) {
-													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 												} else {
-													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 												}
 											}
 										}
@@ -124,26 +138,28 @@
 									}
 								}
 								// Add Custom Upload Font
-								if ((get_option('ts_vcsc_extend_settings_tinymceCustom', 0) == 1) && ($custom == "true")) {                       
+								if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseCustomIconFontUpload == "true") && ($icons_type == "extensions")) {                       
 									foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Compliant_Custom as $group => $icons) {
 										if (!is_array($icons) || !is_array(current($icons))) {
 											$class_key      = key($icons);
+											$class_label	= (isset($icons[$class_key]) ? $icons[$class_key] : $class_key);
 											$class_group    = explode('-', esc_attr($class_key));
 											if ($value == esc_attr($class_key)) {
-												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 											} else {
-												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 											}
 										} else {
 											foreach ($icons as $key => $label) {
 												$class_key      = key($label);
+												$class_label	= (isset($label[$class_key]) ? $label[$class_key] : $class_key);
 												$class_group    = explode('-', esc_attr($class_key));
 												$font           = str_replace("(", "", strtolower(strtolower(esc_attr($group))));
 												$font           = str_replace(")", "", strtolower($font));
 												if ($value == esc_attr($class_key)) {
-													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
 												} else {
-													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_key) . '</option>';
+													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
 												}
 											}
 										}

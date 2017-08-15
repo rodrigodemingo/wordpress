@@ -1,0 +1,16 @@
+/**
+  Additional CSS Rules for Bootstrap
+  BsGrids Form Elements
+  **/
+.bootstrap-grid {
+	margin-bottom: 15px;
+}
+
+.bootstrap-grid .faplus {
+  display: table-cell;
+}
+
+.bootstrap-grid .faplus > .fa {
+	display: inline-block;
+	width: 20px;
+}

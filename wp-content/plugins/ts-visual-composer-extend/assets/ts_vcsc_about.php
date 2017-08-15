@@ -95,11 +95,15 @@
 			<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-admin-links"></i>Useful Links</div>
 			<div class="ts-vcsc-section-content">
 				<div style="margin-top: 10px;">
-					<div class="" style="display: inline-block; margin: 0 5px 0 0; width: 200px;">
-						<a class="ts-vcsc-image-link" style="display: block; width: 100%; margin: 0; text-align: center; text-decoration: none;" href="<?php echo $VISUAL_COMPOSER_EXTENSIONS->settingsLink; ?>" target="_parent">
-							<img src="<?php echo TS_VCSC_GetResourceURL('images/other/composium_settings.png'); ?>" style="width: 100%; height: auto; margin-right: 10px;">
-						</a>
-					</div>
+					<?php
+						if (current_user_can('manage_options')) {
+							echo '<div class="" style="display: inline-block; margin: 0 5px 0 0; width: 200px;">
+								<a class="ts-vcsc-image-link" style="display: block; width: 100%; margin: 0; text-align: center; text-decoration: none;" href="' . $VISUAL_COMPOSER_EXTENSIONS->settingsLink . '" target="_parent">
+									<img src="' . TS_VCSC_GetResourceURL('images/other/composium_settings.png') . '" style="width: 100%; height: auto; margin-right: 10px;">
+								</a>
+							</div>';
+						}
+					?>
 					<div class="" style="display: none; margin: 0 5px 0 0; width: 200px;">
 						<a class="ts-vcsc-image-link" style="display: block; width: 100%; margin: 0; text-align: center; text-decoration: none;" href="admin.php?page=TS_VCSC_License" target="_parent">
 							<img src="<?php echo TS_VCSC_GetResourceURL('images/other/composium_license.png'); ?>" style="width: 100%; height: auto; margin-right: 10px;">

@@ -125,12 +125,23 @@
 						$subheader_show = true;
 					}
 					
+					
+					// title
+					if( is_array( $subheader_options ) && isset( $subheader_options[ 'hide-title' ] ) ){
+						$title_show = false;
+					} else {
+						$title_show = true;
+					}
+					
+					
+					// breadcrumbs
 					if( is_array( $subheader_options ) && isset( $subheader_options['hide-breadcrumbs'] ) ){
 						$breadcrumbs_show = false;
 					} else {
 						$breadcrumbs_show = true;
 					}
 
+					
 					// Subheader | Print
 					if( $subheader_show ){
 						echo '<div id="Subheader" style="'. $subheader_style .'">';
@@ -138,23 +149,28 @@
 								echo '<div class="column one">';
 																
 									// Title
-									$title_tag = mfn_opts_get( 'subheader-title-tag', 'h1' );
-									
-									// Single Product can't use h1
-									if( is_product() && $title_tag == 'h1' ) $title_tag = 'h2';
-									
-									echo '<'. $title_tag .' class="title">';
-									
-										if( is_product() && mfn_opts_get('shop-product-title') ){
-											the_title();											
-										} else {
-											woocommerce_page_title();
-										}
-									
-									echo '</'. $title_tag .'>';
+									if( $title_show ){
+										
+										$title_tag = mfn_opts_get( 'subheader-title-tag', 'h1' );
+										
+										// Single Product can't use h1
+										if( is_product() && $title_tag == 'h1' ) $title_tag = 'h2';
+										
+										echo '<'. $title_tag .' class="title">';
+										
+											if( is_product() && mfn_opts_get('shop-product-title') ){
+												the_title();											
+											} else {
+												woocommerce_page_title();
+											}
+										
+										echo '</'. $title_tag .'>';
+										
+									}
 
 									// Breadcrumbs
 									if( $breadcrumbs_show ){
+										
 										$home = mfn_opts_get('translate') ? mfn_opts_get('translate-home','Home') : __('Home','betheme');
 										$woo_crumbs_args = apply_filters( 'woocommerce_breadcrumb_defaults', array(
 											'delimiter'   => false,
@@ -164,7 +180,9 @@
 											'after'       => '<span><i class="icon-right-open"></i></span></li>',
 											'home'        => $home,
 										) );
+										
 										woocommerce_breadcrumb( $woo_crumbs_args );
+										
 									}
 			
 								echo '</div>';

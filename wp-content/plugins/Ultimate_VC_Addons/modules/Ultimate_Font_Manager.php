@@ -154,6 +154,8 @@ if(!class_exists('Ultimate_Google_Font_Manager'))
 					}
 				}
 
+				$font_call = str_replace( '||', '|', $font_call );
+
 				$link = 'https://fonts.googleapis.com/css?family='.$font_call;
 
 				$font_api_call = $link.$subset_string;

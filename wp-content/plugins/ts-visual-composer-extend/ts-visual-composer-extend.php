@@ -2,7 +2,7 @@
 /*
 Plugin Name:    Composium - Visual Composer Extensions Addon
 Plugin URI:     http://codecanyon.net/item/visual-composer-extensions-addon/7190695
-Version:        5.1.1
+Version:        5.1.7
 Description:    A plugin to add new premium content elements, custom post types, a premium built-in lightbox solution, icon fonts, Google fonts, and much more to Visual Composer
 Author:         Tekanewa Scripts by Kraut Coding
 Author URI:     http://www.composium.krautcoding.com
@@ -35,7 +35,7 @@ if (!function_exists('TS_VCSC_GetPluginVersion')){
 		return $plugin_version;
 	}
 }
-
+	
 
 // Define Global Variables
 // -----------------------
@@ -43,7 +43,7 @@ if (!defined('COMPOSIUM_EXTENSIONS')){
 	define('COMPOSIUM_EXTENSIONS', 			dirname(__FILE__));
 }
 if (!defined('COMPOSIUM_VERSION')){
-	define('COMPOSIUM_VERSION', 			'5.1.1');
+	define('COMPOSIUM_VERSION', 			'5.1.7');
 }
 if (!defined('COMPOSIUM_SLUG')){
 	define('COMPOSIUM_SLUG', 				plugin_basename(__FILE__));
@@ -69,13 +69,13 @@ if (!function_exists('is_plugin_active_for_network')) {
 // Main Class for Visual Composer Extensions
 // -----------------------------------------
 if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
+	// Load Absolutely Required Functions
+	// ----------------------------------
+	require_once('registrations/ts_vcsc_registrations_required.php');
+	
 	// Register / Remove Plugin Settings on Plugin Activation / Removal
 	// ----------------------------------------------------------------
-	require_once('assets/ts_vcsc_registrations_plugin.php');
-	
-	// Load Global Helper Functions
-	// ----------------------------
-	require_once('assets/ts_vcsc_registrations_functions.php');
+	require_once('registrations/ts_vcsc_registrations_plugin.php');
 	
 	// WordPres Register Hooks
 	// -----------------------
@@ -101,7 +101,19 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				$memory_required						= 5 * 1024 * 1024;
 			}
 			$memory_provided							= ini_get('memory_limit');
-			$memory_provided 							= preg_replace("/[^0-9]/", "", $memory_provided) * 1024 * 1024;
+			if (preg_match('/^(\d+)(.)$/', $memory_provided, $matches)) {
+				if (($matches[2] == 'T') || ($matches[2] == 't')) {
+					$memory_provided 					= $matches[1] * 1024 * 1024 * 1024 * 1024;
+				} else if (($matches[2] == 'G') || ($matches[2] == 'g')) {
+					$memory_provided 					= $matches[1] * 1024 * 1024 * 1024;
+				} else if (($matches[2] == 'M') || ($matches[2] == 'm')) {
+					$memory_provided 					= $matches[1] * 1024 * 1024;
+				} else if (($matches[2] == 'K') || ($matches[2] == 'k')) {
+					$memory_provided 					= $matches[1] * 1024;
+				} else if (($matches[2] == 'B') || ($matches[2] == 'b') || ($matches[2] == '')) {
+					$memory_provided 					= $matches[1];
+				}
+			}
 			$memory_peakusage 							= memory_get_peak_usage(true);
 			if (($memory_provided - $memory_peakusage) <= $memory_required) {
 				$part1 									= __("Unfortunately, and to prevent a potential system crash, the plugin 'Composium - Visual Composer Extensions' could not be activated. It seems your available PHP memory is already close to exhaustion and so there is not enough left for this plugin.", "ts_visual_composer_extend") . '<br/>';
@@ -219,220 +231,41 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 		}
 
 
-		// Define Public Class Variables
-		// -----------------------------
-		public $TS_VCSC_Icons_Compliant_Loading			= "false";
-		
-		public $TS_VCSC_Icons_Compliant_Awesome			= array();
-		public $TS_VCSC_Icons_Compliant_Brankic			= array();
-		public $TS_VCSC_Icons_Compliant_Countricons		= array();
-		public $TS_VCSC_Icons_Compliant_Currencies		= array();
-		public $TS_VCSC_Icons_Compliant_Elegant			= array();
-		public $TS_VCSC_Icons_Compliant_Entypo			= array();
-		public $TS_VCSC_Icons_Compliant_Foundation		= array();
-		public $TS_VCSC_Icons_Compliant_Genericons		= array();
-		public $TS_VCSC_Icons_Compliant_IcoMoon			= array();
-		public $TS_VCSC_Icons_Compliant_Ionicons		= array();
-		public $TS_VCSC_Icons_Compliant_MapIcons		= array();
-		public $TS_VCSC_Icons_Compliant_Metrize			= array();
-		public $TS_VCSC_Icons_Compliant_Monuments		= array();
-		public $TS_VCSC_Icons_Compliant_SocialMedia		= array();
-		public $TS_VCSC_Icons_Compliant_Themify			= array();
-		public $TS_VCSC_Icons_Compliant_Typicons		= array();
-		public $TS_VCSC_Icons_Compliant_Dashicons		= array();
-		public $TS_VCSC_Icons_Compliant_Custom			= array();
-		
-		public $TS_VCSC_Icons_Compliant_VC_Awesome		= array();
-		public $TS_VCSC_Icons_Compliant_VC_OpenIconic	= array();
-		public $TS_VCSC_Icons_Compliant_VC_Linecons		= array();
-		public $TS_VCSC_Icons_Compliant_VC_Typicons		= array();
-		public $TS_VCSC_Icons_Compliant_VC_Entypo		= array();
-		public $TS_VCSC_Icons_Compliant_VC_MonoSocial	= array();
-
-		public $TS_VCSC_VisualComposer_Version			= "";
-		public $TS_VCSC_VisualComposer_Compliant		= "false";
-		public $TS_VCSC_VisualComposer_LeanMap			= "false";
-		public $TS_VCSC_VisualComposer_Loading			= "false";
-		public $TS_VCSC_VisualComposer_Shortcodes		= "false";
-		public $TS_VCSC_VisualComposer_Element			= array();		
-
-		public $TS_VCSC_Extensions_PostTypes			= array();
-		public $TS_VCSC_Extensions_VariablesPriority	= "6";
-		
-		public $TS_VCSC_CountTotalElements				= 0;
-		public $TS_VCSC_CountActiveElements				= 0;
-		
-		public $TS_VCSC_tinymceAwesomeCount				= 0;
-		public $TS_VCSC_tinymceBrankicCount				= 0;
-		public $TS_VCSC_tinymceCountriconsCount			= 0;
-		public $TS_VCSC_tinymceCurrenciesCount			= 0;
-		public $TS_VCSC_tinymceElegantCount				= 0;
-		public $TS_VCSC_tinymceEntypoCount				= 0;
-		public $TS_VCSC_tinymceFoundationCount			= 0;
-		public $TS_VCSC_tinymceGenericonsCount			= 0;
-		public $TS_VCSC_tinymceIcoMoonCount				= 0;
-		public $TS_VCSC_tinymceIoniconsCount			= 0;
-		public $TS_VCSC_tinymceMetrizeCount				= 0;
-		public $TS_VCSC_tinymceMonumentsCount			= 0;
-		public $TS_VCSC_tinymceSocialMediaCount			= 0;
-		public $TS_VCSC_tinymceThemifyCount				= 0;
-		public $TS_VCSC_tinymceTypiconsCount			= 0;
-		public $TS_VCSC_tinymceCustomCount				= 0;
-		public $TS_VCSC_tinymceDashiconsCount			= 0;
-		
-		public $TS_VCSC_tinymceVC_AwesomeCount			= "";
-		public $TS_VCSC_tinymceVC_OpenIconicCount		= "";
-		public $TS_VCSC_tinymceVC_LineconsCount			= "";
-		public $TS_VCSC_tinymceVC_TypiconsCount			= "";
-		public $TS_VCSC_tinymceVC_EntypoCount			= "";
-		public $TS_VCSC_tinymceVC_MonoSocialCount		= "";
-		public $TS_VCSC_tinymceVC_MaterialCount			= "";
-		
-		public $TS_VCSC_LoadFrontEndForcable			= "false";
-		public $TS_VCSC_LoadFrontEndJQuery				= "false";
-		public $TS_VCSC_LoadFrontEndWaypoints			= "true";
-		public $TS_VCSC_LoadFrontEndModernizr			= "true";
-		public $TS_VCSC_LoadFrontEndCountTo				= "true";
-		public $TS_VCSC_LoadFrontEndCountUp				= "true";
-		public $TS_VCSC_LoadFrontEndMooTools			= "true";
-		public $TS_VCSC_LoadFrontEndLightbox			= "false";
-		public $TS_VCSC_LoadFrontEndTooltips			= "false";
-		public $TS_VCSC_LoadFrontEndHammerNew			= "true";
-		
-		public $TS_VCSC_CustomPostTypesPositions		= "";
-		public $TS_VCSC_CustomPostTypesWidgets			= "false";
-		public $TS_VCSC_CustomPostTypesDownpage			= "false";
-		public $TS_VCSC_CustomPostTypesCheckup			= "true";
-		public $TS_VCSC_CustomPostTypesClass			= "";
-		public $TS_VCSC_CustomPostTypesInternal			= "true";
-		public $TS_VCSC_CustomPostTypesLoaded			= "false";
-		public $TS_VCSC_CustomPostTypesTeam				= "false";
-		public $TS_VCSC_CustomPostTypesTestimonial		= "false";
-		public $TS_VCSC_CustomPostTypesLogo				= "false";
-		public $TS_VCSC_CustomPostTypesSkillset			= "false";
-		public $TS_VCSC_CustomPostTypesTimeline			= "false";
-		
-		public $TS_VCSC_UserDeviceType					= "Desktop";
-		public $TS_VCSC_PluginIsMultiSiteActive			= "false";
-		public $TS_VCSC_PluginUsage						= "true";
-		public $TS_VCSC_PluginSupport					= "true";
-		public $TS_VCSC_PluginKeystring					= "";
-		public $TS_VCSC_PluginLicense					= "";
-		public $TS_VCSC_PluginEnvato					= "";
-		public $TS_VCSC_PluginValid						= "false";
-		public $TS_VCSC_PluginExtended					= "false";
-		public $TS_VCSC_PluginMainMenu					= "true";
-		public $TS_VCSC_VCFrontEditMode					= "false";
-		public $TS_VCSC_VCStandardEditMode				= "false";
-		public $TS_VCSC_VCCurrentPostTypeEdit			= "";
-		public $TS_VCSC_WooCommerceActive				= "false";
-		public $TS_VCSC_WooCommerceVersion				= "";
-		public $TS_VCSC_bbPressActive					= "false";
-		public $TS_VCSC_bbPressVersion					= "";
-		public $TS_VCSC_IconicumStandard				= "false";
-		public $TS_VCSC_IconicumActivated				= "false";
-		public $TS_VCSC_IconicumMenuGenerator			= "false";
-		public $TS_VCSC_Default_Animation				= "random";
-		public $TS_VCSC_SocialNetworkAPIs				= "true";
-		public $TS_VCSC_JetpackPhoton_Active			= "false";
-		public $TS_VCSC_ActivationRedirect				= "false";
-		public $TS_VCSC_ShowDowntimePage				= "false";
-		public $TS_VCSC_ShowNotificationPage			= "false";
-		public $TS_VCSC_InformationExternalAPIs			= array();
-		public $TS_VCSC_UserIsAdministrator				= "false";
-		
-		public $TS_VCSC_EditorFullWidthInternal			= "false";
-		public $TS_VCSC_EditorIconFontsInternal			= "false";
-		public $TS_VCSC_EditorLivePreview				= "false";
-		public $TS_VCSC_EditorImagePreview				= "true";
-		public $TS_VCSC_EditorContainerToggle			= "false";
-		public $TS_VCSC_EditorElementFilter				= "false";
-		public $TS_VCSC_EditorBackgroundIndicator		= "true";
-		public $TS_VCSC_EditorVisualSelector			= "true";
-		public $TS_VCSC_EditorBase64TinyMCE				= "true";
-		public $TS_VCSC_EditorFrontEndEnabled			= "true";
-		
-		public $TS_VCSC_UseInternalLightbox				= "true";
-		public $TS_VCSC_UseGoogleFontManager			= "true";
-		public $TS_VCSC_UsePageNavigator				= "false";
-		public $TS_VCSC_UseSmoothScroll					= "false";
-		public $TS_VCSC_UseCodeEditors					= "true";
-		public $TS_VCSC_UseEnlighterJS					= "false";
-		public $TS_VCSC_UseThemeBuider					= "false";
-		public $TS_VCSC_UseDeprecatedElements			= "false";
-		public $TS_VCSC_UseExtendedRows					= "false";
-		public $TS_VCSC_UseExtendedColumns				= "false";
-		public $TS_VCSC_UseSidebarsManager				= "false";
-		public $TS_VCSC_UseUpdateNotification			= "true";
-		public $TS_VCSC_UseUpdateMenuBarNotice			= "false";
-		public $TS_VCSC_UseUpdateAutomatic				= "true";
-		public $TS_VCSC_UseLightboxAutoMedia			= "false";
-		public $TS_VCSC_UseLightboxPrettyPhoto			= "false";
-		public $TS_VCSC_UseShortcodesWidgets			= "true";
-		public $TS_VCSC_UseAutoParagraphs				= "true";
-		public $TS_VCSC_UseExtendedNesting				= "false";
-		public $TS_VCSC_UseCodestarFramework			= "false";
-		
-		public $TS_VCSC_ParameterLinkPicker				= array();
-		public $TS_VCSC_ParameterNoUiSlider				= array();
-		
-		public $TS_VCSC_IconSelectorType				= "";
-		public $TS_VCSC_IconSelectorValue				= array();
-		public $TS_VCSC_IconSelectorSource				= array();
-		public $TS_VCSC_IconSelectorString				= "";
-		public $TS_VCSC_IconSelectorPager				= "200";
-		public $TS_VCSC_IconSelectorComposer			= 'false';
-		
-		public $TS_VCSC_MobileDetector_Global			= array();
-		public $TS_VCSC_MobileDetector_Desktop			= 'true';
-		public $TS_VCSC_MobileDetector_Mobile			= 'false';
-		public $TS_VCSC_MobileDetector_Tablet			= 'false';
-		
-		public $TS_VCSC_PluginSlug						= "";
-		public $TS_VCSC_PluginPath						= "";
-		public $TS_VCSC_PluginDir						= "";
-		public $TS_VCSC_PluginPHP						= "";
-		public $TS_VCSC_PluginAJAX						= "false";
-		public $TS_VCSC_PluginAlways					= "false";
-		
+		// Constructor for Plugin
+		// ----------------------
 		function __construct() {
-			$this->assets_js 							= plugin_dir_path( __FILE__ ) . 'js/';
-			$this->assets_css 							= plugin_dir_path( __FILE__ ) . 'css/';
-			$this->assets_dir 							= plugin_dir_path( __FILE__ ) . 'assets/';
-			$this->classes_dir 							= plugin_dir_path( __FILE__ ) . 'classes/';
-			$this->elements_dir 						= plugin_dir_path( __FILE__ ) . 'elements/';
-			$this->shortcode_dir 						= plugin_dir_path( __FILE__ ) . 'shortcodes/';
-			$this->plugins_dir 							= plugin_dir_path( __FILE__ ) . 'plugins/';
-			$this->woocommerce_dir 						= plugin_dir_path( __FILE__ ) . 'woocommerce/';
-			$this->bbpress_dir 							= plugin_dir_path( __FILE__ ) . 'bbpress/';
-			$this->posttypes_dir 						= plugin_dir_path( __FILE__ ) . 'posttypes/';
-			$this->images_dir 							= plugin_dir_path( __FILE__ ) . 'images/';
-			$this->icons_dir 							= plugin_dir_path( __FILE__ ) . 'icons/';
-			$this->detector_dir  						= plugin_dir_path( __FILE__ ) . 'detector/';
-			$this->parameters_dir 						= plugin_dir_path( __FILE__ ) . 'parameters/';
-			$this->widgets_dir 							= plugin_dir_path( __FILE__ ) . 'widgets/';
-			$this->templates_dir 						= plugin_dir_path( __FILE__ ) . 'templates/';
-			$this->detector_dir 						= plugin_dir_path( __FILE__ ) . 'detector/';
-			$this->codestar_dir 						= plugin_dir_path( __FILE__ ) . 'codestar/';
+			$this->assets_js 								= plugin_dir_path( __FILE__ ) . 'js/';
+			$this->assets_css 								= plugin_dir_path( __FILE__ ) . 'css/';
+			$this->assets_dir 								= plugin_dir_path( __FILE__ ) . 'assets/';
+			$this->classes_dir 								= plugin_dir_path( __FILE__ ) . 'classes/';
+			$this->elements_dir 							= plugin_dir_path( __FILE__ ) . 'elements/';
+			$this->shortcode_dir 							= plugin_dir_path( __FILE__ ) . 'shortcodes/';
+			$this->plugins_dir 								= plugin_dir_path( __FILE__ ) . 'plugins/';
+			$this->woocommerce_dir 							= plugin_dir_path( __FILE__ ) . 'woocommerce/';
+			$this->bbpress_dir 								= plugin_dir_path( __FILE__ ) . 'bbpress/';
+			$this->posttypes_dir 							= plugin_dir_path( __FILE__ ) . 'posttypes/';
+			$this->images_dir 								= plugin_dir_path( __FILE__ ) . 'images/';
+			$this->icons_dir 								= plugin_dir_path( __FILE__ ) . 'icons/';
+			$this->detector_dir  							= plugin_dir_path( __FILE__ ) . 'detector/';
+			$this->parameters_dir 							= plugin_dir_path( __FILE__ ) . 'parameters/';
+			$this->widgets_dir 								= plugin_dir_path( __FILE__ ) . 'widgets/';
+			$this->templates_dir 							= plugin_dir_path( __FILE__ ) . 'templates/';
+			$this->detector_dir 							= plugin_dir_path( __FILE__ ) . 'detector/';
+			$this->codestar_dir 							= plugin_dir_path( __FILE__ ) . 'codestar/';
+			$this->registrations_dir						= plugin_dir_path( __FILE__ ) . 'registrations/';
 			
-			$this->TS_VCSC_PluginSlug					= plugin_basename(__FILE__);
-			$this->TS_VCSC_PluginPath					= plugin_dir_url(__FILE__);
-			$this->TS_VCSC_PluginDir 					= plugin_dir_path( __FILE__ );			
-			$this->TS_VCSC_PluginPHP					= (TS_VCSC_VersionCompare(PHP_VERSION, '5.3.0') >= 0) ? "true" : "false";
+			$this->TS_VCSC_PluginSlug						= plugin_basename(__FILE__);
+			$this->TS_VCSC_PluginPath						= plugin_dir_url(__FILE__);
+			$this->TS_VCSC_PluginDir 						= plugin_dir_path( __FILE__ );			
+			$this->TS_VCSC_PluginPHP						= (TS_VCSC_VersionCompare(PHP_VERSION, '5.3.0') >= 0) ? "true" : "false";
 			
 			// Load Public Arrays that Define Element Settings
 			// -----------------------------------------------
-			require_once($this->assets_dir . 'ts_vcsc_arrays_public.php');
-			//ksort($this->TS_VCSC_Visual_Composer_Elements);
-			
-			// Load Arrays of Other Selection Items and Internal Variables
-			// -----------------------------------------------------------
-			require_once($this->assets_dir . 'ts_vcsc_arrays_other.php');
-			require_once($this->assets_dir . 'ts_vcsc_arrays_fonts.php');
+			require_once($this->registrations_dir . 'ts_vcsc_registrations_elements.php');
 
 			// Load Public Class Variables
 			// ---------------------------
-			require_once($this->assets_dir . 'ts_vcsc_registrations_variables.php');
+			require_once($this->registrations_dir . 'ts_vcsc_registrations_essentials.php');
 			
 			// Check for Current User Role
 			// ---------------------------
@@ -449,12 +282,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			// ------------------------
 			if ($this->TS_VCSC_UseSidebarsManager == "true") {
 				add_action('widgets_init', 					array($this, 	'TS_VCSC_CustomSidebarsInit'), 				7777);
-			}
-
-			// EnlighterJS - Syntax Highlighter
-			// --------------------------------			
-			if ($this->TS_VCSC_UseEnlighterJS == "true") {
-				require_once($this->assets_dir . 'ts_vcsc_registrations_enlighterjs.php');
 			}
 
 			// Load tinyMCE Icon Shortcode Generator
@@ -478,9 +305,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					if (class_exists('TS_VCSC_AutoUpdate')) {
 						new TS_VCSC_AutoUpdate(COMPOSIUM_VERSION, '', $this->TS_VCSC_PluginSlug, 'Tekanewa', $this->TS_VCSC_PluginLicense, $this->TS_VCSC_PluginIsMultiSiteActive, $this->TS_VCSC_PluginValid, $this->TS_VCSC_PluginEnvato);
 					}
-					/*require_once ('assets/ts_vcsc_updatecheck.php');
-					$MyUpdateChecker = new PluginUpdateChecker_2_0 ('https://kernl.us/api/v1/updates/566724710a25612471e649ef/', __FILE__, 'ts-visual-composer-extend', 1);
-					$MyUpdateChecker->purchaseCode = $this->TS_VCSC_PluginLicense;*/
 				}
 			}
 			
@@ -507,9 +331,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			add_action('admin_enqueue_scripts', 			array($this, 	'TS_VCSC_Extensions_Admin_Files'),			999999999);
 			add_action('admin_head', 						array($this, 	'TS_VCSC_Extensions_Admin_Variables'),		999999999);
 			add_action('admin_head', 						array($this, 	'TS_VCSC_Extensions_Admin_Head'),			999999999);
-			if (($this->TS_VCSC_ParameterLinkPicker['enabled'] == "true") && ($this->TS_VCSC_ParameterLinkPicker['global'] == "true")) {
-				add_action('admin_footer', 					array($this, 	'TS_VCSC_Extensions_Admin_Footer'));
-			}
+			add_action('admin_footer', 						array($this, 	'TS_VCSC_Extensions_Admin_Footer'));
 			//add_action('vc_after_init', 					array($this, 	'TS_VCSC_Extensions_Admin_Bakery'), 		888888888);
 			
 			// Function to Register / Load External Files on Front-End
@@ -521,71 +343,71 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			add_action('wp_print_scripts', 					array($this, 	'TS_VCSC_Extensions_Front_DequeueJS'), 		9999);
 			add_action('wp_print_styles', 					array($this, 	'TS_VCSC_Extensions_Front_DequeueCSS'),		9999);
 			
-			// Output of Custom CSS + JS + META Code
-			// -------------------------------------
+			// Output of Custom CSS + JS Code
+			// ------------------------------
 			if ($this->TS_VCSC_UseCodeEditors == "true") {
-				//add_action('wp_head', 					array($this, 'TS_VCSC_DisplayDisableCacheMeta'), 			1);
-				//add_action('wp_head', 					array($this, 'TS_VCSC_DisplayConsoleCatcher'), 				9);
 				add_action('wp_head', 						array($this, 'TS_VCSC_DisplayCustomCSS'));
 				add_action('wp_footer', 					array($this, 'TS_VCSC_DisplayCustomJS'), 					9999);
 			}			
 			
 			// Add Dashboard Widget
 			// --------------------
-			if (get_option('ts_vcsc_extend_settings_dashboard', 1) == 1) {
-				add_action('wp_dashboard_setup', 			array($this, 	'TS_VCSC_DashboardHelpWidget'));
+			if ($this->TS_VCSC_PluginDashboard == "true") {
+				add_action('wp_dashboard_setup', 			array($this, 	'TS_VCSC_IconFontsArrays'), 				8888);
+				add_action('wp_dashboard_setup', 			array($this, 	'TS_VCSC_DashboardHelpWidget'), 			9999);
 			}			
 			
 			// Create Custom Post Types
 			// ------------------------
-			if (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1)) {
-				if ((get_option('ts_vcsc_extend_settings_posttypeWidget', 1) == 0) && (get_option('ts_vcsc_extend_settings_posttypeTeam', 1) == 0) && (get_option('ts_vcsc_extend_settings_posttypeTestimonial', 1) == 0) && (get_option('ts_vcsc_extend_settings_posttypeLogo', 1) == 0) && (get_option('ts_vcsc_extend_settings_posttypeSkillset', 1) == 0) && (get_option('ts_vcsc_extend_settings_posttypeTimeline', 1) == 0)) {
+			if (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true")) {
+				if (($this->TS_VCSC_UseCustomPostWidget == "false") && ($this->TS_VCSC_UseCustomPostTeam == "false") && ($this->TS_VCSC_UseCustomPostTestimonial == "false") && ($this->TS_VCSC_UseCustomPostLogo == "false") && ($this->TS_VCSC_UseCustomPostSkillset == "false") && ($this->TS_VCSC_UseCustomPostTimeline == "false")) {
 					update_option('ts_vcsc_extend_settings_posttypes', 0);
+					$this->TS_VCSC_UseCustomPostTypes 																= "false";
 				}
 			}
-			if (((($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1)) || (($this->TS_VCSC_PluginExtended == "false"))) && ($this->TS_VCSC_PluginUsage == "true")) {
+			if (((($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true")) || (($this->TS_VCSC_PluginExtended == "false"))) && ($this->TS_VCSC_PluginUsage == "true")) {
 				$this->TS_VCSC_CustomPostTypesCheckup																= "true";
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customWidgets', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeWidget', 1) == 1)  && (get_option('ts_vcsc_extend_settings_customWidgets', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ($this->TS_VCSC_CustomPostTypesDownpage == "true") {
+					$this->TS_VCSC_Extensions_PostTypes['Downpages'] 												= 1;
+				} else {
+					$this->TS_VCSC_Extensions_PostTypes['Downpages'] 												= 0;
+				}
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesWidgets == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostWidget == "true")  && ($this->TS_VCSC_CustomPostTypesWidgets == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesWidgets 															= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Widgets'] 													= 1;
 				} else {
 					$this->TS_VCSC_CustomPostTypesWidgets 															= "false";
 					$this->TS_VCSC_Extensions_PostTypes['Widgets'] 													= 0;
 				}
-				if ($this->TS_VCSC_CustomPostTypesDownpage == "true") {
-					$this->TS_VCSC_Extensions_PostTypes['Downpages'] 												= 1;
-				} else {
-					$this->TS_VCSC_Extensions_PostTypes['Downpages'] 												= 0;
-				}
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customTeam', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeTeam', 1) == 1)  && (get_option('ts_vcsc_extend_settings_customTeam', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesTeam == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostTeam == "true")  && ($this->TS_VCSC_CustomPostTypesTeam == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesTeam 																= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Teams'] 													= 1;
 				} else {
 					$this->TS_VCSC_CustomPostTypesTeam 																= "false";
 					$this->TS_VCSC_Extensions_PostTypes['Teams'] 													= 0;
 				}
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customTestimonial', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeTestimonial', 1) == 1) && (get_option('ts_vcsc_extend_settings_customTestimonial', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesTestimonial == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostTestimonial == "true") && ($this->TS_VCSC_CustomPostTypesTestimonial == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesTestimonial 														= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Testimonials'] 											= 1;
 				} else {
 					$this->TS_VCSC_CustomPostTypesTestimonial 														= "false";
 					$this->TS_VCSC_Extensions_PostTypes['Testimonials'] 											= 0;
 				}
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customLogo', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeLogo', 1) == 1) && (get_option('ts_vcsc_extend_settings_customLogo', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesLogo == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostLogo == "true") && ($this->TS_VCSC_CustomPostTypesLogo == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesLogo 																= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Logos'] 													= 1;
 				} else {
 					$this->TS_VCSC_CustomPostTypesLogo 																= "false";
 					$this->TS_VCSC_Extensions_PostTypes['Logos'] 													= 0;
 				}
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customSkillset', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeSkillset', 1) == 1) && (get_option('ts_vcsc_extend_settings_customSkillset', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesSkillset == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostSkillset == "true") && ($this->TS_VCSC_CustomPostTypesSkillset == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesSkillset 															= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Skillsets'] 												= 1;
 				} else {
 					$this->TS_VCSC_CustomPostTypesSkillset 															= "false";
 					$this->TS_VCSC_Extensions_PostTypes['Skillsets'] 												= 0;
 				}
-				if ((($this->TS_VCSC_PluginExtended == "false") && (get_option('ts_vcsc_extend_settings_customTimelines', 0) == 1)) || (($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_posttypeTimeline', 1) == 1) && (get_option('ts_vcsc_extend_settings_customTimelines', 0) == 1) && (get_option('ts_vcsc_extend_settings_posttypes', 1) == 1))) {
+				if ((($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_CustomPostTypesTimeline == "true")) || (($this->TS_VCSC_PluginExtended == "true") && ($this->TS_VCSC_UseCustomPostTimeline == "true") && ($this->TS_VCSC_CustomPostTypesTimeline == "true") && ($this->TS_VCSC_UseCustomPostTypes == "true"))) {
 					$this->TS_VCSC_CustomPostTypesTimeline 															= "true";
 					$this->TS_VCSC_Extensions_PostTypes['Timelines'] 												= 1;
 				} else {
@@ -593,9 +415,9 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					$this->TS_VCSC_Extensions_PostTypes['Timelines'] 												= 0;
 				}				
 			} else {
-				$this->TS_VCSC_CustomPostTypesWidgets 																= "false";
-				$this->TS_VCSC_CustomPostTypesDownpage																= "false";
 				$this->TS_VCSC_CustomPostTypesCheckup																= "false";
+				$this->TS_VCSC_CustomPostTypesDownpage																= "false";
+				$this->TS_VCSC_CustomPostTypesWidgets 																= "false";
 				$this->TS_VCSC_CustomPostTypesTeam 																	= "false";
 				$this->TS_VCSC_CustomPostTypesTestimonial 															= "false";
 				$this->TS_VCSC_CustomPostTypesLogo 																	= "false";
@@ -609,43 +431,26 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				$this->TS_VCSC_Extensions_PostTypes['Timelines'] 													= 0;
 			}
 			if (($this->TS_VCSC_CustomPostTypesWidgets == "true") || ($this->TS_VCSC_CustomPostTypesDownpage == "true") || ($this->TS_VCSC_CustomPostTypesTeam == "true") || ($this->TS_VCSC_CustomPostTypesTestimonial == "true") || ($this->TS_VCSC_CustomPostTypesLogo == "true") || ($this->TS_VCSC_CustomPostTypesSkillset == "true") || ($this->TS_VCSC_CustomPostTypesTimeline == "true")) {
+				require_once($this->posttypes_dir.'ts_vcsc_custom_post_essentials.php');
 				require_once($this->posttypes_dir.'ts_vcsc_custom_post_registration.php');
 				$this->TS_VCSC_CustomPostTypesLoaded																	= "true";				
 				if ($this->TS_VCSC_CustomPostTypesWidgets == "true") {
-					require_once($this->posttypes_dir . 'ts_vcsc_custom_post_elements.php');
 					require_once($this->widgets_dir . 'ts_vcsc_widgets_elements.php');
 					add_action('admin_footer',				array($this, 'TS_VCSC_Extensions_Admin_Template'));
 				}
-				if (is_admin() && ($this->TS_VCSC_PluginPHP == "true")) {
-					if (($this->TS_VCSC_CustomPostTypesDownpage == "true") || ($this->TS_VCSC_CustomPostTypesTeam == "true") || ($this->TS_VCSC_CustomPostTypesTestimonial == "true") || ($this->TS_VCSC_CustomPostTypesLogo == "true") || ($this->TS_VCSC_CustomPostTypesSkillset == "true") || ($this->TS_VCSC_CustomPostTypesTimeline == "true")) {
-						add_action('init', 					array($this, 	'TS_VCSC_Codestar_Init'),					9);
-						require_once('assets/ts_vcsc_registrations_codestar.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesDownpage == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_downpages.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesTeam == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_team.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesTestimonial == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_testimonials.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesSkillset == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_skillsets.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesTimeline == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_timeline.php');
-					}
-					if ($this->TS_VCSC_CustomPostTypesLogo == "true") {
-						require_once($this->posttypes_dir . 'ts_vcsc_custom_post_logos.php');
+				if (is_admin()) {
+					if (($this->TS_VCSC_CustomPostTypesWidgets == "true") || ($this->TS_VCSC_CustomPostTypesDownpage == "true") || ($this->TS_VCSC_CustomPostTypesTeam == "true") || ($this->TS_VCSC_CustomPostTypesTestimonial == "true") || ($this->TS_VCSC_CustomPostTypesLogo == "true") || ($this->TS_VCSC_CustomPostTypesSkillset == "true") || ($this->TS_VCSC_CustomPostTypesTimeline == "true")) {
+						add_action('init', 					array($this, 	'TS_VCSC_CustomPostsInit'),					9);
 					}
 				}
 				add_action('admin_menu',					array($this, 	'TS_VCSC_RemoveMetaBoxesPostTypeGlobal'));
+			} else {
+				$this->TS_VCSC_CustomPostTypesLoaded																	= "false";
 			}
 			
 			// Create Custom Admin Menu for Plugin
 			// -----------------------------------
-			require_once($this->assets_dir . 'ts_vcsc_registrations_menu.php');
+			require_once($this->registrations_dir . 'ts_vcsc_registrations_menu.php');			
 
 			// Determine Loading + Element Statuses
 			// ------------------------------------
@@ -655,10 +460,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			// Load Arrays of Font Settings
 			// ----------------------------
 			add_action('init', 								array($this, 	'TS_VCSC_IconFontsRequired'), 				3);			
-			
-			// Add Custom Icon Font to VC Elements
-			// -----------------------------------
-			//require_once($this->assets_dir . 'ts_vcsc_registrations_composer.php');
 			
 			// Register Shortcode Definitions
 			// ------------------------------
@@ -698,9 +499,9 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			// Enable / Disable VC Frontend Editor
 			// -----------------------------------
 			if ((function_exists('vc_enabled_frontend')) && (function_exists('vc_disable_frontend'))) {
-				if (get_option('ts_vcsc_extend_settings_frontendEditor', 1) == 0) {
+				if ($this->TS_VCSC_UseFrontendEditorVC == "false") {
 					vc_disable_frontend(true);
-				} else if (get_option('ts_vcsc_extend_settings_frontendEditor', 1) == 1) {
+				} else if ($this->TS_VCSC_UseFrontendEditorVC == "true") {
 					vc_disable_frontend(false);
 				}
 			}
@@ -718,10 +519,11 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			}
 		}
 		
-		// Initialize CodeStar Framework
-		// -----------------------------
-		function TS_VCSC_Codestar_Init() {
+		// Initialize Custom Post Types Framework
+		// --------------------------------------
+		function TS_VCSC_CustomPostsInit() {
 			global $pagenow;
+			$this->TS_VCSC_UseCodestarFramework				= "false";
 			$this->TS_VCSC_VCStandardEditMode				= (TS_VCSC_IsEditPagePost() == 1 ? "true" : "false");
 			$this->TS_VCSC_VCCurrentPostTypeEdit			= TS_VCSC_GetCurrentPostType();
 			foreach ($this->TS_VCSC_PostTypeMenuNames_Default as $key => $value) {
@@ -729,14 +531,36 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					$this->TS_VCSC_UseCodestarFramework		= "true";
 				}
 			}
-			if (($this->TS_VCSC_VCStandardEditMode == "true") && (is_admin()) && ($this->TS_VCSC_UseCodestarFramework == "true") && (($pagenow == 'post-new.php') || ($pagenow == 'post.php'))) {
+			if ((is_admin()) && (($pagenow == 'post-new.php') || ($pagenow == 'post.php') || ($pagenow == 'edit.php'))) {
+				if ((($this->TS_VCSC_UseCodestarFramework == "true") && ($this->TS_VCSC_PluginPHP == "true")) || ($this->TS_VCSC_VCCurrentPostTypeEdit == "ts_widgets")) {
+					$this->TS_VCSC_CustomsPostsRoutines($this->TS_VCSC_VCCurrentPostTypeEdit);
+				}
+			}
+			if (($this->TS_VCSC_VCStandardEditMode == "true") && (is_admin()) && ($this->TS_VCSC_UseCodestarFramework == "true") && ($this->TS_VCSC_PluginPHP == "true") && (($pagenow == 'post-new.php') || ($pagenow == 'post.php'))) {
 				if (!defined('CS_ACTIVE_SHORTCODE')) {
 					define('CS_ACTIVE_SHORTCODE',			true);
 				}
 				if (!function_exists('cs_framework_init') && !class_exists('CSFramework')) {
 					require_once('codestar/cs-framework.php');
 				}
-				require_once('assets/ts_vcsc_registrations_codestar.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_codestar.php');
+			}
+		}
+		function TS_VCSC_CustomsPostsRoutines($posttype) {
+			if (($this->TS_VCSC_CustomPostTypesDownpage == "true") && ($posttype == "ts_widgets")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_elements.php');
+			} else if (($this->TS_VCSC_CustomPostTypesDownpage == "true") && ($posttype == "ts_downtime")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_downpages.php');
+			} else if (($this->TS_VCSC_CustomPostTypesTeam == "true") && ($posttype == "ts_team")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_team.php');
+			} else if (($this->TS_VCSC_CustomPostTypesTestimonial == "true") && ($posttype == "ts_testimonials")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_testimonials.php');
+			} else if (($this->TS_VCSC_CustomPostTypesSkillset == "true") && ($posttype == "ts_skillsets")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_skillsets.php');
+			} else if (($this->TS_VCSC_CustomPostTypesTimeline == "true") && ($posttype == "ts_timeline")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_timeline.php');
+			} else if (($this->TS_VCSC_CustomPostTypesLogo == "true") && ($posttype == "ts_logos")) {
+				require_once($this->posttypes_dir . 'ts_vcsc_custom_post_logos.php');
 			}
 		}
 		
@@ -760,7 +584,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					unset($this->TS_VCSC_MobileDetector_Global);
 				}
 				// Redirect WordPress to Downpage
-				require_once($this->assets_dir . 'ts_vcsc_registrations_downpage.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_downpage.php');
 			}
 		}
 		
@@ -882,17 +706,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 		// Declare Arrays with Icon Font Data
 		// ----------------------------------
 		function TS_VCSC_IconFontsRequired() {
-			if (function_exists('vc_is_inline')){
-				if ((vc_is_inline() == true) || (is_admin())) {
-					$this->TS_VCSC_IconFontsArrays();
-				} else {
-					if ((vc_is_inline() == NULL) || (vc_is_inline() == '')) {
-						if (TS_VCSC_CheckFrontEndEditor() == true) {
-							$this->TS_VCSC_IconFontsArrays();
-						}
-					}
-				}
-			} else if (is_admin()) {
+			if (($this->TS_VCSC_PluginFontSummary == "true") || ($this->TS_VCSC_VisualComposer_Loading == "true") || ($this->TS_VCSC_VCFrontEditMode == "true") || ($this->TS_VCSC_Icons_Compliant_Loading == "true") || (($this->TS_VCSC_VCStandardEditMode == "true") && ($this->TS_VCSC_IconicumStandard == "false") && ($this->TS_VCSC_IconicumActivated == "true"))) {
 				$this->TS_VCSC_IconFontsArrays();
 			}
 		}
@@ -1006,7 +820,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			
 			// Add Custom Icon Font to Global Arrays (if enabled)
 			if ((($this->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_fontimport', 1) == 1)) || ($this->TS_VCSC_PluginExtended == "false")) {
-				if ((get_option('ts_vcsc_extend_settings_tinymceCustom', 0) == 1) && (get_option('ts_vcsc_extend_settings_tinymceCustomArray', '') != '') && (get_option('ts_vcsc_extend_settings_tinymceCustomCount', 0) > 0)) {
+				if (($this->TS_VCSC_UseCustomIconFontUpload == "true") && (get_option('ts_vcsc_extend_settings_tinymceCustomArray', '') != '') && (get_option('ts_vcsc_extend_settings_tinymceCustomCount', 0) > 0)) {
 					$this->TS_VCSC_Icons_Custom           										= get_option('ts_vcsc_extend_settings_tinymceCustomArray');
 				} else {
 					$this->TS_VCSC_Icons_Custom          										= array();
@@ -1023,7 +837,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				} else {
 					$font_files_style															= false;
 				}
-				if ((get_option('ts_vcsc_extend_settings_tinymceCustom', 0) == 1) && ($font_files_style == true)) {
+				if (($this->TS_VCSC_UseCustomIconFontUpload == "true") && ($font_files_style == true)) {
 					$this->TS_VCSC_Default_Icon_Fonts[$Icon_Font] 								= $iconfont['setting'];
 					$this->TS_VCSC_Active_Icon_Fonts++;
 					$this->TS_VCSC_List_Active_Fonts['Custom User Font'] 						= 'Custom';
@@ -1169,45 +983,12 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				}
 			}
 		}
-		function TS_VCSC_DisplayConsoleCatcher() {
-			global $post;
-			if (!empty($post)){
-				echo '<script type="text/javascript">';
-					echo '(function(){';
-						echo 'var method;';
-						echo 'var noop = function () {};';
-						echo 'var methods = [';
-							echo '"assert", "clear", "count", "debug", "dir", "dirxml", "error",';
-							echo '"exception", "group", "groupCollapsed", "groupEnd", "info", "log",';
-							echo '"markTimeline", "profile", "profileEnd", "table", "time", "timeEnd",';
-							echo '"timeline", "timelineEnd", "timeStamp", "trace", "warn"';
-						echo '];';
-						echo 'var length = methods.length;';
-						echo 'var console = (window.console = window.console || {});';
-						echo 'while (length--) {';
-							echo 'method = methods[length];';
-							echo 'if (!console[method]) {';
-								echo 'console[method] = noop;';
-							echo '}';
-						echo '}';
-					echo '})();';
-				echo '</script>';
-			}
-		}
-		function TS_VCSC_DisplayDisableCacheMeta() {
-			global $post;
-			if (!empty($post)){
-				echo '<meta http-equiv="Pragma" content="no-cache">';
-				echo '<meta http-equiv="Cache-Control" content="no-cache">';
-				echo '<meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">';
-			}
-		}
 		
 		
 		// Function to Register Scripts and Stylesheets
 		// --------------------------------------------
 		function TS_VCSC_Extensions_Registrations() {
-			require_once($this->assets_dir . 'ts_vcsc_registrations_files.php');
+			require_once($this->registrations_dir . 'ts_vcsc_registrations_files.php');
 		}
 		
 		
@@ -1276,6 +1057,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					echo 'var $TS_VCSC_Lightbox_Tapping = ' . 					(((array_key_exists('tapping', $TS_VCSC_Lightbox_Defaults)) ? 				$TS_VCSC_Lightbox_Defaults['tapping'] : 				$this->TS_VCSC_Lightbox_Setting_Defaults['tapping']) == 1 ? 'true' : 'false') . ';';					
 					echo 'var $TS_VCSC_Lightbox_ScrollBlock = "' . 				((array_key_exists('scrollblock', $TS_VCSC_Lightbox_Defaults)) ? 			$TS_VCSC_Lightbox_Defaults['scrollblock'] : 			$this->TS_VCSC_Lightbox_Setting_Defaults['scrollblock']) . '";';
 					echo 'var $TS_VCSC_Lightbox_Protection = "' . 				((array_key_exists('protection', $TS_VCSC_Lightbox_Defaults)) ? 			$TS_VCSC_Lightbox_Defaults['protection'] : 				$this->TS_VCSC_Lightbox_Setting_Defaults['protection']) . '";';
+					echo 'var $TS_VCSC_Lightbox_HistoryClose = ' .				(((array_key_exists('historyclose', $TS_VCSC_Lightbox_Defaults)) ?			$TS_VCSC_Lightbox_Defaults['historyclose'] :			$this->TS_VCSC_Lightbox_Setting_Defaults['historyclose']) == 1 ? 'true' : 'false') . ';';
 					echo 'var $TS_VCSC_Lightbox_HomeURL = "' . 					get_home_url() . '";';
 					echo 'var $TS_VCSC_Lightbox_LastScroll = 0;';
 					echo 'var $TS_VCSC_Lightbox_Showing = false;';
@@ -1346,20 +1128,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				if (get_option('ts_vcsc_extend_settings_additionsRows', 0) == 1) {
 					echo 'var $TS_VCSC_RowEffects_Breakpoint = ' . 				get_option('ts_vcsc_extend_settings_additionsRowEffectsBreak', '600') . ';';
 				}
-				// Smooth Scroll Settings
-				/*
-				if ($this->TS_VCSC_VCFrontEditMode == "true") {
-					echo 'var $TS_VCSC_SmoothScrollActive = false;';
-				} else {
-					if ($this->TS_VCSC_UseSmoothScroll == "true") {
-						echo 'var $TS_VCSC_SmoothScrollActive = true;';
-						echo 'var $TS_VCSC_SmoothScrollRange = 250;';
-						echo 'var $TS_VCSC_SmoothScrollSpeed = 750;';
-					} else {
-						echo 'var $TS_VCSC_SmoothScrollActive = false;';
-					}
-				}
-				*/
 			echo '</script>';
 		}
 		function TS_VCSC_Extensions_Create_GoogleFontArray() {
@@ -1407,7 +1175,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				require_once(ABSPATH . '/wp-admin/includes/screen.php');
 			}
 			$screen 						= get_current_screen();
-			require_once($this->assets_dir . 'ts_vcsc_registrations_files.php');
+			$this->TS_VCSC_Extensions_Registrations();
 			if (empty($typenow) && !empty($_GET['post'])) {
 				$post 						= get_post($_GET['post']);
 				$typenow 					= $post->post_type;
@@ -1463,6 +1231,9 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				wp_enqueue_script('ts-visual-composer-extend-admin');
 				if (($this->TS_VCSC_WooCommerceActive == "true") || ($this->TS_VCSC_Visual_Composer_Elements['TS Star Rating']['active'] == 'true')) {
 					wp_enqueue_style('ts-font-ecommerce');
+				}
+				if ($this->TS_VCSC_Visual_Composer_Elements['TS Google Maps PLUS']['active'] == 'true') {
+					wp_enqueue_style('ts-font-mapmarker');
 				}
 				// Load Custom Backbone View and Files for Rows
 				if ($this->TS_VCSC_VCFrontEditMode == "false") {
@@ -1555,9 +1326,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					wp_enqueue_script('jquery');
 				}
 				if (($ts_vcsc_main_page == $hook_suffix) || ($ts_vcsc_settings_page == $hook_suffix) || ($ts_vcsc_enlighterjs_page == $hook_suffix)) {
-					wp_enqueue_style('wp-color-picker');					
-					//wp_enqueue_script('iris');
-					//wp_enqueue_script('wp-color-picker');					
+					wp_enqueue_style('wp-color-picker');				
 					wp_enqueue_script('wp-color-picker-alpha');					
 					if ($ts_vcsc_enlighterjs_page != $hook_suffix) {
 						wp_enqueue_script('ts-extend-dragsort');
@@ -1565,7 +1334,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					wp_enqueue_style('ts-extend-nouislider');
 					wp_enqueue_script('ts-extend-nouislider');
 					wp_enqueue_style('ts-visual-composer-extend-admin');
-					wp_enqueue_script('ts-extend-toggles');
 				}
 				if ($ts_vcsc_upload_page == $hook_suffix) {
 					if (get_option('ts_vcsc_extend_settings_tinymceCustomPath', '') != '') {
@@ -1584,9 +1352,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					wp_enqueue_script('ts-extend-slidesjs');
 				}
 				wp_enqueue_style('dashicons');
-				wp_enqueue_style('ts-font-teammates');				
-				//wp_enqueue_style('ts-extend-messi');
-				//wp_enqueue_script('ts-extend-messi');
+				wp_enqueue_style('ts-font-teammates');
 				wp_enqueue_style('ts-extend-sweetalert');
 				wp_enqueue_script('ts-extend-sweetalert');
 				wp_enqueue_style('ts-extend-uitotop');
@@ -1636,14 +1402,12 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				wp_enqueue_script('ts-visual-composer-extend-admin');				
 			}
 			if ($ts_vcsc_downtime_page == $hook_suffix) {
+				wp_enqueue_style('ts-extend-preloaders');
 				wp_enqueue_script('ts-extend-picker');
 				wp_enqueue_style('ts-extend-nouislider');
 				wp_enqueue_style('ts-extend-multiselect');
 				wp_enqueue_script('ts-extend-nouislider');
 				wp_enqueue_script('ts-extend-multiselect');
-				//wp_enqueue_script('ts-extend-toggles');
-				//wp_enqueue_style('ts-extend-preloaders');
-				//wp_enqueue_style('ts-extend-sumo');
 				wp_enqueue_script('ts-extend-sumo');
 				wp_enqueue_style('ts-visual-composer-extend-admin');
 				wp_enqueue_script('ts-visual-composer-extend-admin');
@@ -1723,8 +1487,10 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			}
 		}
 		function TS_VCSC_Extensions_Admin_Variables() {
-			$this->TS_VCSC_Extensions_Create_Variables();
-			$this->TS_VCSC_Extensions_Create_GoogleFontArray();
+			if (($this->TS_VCSC_VisualComposer_Loading == "true") || ($this->TS_VCSC_PluginFontSummary == "true") || ($this->TS_VCSC_Icons_Compliant_Loading == "true") || ($this->TS_VCSC_GoggleFontSummary == "true")) {
+				$this->TS_VCSC_Extensions_Create_Variables();
+				$this->TS_VCSC_Extensions_Create_GoogleFontArray();
+			}
 		}
 		function TS_VCSC_Extensions_Admin_Head() {
 			global $pagenow, $typenow;
@@ -1765,7 +1531,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			}
 		}
 		function TS_VCSC_Extensions_Admin_Footer() {
-			if (TS_VCSC_IsEditPagePost()) {
+			if ((TS_VCSC_IsEditPagePost()) && ($this->TS_VCSC_VisualComposer_Loading == "true") && ($this->TS_VCSC_ParameterLinkPicker['enabled'] == "true") && ($this->TS_VCSC_ParameterLinkPicker['global'] == "true")) {
 				$randomizer         = mt_rand(999999, 9999999);
                 $totalPages         = wp_count_posts('page')->publish;
                 $totalPosts         = wp_count_posts('post')->publish;
@@ -1857,7 +1623,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			global $post;
 			global $wp_query;
 			$url 									= plugin_dir_url( __FILE__ );
-			require_once($this->assets_dir . 'ts_vcsc_registrations_files.php');
+			$this->TS_VCSC_Extensions_Registrations();
 			// Check For Standard Frontend Page
 			if (!is_404() && !is_search() && !is_archive()) {
 				$TS_VCSC_StandardFrontendPage		= "true";
@@ -2123,24 +1889,56 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 		// Determine Enabled/Disabled Elements + Counter + Editor Status
 		// -------------------------------------------------------------
 		function TS_VCSC_DetermineLoadingStatus() {
-			// Check for Visual Composer Roles Manager
+			// Retrieve Current Browser URL
 			$TS_VCSC_Extension_Browser 							= 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-			if (strpos('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '?page=vc-roles') !== false) {
-				$TS_VCSC_Extension_RoleManager					= "true";		
-			} else {
-				$TS_VCSC_Extension_RoleManager					= "false";
+			// Check for Plugin Specific Pages
+			$this->TS_VCSC_PluginFontSummary					= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Extender') !== false) {
+				$this->TS_VCSC_PluginFontSummary				= "true";
+			} else if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_System') !== false) {
+				$this->TS_VCSC_PluginFontSummary				= "true";
 			}
-			// Check for Icon Preview + Generator Page
-			if ((strpos('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '?page=TS_VCSC_Previews') !== false) || (strpos('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '?page=TS_VCSC_Generator') !== false)) {
+			$this->TS_VCSC_GoggleFontSummary					= "false";
+			if ((strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_GoogleFonts') !== false) || (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_System') !== false)) {
+				$this->TS_VCSC_GoggleFontSummary				= "true";
+			}
+			$this->TS_VCSC_PluginSettingsTransfer				= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Transfers') !== false) {
+				$this->TS_VCSC_PluginSettingsTransfer			= "true";
+			}
+			$this->TS_VCSC_PluginEnlighterTheme					= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_EnlighterJS') !== false) {
+				$this->TS_VCSC_PluginEnlighterTheme				= "true";
+			}
+			$this->TS_VCSC_PluginDownTimeManager				= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Downtime') !== false) {
+				$this->TS_VCSC_PluginDownTimeManager			= "true";
+			}
+			$this->TS_VCSC_PluginIconFontImport					= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Uploader') !== false) {
+				$this->TS_VCSC_PluginIconFontImport				= "true";
+			}
+			$this->TS_VCSC_PluginUsageCompiler					= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Usage') !== false) {
+				$this->TS_VCSC_PluginUsageCompiler				= "true";
+			}
+			$this->TS_VCSC_PluginIconGenerator					= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Generator') !== false) {
+				$this->TS_VCSC_PluginIconGenerator				= "true";
+			}
+			$this->TS_VCSC_Icons_Compliant_Loading				= "false";
+			if ((strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Previews') !== false) || (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Generator') !== false)) {
 				$this->TS_VCSC_Icons_Compliant_Loading			= "true";
-			} else {
-				$this->TS_VCSC_Icons_Compliant_Loading			= "false";
+			}
+			// Check for Visual Composer Roles Manager			
+			$this->TS_VCSC_Extension_RoleManager				= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=vc-roles') !== false) {
+				$this->TS_VCSC_Extension_RoleManager			= "true";		
 			}
 			// Check for Elements for Users - Addon for Visual Composer
-			if (strpos('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '?page=mcw_elements_for_users') !== false) {
-				$TS_VCSC_Extension_ElementsUser					= "true";		
-			} else {
-				$TS_VCSC_Extension_ElementsUser					= "false";
+			$this->TS_VCSC_Extension_ElementsUser				= "false";
+			if (strpos($TS_VCSC_Extension_Browser, '?page=mcw_elements_for_users') !== false) {
+				$this->TS_VCSC_Extension_ElementsUser			= "true";		
 			}
 			// Determine if Visual Composer Form Request
 			if (array_key_exists('action', $_REQUEST)) {
@@ -2168,16 +1966,15 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			} else {
 				$this->TS_VCSC_VCFrontEditMode 					= "false";
 			}
-			// Set Global Load Status
-			if (($this->TS_VCSC_VCStandardEditMode == "false") && ($TS_VCSC_Extension_Request == "false") && (is_admin()) && ($TS_VCSC_Extension_RoleManager == "false") && ($TS_VCSC_Extension_ElementsUser == "false") && (defined('WPB_VC_VERSION'))) {
-				$this->TS_VCSC_VisualComposer_Loading			= "false";
-			} else if (defined('WPB_VC_VERSION')) {
-				$this->TS_VCSC_VisualComposer_Loading			= "true";
-			} else {
-				$this->TS_VCSC_VisualComposer_Loading			= "false";
-			}
 			// Check AJAX Request Status
 			$this->TS_VCSC_PluginAJAX							= ($this->TS_VCSC_RequestIsFrontendAJAX() == 1 ? "true" : "false");
+			// Set Global Load Status
+			$this->TS_VCSC_VisualComposer_Loading				= "false";
+			if ((defined('WPB_VC_VERSION')) && (($TS_VCSC_Extension_Request == "true") || ($this->TS_VCSC_VCFrontEditMode == "true") || ($this->TS_VCSC_VCStandardEditMode == "true") || ($this->TS_VCSC_PluginAJAX == "true"))) {
+				$this->TS_VCSC_VisualComposer_Loading			= "true";
+			}
+			// Register Global Data/Functions As Needed
+			$this->TS_VCSC_RegisterGlobalData();
 		}
 		function TS_VCSC_DetermineElementStatus() {			
 			// Standard Element Settings
@@ -2339,6 +2136,43 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				$this->TS_VCSC_CountTotalElements--;
 				$this->TS_VCSC_CountActiveElements--;
 			}
+			// Load Conditional Files
+			if ($this->TS_VCSC_VisualComposer_Loading == "true") {
+				if ($this->TS_VCSC_Visual_Composer_Elements["TS Google Maps PLUS"]["active"] == "true") {
+					require_once($this->assets_dir . 'ts_vcsc_font_mapmarker.php');
+				}
+			}
+		}
+		
+		
+		/* Load + Register Global Data */
+		/* --------------------------- */
+		function TS_VCSC_RegisterGlobalData() {
+			// Load Required Data Arrays + Functions
+			if (($this->TS_VCSC_VisualComposer_Loading == "true") || ($this->TS_VCSC_PluginDownTimeManager == "true") || ($this->TS_VCSC_PluginFontSummary == "true") || ($this->TS_VCSC_Icons_Compliant_Loading == "true") || ($this->TS_VCSC_GoggleFontSummary == "true") || ($this->TS_VCSC_PluginSettingsTransfer == "true") || ($this->TS_VCSC_PluginIconFontImport == "true") || ($this->TS_VCSC_PluginUsageCompiler == "true") || ($this->TS_VCSC_PluginIconGenerator == "true")) {
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_functions.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_other.php');
+				if (($this->TS_VCSC_VisualComposer_Loading == "true") || ($this->TS_VCSC_GoggleFontSummary == "true") || ($this->TS_VCSC_PluginFontSummary == "true") || ($this->TS_VCSC_Icons_Compliant_Loading == "true") || ($this->TS_VCSC_PluginIconGenerator == "true")) {
+					require_once($this->registrations_dir . 'ts_vcsc_registrations_googlefonts.php');
+				}
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_conditionals.php');
+			} else if (($this->TS_VCSC_Extension_RoleManager == "true") || ($this->TS_VCSC_Extension_ElementsUser == "true")) {
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_other.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_conditionals.php');
+			} else if ((!is_admin()) || ($this->TS_VCSC_PluginAlways == "true")) {
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_functions.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_other.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_conditionals.php');
+			}
+			// EnlighterJS - Syntax Highlighter		
+			if (($this->TS_VCSC_UseEnlighterJS == "true") && (($this->TS_VCSC_PluginEnlighterTheme == "true") || ($this->TS_VCSC_VisualComposer_Loading == "true"))) {
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_functions.php');
+				require_once($this->registrations_dir . 'ts_vcsc_registrations_enlighterjs.php');
+			}			
+			// Add Custom Icon Font to VC Elements
+			if ($this->TS_VCSC_VisualComposer_Loading == "true") {
+				//require_once($this->registrations_dir . 'ts_vcsc_registrations_composer.php');
+			}
 		}
 		
 		
@@ -2393,11 +2227,13 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				}
 			}
 		}
-		function TS_VCSC_RegisterWithComposer() {
+		function TS_VCSC_RegisterWithComposer() {			
 			if ($this->TS_VCSC_PluginSupport == "true") {
 				// Determine Registration Approach
 				if (($this->TS_VCSC_VCFrontEditMode == "true") || ($this->TS_VCSC_VisualComposer_Loading == "true")) {
 					$this->TS_VCSC_AddParametersToComposer();					
+					$this->TS_VCSC_AddElementsToComposer();
+				} else if (($this->TS_VCSC_Extension_RoleManager == "true") || ($this->TS_VCSC_Extension_ElementsUser == "true")) {
 					$this->TS_VCSC_AddElementsToComposer();
 				} else {
 					$this->TS_VCSC_LoadClassElements();
@@ -2423,14 +2259,14 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 						}
 					}
 					if ($this->TS_VCSC_EditorElementFilter == "true") {
-						require_once($this->assets_dir . 'ts_vcsc_registrations_subcategories.php');
+						require_once($this->registrations_dir . 'ts_vcsc_registrations_subcategories.php');
 					}
 				}
 			}
 		}
-		function TS_VCSC_AddElementsToComposer() {
+		function TS_VCSC_AddElementsToComposer() {			
 			if ($this->TS_VCSC_PluginSupport == "true") {
-				if ($this->TS_VCSC_VisualComposer_Loading == "true") {
+				if (($this->TS_VCSC_VisualComposer_Loading == "true") || ($this->TS_VCSC_Extension_RoleManager == "true") || ($this->TS_VCSC_Extension_ElementsUser == "true")) {
 					// Load Standard Elements
 					foreach ($this->TS_VCSC_Visual_Composer_Elements as $ElementName => $element) {
 						if ($element['active'] == "true") {						
@@ -2650,19 +2486,17 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 		}
 		// Register Custom Pack already installed error
 		function TS_VCSC_CustomPackInstalledError(){
-			//$TS_VCSC_Icons_Custom 			= get_option('ts_vcsc_extend_settings_tinymceCustomArray', '');
-			//$TS_VCSC_tinymceCustomCount		= get_option('ts_vcsc_extend_settings_tinymceCustomCount', 0);
 			if ((ini_get('allow_url_fopen') == '1') || (TS_VCSC_cURLcheckBasicFunctions() == true)) {
-				$RemoteFileAccess = true;
+				$RemoteFileAccess 	= true;
 			} else {
-				$RemoteFileAccess = false;
+				$RemoteFileAccess 	= false;
 			}
-			$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-			$actual_link = explode('/', $actual_link);
-			$urlBasename = array_pop($actual_link);
+			$actual_link 			= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			$actual_link 			= explode('/', $actual_link);
+			$urlBasename 			= array_pop($actual_link);
 			if ($urlBasename == 'admin.php?page=TS_VCSC_Uploader' ) {
-				$dest = wp_upload_dir();
-				$dest_path = $dest['path'];
+				$dest 				= wp_upload_dir();
+				$dest_path 			= $dest['path'];
 				// If a file exists display included icons
 				if ((file_exists($dest_path.'/ts-vcsc-custom-pack.zip')) && ($RemoteFileAccess == true) && (get_option('ts_vcsc_extend_settings_tinymceCustomArray', '') != '')) {
 					// Disable File Upload Field if custom font pack exists or system requirements are not met
@@ -2675,8 +2509,10 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 							jQuery("#ts_vcsc_custom_pack_replace_label").addClass("disabled");							
 							jQuery("input#ts_vcsc_custom_pack_relative").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_relative_label").addClass("disabled");
-							jQuery("input#ts_vcsc_custom_pack_debug").attr("disabled", "disabled");
+							jQuery("input#ts_vcsc_custom_pack_debug").attr("disabled", "disabled");							
 							jQuery("#ts_vcsc_custom_pack_debug_label").addClass("disabled");
+							jQuery("input#ts_vcsc_custom_pack_nocurl").attr("disabled", "disabled");
+							jQuery("#ts_vcsc_custom_pack_nocurl_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_user").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_user_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_password").attr("disabled", "disabled");
@@ -2702,7 +2538,9 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 							jQuery("input#ts_vcsc_custom_pack_relative").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_relative_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_debug").attr("disabled", "disabled");
-							jQuery("#ts_vcsc_custom_pack_debug_label").addClass("disabled");
+							jQuery("#ts_vcsc_custom_pack_debug_label").addClass("disabled");							
+							jQuery("input#ts_vcsc_custom_pack_nocurl").attr("disabled", "disabled");
+							jQuery("#ts_vcsc_custom_pack_nocurl_label").addClass("disabled");							
 							jQuery("input#ts_vcsc_custom_pack_user").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_user_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_password").attr("disabled", "disabled");
@@ -2733,7 +2571,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 							jQuery("#current-font-pack-preview").html("' . $output. '");
 						});
 					</script>';
-				} else if ((file_exists($dest_path.'/ts-vcsc-custom-pack.zip')) && ($RemoteFileAccess == true) && (get_option('ts_vcsc_extend_settings_tinymceCustom', 0) == 0) && (get_option('ts_vcsc_extend_settings_tinymceCustomArray', '') == '')) {
+				} else if ((file_exists($dest_path.'/ts-vcsc-custom-pack.zip')) && ($RemoteFileAccess == true) && ($this->TS_VCSC_UseCustomIconFontUpload == "false") && (get_option('ts_vcsc_extend_settings_tinymceCustomArray', '') == '')) {
 					TS_VCSC_ResetCustomFont();
 					echo '<script>
 						jQuery(document).ready(function() {
@@ -2746,6 +2584,8 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 							jQuery("#ts_vcsc_custom_pack_relative_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_debug").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_debug_label").addClass("disabled");
+							jQuery("input#ts_vcsc_custom_pack_nocurl").attr("disabled", "disabled");
+							jQuery("#ts_vcsc_custom_pack_nocurl_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_user").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_user_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_password").attr("disabled", "disabled");
@@ -2775,6 +2615,8 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 							jQuery("#ts_vcsc_custom_pack_relative_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_debug").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_debug_label").addClass("disabled");
+							jQuery("input#ts_vcsc_custom_pack_nocurl").attr("disabled", "disabled");
+							jQuery("#ts_vcsc_custom_pack_nocurl_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_user").attr("disabled", "disabled");
 							jQuery("#ts_vcsc_custom_pack_user_label").addClass("disabled");
 							jQuery("input#ts_vcsc_custom_pack_password").attr("disabled", "disabled");
@@ -2978,75 +2820,5 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 global $VISUAL_COMPOSER_EXTENSIONS;
 if (class_exists('VISUAL_COMPOSER_EXTENSIONS') && !$VISUAL_COMPOSER_EXTENSIONS) {
 	$VISUAL_COMPOSER_EXTENSIONS = new VISUAL_COMPOSER_EXTENSIONS;
-}
-
-
-// Add Category Filters to Custom Post Types
-// -----------------------------------------
-if (!class_exists('TS_VCSC_Tax_CTP_Filter')){
-    class TS_VCSC_Tax_CTP_Filter {
-        /**
-         * __construct 
-         * @author Ohad Raz <admin@bainternet.info>
-         * @since 0.1
-         * @param array $cpt [description]
-         */
-        function __construct($cpt = array()){
-            $this->cpt = $cpt;
-            // Adding a Taxonomy Filter to Admin List for a Custom Post Type
-            add_action( 'restrict_manage_posts', array($this, 'TS_VCSC_My_Restrict_Manage_Posts' ));
-        }
-        /**
-         * TS_VCSC_My_Restrict_Manage_Posts  add the slelect dropdown per taxonomy
-         * @author Ohad Raz <admin@bainternet.info>
-         * @since 0.1
-         * @return void
-         */
-        public function TS_VCSC_My_Restrict_Manage_Posts() {
-            // only display these taxonomy filters on desired custom post_type listings
-            global $typenow;
-            $types = array_keys($this->cpt);
-            if (in_array($typenow, $types)) {
-                // create an array of taxonomy slugs you want to filter by - if you want to retrieve all taxonomies, could use get_taxonomies() to build the list
-                $filters = $this->cpt[$typenow];
-                foreach ($filters as $tax_slug) {
-                    // retrieve the taxonomy object
-                    $tax_obj = get_taxonomy($tax_slug);
-                    $tax_name = $tax_obj->labels->name;
-                    // output html for taxonomy dropdown filter
-                    echo "<select name='".strtolower($tax_slug)."' id='".strtolower($tax_slug)."' class='postform'>";
-                    echo "<option value=''>Show All $tax_name</option>";
-                    $this->TS_VCSC_Generate_Taxonomy_Options($tax_slug,0,0,(isset($_GET[strtolower($tax_slug)])? $_GET[strtolower($tax_slug)] : null));
-                    echo "</select>";
-                }
-            }
-        }
-        /**
-         * TS_VCSC_Generate_Taxonomy_Options generate dropdown
-         * @author Ohad Raz <admin@bainternet.info>
-         * @since 0.1
-         * @param  string  $tax_slug 
-         * @param  string  $parent   
-         * @param  integer $level    
-         * @param  string  $selected 
-         * @return void            
-         */
-        public function TS_VCSC_Generate_Taxonomy_Options($tax_slug, $parent = '', $level = 0,$selected = null) {
-            $args = array('show_empty' => 1);
-            if(!is_null($parent)) {
-                $args = array('parent' => $parent);
-            }
-            $terms = get_terms($tax_slug,$args);
-            $tab='';
-            for($i=0;$i<$level;$i++){
-                $tab.='--';
-            }
-            foreach ($terms as $term) {
-                // output each select option line, check against the last $_GET to show the current option selected
-                echo '<option value='. $term->slug, $selected == $term->slug ? ' selected="selected"' : '','>' .$tab. $term->name .' (' . $term->count .')</option>';
-                $this->TS_VCSC_Generate_Taxonomy_Options($tax_slug, $term->term_id, $level+1,$selected);
-            }
-        }
-    }
 }
 ?>

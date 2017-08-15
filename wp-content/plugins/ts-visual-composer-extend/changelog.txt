@@ -1,3 +1,86 @@
+Version 5.1.7
+-------------
+- Added option to "TS Horizontal Timeline Item" element to alternatively provide date (and time) for event via quick entry
+- Added option to "TS Horizontal Timeline Item" element to automatically use event title as tooltip for timeline bullet
+- Datepicker parameter for "TS Horizontal Timeline Item" element now allow dates prior to 01/01/1950 (1700 - 2050)
+- Fixed wrong image icon for some button lightbox triggers in "TS Video Facebook" element
+- Fixed synchronisation between two tandem toggles to enable/disable "Website Downtime Manager (BETA)" in plugin settings
+- Fixed "Undefined property: VISUAL_COMPOSER_EXTENSIONS::$TS_VCSC_CustomPostTypesLoaded" warning on some admin pages
+- Other CSS + JS Improvements
+- Updated EN/DE .po/.mo language files
+
+Version 5.1.6
+-------------
+- Added option to downtime manager module to use custom maintenance.php file in "wp-content" folder as template for downpage
+- Added option to downtime manager module to assign 503 or 200 header status (maintenance vs. coming soon) to downpage
+- Downtime/maintenance page(s) from "TS Downtime Manager" will now output a "Retry-After" information to the page header
+- Fixed Fatal error:  Call to undefined function TS_VCSC_CheckCurrentUserRoles() in ts_vcsc_registrations_downpage.php on line 67
+- Plugin will now remove all custom metaboxes from 3rd party RevSlider + Essential Grid plugins on its own custom post types
+
+Version 5.1.5
+-------------
+- Fixed Uncaught Error: Call to undefined function TS_VCSC_GetTheCategoryByTax() in ts_vcsc_widgets_elements.php .php on line 165 occuring on widgets page
+- Fixed incorrect position for "TS Single Page Navigator" element if menu has been placed left or right side of the screen
+- Changed single color background for extended row options to only set a minimum height for row if provided value is larger than "0" (zero)
+- Strengthened opacity rule via "!important" for "TS Panel Flip" element to ensure back panel visibility on FireFox and Edge browsers
+
+Version 5.1.4
+-------------
+- Fixed file registration for "ts-visual-composer-extend-galleries.min.js" which was registered as "ts-visual-composer-extend-galleries.min.min.js"
+- Restored sales and rating summary in "View version x.y.z details." link on WordPress update page for plugin (auto-update routine)
+
+Version 5.1.3
+-------------
+- Fixed Uncaught Error: Call to undefined function TS_VCSC_cURLcheckBasicFunctions() in ts-visual-composer-extend.php on line 2488 occuring on some admin pages
+
+Version 5.1.2
+-------------
+- Added new element "TS Image GIF Player"
+- Added new element "TS MP3 Audio Player"
+- Added new element "TS Plyr Video Player"
+- Added new element "TS Video Facebook"
+- Element "TS Video HTML5" renamed to "TS Projekktor Video"
+- Element "TS Audio HTML5" renamed to "TS Projekktor Audio"
+- Added new "Simple Options Mode" for plugin settings page (enabled by default); extended mode available for more seasoned users
+- Added 111 more Google fonts to "Google Fonts Manager", increasing overall font count from 707 to 818
+- Added new element "TS Google Maps Curveline"
+- Map marker picker for built-in markers for relevant Google map elements has been switched to a faster icon picker
+- Google map elements will now also be loading the "geometry" library when requesting the API file from Google
+- Restored overlay edit output via infowindow or browser console due to change in how Google returns overlay coordinates
+- Increased optional vertical infowindow offset from -50/+50 to -100/+100 pixels
+- Fixed negative infowindow offset values getting treated as positive values by switching from "parseInt()" to "parseFloat()" when retrieving value
+- Fixed cannot read property "replace" of undefined in "jquery.vcsc.gomapplus.min.js" file when loading map markers via JSON with missing "group" parameter
+- Fixed wp_add_inline_style was called incorrectly. Do not pass &#60;style&#62; tags to "wp_add_inline_style" error in "TS Textblock Advanced" element
+- All elements outputting custom style sections will now attempt to use WordPress internal "wp_add_inline_style()" function first
+- Added option to "TS Icon Info Box" element to use image as fore- and background icon instead of font icon
+- Added option to "TS Icon Info Box" element to define strength and spacing of outer corner border effect
+- Fixed issue with background slideshow for extendend row settings where progressbar is still showing even when deactivated in the row settings
+- Fixed issue with "TS Image Full" where progressbar for slideshow layout is still showing even when deactivated in the row settings
+- Fixed issue with "TS Page Background" where progressbar for slideshow layout is still showing even when deactivated in the row settings
+- Added options to "TS Single Menu Item" element (part of "TS SinglePage Navigator") to create phone or skype links
+- Fixed issue with "TS SinglePage Navigator" element when tooltips did not display correctly due to special characters in tooltip content
+- Fixed issue with "TS Circle Steps" element where layout switches to mobile version on Salient theme with element width of 1,140px or more
+- Added option to "TS Process Lines Item" element to define step icon animation as infinite, viewport or hover
+- Added option to "TS Title Typed" element to define number of line breaks between each segment when showing all strings at the end of the animation
+- Improved output of all title strings for "TS Title Typed" element by removing "|" characters which indicate end/start of individual segments
+- Added option to global lightbox settings to use the browser back button to close the lightbox, instead of going back to the last page
+- Added option to custom icon font page to forcibly use "file_get_contents()" function over "cURL" when reading the JSON file (helpful for localhost installations)
+- Removed options and support for legacy Visual Composer entry animations for "TS Animation Frame" and "TS Icon Box (Deprecated)" elements
+- Fixed image oversize/overflow issue in "TS Image Gallery" element when viewing "Flipster Slider" layout on Safari browser
+- Changed "Pagawa Slider" layout in "TS Image Gallery" element to retrieve overlay title from ALT attribute to new "data-title" attribute instead
+- Restored contextual help section for "VC Logos" custom post type previously missing due to a spelling error
+- Adjusted load and register behavior for activated icon fonts for improved backend performance
+- Adjusted load behavior for activated custom post types on backend for improved performance
+- Dropped usage of "vc_generate_dependencies_attributes()" function for all custom parameters (deprecated in Visual Composer since v4.8.0)
+- Downtime/maintenance page(s) from "TS Downtime Manager" will now correctyl set a "503 Service Temporarily Unavailable" status and header
+- Fixed Google font not loading when clicking on load icon in Google Fonts Manager for individual fonts
+- Fixed issue with NoUISLider setting parameters where value in input box receives 2nd number after using up/down arrows
+- Custom icon font import routine will now check and force load the WordPress file system function "WP_Filesystem()" to ensure file access
+- Plugin internal pre-memory check for activation now correctly handles memory limits provided as GigaBytes (G)
+- Fixed wrong version output for plugin on system information page if more than one Tekanewa Scripts plugin with shared text domain is active
+- Other CSS + JS Improvements
+- Updated EN/DE .po/.mo language files
+
 Version 5.1.1
 -------------
 - Added option to "TS Image Posts Grid" to select image size (quality) for grid images (full, large, medium, thumbnail)

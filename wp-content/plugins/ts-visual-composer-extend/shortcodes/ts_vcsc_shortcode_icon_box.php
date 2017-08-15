@@ -76,6 +76,9 @@
 		if (!empty($icon_image)) {
 			$icon_image_path 			= wp_get_attachment_image_src($icon_image, 'large');
 		}
+		
+        // Check for Conversion of VC Animations
+        $animation_class				= TS_VCSC_ConvertLegacyAnimation($animation_class);
 	
 		$icon_style                     = 'padding: ' . $icon_padding_vertical . 'px ' . $icon_padding_horizontal . 'px; background-color:' . $icon_background . '; width: ' . $icon_size_slide . 'px; height: ' . $icon_size_slide . 'px; font-size: ' . $icon_size_slide . 'px; line-height: ' . $icon_size_slide . 'px;';
 		$icon_image_style				= 'padding: ' . $icon_padding_vertical . 'px ' . $icon_padding_horizontal . 'px; background-color:' . $icon_background . '; width: ' . $icon_size_slide . 'px; height: ' . $icon_size_slide . 'px; font-size: ' . $icon_size_slide . 'px; line-height: ' . $icon_size_slide . 'px;';

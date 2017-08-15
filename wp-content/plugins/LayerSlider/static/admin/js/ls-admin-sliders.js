@@ -363,7 +363,8 @@ jQuery(function($) {
 
 			$('#ls-slider-actions-template a:eq(1)').attr('href', $this.data('export-url') );
 			$('#ls-slider-actions-template a:eq(2)').attr('href', $this.data('duplicate-url') );
-			$('#ls-slider-actions-template a:eq(3)').attr('href', $this.data('remove-url') );
+			$('#ls-slider-actions-template a:eq(3)').attr('href', $this.data('revisions-url') );
+			$('#ls-slider-actions-template a:eq(4)').attr('href', $this.data('remove-url') );
 
 
 			setTimeout(function() {
@@ -696,6 +697,20 @@ jQuery(function($) {
 		e.preventDefault();
 		if(confirm('WARNING: This option controls who can access to this plugin, you can easily lock out yourself by accident. Please, make sure that you have entered a valid capability without whitespaces or other invalid characters. Do you want to proceed?')) {
 			this.submit();
+		}
+	});
+
+
+	// Google CDN version warning
+	$('#ls_use_custom_jquery').on('click', '.ls-checkbox', function(e) {
+		if( $(this).hasClass('off') ) {
+			if( ! confirm('Do not enable this option unless you\'re  experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?') ) {
+				e.preventDefault();
+				return false;
+
+			}
+
+			alert('Do not forget to disable this option later on if it does not help, or if you experience unexpected issues. This includes your entire site, not just LayerSlider.');
 		}
 	});
 

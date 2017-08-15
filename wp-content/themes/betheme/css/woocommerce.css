@@ -6,73 +6,58 @@
 
 /* Buttons --------------------------------------------------------------------------- */
 .woocommerce a.button,
-.woocommerce-page a.button, 
-.woocommerce button.button, 
-.woocommerce-page button.button,
-.woocommerce input.button, 
-.woocommerce-page input.button, 
-.woocommerce #respond input#submit, 
-.woocommerce-page #respond input#submit, 
-.woocommerce #content input.button, 
-.woocommerce-page #content input.button, 
-.woocommerce input[type="submit"], 
-.woocommerce input[type="reset"], 
-.woocommerce input[type="button"],
-.woocommerce table.cart td.actions input.checkout-button,
-.woocommerce .shipping_calculator .shipping-calculator-form p button.button,
-.woocommerce div.product form.cart .button,
-.woocommerce .widget_shopping_cart .buttons a.checkout,
-.woocommerce #payment #place_order,
-.woocommerce .quantity input.plus,
-.woocommerce .quantity input.minus{display:inline-block;line-height:inherit;padding:0;margin-bottom:15px;cursor:pointer;margin-right:7px;border:0;font-weight:400!important;position:relative;overflow:hidden;
-	background-image:url(../images/box_shadow_button.png);background-repeat:repeat-x;
-	-webkit-border-radius:5px;border-radius:5px;
-	-webkit-box-shadow:inset 0 0 0 1px rgba(0,0,0,.03);box-shadow:inset 0 0 0 1px rgba(0,0,0,.03);
-	text-shadow:0 0 0 rgba(255,255,255,0)!important}
+.woocommerce #respond input#submit,
+.woocommerce button.button,
+.woocommerce input.button{padding:11px 20px;font-weight:400;line-height:inherit}
 
-.button-stroke .woocommerce a.checkout-button{border:0;border-radius:5px;
-	background-image:url(../images/box_shadow_button.png);background-repeat:repeat-x;
-	text-shadow:0 0 0 rgba(255,255,255, 0)!important}
-.button-stroke .widget .button.checkout:not(:hover){background-color:#eeeeee!important}
+.woocommerce a.checkout-button{line-height:1}
 
-.woocommerce button, 
-.woocommerce a.checkout-button,
-.woocommerce .button.add_to_cart_button,
-.woocommerce .button.product_type_external,
-.woocommerce .button.add-request-quote-button,
-.woocommerce .outofstock .button,
-.woocommerce input[type="submit"], 
-.woocommerce input[type="reset"], 
-.woocommerce input[type="button"]{padding:11px 20px!important}
+.woocommerce button.single_add_to_cart_button{padding:9px 20px}
 
-.woocommerce a:hover.button,
-.woocommerce-page a:hover.button, 
-.woocommerce button:hover.button, 
-.woocommerce-page button:hover.button,
-.woocommerce input:hover.button, 
-.woocommerce-page input:hover.button, 
-.woocommerce #respond input#submit:hover, 
-.woocommerce-page #respond input#submit:hover, 
-.woocommerce #content input:hover.button, 
-.woocommerce-page #content input:hover.button, 
-.woocommerce input[type="submit"]:hover, 
-.woocommerce input[type="reset"]:hover, 
-.woocommerce input[type="button"]:hover,
-.woocommerce table.cart td.actions input:hover.checkout-button,
-.woocommerce .shipping_calculator .shipping-calculator-form p button:hover.button,
-.woocommerce div.product form.cart .button:hover,
-.woocommerce .widget_shopping_cart .buttons a:hover.checkout,
-.woocommerce #payment #place_order:hover,
-.woocommerce .quantity input:hover.plus,
-.woocommerce .quantity input:hover.minus{background:none;background-image:url(../images/box_shadow_button.png);background-repeat:repeat-x}
+.woocommerce-page a.button_js{padding:0!important}
 
-.quick-view-button.button{margin:5px 10px 0 20px!important;padding:11px 20px!important}
-.quick-view-button.button span{top:2px}
+.button-default.woocommerce-page a.button,
+.button-default.woocommerce-page #respond input#submit,
+.button-default.woocommerce-page button.button,
+.button-default.woocommerce-page input.button{border-radius:5px}
 
-.woocommerce .button.add_to_cart_button:before,.woocommerce .button.add_to_cart_button:after{content:none!important}
+.button-flat.woocommerce-page a.button,
+.button-flat.woocommerce-page #respond input#submit,
+.button-flat.woocommerce-page button.button,
+.button-flat.woocommerce-page input.button{border-radius:0}
 
-.button-flat .woocommerce .shop_table .product-remove a.remove{border-radius:0}
-.button-flat .woocommerce a.remove:hover{color:inherit!important;background:none}
+.button-stroke.woocommerce-page a.button:not(.action_button),
+.button-stroke.woocommerce-page #respond input#submit,
+.button-stroke.woocommerce-page button.button,
+.button-stroke.woocommerce-page input.button{padding:9px 20px;}
+
+.woocommerce #respond input#submit.alt.disabled,
+.woocommerce #respond input#submit.alt.disabled:hover,
+.woocommerce #respond input#submit.alt:disabled,
+.woocommerce #respond input#submit.alt:disabled:hover,
+.woocommerce #respond input#submit.alt:disabled[disabled],
+.woocommerce #respond input#submit.alt:disabled[disabled]:hover,
+.woocommerce a.button.alt.disabled,
+.woocommerce a.button.alt.disabled:hover,
+.woocommerce a.button.alt:disabled,
+.woocommerce a.button.alt:disabled:hover,
+.woocommerce a.button.alt:disabled[disabled],
+.woocommerce a.button.alt:disabled[disabled]:hover,
+.woocommerce button.button.alt.disabled,
+.woocommerce button.button.alt.disabled:hover,
+.woocommerce button.button.alt:disabled,
+.woocommerce button.button.alt:disabled:hover,
+.woocommerce button.button.alt:disabled[disabled],
+.woocommerce button.button.alt:disabled[disabled]:hover,
+.woocommerce input.button.alt.disabled,
+.woocommerce input.button.alt.disabled:hover,
+.woocommerce input.button.alt:disabled,
+.woocommerce input.button.alt:disabled:hover,
+.woocommerce input.button.alt:disabled[disabled],
+.woocommerce input.button.alt:disabled[disabled]:hover{padding:9px 20px;background-color:#bbb;color:#fff}
+
+.woocommerce table.cart a.remove{color:#fff !important;padding:0}
+.woocommerce table.cart a.remove span{padding:8px 17px;}
 
 /* Shop filters ---------------------------------------------------------------------- */
 .shop-filters{margin-bottom:20px;padding:15px;background-image:url(../images/stripes/stripes_5_b.png);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;overflow:hidden}
@@ -260,8 +245,7 @@
 .woocommerce .shop_table .product-name .variation > dt,.woocommerce .shop_table .product-name .variation > dd{border-width:0;padding:2px 0;margin:0}
 .woocommerce .shop_table .product-name .variation > dt{width:auto;font-weight:400;clear:none;margin-right:5px}
 .woocommerce .shop_table .product-name .variation > dd{margin-right:7px}
-.woocommerce .shop_table .product-remove a.remove{margin:5px 0 0;width:auto;height:auto;display:inline-block;font-size:inherit;line-height:inherit;-webkit-border-radius:5px;border-radius:5px}
-.woocommerce .shop_table .product-remove a.remove .button_icon{padding:11px 18px}
+.woocommerce .shop_table .product-remove a.remove{margin:5px 0 0;width:auto;height:auto;display:inline-block;font-size:inherit;line-height:inherit}
 .woocommerce .shop_table td.actions{padding:15px!important;background:#fff}
 .woocommerce .shop_table td.actions .coupon .input-text{padding:10px!important;width:130px;line-height:21px!important}
 .woocommerce .shop_table td.actions input{margin-bottom:0!important}

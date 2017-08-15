@@ -34,6 +34,12 @@ function layerslider_settings_menu() {
 		$capability, 'layerslider', 'layerslider_router'
 	);
 
+	// Add "Revisions" submenu
+	add_submenu_page(
+		'layerslider', 'LayerSlider WP Revisions', __('Revisions', 'LayerSlider'),
+		$capability, 'ls-revisions', 'layerslider_router'
+	);
+
 	// Add "Skin Editor" submenu
 	add_submenu_page(
 		'layerslider', 'LayerSlider WP Skin Editor', __('Skin Editor', 'LayerSlider'),
@@ -65,7 +71,7 @@ function layerslider_settings_menu() {
 add_filter('contextual_help', 'layerslider_help', 10, 3);
 function layerslider_help($contextual_help, $screen_id, $screen) {
 
-	if(strpos($screen->base, 'layerslider') !== false && (!empty($_GET['page']) && $_GET['page'] !== 'ls-about')) {
+	if(strpos($screen->base, 'layerslider') !== false && (!empty($_GET['page']) && $_GET['page'] !== 'ls-about' && $_GET['page'] !== 'ls-revisions' ) ) {
 		$screen->add_help_tab(array(
 			'id' => 'help',
 			'title' => 'Getting Help',
@@ -88,6 +94,9 @@ function layerslider_router() {
 
 	} elseif(strpos($screen->base, 'ls-system-status') !== false) {
 		include(LS_ROOT_PATH.'/views/system_status.php');
+
+	} elseif(strpos($screen->base, 'ls-revisions') !== false) {
+		include(LS_ROOT_PATH.'/views/revisions.php');
 
 	} elseif(strpos($screen->base, 'ls-about') !== false) {
 		if(!empty($_GET['section']) && $_GET['section'] == 'getting-started') {

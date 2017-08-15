@@ -9,6 +9,7 @@
 	$Count_Posts								= 0;
 	$Count_Titles								= 0;
 	$Count_Popups								= 0;
+	$Count_Timelines							= 0;
 	$Count_Other								= 0;
 	$Count_Beta									= 0;
 	$Count_Types								= 0;
@@ -45,6 +46,8 @@
 			$Count_Titles++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Popups')) {
 			$Count_Popups++;
+		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Timelines')) {
+			$Count_Timelines++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Other')) {
 			$Count_Other++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'BETA')) {
@@ -68,6 +71,8 @@
 			$Count_Titles++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Popups')) {
 			$Count_Popups++;
+		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Timelines')) {
+			$Count_Timelines++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'Other')) {
 			$Count_Other++;
 		} else if (($element['deprecated'] == 'false') && ($element['type'] != 'external') && ($element['group'] == 'BETA')) {
@@ -125,8 +130,8 @@
 	$Count_External								+= TS_VCSC_CountArrayMatches($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Visual_Composer_Children,	'type', 			'external');
 	
 	// Total Counts
-	$Count_Main									= $Count_Media + $Count_Google + $Count_Buttons + $Count_Counters + $Count_Posts + $Count_Titles + $Count_Popups + $Count_Other + $Count_Beta;
-	$Count_Total								= $Count_Media + $Count_Google + $Count_Buttons + $Count_Counters + $Count_Posts + $Count_Titles + $Count_Popups + $Count_Other + $Count_Beta + $Extra_Enlighter + $Extra_Navigator;
+	$Count_Main									= $Count_Media + $Count_Google + $Count_Buttons + $Count_Counters + $Count_Posts + $Count_Titles + $Count_Popups + $Count_Timelines + $Count_Other + $Count_Beta;
+	$Count_Total								= $Count_Media + $Count_Google + $Count_Buttons + $Count_Counters + $Count_Posts + $Count_Titles + $Count_Popups + $Count_Timelines + $Count_Other + $Count_Beta + $Extra_Enlighter + $Extra_Navigator;
 
 	if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_CustomPostTypesTimeline == "true") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Visual_Composer_Elements["TS CSS Media Timeline"]["active"] == "true")) {
 		$Count_Main								= $Count_Main - 1;
@@ -183,8 +188,7 @@
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-info"></i>General Information</div>
 		<div class="ts-vcsc-section-content">
 			<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-				In order to use this plugin, you MUST have the Visual Composer Plugin installed; either as a normal plugin or as part of your theme. If Visual Composer is part of your theme, please ensure that it has not been modified;
-				some theme developers heavily modify Visual Composer in order to allow for certain theme functions. Unfortunately, some of these modification prevent this extension pack from working correctly.
+				In order to use this plugin, you MUST have the Visual Composer Plugin installed; either as a normal plugin or as part of your theme. If Visual Composer is part of your theme, please ensure that it has not been modified; some theme developers heavily modify Visual Composer in order to allow for certain theme functions. Unfortunately, some of these modification prevent this extension pack from working correctly.
 			</div>
 			<div style="margin-top: 20px; margin-bottom: 10px;">
 				<h3>Composium - Visual Composer Extensions</h3>
@@ -248,6 +252,22 @@
 					?>
 				</div>
 			</div>
+			<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 15px; font-size: 13px; text-align: justify;">
+				This plugin includes a multitude of setting options, controlling various aspects of the plugin scope. In order to make it easier to navigate those options, the plugin will by default only provide access to the most common and important options. If you want access to extended options, use the switch below to toggle between simple and extended options.
+			</div>
+			<div style="margin-top: 20px; margin-bottom: 20px">
+				<div style="font-weight: bold; font-size: 14px; margin: 0;">Use Extended Plugin Options Mode:</div>
+				<p style="font-size: 12px;">Define whether you want to use the simple options mode with limited access, or the extended options mode with access to all available plugin options:</p>	
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowFullOptions",
+						"label"				=> "Use Extended Options Mode",
+						"value"             => $ts_vcsc_extend_settings_allowFullOptions,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowFullOptions);
+				?>				
+			</div>	
 		</div>		
 	</div>
 	<div class="ts-vcsc-section-main">
@@ -303,37 +323,29 @@
 		<div class="ts-vcsc-section-content">
 			<div style="margin-top: 20px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Update-Notification Page:</div>
-				<p style="font-size: 12px;">Define whether you want to use the update notification, where the plugin will create a sub-page within the "VC Extensions" menu with information for the available update and instructions; otherwise, check for available updates <a href="http://helpdesk.krautcoding.com/freebies-page/" target="_blank">here</a></p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowNotification == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowNotification" class="toggle-check ts_vcsc_extend_settings_allowNotification" name="ts_vcsc_extend_settings_allowNotification" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowNotification); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowNotification == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowNotification == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_translationsDomain">Enable Update Notification Page</label>
+				<p style="font-size: 12px;">Define whether you want to use the update notification, where the plugin will create a sub-page within the "VC Extensions" menu with information for the available update and instructions; otherwise, check for available updates <a href="http://helpdesk.krautcoding.com/freebies-page/" target="_blank">here</a></p>	
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowNotification",
+						"label"				=> "Enable Update Notification Page",
+						"value"             => $ts_vcsc_extend_settings_allowNotification,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowNotification);
+				?>				
 			</div>			
 			<div id="ts_vcsc_extend_settings_allowNotification_true" style="margin-left: 25px; margin-top: 20px; display: <?php echo ($ts_vcsc_extend_settings_allowNotification == 1 ? "block" : "none"); ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Show Update-Notification Message:</div>
 				<p style="font-size: 12px;">Define whether you want to also show an update message, where the plugin will create an addition to the admin menu bar, prominently informing you about the availability of a new update and linking to the update notification page.</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowMenuBarNotice == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowMenuBarNotice" class="toggle-check ts_vcsc_extend_settings_allowMenuBarNotice" name="ts_vcsc_extend_settings_allowMenuBarNotice" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowMenuBarNotice); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowMenuBarNotice == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowMenuBarNotice == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowMenuBarNotice">Show Update Notification Message</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowMenuBarNotice",
+						"label"				=> "Show Update Notification Message",
+						"value"             => $ts_vcsc_extend_settings_allowMenuBarNotice,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowMenuBarNotice);
+				?>
 			</div>			
 			<div style="margin-top: 30px; display: <?php echo ($autoupdate_allowed == "true" ? "block" : "none"); ?>;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Auto-Update Feature:</div>
@@ -342,72 +354,56 @@
 					If the auto-update procedure fails, it is most likely because your internal WordPress post size and upload limits and or available PHP memory is not sufficient to handle the size of the update file (retrieval,
 					extracting, replacing). In that case, you should update the plugin via manual FTP upload, replacing all existing files on your server.
 				</div>	
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowAutoUpdate == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowAutoUpdate" class="toggle-check ts_vcsc_extend_settings_allowAutoUpdate" name="ts_vcsc_extend_settings_allowAutoUpdate" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowAutoUpdate); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowAutoUpdate == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowAutoUpdate == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowAutoUpdate">Enable Auto-Update Feature</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowAutoUpdate",
+						"label"				=> "Enable Auto-Update Feature",
+						"value"             => $ts_vcsc_extend_settings_allowAutoUpdate,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowAutoUpdate);
+				?>
 			</div>
-			<div style="margin-top: <?php echo ($autoupdate_allowed == "true" ? "30" : "10"); ?>px;">
+			<div style="margin-top: <?php echo ($autoupdate_allowed == "true" ? "30" : "10"); ?>px;" class="<?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Placement of Visual Composer Extensions Menu:</div>
 				<p style="font-size: 12px;">Define where the menu for this plugin should be placed in WordPress; if disabled, the main menu will be placed in the 'Settings' section:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_mainmenu == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_mainmenu" class="toggle-check ts_vcsc_extend_settings_mainmenu" name="ts_vcsc_extend_settings_mainmenu" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_mainmenu); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_mainmenu == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_mainmenu == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_mainmenu">Give Visual Composer Extensions its own menu</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_mainmenu",
+						"label"				=> "Give Visual Composer Extensions its own menu",
+						"value"             => $ts_vcsc_extend_settings_mainmenu,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_mainmenu);
+				?>
 			</div>		
-			<div style="margin-top: 30px;">
+			<div style="margin-top: 30px;" class="<?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Use of Language Domain Translations:</div>
 				<p style="font-size: 12px;">Define if the plugin can use its language domain files (stored in the 'locale' folder) in order to automatically be translated into available languages:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_translationsDomain == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_translationsDomain" class="toggle-check ts_vcsc_extend_settings_translationsDomain" name="ts_vcsc_extend_settings_translationsDomain" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_translationsDomain); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_translationsDomain == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_translationsDomain == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_translationsDomain">Use Plugin Language Files</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_translationsDomain",
+						"label"				=> "Use Plugin Language Files",
+						"value"             => $ts_vcsc_extend_settings_translationsDomain,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_translationsDomain);
+				?>
 			</div>			
-			<div style="margin-top: 30px;">
+			<div style="margin-top: 30px;" class="<?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Show Dashboard Panel:</div>
 				<p style="font-size: 12px;">Define if the plugin should show its dashboard panel with basic plugin information:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_dashboard == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_dashboard" class="toggle-check ts_vcsc_extend_settings_dashboard" name="ts_vcsc_extend_settings_dashboard" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_dashboard); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_dashboard == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_dashboard == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_dashboard">Show Dashboard Panel</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_dashboard",
+						"label"				=> "Show Dashboard Panel",
+						"value"             => $ts_vcsc_extend_settings_dashboard,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_dashboard);
+				?>
 			</div>			
-			<div style="margin-top: 30px;">
+			<div style="margin-top: 30px;" class="<?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Always Load + Register Shortcodes:</div>
 				<p style="font-size: 12px;">Define if the plugin should always load and register its associated shortcodes:</p>
 				<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
@@ -416,27 +412,21 @@
 					If so, simply enable the option below, and the plugin will load and process its shortcode definitions at all times. Please be aware that enabling this option will automatically increase the memory requirements of
 					the plugin when using the WordPress admin section (increase will depend upon number of enabled elements).
 				</div>				
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_shortcodesalways == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_shortcodesalways" class="toggle-check ts_vcsc_extend_settings_shortcodesalways" name="ts_vcsc_extend_settings_shortcodesalways" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_shortcodesalways); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_shortcodesalways == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_shortcodesalways == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_dashboard">Always Load + Register Shortcodes</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_shortcodesalways",
+						"label"				=> "Always Load + Register Shortcodes",
+						"value"             => $ts_vcsc_extend_settings_shortcodesalways,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_shortcodesalways);
+				?>
 			</div>			
-			<div style="margin-top: 30px; margin-bottom: 60px;">
+			<div style="margin-top: 30px; margin-bottom: 40px;" class="<?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Priority for Output of JS Variables:</div>
 				<p style="font-size: 12px;">Define the priority WordPress should use when outputting plugin settings as JS variables:</p>
 				<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-					Some of the plugin settings control how certain JavaScript functions on the frontend work. In order to do so, those settings must be outputted on each page (using the HEAD section of the page), while at the same
-					time ensuring that the variables have been generated BEFORE any respective JS function needs it. By default, the plugin will give the variable output a priority of 6, which is the right priority for most websites.
-					But if you use a caching plugin for example, the order in which JS files are loaded might be changed, sometimes requiring a different priority for the variable output, which you can change using the option below.
+					Some of the plugin settings control how certain JavaScript functions on the frontend work. In order to do so, those settings must be outputted on each page (using the HEAD section of the page), while at the same time ensuring that the variables have been generated BEFORE any respective JS function needs it. By default, the plugin will give the variable output a priority of 6, which is the right priority for most websites. But if you use a caching plugin for example, the order in which JS files are loaded might be changed, sometimes requiring a different priority for the variable output, which you can change using the option below.
 				</div>	
 				<div class="ts-nouislider-input-slider">
 					<input style="width: 100px; float: left; margin-left: 0px; margin-right: 10px;" name="ts_vcsc_extend_settings_variablesPriority" id="ts_vcsc_extend_settings_variablesPriority" class="ts_vcsc_extend_settings_variablesPriority ts-nouislider-serial nouislider-input-selector nouislider-input-composer" type="number" min="1" max="999" step="1" value="<?php echo $ts_vcsc_extend_settings_variablesPriority; ?>"/>
@@ -444,32 +434,27 @@
 					<div id="ts_vcsc_extend_settings_variablesPriority_slider" class="ts-nouislider-input ts-nouislider-settings-element" data-value="<?php echo $ts_vcsc_extend_settings_variablesPriority; ?>" data-min="1" data-max="999" data-decimals="0" data-step="1" style="width: 250px; float: left; margin-top: 10px;"></div>
 				</div>
 			</div>
+			<div style="width: 100%; height: 20px;"></div>
 		</div>		
 	</div>
 	<div class="ts-vcsc-section-main" style="display: <?php echo ((version_compare(PHP_VERSION, '5.2.0') >= 0) ? "block" : "none"); ?>;">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-googleplus"></i>Google Fonts Manager</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-				Some elements allow you to assign a custom font to titles or content sections of the element. By default, the add-on will give you access to currently <?php echo $Count_Fonts; ?> different Google Fonts. If that is simply too much for you,
-				the built-in Google Fonts Manager will allow you to define your custom set of Google Fonts by simply selecting the fonts you want to use, while leaving all other disabled. You can even assign fonts to a "favorite"
-				list so that those fonts will always be listed first in the element settings.
+				Some elements allow you to assign a custom font to titles or content sections of the element. By default, the add-on will give you access to currently <?php echo $Count_Fonts; ?> different Google Fonts. If that is simply too much for you, the built-in Google Fonts Manager will allow you to define your custom set of Google Fonts by simply selecting the fonts you want to use, while leaving all other disabled. You can even assign fonts to a "favorite" list so that those fonts will always be listed first in the element settings.
 			</div>
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Google Fonts Manager:</div>
 				<p style="font-size: 12px;">Enable or disable the use of the Google Fonts Manager:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowGoogleManager == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowGoogleManager" class="toggle-check ts_vcsc_extend_settings_allowGoogleManager" name="ts_vcsc_extend_settings_allowGoogleManager" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowGoogleManager); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowGoogleManager == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowGoogleManager == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowGoogleManager">Enable Google Fonts Manager</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowGoogleManager",
+						"label"				=> "Enable Google Fonts Manager",
+						"value"             => $ts_vcsc_extend_settings_allowGoogleManager,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowGoogleManager);
+				?>
 			</div>
 		</div>
 	</div>	
@@ -487,53 +472,41 @@
 					<div style="margin-top: 10px; margin-bottom: 20px;">
 						<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide Menu Shortcode Generator for Font Icons:</div>
 						<p style="font-size: 12px;">Adds an icon shortcode generator to the settings menu:</p>
-						<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_useMenuGenerator == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-							<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_useMenuGenerator" class="toggle-check ts_vcsc_extend_settings_useMenuGenerator" name="ts_vcsc_extend_settings_useMenuGenerator" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_useMenuGenerator); ?>/>
-							<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-								<div class="toggle-slide">
-									<div class="toggle-inner">
-										<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_useMenuGenerator == 1 ? 'active' : ''); ?>">Yes</div>
-										<div class="toggle-blob"></div>
-										<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_useMenuGenerator == 0 ? 'active' : ''); ?>">No</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<label class="labelToggleBox" for="ts_vcsc_extend_settings_useMenuGenerator">Enable Menu Font Icon Generator</label>
+						<?php
+							$settings = array(
+								"param_name"        => "ts_vcsc_extend_settings_useMenuGenerator",
+								"label"				=> "Enable Menu Font Icon Generator",
+								"value"             => $ts_vcsc_extend_settings_useMenuGenerator,
+								"order"				=> 1,
+							);
+							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useMenuGenerator);
+						?>
 					</div>					
 					<div style="margin-top: 10px; margin-bottom: 10px;">
 						<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide tinyMCE Shortcode Generator for Font Icons:</div>
 						<p style="font-size: 12px;">Adds a shortcode generator button to any standard tinyMCE editor menu to embed font icons directly into the text editor:</p>
-						<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_useIconGenerator == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-							<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_useIconGenerator" class="toggle-check ts_vcsc_extend_settings_useIconGenerator" name="ts_vcsc_extend_settings_useIconGenerator" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_useIconGenerator); ?>/>
-							<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-								<div class="toggle-slide">
-									<div class="toggle-inner">
-										<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_useIconGenerator == 1 ? 'active' : ''); ?>">Yes</div>
-										<div class="toggle-blob"></div>
-										<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_useIconGenerator == 0 ? 'active' : ''); ?>">No</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<label class="labelToggleBox" for="ts_vcsc_extend_settings_useIconGenerator">Enable tinyMCE Font Icon Generator</label>
+						<?php
+							$settings = array(
+								"param_name"        => "ts_vcsc_extend_settings_useIconGenerator",
+								"label"				=> "Enable tinyMCE Font Icon Generator",
+								"value"             => $ts_vcsc_extend_settings_useIconGenerator,
+								"order"				=> 1,
+							);
+							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useIconGenerator);
+						?>
 					</div>			
 					<div id="ts_vcsc_extend_settings_useIconGenerator_true" style="margin-top: 10px; margin-bottom: 10px; margin-left: 25px; <?php echo ($ts_vcsc_extend_settings_useIconGenerator == 0 ? 'display: none;' : 'display: block;'); ?>">
 						<h4>Placement of Shortcode Generator Button:</h4>
 						<p style="font-size: 12px;">If the option is disabled, the button will be placed into the tinyMCE menu bar instead:</p>
-						<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_useTinyMCEMedia == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-							<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_useTinyMCEMedia" class="toggle-check ts_vcsc_extend_settings_useTinyMCEMedia" name="ts_vcsc_extend_settings_useTinyMCEMedia" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_useTinyMCEMedia); ?>/>
-							<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-								<div class="toggle-slide">
-									<div class="toggle-inner">
-										<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_useTinyMCEMedia == 1 ? 'active' : ''); ?>">Yes</div>
-										<div class="toggle-blob"></div>
-										<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_useTinyMCEMedia == 0 ? 'active' : ''); ?>">No</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<label class="labelToggleBox" for="ts_vcsc_extend_settings_useTinyMCEMedia">Place Generator Button next to "Add Media" Button</span></label>
+						<?php
+							$settings = array(
+								"param_name"        => "ts_vcsc_extend_settings_useTinyMCEMedia",
+								"label"				=> "Place Generator Button next to 'Add Media' Button",
+								"value"             => $ts_vcsc_extend_settings_useTinyMCEMedia,
+								"order"				=> 1,
+							);
+							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useTinyMCEMedia);
+						?>
 					</div>
 				</div>
 			</div>
@@ -543,8 +516,7 @@
 			<div class="ts-vcsc-section-content slideFade" style="display: none;">
 				<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
 					"Iconicum - WordPress Icon Fonts" is already installed and activated as standalone plugin. Therefore, the version that is included with "Composium - Visual Composer Extensions" has been disabled in order to prevent conflicts.
-				</div>	
-				
+				</div>				
 			</div>
 		</div>
 	<?php }} ?>
@@ -560,23 +532,20 @@
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Website Downtime Manager + Post Type:</div>
 				<p style="font-size: 12px;">Enable the website downtime manager to easily and quickly put your website into downtime (maintenance) mode, while showing a custom page to your visitors:</p>
-				<div class="ts-switch-button ts-composer-switch ts-downtime-manager-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowDowntimeManager == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowDowntimeManager" class="toggle-check ts_vcsc_extend_settings_allowDowntimeManager" name="ts_vcsc_extend_settings_allowDowntimeManager" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowDowntimeManager); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowDowntimeManager == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowDowntimeManager == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowDowntimeManager">Enable Website Downtime Manager + Post Type</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowDowntimeManager",
+						"label"				=> "Enable Website Downtime Manager + Post Type",
+						"value"             => $ts_vcsc_extend_settings_allowDowntimeManager,
+						"order"				=> 1,
+						"class"				=> "ts-downtime-manager-switch",
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowDowntimeManager);
+				?>
 			</div>
 		</div>
 	</div>	
-	<div class="ts-vcsc-section-main">
+	<div class="ts-vcsc-section-main <?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-welcome-widgets-menus"></i>Widget Sidebars Manager</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
@@ -585,23 +554,19 @@
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Widget Sidebars Manager:</div>
 				<p style="font-size: 12px;">Enable the widget sidebars manager to easily and quickly add more widget sidebars to your site:</p>
-				<div class="ts-switch-button ts-composer-switch ts-downtime-manager-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowSidebarsManager == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowSidebarsManager" class="toggle-check ts_vcsc_extend_settings_allowSidebarsManager" name="ts_vcsc_extend_settings_allowSidebarsManager" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowSidebarsManager); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowSidebarsManager == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowSidebarsManager == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowSidebarsManager">Enable Widget Sidebars Manager</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowSidebarsManager",
+						"label"				=> "Enable Widget Sidebars Manager",
+						"value"             => $ts_vcsc_extend_settings_allowSidebarsManager,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowSidebarsManager);
+				?>
 			</div>
 		</div>
 	</div>
-	<div class="ts-vcsc-section-main">
+	<div class="ts-vcsc-section-main <?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-editor-code"></i>Shortcodes in Widgets (Sidebars)</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
@@ -612,49 +577,40 @@
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Shortcodes in Widgets:</div>
 				<p style="font-size: 12px;">Allow the usage of shortcodes with the standard text widget in WordPress:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowShortcodesWidgets == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowShortcodesWidgets" class="toggle-check ts_vcsc_extend_settings_allowShortcodesWidgets" name="ts_vcsc_extend_settings_allowShortcodesWidgets" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowShortcodesWidgets); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowShortcodesWidgets == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowShortcodesWidgets == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowShortcodesWidgets">Enable Shortcodes in Widgets</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowShortcodesWidgets",
+						"label"				=> "Enable Shortcodes in Widgets",
+						"value"             => $ts_vcsc_extend_settings_allowShortcodesWidgets,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowShortcodesWidgets);
+				?>
 			</div>
 		</div>
 	</div>	
-	<div class="ts-vcsc-section-main">
+	<div class="ts-vcsc-section-main <?php echo $TS_VCSC_SimpleOptionsClass; ?>">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-editor-paragraph"></i>WordPress Auto-Paragraph Routine</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-				By default, WordPress will attempt to wrap any content that is not already wrapped with a valid HTML wrapper (DIV, P, SPAN, etc.) with a paragraph wrap (P), which can sometimes cause issues whenver content is not meant
-				to be wrapped at all. In those cases, you can deactivate the auto-paragraph wrapper below. <strong>Please not that other plugins or your theme can overwrite that setting, depending upon when it is called upon.</strong>
+				By default, WordPress will attempt to wrap any content that is not already wrapped with a valid HTML wrapper (DIV, P, SPAN, etc.) with a paragraph wrap (P), which can sometimes cause issues whenver content is not meant to be wrapped at all. In those cases, you can deactivate the auto-paragraph wrapper below. <strong>Please not that other plugins or your theme can overwrite that setting, depending upon when it is called upon.</strong>
 			</div>
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Auto-Paragraph Routine:</div>
 				<p style="font-size: 12px;">Allow WordPress to process its auto-paragraph routines for content and excerpts:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_allowAutoParagraphs == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_allowAutoParagraphs" class="toggle-check ts_vcsc_extend_settings_allowAutoParagraphs" name="ts_vcsc_extend_settings_allowAutoParagraphs" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_allowAutoParagraphs); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_allowAutoParagraphs == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_allowAutoParagraphs == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_allowAutoParagraphs">Enable Auto-Paragraph Routine</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_allowAutoParagraphs",
+						"label"				=> "Enable Auto-Paragraph Routine",
+						"value"             => $ts_vcsc_extend_settings_allowAutoParagraphs,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowAutoParagraphs);
+				?>
 			</div>
 		</div>
 	</div>	
-	<div class="ts-vcsc-section-main" style="display: none;">
+	<div class="ts-vcsc-section-main" style="display: none !important;">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-image-flip-vertical"></i>Page Smooth Scroll (BETA)</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
@@ -663,31 +619,33 @@
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Smooth Scroll for Pages:</div>
 				<p style="font-size: 12px;">Extend all pages with Smooth Scroll Feature (will not be applied on mobile devices); do not use if your theme or another plugin is already implementing a smooth scroll feature:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_additionsSmoothScroll == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_additionsSmoothScroll" class="toggle-check ts_vcsc_extend_settings_additionsSmoothScroll" name="ts_vcsc_extend_settings_additionsSmoothScroll" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_additionsSmoothScroll); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_additionsSmoothScroll == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_additionsSmoothScroll == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_additionsSmoothScroll">Extend Pages with Smooth Scroll</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_additionsSmoothScroll",
+						"label"				=> "Extend Pages with Smooth Scroll",
+						"value"             => $ts_vcsc_extend_settings_additionsSmoothScroll,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_additionsSmoothScroll);
+				?>
 			</div>
 		</div>
 	</div>	
-	<div class="ts-vcsc-section-main" style="display: none;">
+	<div class="ts-vcsc-section-main" style="display: none !important;">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide">Other Settings</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">
 			<div style="margin-top: 10px; margin-bottom: 10px;">
 				<h4>Viewing Device Detection:</h4>
 				<p style="font-size: 12px;">Enable or disable the use of the Device Detection:</p>
-				<input type="hidden" name="ts_vcsc_extend_settings_loadDetector" value="0" />
-				<input type="checkbox" name="ts_vcsc_extend_settings_loadDetector" id="ts_vcsc_extend_settings_loadDetector" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_loadDetector); ?> />
-				<label class="labelCheckBox" for="ts_vcsc_extend_settings_loadDetector">Use Device Detection</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_loadDetector",
+						"label"				=> "Use Device Type Detection",
+						"value"             => $ts_vcsc_extend_settings_loadDetector,
+						"order"				=> 1,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_loadDetector);
+				?>
 			</div>
 		</div>
 	</div>

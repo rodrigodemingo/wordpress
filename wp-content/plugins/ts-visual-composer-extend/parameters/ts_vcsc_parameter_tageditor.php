@@ -9,8 +9,6 @@
 				}
             }        
             function tag_editor_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name'])    ? $settings['param_name']   : '';
                 $type           	= isset($settings['type'])          ? $settings['type']         : '';
 				// Global Settings
@@ -23,7 +21,6 @@
 				$sortable			= isset($settings['sortable'])		? $settings['sortable']		: 'true';
 				$clickdelete		= isset($settings['clickdelete'])	? $settings['clickdelete']	: 'false';
 				$placeholder		= isset($settings['placeholder'])	? $settings['placeholder'] 	: '';
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer			= rand(100000, 999999);
                 $output         	= '';
 				$delimiter			= '' . $delimiter . ';';

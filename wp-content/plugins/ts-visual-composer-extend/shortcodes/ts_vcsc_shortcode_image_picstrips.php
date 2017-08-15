@@ -19,6 +19,8 @@
 		wp_enqueue_style('ts-extend-animations');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 		
 		extract( shortcode_atts( array(
 			'image'							=> '',
@@ -237,9 +239,9 @@
 		}
 		
 		if (function_exists('vc_shortcode_custom_css_class')) {
-			$css_class 	= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS-VCSC-Image-Picstrips', $atts);
+			$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS-VCSC-Image-Picstrips', $atts);
 		} else {
-			$css_class	= '';
+			$css_class						= '';
 		}
 		
 		$content_title						= '';

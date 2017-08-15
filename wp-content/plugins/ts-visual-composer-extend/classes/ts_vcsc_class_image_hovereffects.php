@@ -155,6 +155,7 @@
 				wp_enqueue_style('ts-font-teammates');
 				wp_enqueue_style('ts-visual-composer-extend-front');
 				wp_enqueue_script('ts-visual-composer-extend-front');
+				wp_enqueue_script('ts-extend-imageeffects');
 			
 				if (!empty($el_id)) {
 					$hover_image_id					= $el_id;
@@ -879,7 +880,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'hovereffect',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon you want to display.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -912,7 +915,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'hovereffect',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon you want to display.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -945,7 +950,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'hovereffect',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon you want to display.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),
@@ -978,7 +985,9 @@
 							"value"						=> "",
 							"settings" 					=> array(
 								"emptyIcon" 					=> true,
-								'emptyIconValue'				=> 'transparent',
+								"emptyIconValue"				=> 'transparent',
+								"hasSearch"						=> false,
+								"override"						=> true,
 								"type" 							=> 'hovereffect',
 							),
 							"description"       		=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorVisualSelector == "true" ? __( "Select the icon you want to display.", "ts_visual_composer_extend" ) : $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconSelectorString),

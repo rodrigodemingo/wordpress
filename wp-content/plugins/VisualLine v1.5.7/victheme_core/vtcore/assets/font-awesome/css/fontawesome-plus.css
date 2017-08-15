@@ -1,0 +1,71 @@
+/**
+  Fa plus positioning
+  **/
+.faplus,
+.faplus.pull-inline {
+  display: inline-block;
+}
+
+.faplus.pull-left {
+	margin-right: .3em
+}
+
+.faplus.pull-right {
+  margin-left: .3em
+}
+
+.faplus.pull-center {
+  text-align: center;
+  clear: both;
+  width: 100%;
+}
+
+.faplus > .fa {
+	text-align: center;
+	vertical-align: middle;
+	width: 100%;
+	display: inline-block;
+}
+
+/**
+  Diamond shape
+  **/
+.faplus-shape-diamond {
+  -ms-transform: rotate(-45deg) scale(0.8);
+  -webkit-transform: rotate(-45deg) scale(0.8);
+  transform: rotate(-45deg) scale(0.8);
+  overflow: hidden;
+  padding: .2em;
+  border-radius: 8px;
+  display: inline-block;
+  border-width: 0.08em;
+  margin: 0 !important;
+}
+
+.faplus-shape-diamond > i {
+	background-color: transparent !important;
+	border: none;
+  -ms-transform: rotate(45deg) scale(1.2);
+  -webkit-transform: rotate(45deg) scale(1.2);
+  transform: rotate(45deg) scale(1.2);
+  padding: .2em;
+}
+
+
+/**
+  Circle Shape
+  **/
+.fa-border.faplus-shape-circle,
+.faplus-shape-circle {
+  border-radius: 100%;
+  padding: 0.2em 0.25em;
+}
+
+/**
+  Round Shape
+  **/
+.fa-border.faplus-shape-round,
+.faplus-shape-round {
+  border-radius: 8px;
+  padding: 0.2em 0.2em;
+}

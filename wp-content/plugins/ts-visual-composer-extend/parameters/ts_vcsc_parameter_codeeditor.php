@@ -12,14 +12,11 @@
 				}
             }        
             function codeeditor_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $suffix         = isset($settings['suffix']) ? $settings['suffix'] : '';
                 $class          = isset($settings['class']) ? $settings['class'] : '';
                 $codetype		= isset($settings['codetype']) ? $settings['codetype'] : 'css';
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$randomizer		= mt_rand(999999, 9999999);
                 $output         = '';
 				$output .= '<div id="ts-codeeditor-parameter-container-' . $randomizer . '" class="ts-codeeditor-parameter-container" style="position: relative;">';

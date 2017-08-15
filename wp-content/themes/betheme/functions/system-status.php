@@ -288,24 +288,6 @@ class mfnServerStatus {
 							$checks['dom_document']['note']    = sprintf( __( 'Your server does not have the <a href="%s">DOMDocument</a> class enabled. Contact your hosting provider.', 'mfn-opts' ), 'http://php.net/manual/en/class.domdocument.php' ) . '</mark>';
 						}
 			
-						// WP Remote Get Check
-						$checks['wp_remote_get']['name'] = __( 'Remote Get', 'mfn-opts');
-						$checks['wp_remote_get']['help'] = '<a href="#" class="help_tip" data-tip="' . esc_attr__( 'Retrieve the raw response from the HTTP request using the GET method.', 'mfn-opts' ) . '">[?]</a>';
-
-						$response = wp_remote_get( LIBS_URI . '/importer/demo/menu.txt' );
-			
-						if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
-							$checks['wp_remote_get']['success'] = true;
-						} else {
-							$checks['wp_remote_get']['note']    = __( 'WordPress function <a href="https://codex.wordpress.org/Function_Reference/wp_remote_get">wp_remote_get()</a> test failed. Contact your hosting provider.', 'mfn-opts' );
-							if ( is_wp_error( $response ) ) {
-								$checks['wp_remote_get']['note'] .= ' ' . sprintf( __( 'Error: %s', 'mfn-opts' ), sanitize_text_field( $response->get_error_message() ) );
-							} else {
-								$checks['wp_remote_get']['note'] .= ' ' . sprintf( __( 'Status code: %s', 'mfn-opts' ), sanitize_text_field( $response['response']['code'] ) );
-							}
-							$checks['wp_remote_get']['success'] = false;
-						}
-			
 						foreach ( $checks as $check ) {
 							$mark = ! empty( $check['success'] ) ? 'yes' : 'error';
 							?>

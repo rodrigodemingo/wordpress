@@ -695,8 +695,13 @@ html .vc_col-has-fill a.ubtn-link.ult-adjust-bottom-margin .ubtn.ult-adjust-bott
     margin-bottom: 0;
 }
 
-.smile_icon_list .icon_list_item {
-    display: inline-block;
+ .smile_icon_list.right > li {
+    text-align: right;
+    text-align: -webkit-right;
+    text-align: -moz-right;
+}
+.smile_icon_list.right .icon_list_item {
+   display:block;
 }
 
 /*Advanced carousel*/

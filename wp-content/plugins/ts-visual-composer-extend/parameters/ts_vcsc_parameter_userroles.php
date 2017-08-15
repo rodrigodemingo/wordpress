@@ -5,7 +5,6 @@
     if (!class_exists('TS_Parameter_UserRoles')) {
         class TS_Parameter_UserRoles {
             function __construct() {
-                global $VISUAL_COMPOSER_EXTENSIONS;
                 if (function_exists('vc_add_shortcode_param')) {
                     vc_add_shortcode_param('wpuserroles',       array(&$this, 'wpuserroles_settings_field'));
                 } else if (function_exists('add_shortcode_param')) {                    
@@ -13,15 +12,12 @@
                 }
             }        
             function wpuserroles_settings_field($settings, $value) {
-                global $VISUAL_COMPOSER_EXTENSIONS;
                 global $wp_roles;                
                 if (!isset($wp_roles)) {
                     $wp_roles       = new WP_Roles();
                 }
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
-                $url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
                 $output         	= '';
                 $randomizer			= rand(100000, 999999);
                 $value_arr 			= $value;

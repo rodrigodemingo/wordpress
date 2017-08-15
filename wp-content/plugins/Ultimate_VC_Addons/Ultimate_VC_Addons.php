@@ -4,7 +4,7 @@ Plugin Name: Ultimate Addons for Visual Composer
 Plugin URI: https://brainstormforce.com/demos/ultimate/
 Author: Brainstorm Force
 Author URI: https://www.brainstormforce.com
-Version: 3.16.9
+Version: 3.16.10
 Description: Includes Visual Composer premium addon elements like Icon, Info Box, Interactive Banner, Flip Box, Info List & Counter. Best of all - provides A Font Icon Manager allowing users to upload / delete custom icon fonts.
 Text Domain: ultimate_vc
 */
@@ -14,7 +14,7 @@ if ( ! defined( '__ULTIMATE_ROOT__' ) ) {
 }
 
 if ( ! defined( 'ULTIMATE_VERSION' ) ) {
-	define( 'ULTIMATE_VERSION', '3.16.9' );
+	define( 'ULTIMATE_VERSION', '3.16.10' );
 }
 
 if ( ! defined( 'ULTIMATE_URL' ) ) {
@@ -474,7 +474,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			wp_register_script("ultimate-tooltip",plugins_url($js_path.'tooltip'.$ext.'.js',__FILE__),array('jquery'),ULTIMATE_VERSION);
 
 			// register css
-			
+
 			if ( is_rtl() ) {
 				$cssext = '-rtl';
 			} else {
@@ -547,9 +547,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 
 				global $post;
 
-				if(!$post) return false;
+				if( ! $post ) {
+					return false;
+				}
 
-				$post_content = $post->post_content;
+				$post_content = apply_filters( 'ultimate_front_scripts_post_content', $post->post_content, $post);
 
 				$is_element_on_page = $this->check_our_element_on_page($post_content);
 

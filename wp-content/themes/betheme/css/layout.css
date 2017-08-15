@@ -350,6 +350,7 @@ body.minimalist-header.header-below:not(.template-slider) #Header{min-height:90p
 #Top_bar .menu > li > a:after{content:"";height:4px;width:100%;position:absolute;left:0;top:-4px;z-index:203;opacity:0;filter:alpha(opacity=0)}
 #Top_bar .menu > li > a span:not(.description){display:block;line-height:60px;padding:0 20px;white-space:nowrap;border-right-width:1px;border-style:solid}
 #Top_bar .menu > li > a span.description{font-size:11px;line-height:12px!important;margin:-12px -15px 0;color:#aaa;font-weight:300;text-align:center;display:block}
+#Top_bar .menu > li > a span > span{display:inline!important;padding:0!important}
 #Top_bar .menu > li:last-child > a span{border:0}
 #Top_bar .menu > li > a:hover{text-decoration:none}
 
@@ -492,7 +493,8 @@ body.header-below:not(.template-slider) #Header{min-height:90px;padding-top:160p
 	.header-plain #Top_bar .wpml-languages ul.wpml-lang-dropdown li a{line-height:40px}
 	.header-plain #Top_bar .wpml-languages a.active{background:none}
 	.header-plain #Top_bar .wpml-languages ul.wpml-lang-dropdown{border:0;border-radius:0}
-	.header-plain #Top_bar a.button.action_button{margin:0;top:0;border-radius:0;border-left-width:1px;border-style:solid}
+	.header-plain #Top_bar a.button.action_button{margin:0;top:0;border-radius:0;border-left-width:1px;border-style:solid;color:#fff}
+	.header-plain.button-stroke #Top_bar a.button.action_button{top:0}
 	.header-plain #Top_bar .menu > li > a span:not(.description){line-height:80px;padding:0 30px}
 	.header-plain #Top_bar a#header_cart,.header-plain #Top_bar a#search_button{padding:0 25px;line-height:80px;margin-left:0;}
 	.header-plain #Top_bar .wpml-languages{padding:0 25px;line-height:80px}
@@ -1441,6 +1443,7 @@ body.mobile-side-slide{position:relative;overflow-x:visible;}
 #Footer .footer_copy{border-top:1px solid rgba(255,255,255,.1)}
 #Footer .footer_copy .one{margin-bottom:20px;padding-top:30px;min-height:33px}
 #Footer .footer_copy .copyright{float:left}
+
 #Footer .footer_copy .social{float:right;margin-right:20px}
 #Footer .footer_copy .social li{display:inline-block;margin-right:6px}
 #Footer .footer_copy .social li:last-child{margin-right:0}
@@ -1458,13 +1461,13 @@ body.mobile-side-slide{position:relative;overflow-x:visible;}
 				
 	/* Back to top */
 	#back_to_top{float:right;margin:-9px 0 0;width:42px;height:42px;line-height:42px;font-size:20px;text-align:center}
-	#back_to_top > i{color:rgba(0,0,0,.5)}
+	
+	a#back_to_top.button.button_js{color:#fff}
 	
 	#back_to_top.hide{display:none}
-	
 	#back_to_top.in_footer{position:absolute;bottom:20px;right:75px}
 	
-	#back_to_top.sticky{position:fixed;right:75px;bottom:20px;z-index:9001;background:#f7f7f7!important;color:rgba(0,0,0,0.5)}
+	#back_to_top.sticky{position:fixed;right:75px;bottom:20px;z-index:9001}
 	.nice-scroll #back_to_top.sticky{right:85px}
 	#back_to_top.sticky.scroll{opacity:0;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;-ms-transition:all .3s ease-in-out;transition:all .3s ease-in-out}
 	#back_to_top.sticky.scroll.focus,#back_to_top.sticky.scroll:hover{opacity:1}	

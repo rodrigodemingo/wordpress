@@ -1,0 +1,20 @@
+.contact-rows {
+	margin: 10px 0;
+}
+
+.contact-rows .faplus {
+	margin-right: 8px;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.contact-rows .contact-heading {
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.contact-rows .contact-separator {
+  margin-right: 5px;
+}

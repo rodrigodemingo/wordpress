@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>VicTheme History Premium Theme</title>
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="VicTheme History Premium Theme Documentation"/>
+    <meta name="author" content="support@victheme.com"/>
+    <link type="text/css" href="assets/dark_theme/css/production.min.css" media="all" rel="stylesheet"/>
+    <link type="text/css" href="assets/favicon/favicon.ico" media="all" rel="shortcut icon"/>
+    <script type="text/javascript" src="assets/dark_theme/js/production.min.js"></script>
+</head>
+<body>
+<header id="main-header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="row">
+            <div id="top-logo" class="col-xs-6 col-sm-6 col-md-2 col-lg-2"><img
+                    src="assets/dark_theme/css/images/logo.png"/></div>
+            <div id="top-navigation" class="hidden-xs hidden-sm col-md-6 col-lg-6"></div>
+            <h3 id="top-version" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">VicTheme History Plugin
+                <small>4.x-1.5.0</small>
+            </h3>
+        </div>
+    </div>
+</header>
+<div id="main-content">
+<div class="container">
+<div class="equalheightRow row">
+<div id="sidebar" class="items col-xs-12 col-sm-4 col-md-3 col-lg-3,">
+    <ul class="nav nav-stacked nav-pills hidden-xs hidden-sd">
+        <li><a href="#install--files">How To Install</a>
+            <ul class="nav nav-stacked nav-pills">
+                <li><a href="#install--files">Plugin Files</a></li>
+                <li><a href="#install--install">Installing Plugin</a></li>
+            </ul>
+        </li>
+        <li></li>
+        <li><a href="#history">History Wrapper</a></li>
+        <li></li>
+        <li><a href="#historycontent">History Content</a></li>
+        <li></li>
+        <li><a href="#grid">CSS Grid</a></li>
+        <li></li>
+        <li><a href="#credit">Credits</a></li>
+    </ul>
+</div>
+<div id="content" class="items col-xs-12 col-sm-9 col-md-9 col-lg-9">
+<div id="install--files" class="section"><h3 class="separator">Plugin Files</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Check File Integrity</h3></div>
+        <div class="panel-body">
+            <div class="thumbnail"><img src="assets/images/file.png"/></div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>Check The Downloaded File</h4>Please check that the downloaded archive
+                    file must contain the same file as the image above and not corrupted.
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>Corrupted File</h4>If you have missing files or corrupted file, please
+                    redownload them again and if the problem persist,
+                    please contact our <a href="mailto:support@victheme.com">our support team</a> for further
+                    assistance.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="install--install" class="section"><h3 class="separator">Installing Plugin</h3>
+
+    <div class="alert alert-success"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+        <div class="text-with-icon">This plugin should be installed as a normal WordPress would using <strong>WordPress
+            Plugin Uploader.</strong></div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">WordPress Uploader </h3></div>
+        <div class="panel-body">
+            <div class="thumbnail"><img src="assets/images/wpupload.jpg"/></div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>Upload Form</h4>Visit the uploader form in your site admin :
+                    http://example.com/wp-admin/theme-install.php?tab=upload to get WordPress plugin uploader form.
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>VicTheme Core</h4>Upload the victheme_core.zip first if you don't have
+                    VicTheme Core Plugin installed on your server as the plugin won't work without it.
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>VicTheme Timeline</h4>Upload the victheme_history.zip to install the
+                    plugin.
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>VisualComposer</h4>Visual Composer must be installed before this plugin
+                    can be activated and working properly. The WP Bakery Visual Composer plugin is not included
+                    with this plugin and must be purchased separately.
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-body"><span class="pull-left icon-large glyphicon glyphicon-hand-right"></span>
+
+                <div class="text-with-icon"><h4>Bundled with theme</h4>If this plugin is bundled with themes, you can
+                    skip this step and check on the theme documentation on how to install the plugin properly.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="history" class="section"><h3 class="separator">History Wrapper</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - General Tabs</h3></div>
+        <div class="panel-body"><p>This shortcodes allows you to create a wrapper for the history element content. You
+            can also specify whether to build the canvas point connector or not in this shortcode.</p>
+
+            <div class="thumbnail"><img src="assets/images/history.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Pointer Tabs</h3></div>
+        <div class="panel-body"><p>This Tabs allows you to define the default pointer settings which will be applied to
+            all history content unless the history contents specify overriding settings.</p>
+
+            <div class="thumbnail"><img src="assets/images/history-pointer.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+        <div class="panel-body"><pre>
+
+[history
+  class=&quot;some class&quot;
+  id=&quot;someid&quot;
+  gradientone=&quot;hex to serve as gradient one fallback&quot;
+  gradienttwo=&quot;hex to serve as gradient two fallback&quot;
+  curvex=&quot;curve x fallback&quot;
+  curvey=&quot;curve y fallback&quot;
+  startx=&quot;start x fallback&quot;
+  starty=&quot;start y fallback&quot;
+  endx=&quot;end x fallback&quot;
+  endy=&quot;end y fallback&quot;
+  linewidth=&quot;line width fallback&quot;
+  linetype=&quot; line type fallback&quot;
+  connector=&quot;true|false&quot;]
+
+    [historyinner
+      id=&quot;x&quot;
+      class=&quot;class_one class_two&quot;
+      direction=&quot;left|right|center&quot;
+      image_attachmentid=&quot;wp attachment id or image url&quot;
+      image_size=&quot;the image size using numeric widthxheight or wp image size&quot;
+      image_position=&quot;the position for the image&quot;
+      border_color=&quot;the border color as vc border color&quot;
+      image_style=&quot;extra css class to style the image&quot;
+      icon_icon=&quot;fontawesome icon class&quot;
+      icon_size=&quot;the icon size utilizing fontawesome icon sizing&quot;
+      icon_rotate=&quot;rotate value for the icon&quot;
+      icon_flip=&quot;flip the icon or not&quot;
+      icon_spin=&quot;spin the icon&quot;
+      icon_border=&quot;the border value for the icon wrapper&quot;
+      icon_shape=&quot;the custom shape for the icon&quot;
+      icon_position=&quot;the position for the icon&quot;
+      icon_inner_padding=&quot;the padding for the icon&quot;
+      icon_font=&quot;the fontsize for the icon overriding the fontawesome icon size rule&quot;
+      icon_width=&quot;the width for the icon wrapper&quot;
+      icon_height=&quot;the height for the icon wrapper&quot;
+      icon_color=&quot;the color for the icon&quot;
+      icon_background=&quot;the background color for the wrapper element&quot;
+      icon_border_color=&quot;the border color for the icon&quot;
+      label_type=&quot;the type for the label according to bootstrap label types&quot;
+      label_fontcolor=&quot;the font color for the label element&quot;
+      label_text=&quot;the text for the label&quot;
+      label_background=&quot;the label background color&quot;
+      title=&quot;some title&quot;
+      title_class=&quot;extra css class for title&quot;
+      subtitle=&quot;some subtitle&quot;
+      subtitle_class=&quot;extra css class for subtitle&quot;
+      data_curve_x=&quot;numeric representing pixel value for quadratic curve control point x relative to starting point x&quot;
+      data_curve_y=&quot;numeric representing pixel value for quadratic curve control point y relative to starting point y&quot;
+      data_offset_start_x=&quot;numeric representing pixel value for offsetting the start x&quot;
+      data_offset_start_y=&quot;numeric representing pixel value for offsetting the start y&quot;
+      data_offset_end_x=&quot;numeric representing pixel value for offsetting the end x&quot;
+      data_offset_end_y=&quot;numeric representing pixel value for offsetting the end y&quot;
+      data_gradientone=&quot;hex value for gradient value one&quot;
+      data_gradienttwo=&quot;hex value for gradient value two&quot;
+      data_linewidth=&quot;numeric representing the width of the conneting line&quot;
+      data_linetype=&quot;butt|round|square&quot;
+
+      // Grids with dotted notation
+      grids___columns___mobile=&quot;X&quot;
+      grids___columns___tablet=&quot;X&quot;
+      grids___columns___small=&quot;X&quot;
+      grids___columns___large=&quot;X&quot;
+      grids___offset___mobile=&quot;X&quot;
+      grids___offset___tablet=&quot;X&quot;
+      grids___offset___small=&quot;X&quot;
+      grids___offset___large=&quot;X&quot;
+      grids___push___mobile=&quot;X&quot;
+      grids___push___tablet=&quot;X&quot;
+      grids___push___small=&quot;X&quot;
+      grids___push___large=&quot;X&quot;
+      grids___pull___mobile=&quot;X&quot;
+      grids___pull___tablet=&quot;X&quot;
+      grids___pull___small=&quot;X&quot;
+      grids___pull___large=&quot;X&quot;
+      left_grids___columns___mobile=&quot;X&quot;
+      left_grids___columns___tablet=&quot;X&quot;
+      left_grids___columns___small=&quot;X&quot;
+      left_grids___columns___large=&quot;X&quot;
+      left_grids___offset___mobile=&quot;X&quot;
+      left_grids___offset___tablet=&quot;X&quot;
+      left_grids___offset___small=&quot;X&quot;
+      left_grids___offset___large=&quot;X&quot;
+      left_grids___push___mobile=&quot;X&quot;
+      left_grids___push___tablet=&quot;X&quot;
+      left_grids___push___small=&quot;X&quot;
+      left_grids___push___large=&quot;X&quot;
+      left_grids___pull___mobile=&quot;X&quot;
+      left_grids___pull___tablet=&quot;X&quot;
+      left_grids___pull___small=&quot;X&quot;
+      left_grids___pull___large=&quot;X&quot;
+      right_grids___columns___mobile=&quot;X&quot;
+      right_grids___columns___tablet=&quot;X&quot;
+      right_grids___columns___small=&quot;X&quot;
+      right_grids___columns___large=&quot;X&quot;
+      right_grids___offset___mobile=&quot;X&quot;
+      right_grids___offset___tablet=&quot;X&quot;
+      right_grids___offset___small=&quot;X&quot;
+      right_grids___offset___large=&quot;X&quot;
+      right_grids___push___mobile=&quot;X&quot;
+      right_grids___push___tablet=&quot;X&quot;
+      right_grids___push___small=&quot;X&quot;
+      right_grids___push___large=&quot;X&quot;
+      right_grids___pull___mobile=&quot;X&quot;
+      right_grids___pull___tablet=&quot;X&quot;
+      right_grids___pull___small=&quot;X&quot;
+      right_grids___pull___large=&quot;X&quot;
+    ]
+
+      some content for the inner shortcodes allowed
+
+    [/historyinner]
+
+[/history]
+          
+          </pre>
+        </div>
+        <table class="form-table table table-striped">
+            <thead class="table-header">
+            <tr>
+                <th>Attributes</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody class="table-rows">
+            <tr>
+                <td>gradientone</td>
+                <td>valid hex color value</td>
+                <td>Define the default gradient first color</td>
+            </tr>
+            <tr>
+                <td>gradienttwo</td>
+                <td>valid hex color value</td>
+                <td>Define the default gradient second color</td>
+            </tr>
+            <tr>
+                <td>curvex</td>
+                <td>number</td>
+                <td>Define x value for the quadratic curve point coordinate</td>
+            </tr>
+            <tr>
+                <td>curvey</td>
+                <td>number</td>
+                <td>Define y value for the quadratic curve point coordinate</td>
+            </tr>
+            <tr>
+                <td>startx</td>
+                <td>number</td>
+                <td>Define the starting point x offset, this can be used to adjust the starting point</td>
+            </tr>
+            <tr>
+                <td>starty</td>
+                <td>number</td>
+                <td>Define the starting point y offset, this can be used to adjust the starting point</td>
+            </tr>
+            <tr>
+                <td>endx</td>
+                <td>number</td>
+                <td>Define the ending point x offset, this can be used to adjust the ending point</td>
+            </tr>
+            <tr>
+                <td>endy</td>
+                <td>number</td>
+                <td>Define the ending point y offset, this can be used to adjust the ending point</td>
+            </tr>
+            <tr>
+                <td>linewidth</td>
+                <td>number</td>
+                <td>Define the size for the quadratic curve line in pixel</td>
+            </tr>
+            <tr>
+                <td>linetype</td>
+                <td>round|square|butt</td>
+                <td>Define the line starting and ending point shape</td>
+            </tr>
+            <tr>
+                <td>connector</td>
+                <td>true|false</td>
+                <td>Enable or disable the quadratic connector globally.</td>
+            </tr>
+            <tr>
+                <td>class</td>
+                <td>valid css class separated by empty space</td>
+                <td>You can inject additional css class by specifing the valid css class separated by empty space</td>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>valid css id</td>
+                <td>You can define custom css id by specifying valid css / html id string</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="historycontent" class="section"><h3 class="separator">History Content</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - General Tabs</h3></div>
+        <div class="panel-body"><p>This shortcode will create the inner content for the history wrapper and should only
+            be used inside the
+            history wrapper. The general tabs will allow you to configure the direction, title, subtitle and css classes
+            and id.s</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-general.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Image Tabs</h3></div>
+        <div class="panel-body"><p>This tabs will allows you to configure the image. The image element will be placed in
+            the left container</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-image.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Icon Tabs</h3></div>
+        <div class="panel-body"><p>The settings used here will be used to format the icon element</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-icon.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Label Tabs</h3></div>
+        <div class="panel-body"><p>The settings configured here will be used to configure the floating label element</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-label.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Pointer Tabs</h3></div>
+        <div class="panel-body"><p>The settings used here will be used to format the pointer connector, when defined the
+            settings will override the parent history wrapper pointer configuration.</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-points.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Element Grids Tabs</h3></div>
+        <div class="panel-body"><p>The grid setting will be applied to the history content element, this is useful for
+            positioning the whole content element position.
+            The grid system is using bootstrap grid rules.</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-element.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Left Grids Tabs</h3></div>
+        <div class="panel-body"><p>The grid setting will be applied to the inner left wrapper element,
+            The grid system is using bootstrap grid rules.</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-left.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">VisualComposer - Right Grids Tabs</h3></div>
+        <div class="panel-body"><p>The grid setting will be applied to the inner left wrapper element,
+            The grid system is using bootstrap grid rules.</p>
+
+            <div class="thumbnail"><img src="assets/images/history-content-left.png"/></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Shortcode</h3></div>
+        <div class="panel-body"><pre>
+
+[historyinner
+  id=&quot;x&quot;
+  class=&quot;class_one class_two&quot;
+  direction=&quot;left|right|center&quot;
+  image_attachmentid=&quot;wp attachment id or image url&quot;
+  image_size=&quot;the image size using numeric widthxheight or wp image size&quot;
+  image_position=&quot;the position for the image&quot;
+  border_color=&quot;the border color as vc border color&quot;
+  image_style=&quot;extra css class to style the image&quot;
+  icon_icon=&quot;fontawesome icon class&quot;
+  icon_size=&quot;the icon size utilizing fontawesome icon sizing&quot;
+  icon_rotate=&quot;rotate value for the icon&quot;
+  icon_flip=&quot;flip the icon or not&quot;
+  icon_spin=&quot;spin the icon&quot;
+  icon_border=&quot;the border value for the icon wrapper&quot;
+  icon_shape=&quot;the custom shape for the icon&quot;
+  icon_position=&quot;the position for the icon&quot;
+  icon_inner_padding=&quot;the padding for the icon&quot;
+  icon_font=&quot;the fontsize for the icon overriding the fontawesome icon size rule&quot;
+  icon_width=&quot;the width for the icon wrapper&quot;
+  icon_height=&quot;the height for the icon wrapper&quot;
+  icon_color=&quot;the color for the icon&quot;
+  icon_background=&quot;the background color for the wrapper element&quot;
+  icon_border_color=&quot;the border color for the icon&quot;
+  label_type=&quot;the type for the label according to bootstrap label types&quot;
+  label_fontcolor=&quot;the font color for the label element&quot;
+  label_text=&quot;the text for the label&quot;
+  label_background=&quot;the label background color&quot;
+  title=&quot;some title&quot;
+  title_class=&quot;extra css class for title&quot;
+  subtitle=&quot;some subtitle&quot;
+  subtitle_class=&quot;extra css class for subtitle&quot;
+  data_curve_x=&quot;numeric representing pixel value for quadratic curve control point x relative to starting point x&quot;
+  data_curve_y=&quot;numeric representing pixel value for quadratic curve control point y relative to starting point y&quot;
+  data_offset_start_x=&quot;numeric representing pixel value for offsetting the start x&quot;
+  data_offset_start_y=&quot;numeric representing pixel value for offsetting the start y&quot;
+  data_offset_end_x=&quot;numeric representing pixel value for offsetting the end x&quot;
+  data_offset_end_y=&quot;numeric representing pixel value for offsetting the end y&quot;
+  data_gradientone=&quot;hex value for gradient value one&quot;
+  data_gradienttwo=&quot;hex value for gradient value two&quot;
+  data_linewidth=&quot;numeric representing the width of the conneting line&quot;
+  data_linetype=&quot;butt|round|square&quot;
+
+  // Grids with dotted notation
+  grids___columns___mobile=&quot;X&quot;
+  grids___columns___tablet=&quot;X&quot;
+  grids___columns___small=&quot;X&quot;
+  grids___columns___large=&quot;X&quot;
+  grids___offset___mobile=&quot;X&quot;
+  grids___offset___tablet=&quot;X&quot;
+  grids___offset___small=&quot;X&quot;
+  grids___offset___large=&quot;X&quot;
+  grids___push___mobile=&quot;X&quot;
+  grids___push___tablet=&quot;X&quot;
+  grids___push___small=&quot;X&quot;
+  grids___push___large=&quot;X&quot;
+  grids___pull___mobile=&quot;X&quot;
+  grids___pull___tablet=&quot;X&quot;
+  grids___pull___small=&quot;X&quot;
+  grids___pull___large=&quot;X&quot;
+  left_grids___columns___mobile=&quot;X&quot;
+  left_grids___columns___tablet=&quot;X&quot;
+  left_grids___columns___small=&quot;X&quot;
+  left_grids___columns___large=&quot;X&quot;
+  left_grids___offset___mobile=&quot;X&quot;
+  left_grids___offset___tablet=&quot;X&quot;
+  left_grids___offset___small=&quot;X&quot;
+  left_grids___offset___large=&quot;X&quot;
+  left_grids___push___mobile=&quot;X&quot;
+  left_grids___push___tablet=&quot;X&quot;
+  left_grids___push___small=&quot;X&quot;
+  left_grids___push___large=&quot;X&quot;
+  left_grids___pull___mobile=&quot;X&quot;
+  left_grids___pull___tablet=&quot;X&quot;
+  left_grids___pull___small=&quot;X&quot;
+  left_grids___pull___large=&quot;X&quot;
+  right_grids___columns___mobile=&quot;X&quot;
+  right_grids___columns___tablet=&quot;X&quot;
+  right_grids___columns___small=&quot;X&quot;
+  right_grids___columns___large=&quot;X&quot;
+  right_grids___offset___mobile=&quot;X&quot;
+  right_grids___offset___tablet=&quot;X&quot;
+  right_grids___offset___small=&quot;X&quot;
+  right_grids___offset___large=&quot;X&quot;
+  right_grids___push___mobile=&quot;X&quot;
+  right_grids___push___tablet=&quot;X&quot;
+  right_grids___push___small=&quot;X&quot;
+  right_grids___push___large=&quot;X&quot;
+  right_grids___pull___mobile=&quot;X&quot;
+  right_grids___pull___tablet=&quot;X&quot;
+  right_grids___pull___small=&quot;X&quot;
+  right_grids___pull___large=&quot;X&quot;
+]
+
+  some content for the inner shortcodes allowed
+
+[/historyinner]
+          
+          </pre>
+        </div>
+    </div>
+</div>
+<div id="grid" class="section"><h3 class="separator">CSS Grid</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Bootstrap Grids</h3></div>
+        <div class="panel-body"><p>
+
+            <p>Plugin by default will use the default VisualComposer CSS Rules for the grid system to ensure maximum
+                compatibility with different kind of themes.</p>
+
+            <p>The VisualComposer Grid css covers these rules :</p>
+            <ul>
+                <li>vc_col-{xs|sm|md|lg}-{size}</li>
+                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                <li>vc_col-{xs|sm|md|lg}-push-{size}</li>
+                <li>vc_col-{xs|sm|md|lg}-pull-{size}</li>
+                <li>vc_col-{xs|sm|md|lg}-offset-{size}</li>
+                <li>vc_hidden-{xs|sm|md|lg}</li>
+                <li>vc_visible-{xs|sm|md|lg}</li>
+                <li>vc_push-{left|right}</li>
+                <li>vc_txt_align_{left|center|right}</li>
+            </ul>
+            <p>If your theme is capable to use bootstrap or you want to force to use bootstrap grid rules instead,
+                please invoke these function in your theme functions.php</p>
+            </p><pre>
+// Force to load victheme_core bootstrap access,
+// only use this if your theme doesn't have bootstrap asset loaded
+// and you want to force plugin to load bootstrap asset.
+add_theme_support('load_core_bootstrap');
+
+// Notify plugin that your theme is bootstrap compatible and has load bootstrap asset
+// Only use this if your theme is bootstrap compatible and it has loaded bootstrap css assets.
+add_theme_support('bootstrap');
+          </pre>
+        </div>
+    </div>
+</div>
+<div id="credit" class="section"><h3 class="separator">Credits</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Credits</h3></div>
+        <div class="panel-body"><p>Thank you for the plugins authors that made this theme possible
+
+            <ul>
+                <li><h4>Javascript</h4>
+                    <ul>
+                        <li>Point connector - <strong>Victheme Teams</strong></li>
+                    </ul>
+                </li>
+            </ul>
+            </p></div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

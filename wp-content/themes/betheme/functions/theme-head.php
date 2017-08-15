@@ -1036,6 +1036,14 @@ if( ! function_exists( 'mfn_body_classes' ) )
 		}
 		
 		
+		// Button | Style -------------------------------------
+		if( $_GET && key_exists( 'mfn-btn', $_GET ) ){
+			$classes[] = 'button-'. esc_html( $_GET['mfn-btn'] ); // demo
+		} else {
+			$classes[] = 'button-'. mfn_opts_get( 'button-style', 'default' );
+		}
+		
+		
 		// Layout | Full Width & Boxed ------------------------
 		if( $_GET && key_exists( 'mfn-box', $_GET ) ){
 			$classes[] = 'layout-boxed'; // demo
@@ -1054,15 +1062,7 @@ if( ! function_exists( 'mfn_body_classes' ) )
 		
 		// Nice Scroll ----------------------------------------
 		if( mfn_opts_get( 'nice-scroll' ) == '1' ) $classes[] = 'nice-scroll-on';
-		
 
-		// Button | Style -------------------------------------
-		if( $_GET && key_exists( 'mfn-btn', $_GET ) ){
-			$classes[] = 'button-'. esc_html( $_GET['mfn-btn'] ); // demo
-		} elseif( mfn_opts_get('button-style') ){
-			$classes[] = 'button-'. mfn_opts_get( 'button-style' );
-		}
-		
 		
 		// Image Frame | Style --------------------------------
 		if( $_GET && key_exists( 'mfn-if', $_GET ) ){
@@ -1331,8 +1331,9 @@ if( ! function_exists( 'mfn_body_classes' ) )
 		// demo / debug =============================================
 		if( $_GET && key_exists( 'mfn-rtl' , $_GET ) ) $classes[] = 'rtl';
 		if( $layoutID ) $classes[] = 'dbg-lay-id-'. $layoutID;
+		$classes[] = 'be-'. str_replace( '.', '', THEME_VERSION );
 
-		
+
 		return $classes;
 	}
 }

@@ -127,7 +127,7 @@
 
 						if( is_home() && ! get_option( 'page_for_posts' ) && ! mfn_opts_get( 'blog-page' ) ){
 							$subheader_show = false;
-						} elseif( is_array( $subheader_options ) && isset( $subheader_options['hide-subheader'] ) ){
+						} elseif( is_array( $subheader_options ) && isset( $subheader_options[ 'hide-subheader' ] ) ){
 							$subheader_show = false;
 						} elseif( get_post_meta( mfn_ID(), 'mfn-post-hide-title', true ) ){
 							$subheader_show = false;
@@ -135,14 +135,23 @@
 							$subheader_show = true;
 						}
 						
-						if( is_array( $subheader_options ) && isset( $subheader_options['hide-breadcrumbs'] ) ){
+						
+						// title
+						if( is_array( $subheader_options ) && isset( $subheader_options[ 'hide-title' ] ) ){
+							$title_show = false;
+						} else {
+							$title_show = true;
+						}
+						
+						
+						// breadcrumbs
+						if( is_array( $subheader_options ) && isset( $subheader_options[ 'hide-breadcrumbs' ] ) ){
 							$breadcrumbs_show = false;
 						} else {
 							$breadcrumbs_show = true;
 						}
 						
-						
-						if( is_array( $subheader_advanced ) && isset( $subheader_advanced['breadcrumbs-link'] ) ){
+						if( is_array( $subheader_advanced ) && isset( $subheader_advanced[ 'breadcrumbs-link' ] ) ){
 							$breadcrumbs_link = 'has-link';
 						} else {
 							$breadcrumbs_link = 'no-link';
@@ -156,11 +165,15 @@
 									echo '<div class="column one">';
 										
 										// Title
-										$title_tag = mfn_opts_get( 'subheader-title-tag', 'h1' );
-										echo '<'. $title_tag .' class="title">'. mfn_page_title() .'</'. $title_tag .'>';
+										if( $title_show ){
+											$title_tag = mfn_opts_get( 'subheader-title-tag', 'h1' );
+											echo '<'. $title_tag .' class="title">'. mfn_page_title() .'</'. $title_tag .'>';
+										}
 										
 										// Breadcrumbs
-										if( $breadcrumbs_show ) mfn_breadcrumbs( $breadcrumbs_link );
+										if( $breadcrumbs_show ){
+											mfn_breadcrumbs( $breadcrumbs_link );
+										}
 										
 									echo '</div>';
 								echo '</div>';

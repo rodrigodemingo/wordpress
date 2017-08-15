@@ -1,0 +1,31 @@
+/**
+  Query Selector Form
+  **/
+.wp-query-form-table .remove-element,
+.wp-query-form-table .drag-element {
+  width: 5%;
+}
+
+.wp-query-form-table .data-element {
+  width: 90%;
+}
+
+.wp-query-form-table .help-block {
+  font-size: 13px;
+}
+
+
+/**
+  Visual composer type element
+  vt_query
+  **/
+.vc_wrapper-param-type-vt_query_form .panel {
+  box-shadow: none;
+  border-bottom: none;
+  margin: 0 !important;
+  border-radiu: 0 !important;
+}
+
+.vc_wrapper-param-type-vt_query_form .panel-body {
+  padding: 20px !important;
+}

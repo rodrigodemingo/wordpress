@@ -13,7 +13,6 @@
             }        
             function loadfile_setting_field($settings, $value){
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $file_type      = isset($settings['file_type']) ? $settings['file_type'] : '';
@@ -23,9 +22,9 @@
                 $output         = '';
                 if (!empty($file_path)) {
                     if ($file_type == "js") {
-                        $output .= '<script type="text/javascript" src="' . $url.$file_path . '"></script>';
+                        $output .= '<script type="text/javascript" src="' . $url . $file_path . '"></script>';
                     } else if ($file_type == "css") {
-                        $output .= '<link rel="stylesheet" id="' . $file_id . '" type="text/css" href="' . $url.$file_path . '" media="all">';
+                        $output .= '<link rel="stylesheet" id="' . $file_id . '" type="text/css" href="' . $url . $file_path . '" media="all">';
                     }
                 }
                 return $output;

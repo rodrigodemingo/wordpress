@@ -12,7 +12,6 @@
 				}
             }        
             function wysiwyg_base64_setting_field($settings, $value){
-                $dependency     	= vc_generate_dependencies_attributes($settings);
                 $param_name     	= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	= isset($settings['type']) ? $settings['type'] : '';
 				$minimal			= isset($settings['minimal']) ? $settings['minimal'] : 'false';

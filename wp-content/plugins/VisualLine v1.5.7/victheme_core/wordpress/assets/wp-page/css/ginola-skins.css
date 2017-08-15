@@ -1,0 +1,467 @@
+/**
+  Ginola Skins for Zeus Theme options panel
+  @todo create skins selector in the future.
+  **/
+img,
+.btn,
+i,
+a {
+  outline: 0 !important;
+  transition: ease-out .3s;
+  box-shadow: none !important;
+  -webkit-transition: ease-out .3s;
+  -moz-transition: ease-out .3s;
+  -o-transition: ease-out .3s;
+  -ms-transition: ease-out .3s;
+}
+
+/**
+  Theme options header
+  **/
+.vtcore-configuration-header-skins {
+  background: #F7F7F7;
+  color: #1D2939;
+  border-bottom: 1px solid #D3D7DB;
+  margin: 20px 20px 0 0;
+}
+
+.vtcore-configuration-header-skins .page-header {
+  margin: 15px 0 0;
+  padding: 0;
+  border: none;
+  line-height: 50px;
+}
+
+.vtcore-configuration-header-skins .page-header h1 {
+  font-weight: normal;
+}
+
+.vtcore-configuration-header-skins .faplus {
+  line-height: 50px;
+  vertical-align: middle;
+  margin: 15px 15px 15px 0 !important;
+}
+
+.vtcore-configuration-header-skins .faplus-shape-circle {
+  border-color: #1d2939;
+  border-style: solid;
+  border-width: 2px;
+  font-size: 26px;
+  height: 60px;
+  line-height: 48px;
+  vertical-align: middle;
+  width: 60px !important;
+}
+
+
+/**
+  Theme options form
+  **/
+.vtcore-configuration-form-skins {
+  background: #E4E7EA;
+  padding: 15px;
+  margin: 0 20px 0 0;
+}
+
+.vtcore-configuration-form-skins a {
+  text-decoration: none;
+}
+
+
+/** Navigation tabs **/
+.panel-main-tabs .nav-tabs {
+  border: none;
+}
+
+.panel-main-tabs .nav-tabs > li > a,
+.panel-main-tabs .nav-tabs > li.active > a, 
+.panel-main-tabs .nav-tabs > li.active > a:hover, 
+.panel-main-tabs .nav-tabs > li.active > a:focus {
+  border-radius: 3px;
+  padding: 15px;
+  border: none;
+  color: #fff;
+}
+
+.panel-main-tabs .nav-tabs > li:nth-child(1) > a {
+  background: #1CAF9A;
+}
+
+.panel-main-tabs .nav-tabs > li:nth-child(2) > a {
+  background: #428BCA;
+}
+
+.panel-main-tabs .nav-tabs > li:nth-child(3) > a {
+  background: #D9534F;
+}
+
+.panel-main-tabs .nav-tabs > li > a:hover,
+.panel-main-tabs .nav-tabs > li.active > a {
+  background: #F0AD4E;
+}
+
+.panel-main-tabs .nav-tabs .faplus {
+  float: left;
+  width: 64px;
+  height: 64px;
+  font-size: 56px;
+  line-height: 64px;
+  vertical-align: middle;
+  margin-right: 30px;
+}
+
+
+.panel-main-tabs .header-description {
+  display: block;
+  text-transform: uppercase;
+  line-height: 13px;
+  font-size: 11px;
+  margin-top: 8px;
+  margin-left: 95px;
+}
+
+.panel-main-tabs .header-text {
+  display: block;
+  font-size: 34px;
+  line-height: 36px;
+  margin-left: 95px;
+}
+
+
+/** Panel styling **/
+.panel-default {
+  border-color: #EAEEF1;
+  color: #636E7B;
+}
+.panel-default > .panel-heading {
+  background: #F9FAFC;
+  border-color: #EAEEF1;
+}
+.panel-title {
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.panel-title > * {
+  text-transform: none;
+}
+
+.panel-title .help-block {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  margin: 0;
+}
+
+.panel-heading .badge {
+  padding: 4px 8px;
+  background: #428BCA;
+  color: #fff;
+  text-transform: capitalize;
+  margin-top: -3px;
+}
+
+
+.panel-heading .badge:hover {
+  background-color: #F0AD4E;
+}
+
+.panel-heading .badge a {
+  color: #fff;
+}
+
+.panel-body > .page-header:first-child {
+  margin-top: 0;
+}
+
+
+/**
+  ACCORDION
+  **/
+.vtcore-configuration-form-skins .panel-accordion .panel-heading {
+  padding: 10px 15px;
+}
+
+.vtcore-configuration-form-skins .panel-accordion .panel-heading a  {
+  width: 100%;
+  display: block;
+  padding-left: 20px;
+  line-height: 130%;
+  position: relative;
+}
+
+.vtcore-configuration-form-skins .panel-accordion .panel-heading a:before {
+  content: '\f147';
+  position: absolute;
+  font-family: fontawesome;
+  top: -4px;
+  left: -12px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: normal;
+}
+
+.vtcore-configuration-form-skins .panel-accordion .panel-heading a.collapsed:before {
+  content: '\f196';
+}
+
+/** Quick help panel **/
+.quick-help-panels .faplus {
+  margin-right: 10px !important;
+  margin-top: 0;
+}
+
+/**
+  Progress Bar
+  **/
+.progress {
+  height: 30px;
+  position: relative;
+}
+
+.progress-bar {
+  line-height: 30px;
+}
+
+#page .vc_progress_bar .vc_single_bar {
+  background: none;
+  border-radius: 8px;
+  box-shadow: none;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+
+.progress-stripped  .progress-bar {
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  -webkit-background-size: 63px 63px;
+  -moz-background-size: 63px 63px;
+  -o-background-size: 63px 63px;
+  background-size: 63px 63px;
+}
+
+.progress.animated .progress-bar {
+  -webkit-animation: progress-bar-stripes-modified 2s linear infinite;
+  -moz-animation: progress-bar-stripes-modified  2s linear infinite;
+  -ms-animation: progress-bar-stripes-modified  2s linear infinite;
+  -o-animation: progress-bar-stripes-modified  2s linear infinite;
+  animation: progress-bar-stripes-modified  2s linear infinite;
+}
+
+@-webkit-keyframes progress-bar-stripes-modified {
+  from {
+    background-position: 63px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-moz-keyframes progress-bar-stripes-modified {
+  from {
+    background-position: 63px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-ms-keyframes progress-bar-stripes-modified {
+  from {
+    background-position: 63px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-o-keyframes progress-bar-stripes-modified {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 63px 0;
+  }
+}
+@keyframes progress-bar-stripes-modified {
+  from {
+    background-position: 63px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+
+/**
+  Form Elements
+  **/
+input[type="range"],
+input[type="color"], 
+input[type="email"], 
+input[type="number"], 
+input[type="password"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="text"], 
+input[type="url"], 
+select, 
+textarea {
+  border: 1px solid #CBD5DD;
+  color: #555555;
+  box-shadow: none;
+  transition: border-color 0.05s ease-in-out 0s;
+  border-radius: 2px;
+  margin: 0 1px;
+}
+
+.vtcore-configuration-form-skins .wp-media-wrapper {
+  border: 1px solid #CBD5DD;
+  border-radius: 2px;
+}
+
+.vtcore-configuration-form-skins  .form-wpmedia .input-group-addon {
+  border: none;
+  border-radius: 0 0 2px 2px;
+}
+
+.vtcore-configuration-form-skins .input-group-addon {
+  border: 1px solid #CBD5DD;
+  background: #F9FAFC;
+}
+
+
+.page-header + .help-block {
+  margin-bottom: 35px;
+}
+
+/**
+  Bootstrap Switch
+  **/
+.bootstrap-switch {
+  border-color: #CBD5DD;
+}
+
+/**
+.bootstrap-switch-label {
+  background: #F9FAFC;
+}
+**/
+
+.switch-column-two .bootstrap-switch-mode {
+  margin-bottom: 20px;
+}
+
+.switch-column-two .bootstrap-switch-mode:nth-child(2n+1) {
+  clear: both;
+}
+
+
+/**
+  Style Panels
+  **/
+.panel-styles .form-wpmedia + * {
+  clear: both;
+}
+
+.panel-styles .form-wpmedia {
+  margin-bottom: 30px;
+}
+
+/**
+  Responsive fixes
+  **/
+@media (max-width: 767px) {
+  .vtcore-configuration-header-skins  .page-header small {
+    display: none;
+  }
+  
+  .panel-main-tabs .nav-tabs > li {
+    margin-bottom: 20px;
+  }
+  
+}
+
+@media (min-width: 768px) and (max-width: 1400px) {
+  .panel-main-tabs .nav-tabs .faplus {
+    float: left;
+    font-size: 36px;
+    height: 50px;
+    line-height: 50px;
+    margin-right: 15px;
+    vertical-align: middle;
+    width: 50px;
+  }
+  
+  .panel-main-tabs .nav-tabs .faplus i {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+  }
+  
+  .panel-main-tabs .header-description {
+    margin-left: 65px;
+    line-height: 12px;
+  }
+  
+  .panel-main-tabs .header-text {
+    font-size: 34px;
+    line-height: 36px;
+    margin-left: 65px;
+    font-size: 30px;
+  }
+}
+
+/**
+  Demo Importer
+  **/
+.log-panels .panel-body {
+  height: 305px;
+  overflow-y: auto;
+  margin: 15px;
+  padding: 0;
+}
+
+
+/**
+  Fixes part I
+  **/
+.vtcore-configuration-form-skins  .form-wpmedia [data-media-type="preview"] {
+  text-align: center;
+}
+.vtcore-configuration-form-skins  .logo-preview.form-wpmedia img {
+  max-width: 75px;
+  max-height: 75px;
+}
+
+.vtcore-configuration-form-skins  .retina-preview.form-wpmedia img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.vtcore-configuration-form-skins .favicon-preview.form-wpmedia img {
+  max-width: 32px;
+  max-height: 32px;
+  width: auto;
+  height: auto;
+}
+
+
+.panel .table > thead > tr > th,
+.panel .table > tbody > tr > th,
+.panel .table > tfoot > tr > th,
+.panel .table > thead > tr > td,
+.panel .table > tbody > tr > td,
+.panel .table > tfoot > tr > td {
+  padding: 8px 15px;
+}
+
+.panel-heading i {
+  margin: 0 10px;
+}

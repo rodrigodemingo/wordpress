@@ -69,6 +69,7 @@
 		
 		$output							= '';
 		$styling						= '';
+		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 	
 		// Button ID
 		if (!empty($el_id)) {
@@ -111,7 +112,9 @@
 	
 		// Custom Theme Styling
 		if ($button_theme == 'custom') {
-			$styling = '<style id="' . $button_id . '-styling" type="text/css">';
+			if ($inline == "false") {
+				$styling = '<style id="' . $button_id . '-styling" type="text/css">';
+			}
 				$styling.= $button_border == 'false' ? '#' . $button_id . '.ts-flex-button {background-color: '.$default_background.';}' : '';
 				$styling.= $button_border == 'false' ? '#' . $button_id . '.ts-flex-button:hover {background-color: '.$hover_background.';}' : '';
 				$styling.= '#' . $button_id . '.ts-flex-button .ts-flex-button-icon,';
@@ -128,7 +131,12 @@
 					$styling.= '#' . $button_id . '.ts-flex-border-button.ts-flex-button:hover .ts-flex-button-title,';
 					$styling.= '#' . $button_id . '.ts-flex-border-button.ts-flex-button:hover .ts-flex-button-icon {color: ' . $hover_text . ';}';
 				}
-			$styling.= '</style>';
+			if ($inline == "false") {
+				$styling.= '</style>';
+			}
+			if (($styling != "") && ($inline == "true")) {
+				wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styling));
+			}
 		}
 		
 		// Button Font
@@ -180,7 +188,9 @@
 		$class_final					= $scroll_class . ' ' . $class_theme . ' ' . $class_radius . ' ' . $class_size . ' ' . $class_alignment . ' ' . $class_slanted . ' ' . $class_border . ' ' . $class_icon . ' ' . $class_hover;
 		
 		// Final Output
-		$output .= TS_VCSC_MinifyCSS($styling);
+		if (($styling != "") && ($inline == "false")) {
+			$output .= TS_VCSC_MinifyCSS($styling);
+		}
 		$output .= '<a id="' . $button_id . '" class="ts-flex-button ' . $class_final . '" href="' . esc_url($a_href) . '" target="' .esc_attr($a_target) . '" ' . $a_rel . ' data-iconhover="' . $icon_hover . '" title="' . ($button_title == "true" ? esc_attr($a_title) : "") . '" ' . $scroll_data . ' style="text-align: ' . $button_align . '; width: ' . $button_width . '%;">';
 			if (($button_tooltip == "true") && (strlen($tooltip_advanced) != 0)) {
 				$output .= '<div class="ts-flex-button-tooltip ts-has-tooltipster-tooltip" ' . $Tooltip_Content . '>';

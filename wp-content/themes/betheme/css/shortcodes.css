@@ -508,6 +508,11 @@ body.table-hover:not(.woocommerce-page) table tr:hover td{-webkit-transition:all
 .content_slider .content_slider_ul{opacity:0;max-height:300px;transition:opacity 0.3s ease-in-out;}
 .content_slider .content_slider_ul.slick-slider{opacity:1;max-height:none;zoom:1;}
 
+.column_column .content_slider{padding:0 10%}
+.column_column .content_slider ul{margin-left:0}
+.column_column .content_slider a.slider_prev{left:-70px}
+.column_column .content_slider a.slider_next{right:-70px}
+
 /* Flat */
 .content_slider.flat .content_slider_ul{border-width:0}
 .content_slider.flat a.button{background:none!important;box-shadow:none;border:none}

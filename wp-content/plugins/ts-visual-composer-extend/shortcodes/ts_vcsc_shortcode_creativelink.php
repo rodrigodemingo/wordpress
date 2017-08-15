@@ -66,7 +66,7 @@
 		wp_enqueue_style('ts-extend-creativelinks');
 		//wp_enqueue_script('ts-extend-creativelinks');
 		wp_enqueue_script('ts-visual-composer-extend-front');
-
+		
 		// ID
 		if (!empty($el_id)) {
 			$button_id					= $el_id;
@@ -141,6 +141,7 @@
 		
 		$output 						= '';
 		$styles							= '';
+		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 		
 		// Scroll Navigation
 		if (($scroll_navigate == "true") && ($scroll_target != '')) {
@@ -167,7 +168,9 @@
 		$link_data						= 'data-effect="' . $link_effect . '" data-text-color="' . $link_text_color . '" data-text-hover="' . $link_text_hover . '" data-back-color="' . $link_back_color . '" data-back-hover="' . $link_back_hover . '"';
 		
 		// Create Custom CSS
-		$styles .= '<style id="' . $button_id . '-styles" type="text/css">';
+		if ($inline == "false") {
+			$styles .= '<style id="' . $button_id . '-styles" type="text/css">';
+		}
 			$styles .= '#' . $button_id . '.ts-creativelink-wrapper nav {';
 				$styles .= 'text-align: ' . $link_align . ';';
 			$styles .= '}';
@@ -352,9 +355,16 @@
 					$styles .= 'background: ' . $link_border_color . ';';
 				$styles .= '}';
 			}
-		$styles .= '</style>';
+		if ($inline == "false") {
+			$styles .= '</style>';
+		}
+		if (($styles != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+		}
 		
-		$output .= TS_VCSC_MinifyCSS($styles);
+		if ($inline == "false") {
+			$output .= TS_VCSC_MinifyCSS($styles);
+		}
 		$output .= '<div id="' . $button_id . '" class="ts-creativelink-wrapper clearFixMe ' . $el_class . ' ' . $css_class . ' ' . $Tooltip_Class . '" ' . $link_data . ' ' . $Tooltip_Content . ' style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $google_font . '">';
 			$output .= '<nav class="ts-creative-link-' . $link_effect . '" style="text-align: ' . $link_align . ';">';
 				$output .= '<a id="' . $link_id . '" class="' . $link_classes . ' ' . $scroll_class . '" href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . ' title="' . $a_title . '" ' . $link_attributes . ' ' . $scroll_data . ' data-hover="' . $link_content . '">';

@@ -2,11 +2,11 @@
     global $VISUAL_COMPOSER_EXTENSIONS;
 
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
-		"name"                          => __( "TS Video HTML5", "ts_visual_composer_extend" ),
+		"name"                          => __( "TS Projekktor Video", "ts_visual_composer_extend" ),
 		"base"                          => "TS_VCSC_HTML5_Video",
 		"icon" 	                        => "ts-composer-element-icon-html5-video",
 		"category"                      => __( "VC Extensions", "ts_visual_composer_extend" ),
-		"description"                   => __("Place a HTML5 video element", "ts_visual_composer_extend"),
+		"description"                   => __("Place a Projekktor video element", "ts_visual_composer_extend"),
 		"admin_enqueue_js"              => "",
 		"admin_enqueue_css"             => "",
 		"params"                        => array(

@@ -35,8 +35,9 @@
 				"default"			=> "ts-ecommerce-starfull1",
 				"settings" 			=> array(
 					"emptyIcon" 					=> false,
-					'emptyIconValue'				=> 'transparent',
+					"emptyIconValue"				=> 'transparent',
 					"hasSearch"						=> false,
+					"override"						=> true,
 					"type" 							=> 'rating',
 				),
 				"admin_label"       => true,

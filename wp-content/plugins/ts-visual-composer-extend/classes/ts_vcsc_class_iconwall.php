@@ -135,6 +135,7 @@
 				
 				$wall_random						= mt_rand(999999, 9999999);
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
+				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 				
 				if (!empty($el_id)) {
 					$wall_id						= $el_id;
@@ -142,7 +143,7 @@
 					$wall_id						= 'ts-icon-wall-container-' . $wall_random;
 				}
 				
-				// Extract Tab titles from $content
+				// Extract element titles from $content
 				preg_match_all('/TS_VCSC_Icon_Wall_Item([^\]]+)/i', $content, $matches, PREG_OFFSET_CAPTURE);
 				$wall_items 						= array();
 				if (isset($matches[1])) {
@@ -170,8 +171,10 @@
 					$data_tooltips					= '';
 				}
 				
-				if ($wall_frontend == "false") {					
-					$styles .= '<style id="ts-icon-wall-' . $wall_random . '-styles" type="text/css">';						
+				if ($wall_frontend == "false") {
+					if ($inline == "false") {
+						$styles .= '<style id="ts-icon-wall-' . $wall_random . '-styles" type="text/css">';
+					}
 						// Wall Styling
 						if ($style_custom == "true") {
 							$styles .= 'body #' . $wall_id . '.ts-icon-wall-container .ts-icon-wall-items-icon-single {';
@@ -259,10 +262,19 @@
 							}
 							$styles .= 'font-size: ' . $content_fontsize . 'px;';
 						$styles .= '}';
-					$styles .= '</style>';
+					if ($inline == "false") {
+						$styles .= '</style>';
+					}
+					if (($styles != "") && ($inline == "true")) {
+						wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+					}
+					
+					// Create Final Output
 					$output .= '<div id="' . $wall_id . '" class="ts-icon-wall-container ' . $css_class . ' ' . $layout_class . '" ' . $data_general . ' ' . $data_breaks . ' ' . $data_autoplay . ' ' . $data_tooltips . ' style="width: ' . $width . '%; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 						// Style Output
-						$output .= TS_VCSC_MinifyCSS($styles);
+						if ($inline == "false") {
+							$output .= TS_VCSC_MinifyCSS($styles);
+						}
 						// Icon Output
 						$output .= '<div class="ts-icon-wall-items-icons" style="">';
 							$counter				= 0;
@@ -1318,7 +1330,6 @@
 							"type"						=> "css3animations",
 							"heading"					=> __("Icon Animation", "ts_visual_composer_extend"),
 							"param_name"				=> "animation_class",
-							"standard"					=> "false",
 							"prefix"					=> "",
 							"connector"					=> "css3animations_in",
 							"noneselect"				=> "true",

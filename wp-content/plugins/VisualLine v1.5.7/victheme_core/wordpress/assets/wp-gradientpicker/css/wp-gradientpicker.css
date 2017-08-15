@@ -1,0 +1,85 @@
+td.wp-picker-stop-point {
+  max-width: 65px;
+  width: 20% !important;
+}
+
+.wp-gradient-picker .drag-element {
+	max-width: 35px;
+}
+
+.wp-gradient-picker td {
+	padding: 6px;
+	vertical-align: middle !important;
+}
+
+.wp-gradient-picker td .form-group {
+	margin: 0;
+}
+
+.wp-gradient-picker-preview {
+	height: 60px;
+	margin: 0 0 20px;
+	border: 1px solid #cbd5dd;
+	padding: 1px;
+}
+
+.wp-gradient-picker .checkbox {
+	margin-top: 28px;
+	margin-bottom: 0;
+}
+
+.wp-gradient-picker .bootstrap-switch .bootstrap-switch-handle-on, 
+.wp-gradient-picker .bootstrap-switch .bootstrap-switch-handle-off, 
+.wp-gradient-picker .bootstrap-switch .bootstrap-switch-label {
+	height: auto !important;
+}
+
+
+#customize-controls .wp-gradient-picker select {
+	height: 34px;
+}
+
+#customize-controls .wp-gradient-picker .form-group {
+	width: 100%;
+}
+#customize-controls .wp-gradient-picker .checkbox {
+	width: 100%;
+	margin-top: 10px;
+}
+
+#customize-controls .wp-gradient-picker > label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+
+#customize-controls .wp-gradient-picker .table-manager .drag-icon {
+  display: none;
+}
+
+#customize-controls .wp-gradient-picker tr > th:first-child,
+#customize-controls .wp-gradient-picker .drag-element {
+	max-width: 0px;
+	width: 0px;
+	padding: 0px;
+}
+
+#customize-controls .wp-gradient-picker .table-manager [data-tablemanager-type="removerow"] {
+  font-size: 6px;
+  height: 12px;
+  line-height: 3px;
+  margin-right: 0;
+  margin-top: 0;
+  padding: 0;
+  width: 12px;
+}
+
+#customize-controls  td.wp-picker-stop-point {
+  width: 30% !important;
+}
+
+#customize-controls  td.wp-picker-color-picker {
+  width: 65% !important;
+}

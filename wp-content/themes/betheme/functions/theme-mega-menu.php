@@ -389,14 +389,19 @@ class Walker_Nav_Menu_Mfn extends Walker_Nav_Menu {
 
 		$item_output = $li_text_block_class = $column_class = "";
 
-		if( $depth === 0 ){  
+		if( $depth === 0 ){ 
+			 
 			// 1st level --------------------------------------------
+			
 			$this->has_megamenu	= get_post_meta( $item->ID, 'menu-item-mfn-megamenu', true);
 			$this->bg_megamenu	= get_post_meta( $item->ID, 'menu-item-mfn-bg', true);
+			
 		}
            
 		if( $depth === 1 && $this->has_megamenu ){
+			
      		// 2nd level Mega Menu ----------------------------------
+     		
 			$this->columns ++;
 			$this->aRows[$this->rows] = $this->columns;
 			
@@ -406,10 +411,10 @@ class Walker_Nav_Menu_Mfn extends Walker_Nav_Menu {
 			{
 				$title = apply_filters( 'the_title', $item->title, $item->ID );
 				
-				$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-                $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-                $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-                $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';       
+				$attributes  = ! empty( $item->attr_title ) ? ' title="'. esc_attr( $item->attr_title ) .'"' : '';
+                $attributes .= ! empty( $item->target )     ? ' target="'. esc_attr( $item->target ) .'"' : '';
+                $attributes .= ! empty( $item->xfn )        ? ' rel="'. esc_attr( $item->xfn ) .'"' : '';
+                $attributes .= ! empty( $item->url )        ? ' href="'. esc_attr( $item->url ) .'"' : '';       
                 
 				$item_output .= $args->before;
 					$item_output .= '<a class="mfn-megamenu-title"'. $attributes .'>';
@@ -419,12 +424,15 @@ class Walker_Nav_Menu_Mfn extends Walker_Nav_Menu {
 			}
                 
 			$column_class = ' {tag_li_class_'.$this->rows.'}';
+			
 		} else {
+			
 			// 1-3 level, except Mega Menu 2nd level ----------------
-			$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-			$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-			$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-			$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
+			
+				$attributes  = ! empty( $item->attr_title ) ? ' title="'. esc_attr( $item->attr_title ) .'"' : '';
+                $attributes .= ! empty( $item->target )     ? ' target="'. esc_attr( $item->target ) .'"' : '';
+                $attributes .= ! empty( $item->xfn )        ? ' rel="'. esc_attr( $item->xfn ) .'"' : '';
+                $attributes .= ! empty( $item->url )        ? ' href="'. esc_attr( $item->url ) .'"' : '';   
 			
 			$item_output .= $args->before;
 				$item_output .= '<a'. $attributes .'>';
@@ -432,12 +440,48 @@ class Walker_Nav_Menu_Mfn extends Walker_Nav_Menu {
 					$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $description . $args->link_after;
 				$item_output .= '</a>';
 			$item_output .= $args->after;
+			
 		}
 		
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 		$class_names = $value = '';
 		
 		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		
+		
+		// Active | for post types parents
+
+		// Active | Blog
+		if( get_post_type( get_the_ID() ) == 'post' ){
+			if( $item->object_id == get_option('page_for_posts') ){
+				$classes[] = 'current-menu-item';
+			}
+		}
+		
+		// Active | Portfolio
+		if( get_post_type( get_the_ID() ) == 'portfolio' ){
+			if( $item->object_id == mfn_opts_get( 'portfolio-page' ) ){
+				$classes[] = 'current-menu-item';
+			}
+		}
+		
+		// Active | Shop
+		if( get_post_type( get_the_ID() ) == 'product' ){	
+			if( function_exists( 'is_woocommerce' ) && is_woocommerce() ){
+				
+				if( version_compare( WC_VERSION, '2.7', '<' ) ){
+					$shop_page_id = woocommerce_get_page_id( 'shop' );
+				} else {
+					$shop_page_id = wc_get_page_id( 'shop' );
+				}
+					
+				if( $item->object_id == $shop_page_id ){
+					$classes[] = 'current-menu-item';
+				}
+				
+			}
+		}
+
 		
 		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
 		$class_names = ' class="'. $li_text_block_class . esc_attr( $class_names ) . $column_class.'"';

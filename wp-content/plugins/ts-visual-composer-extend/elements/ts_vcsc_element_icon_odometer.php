@@ -675,7 +675,6 @@
 				"type"					=> "css3animations",
 				"heading"				=> __("Viewport Animation: Effect", "ts_visual_composer_extend"),
 				"param_name"			=> "viewport_class",
-				"standard"				=> "false",
 				"prefix"				=> "ts-viewport-css-",
 				"connector"				=> "viewport_name",
 				"noneselect"			=> "true",

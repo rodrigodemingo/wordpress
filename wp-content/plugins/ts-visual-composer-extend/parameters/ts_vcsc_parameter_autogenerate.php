@@ -12,12 +12,9 @@
 				}
             }        
             function autogenerate_setting_field($settings, $value){
-                global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     = vc_generate_dependencies_attributes($settings);
                 $param_name     = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           = isset($settings['type']) ? $settings['type'] : '';
                 $prefix         = isset($settings['prefix']) ? $settings['prefix'] : '';
-                $url            = $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 				$output 		= '';
 				$time			= time() * 1000;
 				$random 		= mt_rand (0, 1000000);				

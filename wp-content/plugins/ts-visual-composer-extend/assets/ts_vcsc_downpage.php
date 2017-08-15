@@ -20,6 +20,30 @@
 	
 	// Setting Control Elements
 	// ------------------------
+	function TS_VCSC_CodeStarButton_Settings_Field($settings, $value) {
+		$param_name     = isset($settings['param_name'])    ? $settings['param_name']   : '';
+		$type           = isset($settings['type'])          ? $settings['type']         : '';
+		$on            	= isset($settings['on'])            ? $settings['on']           : __( "Yes", "ts_visual_composer_extend" );
+		$off            = isset($settings['off'])           ? $settings['off']          : __( "No", "ts_visual_composer_extend" );
+		$label			= isset($settings['label'])			? $settings['label']		: '';
+		$order			= isset($settings['order'])			? $settings['order']		: '1';
+		// Global Settings
+		$suffix         = isset($settings['suffix'])        ? $settings['suffix']       : '';
+		$class          = isset($settings['class'])         ? $settings['class']        : '';
+		$output         = '';
+		// Final Output                
+		$output .= '<div class="ts-switch-button ts-codestar-field-switcher" data-value="' . $value . '">';
+			$output .= '<div class="ts-codestar-fieldset">';
+				$output .= '<label class="ts-codestar-label">';
+					$output .= '<input id="' . $param_name . '" data-order="' . $order . '" value="' . $value . '" class="ts-codestar-checkbox ' . $param_name . '" name="' . $param_name . '" type="checkbox" ' . ($value == 1 ? 'checked="checked"' : '') . '>';
+					$output .= '<em data-on="' . $on . '" data-off="' . $off . '"></em>';
+					$output .= '<span></span>';
+				$output .= '</label>';
+			$output .= '</div>';
+		$output .= '</div>';
+		$output .= '<label class="labelToggleBox" for="' . $param_name . '">' . $label . '</label>';
+		return $output;
+	}
 	function TS_VCSC_DateTimePicker_MinuteInterval($minute) {
 		$minutes_full		= array('0', 0, '00');
 		$minutes_half		= array('30', 30);
@@ -223,7 +247,7 @@
 			}
 			$output .= '<div id="ts-nouislider-input-slider-wrapper' . $randomizer . '" class="ts-nouislider-input-slider-wrapper clearFixMe ts-settings-parameter-gradient-grey ' . $containerclass . '" style="height: 100px;">';
 				$output .= '<div id="ts-nouislider-input-slider-' . $randomizer . '" class="ts-nouislider-input-slider">';
-					$output .= '<input style="width: 100px; float: left; margin-left: 0px; margin-right: 10px; background: #f5f5f5; color: #666666;" name="' . $param_name . '"  class="ts-nouislider-serial nouislider-input-selector nouislider-input-composer wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="text" min="' . $min . '" max="' . $max . '" step="' . $step . '" value="' . $value . '"/>';
+					$output .= '<input style="width: 100px; float: left; margin-left: 0px; margin-right: 10px; background: #f5f5f5; color: #666666;" name="' . $param_name . '"  class="ts-nouislider-serial nouislider-input-selector nouislider-input-composer ' . $param_name . ' ' . $type . '" type="text" min="' . $min . '" max="' . $max . '" step="' . $step . '" value="' . $value . '"/>';
 					$output .= '<span style="float: left; margin-right: 20px; margin-top: 10px; min-width: 10px;" class="unit">' . $unit . '</span>';
 					$output .= '<span class="ts-nouislider-input-down dashicons-arrow-left" style="position: relative; float: left; display: inline-block; font-size: 30px; top: 5px; cursor: pointer; margin: 0;"></span>';
 					$output .= '<div id="ts-nouislider-input-element-' . $randomizer . '" class="ts-nouislider-input ts-nouislider-input-element" data-pips="' . $pips . '" data-tooltip="' . $tooltip . '" data-value="' . $value . '" data-min="' . $min . '" data-max="' . $max . '" data-decimals="' . $decimals . '" data-step="' . $step . '" data-unit="' . $unit . '" style="width: 320px; float: left; margin-top: 10px;"></div>';
@@ -239,7 +263,7 @@
 						$output .= '</div>';
 					$output .= '</div>';
 					$output .= '<div id="ts-nouislider-range-controls-' . $randomizer . '" class="ts-nouislider-range-controls" data-output="ts-nouislider-range-output-' . $randomizer . '">';
-						$output .= '<input style="width: 100px; float: left; margin-left: 0px; margin-right: 10px;" name="' . $param_name . '"  class="ts-nouislider-serial nouislider-range-selector nouislider-input-composer wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '" style="display: none;"/>';
+						$output .= '<input style="width: 100px; float: left; margin-left: 0px; margin-right: 10px;" name="' . $param_name . '"  class="ts-nouislider-serial nouislider-range-selector nouislider-input-composer ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '" style="display: none;"/>';
 						$output .= '<span class="ts-nouislider-range-lower-down dashicons-arrow-left" style="position: relative; float: left; display: inline-block; font-size: 30px; top: 30px; cursor: pointer; margin: 0;"></span>';
 						$output .= '<span class="ts-nouislider-range-lower-up dashicons-arrow-right" style="position: relative; float: left; display: inline-block; font-size: 30px; top: 30px; cursor: pointer; margin: 0 20px 0 0;"></span>';						
 						$output .= '<div id="ts-nouislider-range-element-' . $randomizer . '" class="ts-nouislider-range ts-nouislider-range-element" data-value="' . $value . '" data-start="' . $start . '" data-end="' . $end . '" data-min="' . $min . '" data-max="' . $max . '" data-decimals="' . $decimals . '" data-step="' . $step . '" style="width: 400px; float: left; margin: 10px auto;"></div>';
@@ -290,6 +314,7 @@
 		$link           	= isset($settings['link']) ? $settings['link'] : 'false';
 		$order           	= isset($settings['order']) ? $settings['order'] : '0';
 		$error           	= isset($settings['error']) ? $settings['error'] : '';
+		$maintenance		= isset($settings['maintenance']) ? $settings['maintenance'] : 'false';
 		$dependency         = isset($settings['dependency']) ? $settings['dependency'] : '';
 		$url            	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPath;
 		$randomizer         = mt_rand(999999, 9999999);
@@ -357,6 +382,9 @@
 				$output .= '<select name="' . $param_name . '" id="' . $param_name . '" data-validation-engine="validate[condRequired[' . $dependency . ']]" data-order="' . $order . '" data-error="' . $error . '" class="ts-' . $postclass . '-selector ts-custompost-selector wpb-input wpb-select dropdown wpb_vc_param_value ' . $param_name . ' ' . $type . '" value=" ' . $value . '" style="width: 400px; margin: 0;">';
 					$output .= '<option id="" class="placeholder" name="" value="" data-filter="false" data-id="" data-categories="">' . __( "Select Downpage", "ts_visual_composer_extend" ) . '</option>';
 					$output .= implode( $posts_fields );
+					if ($maintenance == "true") {
+						$output .= '<option id="' . $settings['param_name'] . '-' . 'maintenance" class="' . $settings['param_name'] . '-' . 'maintenance" name="' . $settings['param_name'] . '-' . 'maintenance" value="maintenance" data-filter="false" data-id="maintenance" data-categories="maintenance" ' . selected(in_array("maintenance", $value_arr), true, false) . '>' . __( "Use Custom wp-content/maintenance.php File", "ts_visual_composer_extend" ) . '</option>';
+					}
 				$output .= '</select>';
 			$output .= '</div>';
 		 $output .= '</div>';
@@ -389,12 +417,21 @@
 		}
 		return $render;
 	}
+	// Check for Custom maintenance.php File
+	function TS_VCSC_DownTime_CheckMaintenancePHP() {
+		$maintenance_file 			= WP_CONTENT_DIR . "/maintenance.php";
+		if (file_exists($maintenance_file)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	// Save / Load Parameters
 	// ----------------------
 	if (isset($_POST['Submit'])) {		
 		echo '<div id="ts_vcsc_extend_settings_save" style="position: relative; margin: 20px auto 20px auto; width: 128px; height: 128px;">';
-			echo TS_VCSC_CreatePreloaderCSS("ts-settings-panel-loader", "", 4, "false");
+			echo TS_VCSC_CreatePreloaderCSS("ts-settings-panel-loader", "", 22, "false");
 		echo '</div>';
 		$ts_vcsc_extend_settings_downpage_custom = array(
 			'active'                        			=> intval(((isset($_POST['ts_vcsc_extend_settings_downpage_active'])) ? $_POST['ts_vcsc_extend_settings_downpage_active'] : 0)),
@@ -412,6 +449,7 @@
 			'desktop'									=> trim ($_POST['ts_vcsc_extend_settings_downpage_desktop']),
 			'tablet'									=> trim ($_POST['ts_vcsc_extend_settings_downpage_tablet']),
 			'mobile'									=> trim ($_POST['ts_vcsc_extend_settings_downpage_mobile']),
+			'downstatus'								=> trim ($_POST['ts_vcsc_extend_settings_downpage_status']),
 		);
 		update_option('ts_vcsc_extend_settings_downTimeMode', $ts_vcsc_extend_settings_downpage_custom);
 		echo '<script> window.location="' . $_SERVER['REQUEST_URI'] . '"; </script> ';
@@ -419,6 +457,7 @@
 		Exit();
 	} else {
 		// Helper Variables
+		$ts_vcsc_extend_settings_downpage_maintenance	= TS_VCSC_DownTime_CheckMaintenancePHP();
 		$ts_vcsc_extend_settings_downpage_local			= current_time('timestamp', 0);
 		$ts_vcsc_extend_settings_downpage_date			= date("m/d/Y", $ts_vcsc_extend_settings_downpage_local);
 		$ts_vcsc_extend_settings_downpage_moment		= TS_VCSC_DownTime_CreateTimeValueArray($ts_vcsc_extend_settings_downpage_local);
@@ -437,6 +476,7 @@
 		$ts_vcsc_extend_settings_downpage_override 		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['override'];		
 		$ts_vcsc_extend_settings_downpage_preview 		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['preview'];
 		$ts_vcsc_extend_settings_downpage_cookie 		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['cookie'];
+		$ts_vcsc_extend_settings_downpage_status		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['downstatus'];
 		if ($ts_vcsc_extend_settings_downpage_timezone == "") {
 			$ts_vcsc_extend_settings_downpage_timezone	= $ts_vcsc_extend_settings_downpage_offset;
 		}
@@ -451,6 +491,9 @@
 		$ts_vcsc_extend_settings_downpage_timerange		= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Downtime_Manager_Settings['timerange'];		
 		$ts_vcsc_extend_settings_downpage_pages 		= wp_count_posts('ts_downtime');
 		$ts_vcsc_extend_settings_downpage_pages 		= $ts_vcsc_extend_settings_downpage_pages->publish;
+		if (TS_VCSC_DownTime_CheckMaintenancePHP() == true) {
+			$ts_vcsc_extend_settings_downpage_pages		= $ts_vcsc_extend_settings_downpage_pages + 1;
+		}
 		if ($ts_vcsc_extend_settings_downpage_active == 1) {
 			$MenuItemDisplay							= "display: block;";
 		} else {
@@ -497,8 +540,8 @@
 					<img style="width: auto; height: 100%; margin: 0 auto;" src="<?php echo TS_VCSC_GetResourceURL('images/other/downtime_icon_01.png'); ?>">
 				</li>
 				<li id="link-ts-downtime-general" 		data-tab="ts-downtime-general" 			data-order="1"		data-name="Downtime Mode"			style="display: block;"						class="link-data current"><i class="dashicons-backup"></i>Downtime Mode<span id="errorTab1" class="errorMarker"></span></li>
-				<li id="link-ts-downtime-content" 		data-tab="ts-downtime-content"			data-order="2"		data-name="Page Selection"			style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-welcome-view-site"></i>Page Selection<span id="errorTab2" class="errorMarker"></span></li>
-				<li id="link-ts-downtime-expire" 		data-tab="ts-downtime-expire"			data-order="3"		data-name="Expiration Time"			style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-calendar-alt"></i>Expiration Time<span id="errorTab3" class="errorMarker"></span></li>
+				<li id="link-ts-downtime-content" 		data-tab="ts-downtime-content"			data-order="2"		data-name="Page Selection / Status"	style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-welcome-view-site"></i>Page Selection / Status<span id="errorTab2" class="errorMarker"></span></li>
+				<li id="link-ts-downtime-expire" 		data-tab="ts-downtime-expire"			data-order="3"		data-name="Expiration Date / Time"	style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-calendar-alt"></i>Expiration Date / Time<span id="errorTab3" class="errorMarker"></span></li>
 				<li id="link-ts-downtime-userroles"		data-tab="ts-downtime-userroles"		data-order="4"		data-name="Logged In Users"			style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-businessman"></i>Logged In Users<span id="errorTab4" class="errorMarker"></span></li>
 				<li id="link-ts-downtime-override"		data-tab="ts-downtime-override"			data-order="5"		data-name="Visitor Override"		style="<?php echo $MenuItemDisplay; ?>" 	class="link-data"><i class="dashicons-unlock"></i>Visitor Override<span id="errorTab5" class="errorMarker"></span></li>
 			</ul>
@@ -510,41 +553,43 @@
 					<div class="ts-vcsc-section-content">
 						<img style="width: 100%; max-width: 600px; height: auto; margin: 0 auto;" src="<?php echo TS_VCSC_GetResourceURL('images/other/downtime_banner_01.png'); ?>">
 						<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify; font-weight: bold;">
-							When you enable the sitewide downtime mode, your website will show a dedicated page of your design to all visitors, instead of the normal website. None of your theme features (like menu) will be
-							available during the scheduled downtime, and none of your "normal" pages or posts will be accessible, so design your dedicated downpage accordingly. The downpage will be shown until the timer you set
-							below expires or you manually disable the downtime mode.
+							When you enable the sitewide downtime mode, your website will show a dedicated page of your design to all visitors, instead of the normal website. None of your theme features (like menu) will be available during the scheduled downtime, and none of your "normal" pages or posts will be accessible, so design your dedicated downpage accordingly. The downpage will be shown until the timer you set below expires or you manually disable the downtime mode.
 						</div>
 						<div style="margin-top: 20px; margin-bottom: 10px; display: <?php echo ($ts_vcsc_extend_settings_downpage_pages > 0 ? 'block' : 'none'); ?>">
 							<h4>Place Website in Downtime Mode</h4>
-							<p style="font-size: 12px; margin: 10px auto;">Activate the downtime mode for your website:</p>					
-							<div class="ts-switch-button ts-codestar-field-switcher" data-value="<?php echo $ts_vcsc_extend_settings_downpage_active; ?>">
-								<div class="ts-codestar-fieldset">
-									<label class="ts-codestar-label">
-										<input id="ts_vcsc_extend_settings_downpage_active" data-order="2" value="<?php echo $ts_vcsc_extend_settings_downpage_active; ?>" class="ts-codestar-checkbox ts_vcsc_extend_settings_downpage_active" name="ts_vcsc_extend_settings_downpage_active" type="checkbox" <?php echo ($ts_vcsc_extend_settings_downpage_active == 1 ? 'checked="checked"' : ''); ?>> 
-										<em data-on="Yes" data-off="No"></em>
-										<span></span>
-									</label>
-								</div>
-							</div>
-							<label class="labelToggleBox" for="ts_vcsc_extend_settings_downpage_active">Activate Downtime Mode</label>
+							<p style="font-size: 12px; margin: 10px auto;">Activate the downtime mode for your website:</p>							
+							<?php
+								$settings = array(
+									"param_name"        => "ts_vcsc_extend_settings_downpage_active",
+									"label"				=> "Activate Downtime Status",
+									"value"             => $ts_vcsc_extend_settings_downpage_active,
+									"order"				=> 2,
+								);
+								echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_downpage_active);
+							?>
 						</div>
 						<div style="margin-top: 20px; margin-bottom: 10px; display: <?php echo ($ts_vcsc_extend_settings_downpage_pages == 0 ? 'block' : 'none'); ?>">
 							<div class="ts-vcsc-info-field ts-vcsc-critical" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify; font-weight: bold;">
-								Before you can place your website into downtime mode, you need to create at least one downpage that will be displayed to your viewers during the downtime. Please create one such page, using the dedicated custom
-								post type "<a href="<?php echo $DownPageAddNewUrl; ?>" target="_parent">VC Downpages</a>", which you should find in your admin menu to the right.
+								Before you can place your website into downtime mode, you need to create at least one downpage that will be displayed to your viewers during the downtime. Please create one such page, using the dedicated custom post type "<a href="<?php echo $DownPageAddNewUrl; ?>" target="_parent">VC Downpages</a>", which you should find in your admin menu to the right. Alternatively, you can also manually <a href="https://www.seedprod.com/how-to-create-custom-maintenance-mode-page-wordpress/" target="_blank">create a global maintenance.php page</a> for WordPress, which can also be used as source for any downtime page.
 							</div>
 						</div>
-					</div>		
+					</div>
 				</div>	
 			</div>
 			<div id="ts-downtime-content" class="tab-content">
 				<div id="ts-vcsc-downpage-check-pages" class="ts-vcsc-section-main ">
-					<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-admin-generic"></i>Downpage Selection</div>
+					<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-admin-generic"></i>Downpage Source Selection</div>
 					<div class="ts-vcsc-section-content">
 						<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-							By default, the page shown when in downtime mode will be the same across all device types (desktop, tablet, mobile), but you have the option to assign different pages for each type, by using the setting option
-							below and then assigning a specific page to each device type.
+							By default, the page shown when in downtime mode will be the same across all device types (desktop, tablet, mobile), but you have the option to assign different pages for each type, by using the setting option below and then assigning a specific page to each device type.
 						</div>
+						<?php
+							if ($ts_vcsc_extend_settings_downpage_maintenance == "true") {
+								echo '<div class="ts-vcsc-notice-field ts-vcsc-info" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">';
+									echo 'The plugin detected a custom drop-in "maintenance.php" file in the WordPress "wp-content" directory. You have the option to use the page style and content defined in that file as your downpage; in order to do so, simply select that file in the dropbox(es) below.';
+								echo '</div>';
+							}						
+						?>
 						<div style="margin-top: 20px; margin-bottom: 20px;">
 							<h4>Use Same Downpage for all Devices</h4>
 							<p style="font-size: 12px; margin: 10px auto;">Use the switch to either use the same downpage for all device types, or assign specific ones to each device type:</p>
@@ -578,6 +623,7 @@
 									"value"                     => $ts_vcsc_extend_settings_downpage_alldevices,
 									"order"						=> "2",
 									"error"						=> "Down Page - All Devices",
+									"maintenance"				=> ($ts_vcsc_extend_settings_downpage_maintenance == true ? "true" : "false"),
 									"dependency"				=> "ts_vcsc_extend_settings_downpage_singleyes",
 								);
 								echo TS_VCSC_CustomPost_Settings_Field($settings, $ts_vcsc_extend_settings_downpage_alldevices);
@@ -598,6 +644,7 @@
 									"value"                     => $ts_vcsc_extend_settings_downpage_desktop,
 									"order"						=> "2",
 									"error"						=> "Down Page - Desktop Devices",
+									"maintenance"				=> ($ts_vcsc_extend_settings_downpage_maintenance == true ? "true" : "false"),
 									"dependency"				=> "ts_vcsc_extend_settings_downpage_singlenoa",
 								);
 								echo TS_VCSC_CustomPost_Settings_Field($settings, $ts_vcsc_extend_settings_downpage_desktop);
@@ -618,6 +665,7 @@
 									"value"                     => $ts_vcsc_extend_settings_downpage_tablet,
 									"order"						=> "2",
 									"error"						=> "Down Page - Tablet Devices",
+									"maintenance"				=> ($ts_vcsc_extend_settings_downpage_maintenance == true ? "true" : "false"),
 									"dependency"				=> "ts_vcsc_extend_settings_downpage_singlenob",
 								);
 								echo TS_VCSC_CustomPost_Settings_Field($settings, $ts_vcsc_extend_settings_downpage_tablet);
@@ -638,10 +686,30 @@
 									"value"                     => $ts_vcsc_extend_settings_downpage_mobile,
 									"order"						=> "2",
 									"error"						=> "Down Page - Mobile Devices",
+									"maintenance"				=> ($ts_vcsc_extend_settings_downpage_maintenance == true ? "true" : "false"),
 									"dependency"				=> "ts_vcsc_extend_settings_downpage_singlenoc",
 								);
 								echo TS_VCSC_CustomPost_Settings_Field($settings, $ts_vcsc_extend_settings_downpage_mobile);
 							?>
+						</div>
+					</div>
+				</div>
+				<div id="ts-vcsc-downpage-check-status" class="ts-vcsc-section-main ">
+					<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-hammer"></i>Downpage Header Status</div>
+					<div class="ts-vcsc-section-content">
+						<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
+							When activating the downtime mode and using a custom downpage (<strong>not</strong> the maintenance.php file), you must assign a page header status based on the reason for the downtime mode. To learn more about the differences between a "Coming Soon" and "Maintenance" header status, please click <a href="https://www.seedprod.com/coming-soon-vs-maintenance-mode/" target="_blank">here</a>.
+						</div>
+						<div style="margin-top: 20px; margin-bottom: 10px; display: <?php echo ($ts_vcsc_extend_settings_downpage_pages > 0 ? 'block' : 'none'); ?>">
+							<div id="ts_vcsc_downtime_wrapper_status" class="ts_vcsc_downtime_wrapper_status ts-singleselect-holder" style="margin-top: 20px;">
+							<h4>Define the Downpage Header Status</h4>
+							<p style="font-size: 12px; margin: 10px auto;">Select the downtime header status you want to assign to the custom downpage:</p>	
+								<label class="Uniform" style="display: inline-block; margin-left: 0px; width: 250px;" for="ts_vcsc_extend_settings_downpage_status">Downtime Header Status:</label>
+								<select id="ts_vcsc_extend_settings_downpage_status" name="ts_vcsc_extend_settings_downpage_status" style="width: 400px; margin: 0;">									
+									<option value="503" <?php selected('503',	$ts_vcsc_extend_settings_downpage_status); ?>>503 - General Maintenance Status</option>
+									<option value="200" <?php selected('200', 	$ts_vcsc_extend_settings_downpage_status); ?>>200 - Coming Soon Status</option>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -659,7 +727,7 @@
 								<option value="dateonly" <?php selected('dateonly', 	$ts_vcsc_extend_settings_downpage_timer); ?>>Date Only</option>
 								<option value="datetime" <?php selected('datetime',		$ts_vcsc_extend_settings_downpage_timer); ?>>Date + Time</option>
 								<option value="timerange" <?php selected('timerange', 	$ts_vcsc_extend_settings_downpage_timer); ?>>Daily Time Range</option>
-								<option value="endless" <?php selected('endless', 	$ts_vcsc_extend_settings_downpage_timer); ?>>No Automatic Expiration</option>
+								<option value="endless" <?php selected('endless', 		$ts_vcsc_extend_settings_downpage_timer); ?>>No Automatic Expiration</option>
 							</select>
 						</div>
 						<div id="ts_vcsc_downtime_wrapper_dateonly" class="ts_vcsc_downtime_wrapper_dateonly" style="height: 225px; max-width: 600px; margin-top: 15px; display: <?php echo ($ts_vcsc_extend_settings_downpage_timer == "dateonly" ? "block" : "none"); ?>;">
@@ -749,8 +817,7 @@
 					<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-businessman"></i>Logged In Users</div>
 					<div class="ts-vcsc-section-content">
 						<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-							By default, the site will remain in downtime mode even for logged in users, with the exception of users with the "administrator" role (privileges). Use the controls below to determine which user roles will be able
-							to view the normal website, once successfully logged into the site.
+							By default, the site will remain in downtime mode even for logged in users, with the exception of users with the "administrator" role (privileges). Use the controls below to determine which user roles will be able to view the normal website, once successfully logged into the site.
 						</div>
 						<div id="ts_vcsc_downtime_wrapper_userroles" class="ts_vcsc_downtime_wrapper_userroles" style="max-width: 600px; margin-bottom: 10px;">
 							<?php
@@ -769,9 +836,7 @@
 					<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-unlock"></i>Visitor Override</div>
 					<div class="ts-vcsc-section-content">
 						<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-							If you want some visitors to be able to bypass the downpage and view the actual website, you can do so by defining a keyword/slug that the visitor can add to the page URL (preceded with a "?" character,
-							which will then in return "unlock" the normal website, even if the downtime mode is still active. The page will set a cookie in the visitors browser (valid for a time you can define below), which will
-							allow the visitor to view the website for that time period by using the keyword/slug only once, instead of having to re-enter it for each page load again.
+							If you want some visitors to be able to bypass the downpage and view the actual website, you can do so by defining a keyword/slug that the visitor can add to the page URL (preceded with a "?" character, which will then in return "unlock" the normal website, even if the downtime mode is still active. The page will set a cookie in the visitors browser (valid for a time you can define below), which will allow the visitor to view the website for that time period by using the keyword/slug only once, instead of having to re-enter it for each page load again.
 						</div>
 						<div class="ts-vcsc-info-field ts-vcsc-critical" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
 							This feature will only work if the visitor's browser accepts cookies to be set and read by this website.

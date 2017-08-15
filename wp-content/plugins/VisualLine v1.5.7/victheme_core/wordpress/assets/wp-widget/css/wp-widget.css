@@ -1,0 +1,48 @@
+/**
+  Standard table manager with 3 columns and the 2nd column is the content
+  **/
+.widgets-holder-wrap > .widgets-sortables .form-table.vtcore-widget-table td:nth-child(1),
+.widgets-holder-wrap > .widgets-sortables > div[id*="_vtcore_wordpress_widgets_"] td:nth-child(1) {
+  padding: 0;
+}
+
+.widgets-holder-wrap > .widgets-sortables .form-table.vtcore-widget-table td:nth-child(2),
+.widgets-holder-wrap > .widgets-sortables > div[id*="_vtcore_wordpress_widgets_"] td:nth-child(2) {
+  width: 90%;
+  padding: 15px 0 0;
+}
+
+.widgets-holder-wrap > .widgets-sortables .form-table.vtcore-widget-table td:nth-child(3),
+.widgets-holder-wrap > .widgets-sortables > div[id*="_vtcore_wordpress_widgets_"] td:nth-child(3) {
+  padding: 0 0 0 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/**
+  Enlarge configuration form
+  **/
+.widgets-holder-wrap > .widgets-sortables > div[id*="_widgets_teams-"] > div[style*="block"] {
+  margin-left: -500px;
+}
+
+.widgets-holder-wrap > .widgets-sortables > div[id*="_widgets_services-"] > div[style*="block"] {
+  margin-left: -200px;
+}
+
+
+/**
+  Generic styling
+  **/
+.widget-content .form-group {
+  margin-top: 15px;
+}
+
+.widget-content .page-header,
+.widget-content .row {
+  clear:both;
+}
+
+.widget-content .two-columns > *:nth-child(2n+1) {
+  clear: both;
+}

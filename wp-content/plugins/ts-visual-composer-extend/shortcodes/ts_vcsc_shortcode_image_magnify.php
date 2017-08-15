@@ -89,9 +89,10 @@
 				wp_enqueue_script('ts-extend-mousewheel');
 			}*/
 		}
-		wp_enqueue_style('ts-extend-imageeffects');
 		wp_enqueue_style('ts-visual-composer-extend-front');			
 		wp_enqueue_script('ts-visual-composer-extend-front');
+		wp_enqueue_style('ts-extend-imageeffects');
+		wp_enqueue_script('ts-extend-imageeffects');
 		
 		$output = $notice = $visible = $loupeclasses = '';
 		

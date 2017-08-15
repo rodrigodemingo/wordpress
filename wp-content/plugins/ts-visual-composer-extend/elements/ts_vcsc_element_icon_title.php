@@ -623,7 +623,6 @@
 				"type"				=> "css3animations",
 				"heading"			=> __("Icon / Image Hover Animation", "ts_visual_composer_extend"),
 				"param_name"		=> "animation_icon",
-				"standard"			=> "false",
 				"prefix"			=> "ts-hover-css-",
 				"connector"			=> "css3animations_in",
 				"noneselect"		=> "true",

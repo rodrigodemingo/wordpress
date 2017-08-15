@@ -137,10 +137,15 @@ if(!class_exists("WooComposer")){
 			$output .= '</select>';
 			$output .= '<script type="text/javascript">
 							jQuery(document).ready(function(){
-								jQuery("select#products").select2("destroy").select2({
-									placeholder: "Select a Product",
-									allowClear: true
-								});
+								if ( jQuery(".wpb_el_type_product_search #products").data("select2") ) {
+									jQuery(".wpb_el_type_product_search #products").select2("destroy");
+								}
+
+								// WooComposer is depracated.
+								// jQuery(".wpb_el_type_product_search #products").select2({
+								// 	placeholder: "Select a Product",
+								// 	allowClear: true
+								// });
 							});
 						</script>';
 			return $output;
@@ -266,7 +271,7 @@ if(!class_exists("WooComposer")){
 						}
 					}
 				}
-	
+
 			}
 		}/* end front_scripts */
 	}

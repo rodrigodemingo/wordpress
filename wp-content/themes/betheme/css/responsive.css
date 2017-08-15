@@ -420,7 +420,7 @@ html,body{overflow-x:hidden}
 	
 	.section_wrapper,
 	.container,
-	.four.columns .widget-area		{max-width:700px!important;padding:0 33px!important}
+	.four.columns .widget-area		{max-width:700px!important;padding-left:33px!important;padding-right:33px!important}
 
 	.left-sidebar .items_group,
 	.right-sidebar .items_group,

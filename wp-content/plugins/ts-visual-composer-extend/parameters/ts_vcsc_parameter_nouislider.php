@@ -12,7 +12,6 @@
 				}
             }        
             function nouislider_settings_field($settings, $value) {
-                $dependency     		= vc_generate_dependencies_attributes($settings);
                 $param_name     		= isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           		= isset($settings['type']) ? $settings['type'] : '';
                 $min            		= isset($settings['min']) ? $settings['min'] : '';
@@ -43,7 +42,7 @@
 							if ($extraction == "true") {
 								$output .= '<input id="ts-nouislider-input-serial-' . $randomizer . '" class="ts-nouislider-input-serial nouislider-input-selector nouislider-input-composer" type="text" min="' . $min . '" max="' . $max . '" step="' . $step . '" value="' . $slidervalue . '"/>';								
 							} else {
-								$output .= '<input id="ts-nouislider-input-serial-' . $randomizer . '" name="' . $param_name . '" class="ts-nouislider-input-serial nouislider-input-selector nouislider-input-composer wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . '" type="text" min="' . $min . '" max="' . $max . '" step="' . $step . '" value="' . $value . '" ' . $dependency . '/>';
+								$output .= '<input id="ts-nouislider-input-serial-' . $randomizer . '" name="' . $param_name . '" class="ts-nouislider-input-serial nouislider-input-selector nouislider-input-composer wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . '" type="text" min="' . $min . '" max="' . $max . '" step="' . $step . '" value="' . $value . '"/>';
 							}
 							$output .= '<span class="ts-nouislider-input-unit">' . $unit . '</span>';
 							$output .= '<span class="ts-nouislider-input-min">' . number_format_i18n($min, $decimals) . '</span>';
@@ -53,7 +52,7 @@
 							$output .= '<span class="ts-nouislider-input-max">' . number_format_i18n($max, $decimals) . '</span>';
 						$output .= '</div>';
 						if ($extraction == "true") {
-							$output .= '<input id=ts-nouislider-input-value-' . $randomizer . '" name="' . $param_name . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-nouislider-input-value" style="display: none;"  value="' . $value . '" ' . $dependency . '/>';
+							$output .= '<input id=ts-nouislider-input-value-' . $randomizer . '" name="' . $param_name . '" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . ' ts-nouislider-input-value" style="display: none;"  value="' . $value . '"/>';
 						}
 					$output .= '</div>';
 				} else if ($range == "true") {

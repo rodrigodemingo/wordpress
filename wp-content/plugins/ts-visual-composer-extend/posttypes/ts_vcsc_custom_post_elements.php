@@ -24,7 +24,7 @@
     // Add Content for Contextual Help Section
     function TS_VCSC_Widgets_Post_Help( $contextual_help, $screen_id, $screen ) { 
         if ( 'edit-ts_widgets' == $screen->id ) {
-            $contextual_help = '<h2>VC Widgets</h2>
+            $contextual_help = '<h2>Templates & Widgets</h2>
             <p>VC Widgets / Templates are an easy way to display any Visual Composer element in your widget sidebar and/or to create templates, allowing you to modify content in one central location and have your changes reflected
 			automatically everywhere where the template has been used..</p> 
             <p>You can view/edit the details of each widget / template by clicking on its name, or you can perform bulk actions using the dropdown menu and selecting multiple items.</p>';
@@ -68,11 +68,24 @@
 		}
 	}
 	
+	// Remove RevSlider + Essential Grid Metaboxes
+	function TS_VCSC_Widgets_RemoveExternalMetaboxes() { 
+		global $pagenow;
+		$screen = TS_VCSC_GetCurrentPostType();
+		if ($screen=='ts_widgets') {
+			if ($pagenow=='post-new.php' || $pagenow=='post.php') {
+				remove_meta_box('eg-meta-box', 'ts_widgets', 'normal'); 
+				remove_meta_box('mymetabox_revslider_0', 'ts_widgets', 'normal'); 
+			} 
+		} 
+	}
+	
 	// Load All Routines
 	if (is_admin()) {
 		add_filter('post_updated_messages', 						'TS_VCSC_Widgets_Post_Messages');
 		add_action('contextual_help', 								'TS_VCSC_Widgets_Post_Help', 				10, 3);
 		add_action('add_meta_boxes', 								'TS_VCSC_Widgets_Post_MetaBox' );
 		add_action('admin_enqueue_scripts',							'TS_VCSC_Widgets_Post_Files', 				9999999999);
+		add_action('add_meta_boxes', 								'TS_VCSC_Widgets_RemoveExternalMetaboxes', 	9999999999);
 	}
 ?>

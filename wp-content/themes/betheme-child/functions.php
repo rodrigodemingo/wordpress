@@ -47,4 +47,10 @@ function mfnch_textdomain() {
     load_child_theme_textdomain( 'mfn-opts', get_stylesheet_directory() . '/languages' );
 }
 
-?>
+
+/* ---------------------------------------------------------------------------
+ * Override theme functions
+ * 
+ * if you want to override theme functions use the example below
+ * --------------------------------------------------------------------------- */
+// require_once( get_stylesheet_directory() .'/includes/content-portfolio.php' );

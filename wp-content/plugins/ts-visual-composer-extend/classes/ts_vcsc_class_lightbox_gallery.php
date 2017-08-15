@@ -530,6 +530,10 @@
 						// WordPress Thumbnail Image
 						$content_combined[$image]['data_wordpressthumb']		= wp_get_attachment_image_src(preg_replace('/[^\d]/', '', $meta['image']), 'thumbnail');
 					}
+					// Check for Missing Images + Remove
+					if (($content_external == "false") && ((!isset($content_combined[$image]['data_preview'][0])) || (!isset($content_combined[$image]['data_lightboxfull'][0])))) {
+						unset($content_combined[$image]);
+					}
 				}				
 				
 				// Visual Composer Override
@@ -861,7 +865,7 @@
 										$modal_gallery .= '<div class="nchgrid-caption"></div>';
 										if (!empty($meta['title'])) {
 											$modal_gallery .= '<div class="nchgrid-caption-text">' . (!empty($meta['title']) ? $meta['title'] : "") . '</div>';
-										}
+										} 
 									$modal_gallery .= '</a>';
 								$modal_gallery .= '</div>';
 							} else if ($i == $nachoLength) {
@@ -1311,7 +1315,7 @@
 											if ($content_linkstyle != "none") {
 												$modal_gallery .= '<a id="' . $nacho_group . '-' . $i .'" href="' . $modal_image . '" target="_blank" data-thumbnail="' . $modal_thumb . '" data-title="' . (!empty($meta['lightbox']) ? $meta['lightbox'] : "") . '" data-thumb="' . $modal_thumb . '" class="' . $image_link_class . ' ts-pagawa-lightbox-image ' . $nacho_group . ' nofancybox" rel="' . $nacho_group . '" data-effect="' . $lightbox_effect . '" data-usecors="' . $lightbox_usecors . '" data-share="' . ($lightbox_social == "true" ? 1 : 0) . '" data-play="' . ($lightbox_autooption == "true" ? 1 : 0) . '" data-autoplay="' . ($lightbox_autoplay == "true" ? 1 : 0) . '" data-duration="' . $lightbox_speed . '" data-thumbsize="' . $thumbnail_height . '" data-thumbs="' . $thumbnail_position . '" ' . $nacho_info . ' ' . $nacho_color . '>';
 											}
-												$modal_gallery .= '<img src="' . $thumb_image . '" data-large-src="' . $slide_image . '" alt="' . (!empty($meta['alt']) ? $meta['alt'] : (!empty($meta['title']) ? $meta['title'] : "")) . '" data-description="">';
+												$modal_gallery .= '<img src="' . $thumb_image . '" data-large-src="' . $slide_image . '" data-title="' . (!empty($meta['title']) ? $meta['title'] : "") . '" alt="' . (!empty($meta['alt']) ? $meta['alt'] : "") . '" data-description="">';
 											if ($content_linkstyle != "none") {
 												$modal_gallery .= '</a>';
 											}
@@ -1321,7 +1325,7 @@
 											if ($content_linkstyle != "none") {
 												$modal_gallery .= '<a id="' . $nacho_group . '-' . $i .'" href="' . $modal_image . '" target="_blank" data-thumbnail="' . $modal_thumb . '" data-title="' . (!empty($meta['lightbox']) ? $meta['lightbox'] : "") . '" data-thumb="' . $modal_thumb . '" class="' . $image_link_class . ' ts-pagawa-lightbox-image ' . $nacho_group . ' nofancybox" rel="' . $nacho_group . '" data-effect="' . $lightbox_effect . '" ' . $nacho_color . ' data-usecors="' . $lightbox_usecors . '" data-share="' . ($lightbox_social == "true" ? 1 : 0) . '">';
 											}
-												$modal_gallery .= '<img src="' . $thumb_image . '" data-large-src="' . $slide_image . '" alt="' . (!empty($meta['alt']) ? $meta['alt'] : (!empty($meta['title']) ? $meta['title'] : "")) . '" data-description="">';
+												$modal_gallery .= '<img src="' . $thumb_image . '" data-large-src="' . $slide_image . '" data-title="' . (!empty($meta['title']) ? $meta['title'] : "") . '" alt="' . (!empty($meta['alt']) ? $meta['alt'] : "") . '" data-description="">';
 											if ($content_linkstyle != "none") {
 												$modal_gallery .= '</a>';
 											}
@@ -2633,7 +2637,6 @@
 							"type"					=> "css3animations",
 							"heading"				=> __("In-Animation Type", "ts_visual_composer_extend"),
 							"param_name"			=> "animation_in",
-							"standard"				=> "false",
 							"prefix"				=> "ts-viewport-css-",
 							"connector"				=> "css3animations_in",
 							"default"				=> "flipInX",
@@ -2656,7 +2659,6 @@
 							"type"					=> "css3animations",
 							"heading"				=> __("Out-Animation Type", "ts_visual_composer_extend"),
 							"param_name"			=> "animation_out",
-							"standard"				=> "false",
 							"prefix"				=> "ts-viewport-css-",
 							"connector"				=> "css3animations_out",
 							"default"				=> "slideOutDown",

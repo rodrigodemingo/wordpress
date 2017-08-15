@@ -58,10 +58,12 @@
 				"dependency"            => array( 'element' => "content_type", 'value' => 'searchterm' ),
 			),
 			array(
-				"type"                  => "textfield",
+				"type"                  => "tag_editor",
 				"heading"               => __( "YouTube Video ID's", "ts_visual_composer_extend" ),
 				"param_name"            => "content_combination",
 				"value"                 => "",
+				"delimiter"				=> ", ",
+				"lowercase"				=> "false",
 				"admin_label"           => true,
 				"description"           => __( "Enter the ID's of up to 20 videos, separated by comma to build a custom playlist.", "ts_visual_composer_extend" ),
 				"dependency"            => array( 'element' => "content_type", 'value' => 'combination' ),

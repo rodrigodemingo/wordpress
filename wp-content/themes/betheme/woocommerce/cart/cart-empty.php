@@ -36,7 +36,7 @@ wc_print_notices();
 	<p class="return-to-shop">
 		<a class="button button_theme button_js" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
 			<span class="button_icon"><i class="icon-basket"></i></span>
-			<span class="button_label"><?php _e( 'Return To Shop', 'woocommerce' ) ?></span>
+			<span class="button_label"><?php _e( 'Return to shop', 'woocommerce' ) ?></span>
 		</a>
 	</p>
 <?php endif; ?>

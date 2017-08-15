@@ -25,6 +25,7 @@
 	$Lightbox_ScrollBlock			= (((is_array($TS_VCSC_Lightbox_Defaults)) && (array_key_exists('scrollblock', $TS_VCSC_Lightbox_Defaults)))	? $TS_VCSC_Lightbox_Defaults['scrollblock']		: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Lightbox_Setting_Defaults['scrollblock']);
 	$Lightbox_Protection			= (((is_array($TS_VCSC_Lightbox_Defaults)) && (array_key_exists('protection', $TS_VCSC_Lightbox_Defaults)))		? $TS_VCSC_Lightbox_Defaults['protection']		: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Lightbox_Setting_Defaults['protection']);
 	$Lightbox_SpeedFX				= (((is_array($TS_VCSC_Lightbox_Defaults)) && (array_key_exists('fxspeed', $TS_VCSC_Lightbox_Defaults)))		? $TS_VCSC_Lightbox_Defaults['fxspeed']			: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Lightbox_Setting_Defaults['fxspeed']);
+	$Lightbox_HistoryClose			= (((is_array($TS_VCSC_Lightbox_Defaults)) && (array_key_exists('historyclose', $TS_VCSC_Lightbox_Defaults)))	? $TS_VCSC_Lightbox_Defaults['historyclose']	: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Lightbox_Setting_Defaults['historyclose']);
 	//var_dump($TS_VCSC_Lightbox_Defaults);
 ?>
 <div id="ts-settings-lightbox" class="tab-content">
@@ -32,30 +33,23 @@
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-images-alt2"></i>Use Built-In Lightbox</div>
 		<div class="ts-vcsc-section-content">
 			<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-				This add-on includes a built-in lightbox script, which is used for many of the elements that are part of the add-on. It is highly advised to use this built-in lightbox script as all elements are specifically designed
-				around it. But sometimes, your site might be using another lightbox script already, that for some reason is automatically applying itself to all media links, causing two lightboxes to be opened once a user clicks on any
-				of those links. In those rare cases, you can disable the built-in lightbox solution here.
+				This add-on includes a built-in lightbox script, which is used for many of the elements that are part of the add-on. It is highly advised to use this built-in lightbox script as all elements are specifically designed around it. But sometimes, your site might be using another lightbox script already, that for some reason is automatically applying itself to all media links, causing two lightboxes to be opened once a user clicks on any of those links. In those rare cases, you can disable the built-in lightbox solution here.
 			</div>
 			<div class="ts-vcsc-notice-field ts-vcsc-critical" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify; font-weight: bold;">
-				If you decide to disable the built-in lightbox solution, we can not guaranty (full) functionality of any of the elements coming from this add-on, which utilize the lightbox. Some elements use unique features of the
-				built-in lightbox solution and will therefore not work at all if the lightbox is disabled, particularly elements that utilize the so-called "Rectangle Auto Grid" layout. Disable at your own risk!
+				If you decide to disable the built-in lightbox solution, we can not guaranty (full) functionality of any of the elements coming from this add-on, which utilize the lightbox. Some elements use unique features of the built-in lightbox solution and will therefore not work at all if the lightbox is disabled, particularly elements that utilize the so-called "Rectangle Auto Grid" layout. Disable at your own risk!
 			</div>
 			<div style="margin-top: 20px; margin-bottom: 10px;">
 				<h4>Use Built-In Lightbox Solution:</h4>
 				<p style="font-size: 12px;">Allow the add-on to use its built-in and element optimized lightbox solution:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_builtinLightbox == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_builtinLightbox" class="toggle-check ts_vcsc_extend_settings_builtinLightbox" name="ts_vcsc_extend_settings_builtinLightbox" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_builtinLightbox); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_builtinLightbox == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_builtinLightbox == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_builtinLightbox">Use Built-In Lightbox Solution</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_builtinLightbox",
+						"label"				=> "Use Built-In Lightbox Solution",
+						"value"             => $ts_vcsc_extend_settings_builtinLightbox,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_builtinLightbox);
+				?>
 			</div>	
 		</div>
 	</div>
@@ -64,44 +58,35 @@
 		<div class="ts-vcsc-section-content">
 			<h2>External Hooks</h2>
 			<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-				These settings can be used to attach the lightbox to media elements that are created without any of the media elements this plugin provides for. Activating any of these settings will automatically cause the
-				lightbox files to be loaded on all pages and posts.
+				These settings can be used to attach the lightbox to media elements that are created without any of the media elements this plugin provides for. Activating any of these settings will automatically cause the lightbox files to be loaded on all pages and posts.
 			</div>
 			<div style="margin-top: 20px;">
 				<h4>Incorporate into "Add-Media" Process:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should automatically add a custom class name ("ts-lightbox-integration") and data-title attribute to image links created via the tinyMCE "Add Media" button, so
 				those image links can be opened with the lightbox as well.</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_lightboxIntegration == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_lightboxIntegration" class="toggle-check ts_vcsc_extend_settings_lightboxIntegration" name="ts_vcsc_extend_settings_lightboxIntegration" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_lightboxIntegration); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_lightboxIntegration == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_lightboxIntegration == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_lightboxIntegration">Enable "Add-Media" Integration</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_lightboxIntegration",
+						"label"				=> 'Enable "Add-Media" Integration',
+						"value"             => $ts_vcsc_extend_settings_lightboxIntegration,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_lightboxIntegration);
+				?>
 			</div>
 			<div style="margin-top: 20px;">
 				<h4>Replace Visual Composer's PrettyPhoto:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should attempt to replace the PrettyPhoto lightbox script that is used within Visual Composer itself, and instead attach this lightbox solution to Visual Composers
 				native gallery and single image elements.</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($ts_vcsc_extend_settings_lightboxPrettyPhoto == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_lightboxPrettyPhoto" class="toggle-check ts_vcsc_extend_settings_lightboxPrettyPhoto" name="ts_vcsc_extend_settings_lightboxPrettyPhoto" value="1" <?php echo checked('1', $ts_vcsc_extend_settings_lightboxPrettyPhoto); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($ts_vcsc_extend_settings_lightboxPrettyPhoto == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($ts_vcsc_extend_settings_lightboxPrettyPhoto == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_lightboxPrettyPhoto">Replace Visual Composer's PrettyPhoto</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_lightboxPrettyPhoto",
+						"label"				=> "Replace Visual Composer's PrettyPhoto",
+						"value"             => $ts_vcsc_extend_settings_lightboxPrettyPhoto,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_lightboxPrettyPhoto);
+				?>
 			</div>
 			<h2 style="margin-top: 30px;">Background Styling + Button Theme</h2>
 			<div style="margin-top: 20px;">
@@ -129,7 +114,7 @@
 				</div>
 				<div id="ts_vcsc_extend_settings_defaultLightboxImageHolder" style="display: <?php echo ($Lightbox_BackgroundImage != '' ? 'block' : 'none'); ?>;">
 					<span id="ts_vcsc_extend_settings_defaultLightboxImageRemove" title="Remove Background Image for Lightbox"><i class="dashicons dashicons-no"></i></span>
-					<img id="ts_vcsc_extend_settings_defaultLightboxImageDisplay" class="ts_vcsc_extend_settings_defaultLightboxImage" src="<?php echo $Lightbox_BackgroundImage; ?>">
+					<img id="ts_vcsc_extend_settings_defaultLightboxImageDisplay" class="ts_vcsc_extend_settings_defaultLightboxImage" src="<?php echo $Lightbox_BackgroundImage; ?>"/>
                     <label class="Uniform" style="display: inline-block; margin-left: 0px; width: 148px;" for="ts_vcsc_extend_settings_defaultLightboxRepeat">Background Repeat:</label>
                     <select id="ts_vcsc_extend_settings_defaultLightboxRepeat" name="ts_vcsc_extend_settings_defaultLightboxRepeat" style="width: 198px; margin: 0;">
                         <option value="no-repeat" <?php selected('no-repeat', 	$Lightbox_BackgroundRepeat); ?>>No Repeat</option>
@@ -169,42 +154,33 @@
 			</div>
 			<h2>Backlight (Glowlight) Settings</h2>
 			<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-				The lightbox is rendering a so-called backlight (glowlight) effect at the bottom of the screen. The color of that light effect is based on the most staturated color in the image currently shown inside the lightbox.
-				The most saturated color is not the same as the most used color in the image, as it is the color intensity (colorfulness of a color relative to its own brightness) that defines the backlight (glowlight).
+				The lightbox is rendering a so-called backlight (glowlight) effect at the bottom of the screen. The color of that light effect is based on the most staturated color in the image currently shown inside the lightbox. The most saturated color is not the same as the most used color in the image, as it is the color intensity (colorfulness of a color relative to its own brightness) that defines the backlight (glowlight).
 			</div>
 			<div style="margin-top: 20px; margin-bottom: 10px;">
 				<h4>Remove Backlight Effect:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should remove the backlight effect for all elements (will overwrite individual element settings; recommended when using external servers without full CORS support):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_RemoveLight == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxBacklight" class="toggle-check ts_vcsc_extend_settings_defaultLightboxBacklight" name="ts_vcsc_extend_settings_defaultLightboxBacklight" value="1" <?php echo checked('1', $Lightbox_RemoveLight); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_RemoveLight == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_RemoveLight == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxBacklight">Remove Backlight Effect</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxBacklight",
+						"label"				=> "Remove Backlight Effect",
+						"value"             => $Lightbox_RemoveLight,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_RemoveLight);
+				?>
 			</div>
 			<div id="ts_vcsc_extend_settings_defaultLightboxBacklight_false" style="margin-top: 10px; margin-bottom: 10px; margin-left: 25px; <?php echo ($Lightbox_RemoveLight == 1 ? 'display: none;' : 'display: block;'); ?>">
 				<h4>Use Global Backlight Color:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should use a global backlight color, overriding all individual settings:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_CustomLight == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxBackCustom" class="toggle-check ts_vcsc_extend_settings_defaultLightboxBackCustom" name="ts_vcsc_extend_settings_defaultLightboxBackCustom" value="1" <?php echo checked('1', $Lightbox_CustomLight); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_CustomLight == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_CustomLight == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxBacklight">Use Global Backlight</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxBackCustom",
+						"label"				=> "Use Global Backlight",
+						"value"             => $Lightbox_CustomLight,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_CustomLight);
+				?>
 				<div id="ts_vcsc_extend_settings_defaultLightboxBackCustom_true" style="margin-top: 20px; margin-bottom: 10px; margin-left: 25px; <?php echo ($Lightbox_CustomLight == 0 ? 'display: none;' : 'display: block;'); ?>">
 					<h4>Lightbox Backlight Color:</h4>
 					<p style="font-size: 12px;">Define a global color to be used for lightbox backlight effect:</p>
@@ -215,36 +191,28 @@
 				<div id="ts_vcsc_extend_settings_defaultLightboxBackCustom_false" style="margin-top: 20px; margin-bottom: 10px; margin-left: 0px; <?php echo ($Lightbox_CustomLight == 0 ? 'display: block;' : 'display: none;'); ?>">
 					<h4>Use URL Color Scan:</h4>
 					<p style="font-size: 12px;">Define if the lightbox should be able to scan image URL's for valid HEX color information to be used as backlight for that image instead:</p>
-					<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_URLScan == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-						<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxURLScan" class="toggle-check ts_vcsc_extend_settings_defaultLightboxURLScan" name="ts_vcsc_extend_settings_defaultLightboxURLScan" value="1" <?php echo checked('1', $Lightbox_URLScan); ?>/>
-						<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-							<div class="toggle-slide">
-								<div class="toggle-inner">
-									<div class="toggle-on <?php echo ($Lightbox_URLScan == 1 ? 'active' : ''); ?>">Yes</div>
-									<div class="toggle-blob"></div>
-									<div class="toggle-off <?php echo ($Lightbox_URLScan == 0 ? 'active' : ''); ?>">No</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxURLScan">Use URL Color Scan</label>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_defaultLightboxURLScan",
+							"label"				=> "Use URL Color Scan",
+							"value"             => $Lightbox_URLScan,
+							"order"				=> 7,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_URLScan);
+					?>
 				</div>
 				<div style="margin-top: 20px;">
 					<h4>Allow CORS Requests:</h4>
 					<p style="font-size: 12px;">Define if the lightbox should attempt to use CORS requests to analyze image data for color information; enable only if images are retrieved cross-domain from a CORS enabled server, as it will increase image loading times:</p>
-					<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowCORS == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-						<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxCors" class="toggle-check ts_vcsc_extend_settings_defaultLightboxCors" name="ts_vcsc_extend_settings_defaultLightboxCors" value="1" <?php echo checked('1', $Lightbox_AllowCORS); ?>/>
-						<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-							<div class="toggle-slide">
-								<div class="toggle-inner">
-									<div class="toggle-on <?php echo ($Lightbox_AllowCORS == 1 ? 'active' : ''); ?>">Yes</div>
-									<div class="toggle-blob"></div>
-									<div class="toggle-off <?php echo ($Lightbox_AllowCORS == 0 ? 'active' : ''); ?>">No</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxHashtag">Enable CORS Requests</label>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_defaultLightboxCors",
+							"label"				=> "Enable CORS Requests",
+							"value"             => $Lightbox_AllowCORS,
+							"order"				=> 7,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowCORS);
+					?>
 				</div>
 			</div>			
 			<h2 style="margin-top: 30px;">General Settings</h2>
@@ -286,8 +254,7 @@
                 <h4>Image Download Protection</h4>
                 <p>Please define if and how images should be protected from downloading via right mouse click or drag operation:</p>
 				<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
-					This setting will only apply on pages/posts where the lightbox script is actually loaded, meaning where elements are embedded that actually utilize the lightbox. For a sitewide protection, you should set the
-					lightbox to be loaded at all times, using the provided setting option in the tab "External Files".
+					This setting will only apply on pages/posts where the lightbox script is actually loaded, meaning where elements are embedded that actually utilize the lightbox. For a sitewide protection, you should set the lightbox to be loaded at all times, using the provided setting option in the tab "External Files".
 				</div>
 				<label for="ts_vcsc_extend_settings_defaultLightboxProtection" class="ts_vcsc_extend_settings_defaultLightbox">Image Protection:</label>
 				<select id="ts_vcsc_extend_settings_defaultLightboxProtection" name="ts_vcsc_extend_settings_defaultLightboxProtection" style="width: 250px; margin-left: 20px;">
@@ -299,173 +266,149 @@
 			<div style="margin-top: 20px;">
 				<h4>Touch & Swipe Navigation:</h4>
 				<p style="font-size: 12px;">Define if the lightbox can be navigated via touch and swipe gestures (on supported devices):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowTouchSwipe == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxNoTouch" class="toggle-check ts_vcsc_extend_settings_defaultLightboxNoTouch" name="ts_vcsc_extend_settings_defaultLightboxNoTouch" value="1" <?php echo checked('1', $Lightbox_AllowTouchSwipe); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowTouchSwipe == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowTouchSwipe == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxNoTouch">Enable Touch & Swipe Navigation</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxNoTouch",
+						"label"				=> "Enable Touch & Swipe Navigation",
+						"value"             => $Lightbox_AllowTouchSwipe,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowTouchSwipe);
+				?>
 			</div>	
 			<div style="margin-top: 20px;">
 				<h4>Keyboard Navigation:</h4>
 				<p style="font-size: 12px;">Define if the lightbox can be operated via keyboard navigation (on supported devices):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowKeyboard == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxKeyboard" class="toggle-check ts_vcsc_extend_settings_defaultLightboxKeyboard" name="ts_vcsc_extend_settings_defaultLightboxKeyboard" value="1" <?php echo checked('1', $Lightbox_AllowKeyboard); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowKeyboard == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowKeyboard == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxKeyboard">Enable Keyboard Navigation</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxKeyboard",
+						"label"				=> "Enable Keyboard Navigation",
+						"value"             => $Lightbox_AllowKeyboard,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowKeyboard);
+				?>
 			</div>			
 			<div style="margin-top: 20px;">
 				<h4>Tap-To-Next Navigation:</h4>
 				<p style="font-size: 12px;">Define if the lightbox can be operated via taps (clicks) on the image in order to navigate to the next image (on supported devices):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_TapToNext == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxTapping" class="toggle-check ts_vcsc_extend_settings_defaultLightboxTapping" name="ts_vcsc_extend_settings_defaultLightboxTapping" value="1" <?php echo checked('1', $Lightbox_TapToNext); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_TapToNext == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_TapToNext == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxTapping">Enable Tap-To-Next Navigation</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxTapping",
+						"label"				=> "Enable Tap-To-Next Navigation",
+						"value"             => $Lightbox_TapToNext,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_TapToNext);
+				?>
 			</div>			
 			<div style="margin-top: 20px;">
 				<h4>Zoom Feature:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should provide a zoom option for over-sized images:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowZoom == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxZoom" class="toggle-check ts_vcsc_extend_settings_defaultLightboxZoom" name="ts_vcsc_extend_settings_defaultLightboxZoom" value="1" <?php echo checked('1', $Lightbox_AllowZoom); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowZoom == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowZoom == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxZoom">Enable Zoom Button</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxZoom",
+						"label"				=> "Enable Zoom Button",
+						"value"             => $Lightbox_AllowZoom,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowZoom);
+				?>
 			</div>	
 			<div style="margin-top: 20px;">
 				<h4>Full Screen Feature:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should provide a full screen option:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowFullscreen == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxFullScreen" class="toggle-check ts_vcsc_extend_settings_defaultLightboxFullScreen" name="ts_vcsc_extend_settings_defaultLightboxFullScreen" value="1" <?php echo checked('1', $Lightbox_AllowFullscreen); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowFullscreen == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowFullscreen == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxFullScreen">Enable Full Screen Button</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxFullScreen",
+						"label"				=> "Enable Full Screen Button",
+						"value"             => $Lightbox_AllowFullscreen,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowFullscreen);
+				?>
 			</div>	
 			<div style="margin-top: 20px;">
 				<h4>Close Button inside Lightbox:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should provide another close button inside the Lightbox element:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_CloseButton == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxCloser" class="toggle-check ts_vcsc_extend_settings_defaultLightboxCloser" name="ts_vcsc_extend_settings_defaultLightboxCloser" value="1" <?php echo checked('1', $Lightbox_CloseButton); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_CloseButton == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_CloseButton == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxCloser">Enable 2nd Close Button inside Lightbox</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxCloser",
+						"label"				=> "Enable 2nd Close Button inside Lightbox",
+						"value"             => $Lightbox_CloseButton,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_CloseButton);
+				?>
 			</div>
 			<div style="margin-top: 20px;">
 				<h4>Background Close Feature:</h4>
 				<p style="font-size: 12px;">Define if the lightbox can be closed by clicking on the lightbox background:</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_BackgroundClose == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxBGClose" class="toggle-check ts_vcsc_extend_settings_defaultLightboxBGClose" name="ts_vcsc_extend_settings_defaultLightboxBGClose" value="1" <?php echo checked('1', $Lightbox_BackgroundClose); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_BackgroundClose == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_BackgroundClose == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxBGClose",
+						"label"				=> "Enable Background Close",
+						"value"             => $Lightbox_BackgroundClose,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_BackgroundClose);
+				?>
+			</div>			
+			<div style="margin-top: 20px;">
+				<h4>Browser Back Button Close Feature:</h4>
+				<p style="font-size: 12px;">Define if the lightbox can be closed by using the browser back button:</p>
+				<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 20px; margin-bottom: 20px; font-size: 13px; text-align: justify;">
+					This setting will override the default browser back button behavior while the lightbox is opened and will only work if the browser supports the HTML5 "window.history.pushState" routine. If enabled, using the browser back button while the lightbox is opened will only close the lightbox, instead of going back to the last visited page. <span style="font-weight: bold;">This feature will only work if the lightbox hashtag navigation feature remains deactivated!</span>
 				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxBGClose">Enable Background Close</label>
-			</div>				
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxHistoryClose",
+						"label"				=> "Enable Browser Back Button Close",
+						"value"             => $Lightbox_HistoryClose,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_HistoryClose);
+				?>
+			</div>			
 			<div style="margin-top: 20px;">
 				<h4>Remove Hashtag Navigation:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should remove hashtags from media elements (otherwise added for navigation purposes and deeplinking):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_RemoveHashtag == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxHashtag" class="toggle-check ts_vcsc_extend_settings_defaultLightboxHashtag" name="ts_vcsc_extend_settings_defaultLightboxHashtag" value="1" <?php echo checked('1', $Lightbox_RemoveHashtag); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_RemoveHashtag == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_RemoveHashtag == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxHashtag">Remove Hashtag Navigation</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxHashtag",
+						"label"				=> "Remove Hashtag Navigation",
+						"value"             => $Lightbox_RemoveHashtag,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_RemoveHashtag);
+				?>
 			</div>
 			<h2 style="margin-top: 30px;">Social Share Settings</h2>
 			<div style="margin-top: 20px;">
 				<h4>Social Share Feature:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should allow for a social share feature (<strong>can be overwritten by some elements</strong>):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowShare == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxShare" class="toggle-check ts_vcsc_extend_settings_defaultLightboxShare" name="ts_vcsc_extend_settings_defaultLightboxShare" value="1" <?php echo checked('1', $Lightbox_AllowShare); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowShare == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowShare == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxShare">Enable Global Social Share</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxShare",
+						"label"				=> "Enable Global Social Share",
+						"value"             => $Lightbox_AllowShare,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowShare);
+				?>
 			</div>			
 			<div style="margin-top: 20px; margin-left: 25px;">
 				<h4>Social Network API's:</h4>
 				<p style="font-size: 12px;">Define if the lightbox should load the respective API's for the social networks identified below (<strong>disable only if already loaded otherwise</strong>):</p>
-				<div class="ts-switch-button ts-composer-switch" data-value="<?php echo ($Lightbox_AllowLoadAPIs == 1 ? 'true' : 'false'); ?>" data-width="80" data-style="compact" data-on="Yes" data-off="No" style="float: left; margin-right: 10px;">
-					<input type="checkbox" style="display: none; " id="ts_vcsc_extend_settings_defaultLightboxLoadAPIs" class="toggle-check ts_vcsc_extend_settings_defaultLightboxLoadAPIs" name="ts_vcsc_extend_settings_defaultLightboxLoadAPIs" value="1" <?php echo checked('1', $Lightbox_AllowLoadAPIs); ?>/>
-					<div class="toggle toggle-light" style="width: 80px; height: 20px;">
-						<div class="toggle-slide">
-							<div class="toggle-inner">
-								<div class="toggle-on <?php echo ($Lightbox_AllowLoadAPIs == 1 ? 'active' : ''); ?>">Yes</div>
-								<div class="toggle-blob"></div>
-								<div class="toggle-off <?php echo ($Lightbox_AllowLoadAPIs == 0 ? 'active' : ''); ?>">No</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<label class="labelToggleBox" for="ts_vcsc_extend_settings_defaultLightboxLoadAPIs">Load Social Network API's</label>
+				<?php
+					$settings = array(
+						"param_name"        => "ts_vcsc_extend_settings_defaultLightboxLoadAPIs",
+						"label"				=> "Load Social Network API's",
+						"value"             => $Lightbox_AllowLoadAPIs,
+						"order"				=> 7,
+					);
+					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $Lightbox_AllowLoadAPIs);
+				?>
 			</div>			
 			<div style="margin-top: 20px; margin-left: 25px;">
 				<h4>Social Networks:</h4>

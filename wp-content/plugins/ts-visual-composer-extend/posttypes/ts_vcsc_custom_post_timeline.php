@@ -990,7 +990,19 @@
 				wp_enqueue_script('ts-extend-posttypes');
 			}
 		}
-	}	
+	}
+	
+	// Remove RevSlider + Essential Grid Metaboxes
+	function TS_VCSC_Timeline_RemoveExternalMetaboxes() { 
+		global $pagenow;
+		$screen = TS_VCSC_GetCurrentPostType();
+		if ($screen=='ts_timeline') {
+			if ($pagenow=='post-new.php' || $pagenow=='post.php') {
+				remove_meta_box('eg-meta-box', 'ts_timeline', 'normal'); 
+				remove_meta_box('mymetabox_revslider_0', 'ts_timeline', 'normal'); 
+			} 
+		} 
+	}
 	
 	// Call All Routines
 	if (is_admin()) {
@@ -998,5 +1010,6 @@
 		add_action('contextual_help', 								'TS_VCSC_Timeline_Post_Help', 				10, 3);
 		add_filter('cs_metabox_options', 							'TS_VCSC_Timeline_Codestar');
 		add_action('admin_enqueue_scripts', 						'TS_VCSC_Timeline_Post_Files', 				9999999999);
+		add_action('add_meta_boxes', 								'TS_VCSC_Timeline_RemoveExternalMetaboxes', 9999999999);
 	}
 ?>

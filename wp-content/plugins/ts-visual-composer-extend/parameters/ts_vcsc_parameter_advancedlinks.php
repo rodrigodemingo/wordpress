@@ -5,7 +5,6 @@
     if (!class_exists('TS_Parameter_LinkPicker')) {
         class TS_Parameter_LinkPicker {
             function __construct() {
-                global $VISUAL_COMPOSER_EXTENSIONS;
                 if (function_exists('vc_add_shortcode_param')) {
                     vc_add_shortcode_param('advancedlinks',     array(&$this, 'advancedlinks_settings_field'));
                 } else if (function_exists('add_shortcode_param')) {                    
@@ -14,7 +13,6 @@
             }        
             function advancedlinks_settings_field($settings, $value) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
-                $dependency     	    = vc_generate_dependencies_attributes($settings);
                 $param_name     	    = isset($settings['param_name']) ? $settings['param_name'] : '';
                 $type           	    = isset($settings['type']) ? $settings['type'] : '';
                 $title           	    = isset($settings['title']) ? $settings['title'] : 'true';

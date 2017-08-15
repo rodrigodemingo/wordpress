@@ -103,6 +103,7 @@
 		
 		$output 						= '';
 		$style_body						= '';
+		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
 		
 		// ID
 		if (!empty($el_id)) {
@@ -226,26 +227,33 @@
 		
 		// Custom Styling
 		if (($button_style1 == "ts-dual-buttons-color-custom-flat") || ($button_hover1 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat") || ($button_style2 == "ts-dual-buttons-color-custom-flat") || ($button_hover2 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat")) {
-			$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+			if ($inline == "false") {
+				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'stylestart', '', false, '', '', '', '');
+			}
 			// Left Button
 			if (($button_style1 == "ts-dual-buttons-color-custom-flat") || ($button_hover1 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat")) {				
 				if ($button_style1 == "ts-dual-buttons-color-custom-flat") {
-					$style_body		.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style1, 'stylecss', '.ts-dual-buttons-link-left', false, $custom1_dual_color1, $custom1_dual_shadow1, 'container', $custom1_dual_text1);
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style1, 'stylecss', '.ts-dual-buttons-link-left', false, $custom1_dual_color1, $custom1_dual_shadow1, 'container', $custom1_dual_text1);
 				}
 				if ($button_hover1 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat") {
-					$style_body		.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover1, 'stylecss', '.ts-dual-buttons-link-left', true, $custom1_dual_color2, $custom1_dual_shadow2, 'container', $custom1_dual_text2);
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover1, 'stylecss', '.ts-dual-buttons-link-left', true, $custom1_dual_color2, $custom1_dual_shadow2, 'container', $custom1_dual_text2);
 				}				
 			}
 			// Right Button
 			if (($button_style2 == "ts-dual-buttons-color-custom-flat") || ($button_hover2 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat")) {
 				if ($button_style1 == "ts-dual-buttons-color-custom-flat") {
-					$style_body		.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style2, 'stylecss', '.ts-dual-buttons-link-right', false, $custom2_dual_color1, $custom2_dual_shadow1, 'container', $custom2_dual_text1);
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_style2, 'stylecss', '.ts-dual-buttons-link-right', false, $custom2_dual_color1, $custom2_dual_shadow1, 'container', $custom2_dual_text1);
 				}
 				if ($button_hover1 == "ts-dual-buttons-preview-custom-flat ts-dual-buttons-hover-custom-flat") {
-					$style_body		.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover2, 'stylecss', '.ts-dual-buttons-link-right', true, $custom2_dual_color2, $custom2_dual_shadow2, 'container', $custom2_dual_text2);
+					$style_body			.= TS_VCSC_GetCustomFlatButtonStyle($button_id, $button_hover2, 'stylecss', '.ts-dual-buttons-link-right', true, $custom2_dual_color2, $custom2_dual_shadow2, 'container', $custom2_dual_text2);
 				}	
 			}
-			$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+			if ($inline == "false") {
+				$style_body				.= TS_VCSC_GetCustomFlatButtonStyle($button_id, '', 'styleend', '', false, '', '', '', '');
+			}
+		}
+		if (($style_body != "") && ($inline == "true")) {
+			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($style_body));
 		}
 		
 		if (function_exists('vc_shortcode_custom_css_class')) {
@@ -254,7 +262,9 @@
 			$css_class					= '';
 		}
 		
-		$output .= $style_body;
+		if (($style_body != "") && ($inline == "false")) {
+			$output .= TS_VCSC_MinifyCSS($style_body);
+		}
 		$output .= '<div id="' . $button_id . '" class="ts-dual-buttons-container clearFixMe ' . $Viewport_Class4 . '" ' . $Viewport_Data4 . ' style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 			$output .= '<div class="ts-dual-buttons-wrapper ' . $button_align . ' ' . $button_radius . '" style="width: ' . $button_width . '%;">';
 				$output .= '<a class="ts-dual-buttons-link-left ' . $scroll_class1 . ' ' . $button_style1 . ' ' . $button_hover1 . ' ' . $Tooltip_Class1 . ' ' . $Viewport_Class1 . '" ' . $scroll_data1 . ' ' . $Viewport_Data1 . ' href="' . $a1_href . '" target="' . $a1_target . '" ' . $a1_rel . ' title="' . $a1_title . '" ' . $Tooltip_Content1 . '>' . $button_text1 . '</a>';

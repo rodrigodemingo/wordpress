@@ -1,0 +1,380 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VicTheme CenterLine 1.0\n"
+"POT-Creation-Date: 2016-07-12 19:23+0800\n"
+"PO-Revision-Date: 2016-07-12 19:23+0800\n"
+"Last-Translator: \n"
+"Language-Team: VicTheme.com <support@victheme.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;_n;_x;_ex;esc_attr__;"
+"esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: filters/vc_load_default_templates.php:15
+msgid "* CenterLine Elements"
+msgstr ""
+
+#: victheme_centerline.php:28
+msgid ""
+"VicTheme Center Line depends on VicTheme Core Plugin which is not activated "
+"or missing,\n"
+"        Please enable it first before VicTheme Center Line can work properly."
+msgstr ""
+
+#: victheme_centerline.php:32
+#, php-format
+msgid ""
+"VicTheme Center Line depends on VicTheme Core Plugin API version %s to "
+"operate properly."
+msgstr ""
+
+#: victheme_centerline.php:54
+msgid ""
+"CenterLine requires Visual Composer Plugin enabled before it can function "
+"properly."
+msgstr ""
+
+#: victheme_centerline.php:69
+msgid ""
+"CenterLine requires Visual Composer Plugin version 4.7.0 and above before it "
+"can function properly.\n"
+"             For older visual composer please use CenterLine version 1.5.x."
+msgstr ""
+
+#: visualcomposer/centerline.php:106
+msgid "Advanced CenterLine"
+msgstr ""
+
+#: visualcomposer/centerline.php:107
+msgid "Element Wrapper"
+msgstr ""
+
+#: visualcomposer/centerline.php:110 visualcomposer/centerlineimage.php:50
+#: visualcomposer/centerlineinner.php:54 visualcomposer/centerlinesimple.php:70
+msgid "VisualLine"
+msgstr ""
+
+#: visualcomposer/centerline.php:121 visualcomposer/centerlineimage.php:114
+#: visualcomposer/centerlineinner.php:65 visualcomposer/centerlinesimple.php:77
+msgid "CSS ID"
+msgstr ""
+
+#: visualcomposer/centerline.php:128 visualcomposer/centerlineimage.php:121
+#: visualcomposer/centerlineinner.php:73 visualcomposer/centerlinesimple.php:84
+msgid "CSS Class"
+msgstr ""
+
+#: visualcomposer/centerline.php:135 visualcomposer/centerlineimage.php:128
+#: visualcomposer/centerlineinner.php:294
+#: visualcomposer/centerlinesimple.php:273
+msgid "Css"
+msgstr ""
+
+#: visualcomposer/centerline.php:137 visualcomposer/centerlineimage.php:130
+#: visualcomposer/centerlineinner.php:296
+#: visualcomposer/centerlinesimple.php:275
+msgid "Design options"
+msgstr ""
+
+#: visualcomposer/centerline.php:159 visualcomposer/centerlineimage.php:152
+msgid "Grids"
+msgstr ""
+
+#: visualcomposer/centerline.php:183 visualcomposer/centerlineinner.php:208
+#: visualcomposer/centerlinesimple.php:170
+msgid "Circle Start Point Radius"
+msgstr ""
+
+#: visualcomposer/centerline.php:187 visualcomposer/centerline.php:197
+#: visualcomposer/centerline.php:207 visualcomposer/centerline.php:217
+#: visualcomposer/centerline.php:227 visualcomposer/centerline.php:241
+#: visualcomposer/centerline.php:251 visualcomposer/centerline.php:261
+#: visualcomposer/centerlineinner.php:127
+#: visualcomposer/centerlineinner.php:142
+#: visualcomposer/centerlineinner.php:152
+#: visualcomposer/centerlineinner.php:162
+#: visualcomposer/centerlineinner.php:172
+#: visualcomposer/centerlineinner.php:182
+#: visualcomposer/centerlineinner.php:192
+#: visualcomposer/centerlineinner.php:202
+#: visualcomposer/centerlineinner.php:212
+#: visualcomposer/centerlineinner.php:222
+#: visualcomposer/centerlineinner.php:232
+#: visualcomposer/centerlineinner.php:242
+#: visualcomposer/centerlineinner.php:252
+#: visualcomposer/centerlineinner.php:266
+#: visualcomposer/centerlineinner.php:276
+#: visualcomposer/centerlineinner.php:286
+msgid "Points"
+msgstr ""
+
+#: visualcomposer/centerline.php:193 visualcomposer/centerlineinner.php:218
+#: visualcomposer/centerlinesimple.php:180
+msgid "Circle End Point Radius"
+msgstr ""
+
+#: visualcomposer/centerline.php:203 visualcomposer/centerlineinner.php:228
+#: visualcomposer/centerlinesimple.php:190
+msgid "Circle Start Opaque Radius"
+msgstr ""
+
+#: visualcomposer/centerline.php:213 visualcomposer/centerlineinner.php:238
+#: visualcomposer/centerlinesimple.php:200
+msgid "Circle Opaque Opacity"
+msgstr ""
+
+#: visualcomposer/centerline.php:223 visualcomposer/centerlineinner.php:248
+#: visualcomposer/centerlinesimple.php:211
+msgid "Line Width"
+msgstr ""
+
+#: visualcomposer/centerline.php:233 visualcomposer/centerlineinner.php:258
+msgid "Line Type"
+msgstr ""
+
+#: visualcomposer/centerline.php:237 visualcomposer/centerlineinner.php:262
+msgid "Round"
+msgstr ""
+
+#: visualcomposer/centerline.php:238 visualcomposer/centerlineinner.php:263
+msgid "Square"
+msgstr ""
+
+#: visualcomposer/centerline.php:239 visualcomposer/centerlineinner.php:264
+msgid "Butt"
+msgstr ""
+
+#: visualcomposer/centerline.php:247 visualcomposer/centerlineinner.php:272
+#: visualcomposer/centerlinesimple.php:232
+msgid "Line color"
+msgstr ""
+
+#: visualcomposer/centerline.php:257 visualcomposer/centerlineinner.php:282
+#: visualcomposer/centerlinesimple.php:242
+msgid "Dot color"
+msgstr ""
+
+#: visualcomposer/centerline.php:269 visualcomposer/centerlineimage.php:177
+#: visualcomposer/centerlineinner.php:301
+#: visualcomposer/centerlinesimple.php:282
+msgid "CSS Animation"
+msgstr ""
+
+#: visualcomposer/centerline.php:273 visualcomposer/centerlineimage.php:181
+#: visualcomposer/centerlineinner.php:305
+#: visualcomposer/centerlinesimple.php:286
+msgid "No"
+msgstr ""
+
+#: visualcomposer/centerline.php:274 visualcomposer/centerlineimage.php:182
+#: visualcomposer/centerlineinner.php:306
+#: visualcomposer/centerlinesimple.php:287
+msgid "Top to bottom"
+msgstr ""
+
+#: visualcomposer/centerline.php:275 visualcomposer/centerlineimage.php:183
+#: visualcomposer/centerlineinner.php:307
+#: visualcomposer/centerlinesimple.php:288
+msgid "Bottom to top"
+msgstr ""
+
+#: visualcomposer/centerline.php:276 visualcomposer/centerlineimage.php:184
+#: visualcomposer/centerlineinner.php:308
+#: visualcomposer/centerlinesimple.php:289
+msgid "Left to right"
+msgstr ""
+
+#: visualcomposer/centerline.php:277 visualcomposer/centerlineimage.php:185
+#: visualcomposer/centerlineinner.php:309
+#: visualcomposer/centerlinesimple.php:290
+msgid "Right to left"
+msgstr ""
+
+#: visualcomposer/centerline.php:278 visualcomposer/centerlineimage.php:186
+#: visualcomposer/centerlineinner.php:310
+#: visualcomposer/centerlinesimple.php:291
+msgid "Appear from center"
+msgstr ""
+
+#: visualcomposer/centerline.php:280 visualcomposer/centerlineimage.php:188
+#: visualcomposer/centerlineinner.php:312
+#: visualcomposer/centerlinesimple.php:293
+msgid ""
+"Select type of animation if you want this element to be animated when it "
+"enters into the browsers viewport. Note: Works only in modern browsers."
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:46
+msgid "CenterLine Image"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:47
+msgid "Pointer source image"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:61 visualcomposer/centerlinesimple.php:92
+#: visualcomposer/centerlinesimple.php:96
+#: visualcomposer/centerlinesimple.php:108
+#: visualcomposer/centerlinesimple.php:117
+#: visualcomposer/centerlinesimple.php:127
+msgid "Image"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:64 visualcomposer/centerlinesimple.php:95
+msgid "Select image from media library."
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:70
+#: visualcomposer/centerlinesimple.php:102
+msgid "Image size"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:72
+#: visualcomposer/centerlinesimple.php:104
+msgid ""
+"Enter image size. Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
+"other sizes defined by current theme.\n"
+"                          Alternatively enter image size in pixels: 200x100 "
+"(Width x Height).\n"
+"                          Leave empty to use \"thumbnail\" size."
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:82
+msgid "Image alignment"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:86
+msgid "-- Select --"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:87 visualcomposer/centerlineinner.php:122
+#: visualcomposer/centerlineinner.php:138
+#: visualcomposer/centerlinesimple.php:133
+msgid "Left"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:88 visualcomposer/centerlineinner.php:123
+#: visualcomposer/centerlineinner.php:139
+#: visualcomposer/centerlinesimple.php:135
+msgid "Right"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:89 visualcomposer/centerlineinner.php:121
+#: visualcomposer/centerlinesimple.php:134
+msgid "Center"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:96
+#: visualcomposer/centerlinesimple.php:115
+msgid "Image style"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:103
+#: visualcomposer/centerlinesimple.php:123
+msgid "Border color"
+msgstr ""
+
+#: visualcomposer/centerlineimage.php:107
+#: visualcomposer/centerlinesimple.php:128
+msgid "Border color."
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:50
+msgid "CenterLine Content"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:51
+msgid "The content element for centerline"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:99
+msgid "Grid options"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:117
+msgid "Position Start"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:124
+#: visualcomposer/centerlineinner.php:137
+msgid "Top"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:125
+#: visualcomposer/centerlineinner.php:140
+msgid "Bottom"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:133
+msgid "Position End"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:148
+msgid "Offset Start X"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:158
+msgid "Offset Start Y"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:168
+msgid "Offset End X"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:178
+msgid "Offset End Y"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:188
+msgid "Offset Control X"
+msgstr ""
+
+#: visualcomposer/centerlineinner.php:198
+msgid "Offset Control Y"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:66
+msgid "Simple CenterLine"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:67
+msgid "Simple centerline element"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:141
+#: visualcomposer/centerlinesimple.php:146
+msgid "Enabled"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:145
+msgid "Disabled"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:154
+msgid "Text"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:162
+msgid "Content"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:221
+msgid "Margin"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:252
+msgid "Text color"
+msgstr ""
+
+#: visualcomposer/centerlinesimple.php:262
+msgid "Content text color"
+msgstr ""
+
+#~ msgid "Set the default map longitude coordinate."
+#~ msgstr "Set the default map longitude coordinate."

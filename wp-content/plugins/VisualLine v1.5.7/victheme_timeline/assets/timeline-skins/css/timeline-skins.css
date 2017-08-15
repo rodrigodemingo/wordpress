@@ -1,0 +1,214 @@
+/**
+  Default skins for timeline elements
+  **/
+
+/**
+  Horizontal Mode
+  **/
+
+/** Item positioning and sizing **/
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-items {
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 180px;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline > .timeline-items:last-child {
+  padding-left: 54px;
+  padding-right: 6px;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline > .timeline-items:first-child {
+  padding-left: 6px;
+  padding-right: 54px;
+}
+
+
+/** End and major styling **/
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-start,
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-end,
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-major {
+  background-color: #c9c9c9;
+  border-radius: 120px;
+  box-shadow: 0 0 1px 6px #f8f8f8;
+  color: #fff;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-start > .timeline-start-wrapper,
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-end > .timeline-end-wrapper,
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-major > .timeline-major-wrapper {
+  display: table-cell;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+/** Event adjustment **/
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-items[data-type="event"] {
+  width: 200px;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-events {
+  padding: 30px 0;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-events > * {
+  padding: 10px 0;
+}
+
+/** Icon styling and positioning **/
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-icon > .fa {
+  background-color: #a9a9a9;
+  color: #fff;
+  border-color: #f8f8f8;
+  font-size: 18px;
+  border-width: 6px;
+  border-style: solid;
+  width: 42px;
+  height: 42px;
+  line-height: 30px;
+  vertical-align: middle;
+  padding: 0;
+  margin-top: -32px !important;
+}
+
+/** date styling **/
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-time {
+  display: block;
+  line-height: 140%;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-date {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 32px;
+}
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-day {
+  color: #606060;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-year,
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-month {
+  color: #a9a9a9;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.timeline-main-wrapper[data-layout="horizontal"] .timeline-month {
+  margin-right: 10px;
+}
+
+
+/** Custom scrollbar **/
+.timeline-main-wrapper.scrollable.timeline-skin[data-layout="horizontal"] .scroll-bar.horizontal {
+  height: 10px !important;
+  background-color: #a9a9a9;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.timeline-main-wrapper.scrollable.timeline-skin[data-layout="horizontal"] .thumb {
+  width: 48px !important;
+  height: 24px !important;
+  margin-top: -7px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #f7504c;
+  border-radius: 12px;
+}
+
+
+/**
+  Vertical Styling
+  **/
+.timeline-main-wrapper[data-layout="vertical"]  .timeline-major {
+  background-color: #0C88FC;
+  color: #fff;
+  box-shadow: 0 0 1px 6px #f8f8f8;
+  border-radius: 4px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-icon.faplus > .fa {
+  background-color: #a9a9a9;
+  color: #fff;
+  border-color: #f8f8f8;
+  font-size: 18px;
+  border-width: 6px;
+  border-style: solid;
+  width: 36px;
+  height: 36px;
+  line-height: 22px;
+  vertical-align: middle;
+  padding: 0;
+}
+
+/**
+  Timeline dates
+  **/
+.timeline-main-wrapper[data-layout="vertical"] .timeline-time {
+  margin-bottom: 30px;
+  display: block;
+  line-height: 140%;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-date {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 48px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] [data-direction="left"] .timeline-date {
+  float: right;
+  margin-left: 10px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] [data-direction="right"] .timeline-date {
+  float: left;
+  margin-right: 10px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-day {
+  color: #606060;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-year,
+.timeline-main-wrapper[data-layout="vertical"] .timeline-month {
+  color: #a9a9a9;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-month {
+  margin-right: 10px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"] .timeline-start,
+.timeline-main-wrapper[data-layout="vertical"] .timeline-end {
+  background-color: #c9c9c9;
+  color: #fff;
+  box-shadow: 0 0 1px 6px #f8f8f8;
+  border-radius: 4px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"][data-align="right"] .timeline-events .timeline-date {
+  float: right;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.timeline-main-wrapper[data-layout="vertical"][data-align="left"] .timeline-events .timeline-date {
+  float: left;
+  margin-left: 0;
+  margin-right: 10px;
+}
