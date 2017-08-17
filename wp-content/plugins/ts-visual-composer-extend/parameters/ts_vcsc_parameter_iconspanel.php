@@ -20,14 +20,15 @@
 				$parameters			= isset($settings['settings']) ? $settings['settings'] : array();
 				// Extract Custom Icon Picker Settings
 				$icons_type			= isset($parameters['type']) ? $parameters['type'] : "extensions";
+				$icons_source		= array();
 				if ($icons_type == "extensions") {
 					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_List_Icons_Compliant;
 				} else if ($icons_type == "rating") {
 					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_RatingScaleIconsCompliant;
 				} else if ($icons_type == "hovereffect") {
-					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_HoverEffectsIconsSelectionCompliant;
+					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_HoverEffectsIconsSelectionCompliant + $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Compliant_Custom ;
 				} else if ($icons_type == "navigator") {
-					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_NavigatorIconsCompliant;
+					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_NavigatorIconsCompliant + $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Compliant_Custom;
 				} else if ($icons_type == "timeline") {
 					$icons_source	= $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_TimelineDateTimeCompliant;
 				} else if ($icons_type == "mapmarkers") {					
@@ -82,7 +83,7 @@
 										$output .= '<option value=""></option>';
 									}
 								}
-								// Add Built-In Fonts (based on provided Source)              
+								// Add Font Icons (based on provided Source)              
 								foreach ($icons_source as $group => $icons) {									
 									if (!is_array($icons) || !is_array(current($icons))) {
 										$font		= "";
@@ -136,34 +137,6 @@
 										$output .= '</optgroup>';
 										array_push($iconGroups, $font);
 									}
-								}
-								// Add Custom Upload Font
-								if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseCustomIconFontUpload == "true") && ($icons_type == "extensions")) {                       
-									foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Icons_Compliant_Custom as $group => $icons) {
-										if (!is_array($icons) || !is_array(current($icons))) {
-											$class_key      = key($icons);
-											$class_label	= (isset($icons[$class_key]) ? $icons[$class_key] : $class_key);
-											$class_group    = explode('-', esc_attr($class_key));
-											if ($value == esc_attr($class_key)) {
-												$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
-											} else {
-												$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
-											}
-										} else {
-											foreach ($icons as $key => $label) {
-												$class_key      = key($label);
-												$class_label	= (isset($label[$class_key]) ? $label[$class_key] : $class_key);
-												$class_group    = explode('-', esc_attr($class_key));
-												$font           = str_replace("(", "", strtolower(strtolower(esc_attr($group))));
-												$font           = str_replace(")", "", strtolower($font));
-												if ($value == esc_attr($class_key)) {
-													$output .= '<option value="' . esc_attr($class_key) . '" selected="selected">' . esc_attr($class_label) . '</option>';
-												} else {
-													$output .= '<option value="' . esc_attr($class_key) . '">' . esc_attr($class_label) . '</option>';
-												}
-											}
-										}
-									}                            
 								}
 							$output .= '</select>';
                         $output .= '</div>';

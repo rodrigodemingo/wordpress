@@ -60,7 +60,7 @@ if(!function_exists('ult_info_table_generate_design01')) {
 
 		$output = $link = $target = $featured = $featured_style = $normal_style = $dynamic_style = $box_icon = '';
 		if($icon_type !== "none"){
-			$box_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'"]');
+			$box_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'"]');
 		}
 		if($color_scheme == "custom"){
 			if($color_bg_main !== ""){
@@ -79,9 +79,9 @@ if(!function_exists('ult_info_table_generate_design01')) {
 		if($package_link !== ""){
 			$href 			= vc_build_link($package_link);
 			$link 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 		} else {
 			$link = "#";
 		}
@@ -92,7 +92,7 @@ if(!function_exists('ult_info_table_generate_design01')) {
 			$dynamic_style = $normal_style;
 		}
 		if($use_cta_btn == "box"){
-			$output .= '<a href="'.$link.'" '.$target.' '. $link_title .' '. $rel .' class="ult_price_action_button">'.$package_btn_text;
+			$output .= '<a href="'.esc_url($link).'" '.$target.' '. $link_title .' '. $rel .' class="ult_price_action_button">'.$package_btn_text;
 		}
 
 		/*---min ht style---*/
@@ -232,12 +232,12 @@ if(!function_exists('ult_info_table_generate_design01')) {
             $info_table_btn_data_list = get_ultimate_vc_responsive_media_css($info_table_btn_args);
 
 
-		$output .= '<div class="ult_pricing_table_wrap ult_info_table ult_design_1 '.$featured.' ult-cs-'.$color_scheme.' '.$el_class.''.$css_info_tables.'">
-					<div class="ult_pricing_table '.$info_tab_ht.'" style="'.$featured_style.' '.$info_tab_ht_style.'">';
-			$output .= '<div class="ult_pricing_heading" id="'.$info_table_id.'">
-							<h3 class="ult-responsive" '.$info_table_data_list.' style="'.$heading_style_inline.'">'.$package_heading.'</h3>';
+		$output .= '<div class="ult_pricing_table_wrap ult_info_table ult_design_1 '.esc_attr($featured).' ult-cs-'.esc_attr($color_scheme).' '.esc_attr($el_class).''.esc_attr($css_info_tables).'">
+					<div class="ult_pricing_table '.esc_attr($info_tab_ht).'" style="'.esc_attr($featured_style).' '.esc_attr($info_tab_ht_style).'">';
+			$output .= '<div class="ult_pricing_heading" id="'.esc_attr($info_table_id).'">
+							<h3 class="ult-responsive" '.$info_table_data_list.' style="'.esc_attr($heading_style_inline).'">'.$package_heading.'</h3>';
 						if($package_sub_heading !== ''){
-							$output .= '<h5 class="ult-responsive" '.$info_table_sub_head_data_list.'style="'.$sub_heading_inline.'">'.$package_sub_heading.'</h5>';
+							$output .= '<h5 class="ult-responsive" '.$info_table_sub_head_data_list.'style="'.esc_attr($sub_heading_inline).'">'.$package_sub_heading.'</h5>';
 						}
 			$output .= '</div><!--ult_pricing_heading-->';
 			$output .= '<div class="ult_price_body_block">
@@ -247,12 +247,12 @@ if(!function_exists('ult_info_table_generate_design01')) {
 								</div>
 							</div>
 						</div><!--ult_price_body_block-->';
-			$output .= '<div id="'.$info_table_features_id.'" '.$info_table_features_data_list.' class="ult-responsive ult_price_features" style="'.$features_inline.'">
+			$output .= '<div id="'.esc_attr($info_table_features_id).'" '.$info_table_features_data_list.' class="ult-responsive ult_price_features" style="'.esc_attr($features_inline).'">
 							'.wpb_js_remove_wpautop(do_shortcode($content), true).'
 						</div><!--ult_price_features-->';
 			if($use_cta_btn == "true"){
-				$output .= '<div id="'.$info_table_btn_id.'" class="ult_price_link" style="'.$normal_style.'">
-							<a href="'.$link.'" '.$target.' '. $rel .' '. $link_title .' '.$info_table_btn_data_list.' class="ult-responsive ult_price_action_button" style="'.$featured_style.' '.$button_inline.'">'.$package_btn_text.'</a>
+				$output .= '<div id="'.esc_attr($info_table_btn_id).'" class="ult_price_link" style="'.esc_attr($normal_style).'">
+							<a href="'.esc_url($link).'" '.$target.' '. $rel .' '. $link_title .' '.$info_table_btn_data_list.' class="ult-responsive ult_price_action_button" style="'.esc_attr($featured_style).' '.esc_attr($button_inline).'">'.$package_btn_text.'</a>
 						</div><!--ult_price_link-->';
 			}
 			$output .= '<div class="ult_clr"></div>

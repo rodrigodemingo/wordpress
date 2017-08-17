@@ -3,7 +3,7 @@
 Plugin Name: Visual Composer Extensions All In One
 Description: Add 40+ new elements to Visual Composer, includes: Draggable Timeline, Metro Carousel and Tile, Zooma or Magnify, Carousel & Gallery, Tabs, Accordion, Image Hotspot with Tooltip, Parallax, Medium Gallery, Stack Gallery, Testimonial Carousel, iHover, Scrolling Notification and Masonry Gallery etc.
 Author: Sike
-Version: 3.4.9.1
+Version: 3.4.9.3
 Author URI: http://codecanyon.net/user/sike?ref=sike
 */
 
@@ -68,6 +68,8 @@ require_once( 'shadowcard/vc-extensions-shadowcard.php' );
 require_once( 'materialslider/vc-extensions-materialslider.php' );
 require_once( 'borderhover/vc-extensions-borderhover.php' );
 require_once( 'videocard/vc-extensions-videocard.php' );
+require_once( 'stepcard/vc-extensions-stepcard.php' );
+require_once( 'timelinecard/vc-extensions-timelinecard.php' );
 
 if (!class_exists('VC_Extensions_CQBundle')) {
     class VC_Extensions_CQBundle {
@@ -135,6 +137,8 @@ if (!class_exists('VC_Extensions_CQBundle')) {
               if(class_exists('VC_Extensions_MaterialSlider')) $vc_extensions_materialslider = new VC_Extensions_MaterialSlider();
               if(class_exists('VC_Extensions_BorderHover')) $vc_extensions_borderhover = new VC_Extensions_BorderHover();
               if(class_exists('VC_Extensions_VideoCard')) $vc_extensions_videocard = new VC_Extensions_VideoCard();
+              if(class_exists('VC_Extensions_StepCard')) $vc_extensions_stepcard = new VC_Extensions_StepCard();
+              if(class_exists('VC_Extensions_TimelineCard')) $vc_extensions_timelinecard = new VC_Extensions_TimelineCard();
         }
 }
 

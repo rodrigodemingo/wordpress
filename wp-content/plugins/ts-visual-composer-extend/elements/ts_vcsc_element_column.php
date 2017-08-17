@@ -60,5 +60,5 @@
 			"dependency" 				=> array("element" => "animation_view", "not_empty" => true),
 			"group" 					=> __( "VC Extensions", "ts_visual_composer_extend"),
 		));
-	}
+	};
 ?>

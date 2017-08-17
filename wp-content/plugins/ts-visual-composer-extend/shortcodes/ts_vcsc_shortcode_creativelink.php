@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS_VCSC_Creative_Link', 'TS_VCSC_Creative_Link_Function');
-
 	function TS_VCSC_Creative_Link_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -44,7 +43,7 @@
 			// Link Tooltip
 			'tooltip_content_html'		=> '',
 			'tooltip_position'			=> 'ts-simptip-position-top',
-			'tooltip_style'				=> 'ts-simptip-position-black',
+			'tooltip_style'				=> 'ts-simptip-style-black',
 			'tooltip_animation'			=> 'swing',
 			'tooltipster_offsetx'		=> 0,
 			'tooltipster_offsety'		=> 0,
@@ -65,6 +64,7 @@
 		}
 		wp_enqueue_style('ts-extend-creativelinks');
 		//wp_enqueue_script('ts-extend-creativelinks');
+		//wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
 		
 		// ID
@@ -141,7 +141,7 @@
 		
 		$output 						= '';
 		$styles							= '';
-		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline							= TS_VCSC_FrontendAppendCustomRules('style');
 		
 		// Scroll Navigation
 		if (($scroll_navigate == "true") && ($scroll_target != '')) {
@@ -359,7 +359,7 @@
 			$styles .= '</style>';
 		}
 		if (($styles != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 		}
 		
 		if ($inline == "false") {

@@ -41,6 +41,8 @@
 				$text_start			= isset($settings['text_start']) ? $settings['text_start'] : __('Start:', 'ts_visual_composer_extend');
 				$text_end			= isset($settings['text_end']) ? $settings['text_end'] : __('End:', 'ts_visual_composer_extend');
 				$spacing			= isset($settings['spacing']) ? $settings['spacing'] : 0;
+				$year_start			= isset($settings['year_start']) ? $settings['year_start'] : "1950";
+				$year_end			= isset($settings['year_end']) ? $settings['year_end'] : "2050";
 				$randomizer			= rand(100000, 999999);
 				// Other Variables
 				$minutes_full		= array('0', 0, '00');
@@ -63,7 +65,7 @@
 								$minutes_start	= $this->datetimepicker_minuteinterval($time_start);
 							}
 							$minutes_interval	= $minutes_start;
-							$output .= '<div id="ts-datetime-picker-element-' . $randomizer . '" class="ts-datetime-picker-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey">';
+							$output .= '<div id="ts-datetime-picker-element-' . $randomizer . '" class="ts-datetime-picker-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey" data-year-start="' . $year_start . '" data-year-end="' . $year_end . '">';
 								$output .= '<input name="' . $param_name . '" id="' . $param_name . '" class="ts-datetimepicker-value wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '"/>';
 								$output .= '<label class="ts-datetimepicker-label" for="ts-datetimepicker-minutes-' . $randomizer . '">' . __( "Select the interval for the time selector:", "ts_visual_composer_extend" ) . '</label>';
 								$output .= '<select id="ts-datetimepicker-minutes-' . $randomizer . '" class="ts-datetimepicker-minutes" data-identifier="' . $randomizer . '">';
@@ -77,7 +79,7 @@
 								$output .= '<input class="ts-datetimepicker ts-datetimepicker-single" type="text" placeholder="" value="' . $value . '"/>';
 							$output .= '</div>';
 						} else if ($period == "date") {
-							$output .= '<div id="ts-dateonly-picker-element-' . $randomizer . '" class="ts-dateonly-picker-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey">';
+							$output .= '<div id="ts-dateonly-picker-element-' . $randomizer . '" class="ts-dateonly-picker-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey" data-year-start="' . $year_start . '" data-year-end="' . $year_end . '">';
 								$output .= '<input name="' . $param_name . '" id="' . $param_name . '" class="ts-datepicker-value wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '"/>';
 								$output .= '<input class="ts-datepicker ts-datepicker-single" type="text" placeholder="" value="' . $value . '"/>';
 							$output .= '</div>';
@@ -89,7 +91,7 @@
 							} else {
 								$minutes		= 1;
 							}
-							$output .= '<div id="ts-nouislider-time-slider-' . $randomizer . '" class="ts-nouislider-time-slider clearFixMe ts-settings-parameter-gradient-grey">';
+							$output .= '<div id="ts-nouislider-time-slider-' . $randomizer . '" class="ts-nouislider-time-slider clearFixMe ts-settings-parameter-gradient-grey" >';
 								$output .= '<div id="ts-nouislider-time-output-' . $randomizer . '" class="ts-nouislider-time-output" data-controls="ts-nouislider-time-controls-' . $randomizer . '">';
 									$output .= '<div id="ts-nouislider-time-human-' . $randomizer . '" class="ts-nouislider-time-human">';	
 										$output .= '<span class="ts-nouislider-time-final">' . $value . '</span>';							
@@ -133,7 +135,7 @@
 								$minutes_interval	= $minutes_start;
 							}
 							// Create Output
-							$output .= '<div id="ts-datetime-range-element-' . $randomizer . '" class="ts-datetime-range-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey" data-step="' . $minutes_interval . '">';
+							$output .= '<div id="ts-datetime-range-element-' . $randomizer . '" class="ts-datetime-range-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey" data-step="' . $minutes_interval . '" data-year-start="' . $year_start . '" data-year-end="' . $year_end . '">';
 								$output .= '<input name="' . $param_name . '" id="' . $param_name . '" class="ts-datetimerange-value wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '"/>';
 								$output .= '<div id="ts-datetime-range-human-' . $randomizer . '" class="ts-datetime-range-human">';
 									$output .= '<div class="ts-datetimerange-output">';
@@ -159,7 +161,7 @@
 								$output .= '</div>';
 							$output .= '</div>';
 						} else if ($period == "date") {
-							$output .= '<div id="ts-dateonly-range-element-' . $randomizer . '" class="ts-dateonly-range-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey">';
+							$output .= '<div id="ts-dateonly-range-element-' . $randomizer . '" class="ts-dateonly-range-element clearFixMe ts-xdsoft-datetimepicker-wrapper ts-settings-parameter-gradient-grey" data-year-start="' . $year_start . '" data-year-end="' . $year_end . '">';
 								$output .= '<input name="' . $param_name . '" id="' . $param_name . '" class="ts-dateonlyrange-value wpb_vc_param_value ' . $param_name . ' ' . $type . '" type="hidden" value="' . $value . '"/>';
 								$output .= '<div id="ts-dateonly-range-human-' . $randomizer . '" class="ts-dateonly-range-human">';
 									$output .= '<div class="ts-dateonlyrange-output"><span class="ts-dateonlyrange-output-start">' . ($value_start != "" ? $value_start : "...") . '</span> - <span class="ts-dateonlyrange-output-end">' . ($value_end != "" ? $value_end : "...") . '</span></div>';

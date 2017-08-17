@@ -128,7 +128,7 @@ if(!class_exists('Ultimate_Responsive'))
 				}
 			$html .= '  </div>';
 			$html .= $this->get_units($unit);
-			$html .= '  <input type="hidden" data-unit="'.$unit.'"  name="'.$settings['param_name'].'" class="wpb_vc_param_value ultimate-responsive-value '.$settings['param_name'].' '.$settings['type'].'_field" value="'.$value.'" '.$dependency.' />';
+			$html .= '  <input type="hidden" data-unit="'.esc_attr( $unit ).'"  name="'.esc_attr( $settings['param_name'] ).'" class="wpb_vc_param_value ultimate-responsive-value '. esc_attr( $settings['param_name'] ).' '.esc_attr( $settings['type'] ).'_field" value="'.esc_attr( $value ).'" '.$dependency.' />';
 
 			$html .= '</div>';
 
@@ -136,19 +136,19 @@ if(!class_exists('Ultimate_Responsive'))
 		}
 		function ultimate_responsive_param_media($class, $dashicon, $key, $default_value, $unit, $data_id) {
 			$tooltipVal  = str_replace('_', ' ', $data_id);
-			$html  = '  <div class="ult-responsive-item '.$class.' '.$data_id.' ">';
+			$html  = '  <div class="ult-responsive-item '.esc_attr( $class ).' '.esc_attr( $data_id ).' ">';
 			$html .= '    <span class="ult-icon">';
-        	$html .= '    	<div class="ult-tooltip '.$class.' '.$data_id.'">'.ucwords($tooltipVal).'</div>';
+        	$html .= '    	<div class="ult-tooltip '.esc_attr( $class ).' '.esc_attr( $data_id ).'">'.ucwords($tooltipVal).'</div>';
 			$html .=          $dashicon;
 			$html .= '     </span>';
-			$html .= '    <input type="text" class="ult-responsive-input" data-default="'.$default_value.'" data-unit="'.$unit.'" data-id="'.$data_id.'" />';
+			$html .= '    <input type="text" class="ult-responsive-input" data-default="'.esc_attr( $default_value ) .'" data-unit="'.esc_attr( $unit ).'" data-id="'.esc_attr( $data_id ).'" />';
 			$html .= '  </div>';
 			return $html;
 		}
 		function get_units($unit) {
 			//  set units - px, em, %
 			$html  = '<div class="ultimate-unit-section">';
-			$html .= '  <label>'.$unit.'</label>';
+			$html .= '  <label>'.esc_html( $unit ).'</label>';
 			$html .= '</div>';
 			return $html;
 		}
@@ -175,25 +175,4 @@ if(!class_exists('Ultimate_Responsive'))
 if(class_exists('Ultimate_Responsive'))
 {
 	$Ultimate_Responsive = new Ultimate_Responsive();
-}
-
-// return responsive data
-function get_ultimate_vc_responsive_media_css($args) {
-	$content = '';
-	if(isset($args) && is_array($args)) {
-		//  get targeted css class/id from array
-		if (array_key_exists('target',$args)) {
-			if(!empty($args['target'])) {
-				$content .=  " data-ultimate-target='".$args['target']."' ";
-			}
-		}
-
-		//  get media sizes
-		if (array_key_exists('media_sizes',$args)) {
-			if(!empty($args['media_sizes'])) {
-				$content .=  " data-responsive-json-new='".json_encode($args['media_sizes'])."' ";
-			}
-		}
-	}
-	return $content;
 }

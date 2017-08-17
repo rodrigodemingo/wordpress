@@ -54,7 +54,7 @@
 		
 		var doMenu = function(){
 
-			if( ( $(window).width() >= options.mobileInit ) || ( ! options.responsive ) ){
+			if( ( window.innerWidth >= options.mobileInit ) || ( ! options.responsive ) ){
 				
 				// desktop --------------------------------
 

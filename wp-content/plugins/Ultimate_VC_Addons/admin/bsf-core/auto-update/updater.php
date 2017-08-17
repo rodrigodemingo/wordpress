@@ -183,9 +183,9 @@ if(!function_exists('bsf_check_product_update')) {
 							}
 						}
 
-						if(isset($remote_data->bundled_products) && !empty($remote_data->bundled_products)) {
-							if(!empty($brainstrom_bundled_products)) {
-								foreach($brainstrom_bundled_products as $bkeys => $bps) {
+						if( isset($remote_data->bundled_products) && !empty($remote_data->bundled_products) ) {
+							if( !empty( $brainstrom_bundled_products ) && is_array( $brainstrom_bundled_products ) ) {
+								foreach( $brainstrom_bundled_products as $bkeys => $bps ) {
 									foreach ($bps as $bkey => $bp) {
 										if(!isset($bp->id))
 											continue;

@@ -320,34 +320,8 @@
 	</div>	
 	<div class="ts-vcsc-section-main">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-admin-generic"></i>General Plugin Settings</div>
-		<div class="ts-vcsc-section-content">
-			<div style="margin-top: 20px;">
-				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Update-Notification Page:</div>
-				<p style="font-size: 12px;">Define whether you want to use the update notification, where the plugin will create a sub-page within the "VC Extensions" menu with information for the available update and instructions; otherwise, check for available updates <a href="http://helpdesk.krautcoding.com/freebies-page/" target="_blank">here</a></p>	
-				<?php
-					$settings = array(
-						"param_name"        => "ts_vcsc_extend_settings_allowNotification",
-						"label"				=> "Enable Update Notification Page",
-						"value"             => $ts_vcsc_extend_settings_allowNotification,
-						"order"				=> 1,
-					);
-					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowNotification);
-				?>				
-			</div>			
-			<div id="ts_vcsc_extend_settings_allowNotification_true" style="margin-left: 25px; margin-top: 20px; display: <?php echo ($ts_vcsc_extend_settings_allowNotification == 1 ? "block" : "none"); ?>">
-				<div style="font-weight: bold; font-size: 14px; margin: 0;">Show Update-Notification Message:</div>
-				<p style="font-size: 12px;">Define whether you want to also show an update message, where the plugin will create an addition to the admin menu bar, prominently informing you about the availability of a new update and linking to the update notification page.</p>
-				<?php
-					$settings = array(
-						"param_name"        => "ts_vcsc_extend_settings_allowMenuBarNotice",
-						"label"				=> "Show Update Notification Message",
-						"value"             => $ts_vcsc_extend_settings_allowMenuBarNotice,
-						"order"				=> 1,
-					);
-					echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_allowMenuBarNotice);
-				?>
-			</div>			
-			<div style="margin-top: 30px; display: <?php echo ($autoupdate_allowed == "true" ? "block" : "none"); ?>;">
+		<div class="ts-vcsc-section-content">	
+			<div style="margin-top: 20px; display: <?php echo ($autoupdate_allowed == "true" ? "block" : "none"); ?>;">
 				<div style="font-weight: bold; font-size: 14px; margin: 0;">Enable Auto-Update Feature:</div>
 				<p style="font-size: 12px;">Define whether you want to use the auto-update feature of the plugin, allowing the plugin to be updated through WordPress:</p>
 				<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
@@ -459,67 +433,64 @@
 		</div>
 	</div>	
 	<?php
-	if ((($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_iconicum', 1) == 1)) || (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "false") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "true"))) {
-		if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") { ?>
-			<div class="ts-vcsc-section-main">
-				<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-awards"></i>Iconicum - Font Icon Generator</div>
-				<div class="ts-vcsc-section-content slideFade" style="display: none;">
-					<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						"Composium - Visual Composer Extensions" includes a customized version of our plugin "Iconicum - WordPress Icon Fonts". This plugin allows you to use all the font icons that come with "Composium - Visual Composer Extensions"
-						outside of the elements that can utilize icons. By using the provided icon generator, you can easily generate icon shortcodes and use those shortcodes anywhere on your site where a standard tinyMCE editor
-						field is provided to you.
-					</div>					
-					<div style="margin-top: 10px; margin-bottom: 20px;">
-						<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide Menu Shortcode Generator for Font Icons:</div>
-						<p style="font-size: 12px;">Adds an icon shortcode generator to the settings menu:</p>
-						<?php
-							$settings = array(
-								"param_name"        => "ts_vcsc_extend_settings_useMenuGenerator",
-								"label"				=> "Enable Menu Font Icon Generator",
-								"value"             => $ts_vcsc_extend_settings_useMenuGenerator,
-								"order"				=> 1,
-							);
-							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useMenuGenerator);
-						?>
-					</div>					
-					<div style="margin-top: 10px; margin-bottom: 10px;">
-						<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide tinyMCE Shortcode Generator for Font Icons:</div>
-						<p style="font-size: 12px;">Adds a shortcode generator button to any standard tinyMCE editor menu to embed font icons directly into the text editor:</p>
-						<?php
-							$settings = array(
-								"param_name"        => "ts_vcsc_extend_settings_useIconGenerator",
-								"label"				=> "Enable tinyMCE Font Icon Generator",
-								"value"             => $ts_vcsc_extend_settings_useIconGenerator,
-								"order"				=> 1,
-							);
-							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useIconGenerator);
-						?>
-					</div>			
-					<div id="ts_vcsc_extend_settings_useIconGenerator_true" style="margin-top: 10px; margin-bottom: 10px; margin-left: 25px; <?php echo ($ts_vcsc_extend_settings_useIconGenerator == 0 ? 'display: none;' : 'display: block;'); ?>">
-						<h4>Placement of Shortcode Generator Button:</h4>
-						<p style="font-size: 12px;">If the option is disabled, the button will be placed into the tinyMCE menu bar instead:</p>
-						<?php
-							$settings = array(
-								"param_name"        => "ts_vcsc_extend_settings_useTinyMCEMedia",
-								"label"				=> "Place Generator Button next to 'Add Media' Button",
-								"value"             => $ts_vcsc_extend_settings_useTinyMCEMedia,
-								"order"				=> 1,
-							);
-							echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useTinyMCEMedia);
-						?>
-					</div>
+	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") { ?>
+		<div class="ts-vcsc-section-main">
+			<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-awards"></i>Iconicum - Font Icon Generator</div>
+			<div class="ts-vcsc-section-content slideFade" style="display: none;">
+				<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
+					"Composium - Visual Composer Extensions" includes an additional standalone icon generator that allows you to use all the font icons that come with "Composium - Visual Composer Extensions" outside of the elements that can utilize icons. By using the provided icon generator, you can easily generate icon shortcodes and use those shortcodes anywhere on your site where a standard tinyMCE editor field is provided to you.
+				</div>					
+				<div style="margin-top: 10px; margin-bottom: 20px;">
+					<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide Menu Shortcode Generator for Font Icons:</div>
+					<p style="font-size: 12px;">Adds an icon shortcode generator to the settings menu:</p>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_useMenuGenerator",
+							"label"				=> "Enable Menu Font Icon Generator",
+							"value"             => $ts_vcsc_extend_settings_useMenuGenerator,
+							"order"				=> 1,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useMenuGenerator);
+					?>
+				</div>					
+				<div style="margin-top: 10px; margin-bottom: 10px;">
+					<div style="font-weight: bold; font-size: 14px; margin: 0;">Provide tinyMCE Shortcode Generator for Font Icons:</div>
+					<p style="font-size: 12px;">Adds a shortcode generator button to any standard tinyMCE editor menu to embed font icons directly into the text editor:</p>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_useIconGenerator",
+							"label"				=> "Enable tinyMCE Font Icon Generator",
+							"value"             => $ts_vcsc_extend_settings_useIconGenerator,
+							"order"				=> 1,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useIconGenerator);
+					?>
+				</div>			
+				<div id="ts_vcsc_extend_settings_useIconGenerator_true" style="margin-top: 10px; margin-bottom: 10px; margin-left: 25px; <?php echo ($ts_vcsc_extend_settings_useIconGenerator == 0 ? 'display: none;' : 'display: block;'); ?>">
+					<h4>Placement of Shortcode Generator Button:</h4>
+					<p style="font-size: 12px;">If the option is disabled, the button will be placed into the tinyMCE menu bar instead:</p>
+					<?php
+						$settings = array(
+							"param_name"        => "ts_vcsc_extend_settings_useTinyMCEMedia",
+							"label"				=> "Place Generator Button next to 'Add Media' Button",
+							"value"             => $ts_vcsc_extend_settings_useTinyMCEMedia,
+							"order"				=> 1,
+						);
+						echo TS_VCSC_CodeStarButton_Settings_Field($settings, $ts_vcsc_extend_settings_useTinyMCEMedia);
+					?>
 				</div>
 			</div>
+		</div>
 	<?php } else { ?>
 		<div class="ts-vcsc-section-main">
 			<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-awards"></i>Iconicum - Font Icon Generator</div>
 			<div class="ts-vcsc-section-content slideFade" style="display: none;">
 				<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-					"Iconicum - WordPress Icon Fonts" is already installed and activated as standalone plugin. Therefore, the version that is included with "Composium - Visual Composer Extensions" has been disabled in order to prevent conflicts.
+					"Iconicum - WordPress Icon Fonts" is already installed and activated as standalone plugin. Therefore, the customized version that is included with "Composium - Visual Composer Extensions" has been disabled in order to prevent conflicts.
 				</div>				
 			</div>
 		</div>
-	<?php }} ?>
+	<?php } ?>
 	<div class="ts-vcsc-section-main" style="display: <?php echo ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPHP == "true" ? "block" : "none"); ?>;">
 		<div class="ts-vcsc-section-title ts-vcsc-section-hide"><i class="dashicons-clock"></i>Website Downtime Manager (BETA)</div>
 		<div class="ts-vcsc-section-content slideFade" style="display: none;">

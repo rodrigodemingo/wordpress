@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Monuments = array(
     $this->TS_VCSC_Icons_Compliant_Monuments = array(
         "Monuments Font" => array(
             array("ts-monuments-abu"                => "abu simbel"),

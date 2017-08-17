@@ -166,10 +166,23 @@
 
 			// reset to default
 			
+			$( popup ).removeClass( 'slider slider-active' );
 			$( '.popup-step', popup ).hide().first().show(); 
 			
 			$( '.popup-step.step-2 input', popup ).removeAttr( 'checked' )
 			$( '.popup-step.step-2 input.checked', popup ).attr( 'checked', 'checked' );
+			
+			// revolution slider demo installer
+			
+			var slider = $( '.plugin-rev', item );
+			if( slider.length ){
+				if( $( 'span.is-active' ).length ){
+					popup.addClass( 'slider-active' );
+				} else {
+					popup.addClass( 'slider' );
+				}
+				
+			}
 			
 			// open popup
 			
@@ -237,6 +250,9 @@
 			
 			var attachments = $( '.checkbox-attachments:checked', parent ).val();
 			$( '#input-attachments', importer ).val( attachments );
+			
+			var slider = $( '.checkbox-slider:checked', parent ).val();
+			$( '#input-slider', importer ).val( slider );
 
 			// next step
 			$( this ).closest( '.popup-step' ).hide().next().fadeIn( 200 );

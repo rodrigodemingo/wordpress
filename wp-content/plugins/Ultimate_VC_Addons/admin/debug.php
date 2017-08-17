@@ -41,6 +41,7 @@
 				<?php if($author) : ?>
 			        <div id="ultimate-debug" class="ult-tabs active-tab">
 			            <form method="post" id="ultimate_debug_settings">
+			            	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'ultimate-debug-settings' ); ?>" />
 			            	<input type="hidden" name="action" value="update_ultimate_debug_options" />
 			            	<table class="form-table">
 			        			<tbody>
@@ -100,9 +101,9 @@
 										</td>
 									</tr>
 			                        <tr valign="top">
-										<th scope="row"><?php echo __("Delete Fonts","ultimate"); ?></th>
+										<th scope="row"><?php echo __("Icon Fonts","ultimate"); ?></th>
 										<td>
-			                            	<a href="<?php echo admin_url('admin.php?page=bsf-font-icon-manager&delete-bsf-fonts'); ?>" target="_blank" class="button">Delete Fonts</a>
+			                            	<a href="<?php echo admin_url('admin.php?page=bsf-font-icon-manager&delete-bsf-fonts'); ?>" target="_blank" class="button">Reset Icon Fonts</a>
 										</td>
 									</tr>
 			                        <?php
@@ -162,7 +163,7 @@
 										<th scope="row"><?php echo __("Custom VC Row Class","ultimate_vc"); ?></th>
 										<td>
 			                            	<div>
-												<input type="text" id="ultimate_custom_vc_row" value="<?php echo $ultimate_custom_vc_row; ?>" name="ultimate_custom_vc_row" />
+												<input type="text" id="ultimate_custom_vc_row" value="<?php echo esc_attr( $ultimate_custom_vc_row ); ?>" name="ultimate_custom_vc_row" />
 											</div>
 										</td>
 									</tr>

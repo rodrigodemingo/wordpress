@@ -1394,7 +1394,8 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Image_IHover'))) {
 		class WPBakeryShortCode_TS_VCSC_Image_IHover extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Image IHover" Class

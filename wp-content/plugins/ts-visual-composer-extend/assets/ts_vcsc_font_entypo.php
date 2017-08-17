@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Entypo = array(
     $this->TS_VCSC_Icons_Compliant_Entypo = array(
         "Entypo Icons Font" => array(
             array("ts-entypo-phone2" => "phone"),

@@ -959,10 +959,10 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Figure_Navigation_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Figure_Navigation_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Figure_Navigation_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_Figure_Navigation_Item extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Figure Navigation" Class

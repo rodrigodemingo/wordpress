@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 
         if(_autoslide==0) _autoslide = false;
 
-        var _carousel = $(this).find('.cq-compareslider-imagecontainer').owlCarousel({
+        var _carousel = $('.cq-compareslider-imagecontainer', _this).owlCarouselOld({
             item: 1,
             navigation: false,
             singleItem: true,

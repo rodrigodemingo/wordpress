@@ -312,9 +312,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	.header-plain #Top_bar.is-sticky .top_bar_right_wrapper{top:0}
 	#Top_bar.is-sticky .logo{width:auto;margin:0 30px 0 20px;padding:0}
 	#Top_bar.is-sticky #logo{padding:5px 0!important;height:50px!important;line-height:50px!important}
-	#Top_bar.is-sticky #logo img:not(.svg){max-height:35px;width:auto!important}
+	.logo-no-sticky-padding #Top_bar.is-sticky #logo{height:60px!important;line-height:60px!important}
 	#Top_bar.is-sticky #logo img.logo-main{display:none}
-	#Top_bar.is-sticky #logo img.logo-sticky{display:inline}
+	#Top_bar.is-sticky #logo img.logo-sticky{display:inline;max-height:35px;}
 	#Top_bar.is-sticky .menu_wrapper{clear:none}
 	#Top_bar.is-sticky .menu_wrapper .menu > li > a{padding:15px 0}
 	#Top_bar.is-sticky .menu > li > a,#Top_bar.is-sticky .menu > li > a span{line-height:30px}
@@ -403,13 +403,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	#Header_creative .creative-menu-toggle,#Header_creative .creative-social{display:none!important;opacity:1!important;filter:alpha(opacity=100)!important}
 	#Header_creative #Top_bar{position:static;width:100%}
 	#Header_creative #Top_bar #logo{height:50px;line-height:50px;padding:5px 0}
-	#Header_creative #Top_bar #logo img{max-height:40px}
+	#Header_creative #Top_bar #logo img.logo-sticky{max-height:40px!important}
 	
 	#Header_creative #logo img.logo-main{display:none}
 	#Header_creative #logo img.logo-sticky{display:inline-block}
 
 	.logo-no-sticky-padding #Header_creative #Top_bar #logo{height:60px;line-height:60px;padding:0}
-	.logo-no-sticky-padding #Header_creative #Top_bar #logo img{max-height:60px}
+	.logo-no-sticky-padding #Header_creative #Top_bar #logo img.logo-sticky{max-height:60px!important}
 	
 	#Header_creative #Top_bar #header_cart{top:21px}
 	#Header_creative #Top_bar #search_button{top:20px}

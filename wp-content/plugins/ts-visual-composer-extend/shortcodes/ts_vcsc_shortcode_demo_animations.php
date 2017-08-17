@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to Build Table with CSS3 Animations Preview
 	add_shortcode('TS_VCSC_Icon_Animations', 'TS_VCSC_Icon_Font_Animations');
 	function TS_VCSC_Icon_Font_Animations ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

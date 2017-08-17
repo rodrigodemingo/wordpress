@@ -755,15 +755,16 @@
 			}
 		}
 	}
-	
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_EnlighterJS_Snippet_Container'))) {
 		class WPBakeryShortCode_TS_EnlighterJS_Snippet_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_EnlighterJS_Snippet_Single'))) {
 		class WPBakeryShortCode_TS_EnlighterJS_Snippet_Single extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_EnlighterJS_Snippet_Group'))) {
 		class WPBakeryShortCode_TS_EnlighterJS_Snippet_Group extends WPBakeryShortCode {};
 	}
-
 	// Initialize "TS EnlighterJS Element" Class
 	if (class_exists('TS_VCSC_EnlighterJS_Elements')) {
 		$TS_VCSC_EnlighterJS_Elements = new TS_VCSC_EnlighterJS_Elements;

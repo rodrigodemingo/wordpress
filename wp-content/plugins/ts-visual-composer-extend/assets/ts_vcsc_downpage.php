@@ -503,7 +503,6 @@
 		$DownPageAddNewUrl 								= admin_url(). "post-new.php?post_type=ts_downtime";
 	}
 ?>
-
 <div id="ts_vcsc_extend_errors" style="display: none;">
 	<div class="ts-vcsc-section-main">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-hammer ts-vcsc-section-title-icon"></i><span class="ts-vcsc-section-title-header"></span></div>

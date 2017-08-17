@@ -130,22 +130,36 @@ if( ! function_exists('mfn_content_post') ){
 							$output .= '<div class="post-head">';
 						
 								// meta -------------------------------------
-								if( mfn_opts_get( 'blog-meta' ) ){
+
+								$show_meta = false;
+								$blog_meta = mfn_opts_get( 'blog-meta' );
+								
+								if( is_array( $blog_meta ) ){
+									if( isset( $blog_meta['author'] ) || isset( $blog_meta['date'] ) || isset( $blog_meta['categories'] ) ){
+										$show_meta = true;
+									}
+								}
+							
+								if( $show_meta ){
 									$output .= '<div class="post-meta clearfix">';
 									
 										$output .= '<div class="author-date">';	
-																	
-											$output .= '<span class="vcard author post-author">';
-												$output .= '<span class="label">'. $translate['published'] .' </span>';
-												$output .= '<i class="icon-user"></i> ';
-												$output .= '<span class="fn"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) ) .'">'. get_the_author_meta( 'display_name' ) .'</a></span>';
-											$output .= '</span> ';
+
+											if( isset( $blog_meta['author'] ) ){
+												$output .= '<span class="vcard author post-author">';
+													$output .= '<span class="label">'. $translate['published'] .' </span>';
+													$output .= '<i class="icon-user"></i> ';
+													$output .= '<span class="fn"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) ) .'">'. get_the_author_meta( 'display_name' ) .'</a></span>';
+												$output .= '</span> ';
+											}
 											
-											$output .= '<span class="date">';	
-												$output .= '<span class="label">'. $translate['at'] .' </span>';	
-												$output .= '<i class="icon-clock"></i> ';	
-												$output .= '<span class="post-date updated">'. get_the_date() .'</span>';	
-											$output .= '</span>';
+											if( isset( $blog_meta['date'] ) ){
+												$output .= '<span class="date">';	
+													if( isset( $blog_meta['author'] ) ) $output .= '<span class="label">'. $translate['at'] .' </span>';	
+													$output .= '<i class="icon-clock"></i> ';	
+													$output .= '<span class="post-date updated">'. get_the_date() .'</span>';	
+												$output .= '</span>';
+											}
 
 											
 											// .post-comments | Style == Masonry Tiles
@@ -158,11 +172,13 @@ if( ! function_exists('mfn_content_post') ){
 											
 										$output .= '</div>';
 										
-										$output .= '<div class="category">';
-											$output .= '<span class="cat-btn">'. $translate['categories'] .' <i class="icon-down-dir"></i></span>';
-											$output .= '<div class="cat-wrapper">'. get_the_category_list() .'</div>';
-										$output .= '</div>';
-											
+										if( isset( $blog_meta['categories'] ) ){
+											$output .= '<div class="category">';
+												$output .= '<span class="cat-btn">'. $translate['categories'] .' <i class="icon-down-dir"></i></span>';
+												$output .= '<div class="cat-wrapper">'. get_the_category_list() .'</div>';
+											$output .= '</div>';
+										}	
+										
 									$output .= '</div>';
 								}
 								

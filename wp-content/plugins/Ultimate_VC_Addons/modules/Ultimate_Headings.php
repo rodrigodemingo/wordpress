@@ -7,27 +7,18 @@ if(!class_exists("Ultimate_Headings")){
 	class Ultimate_Headings{
 		static $add_plugin_script;
 		function __construct(){
-			add_action("init",array($this,"ultimate_headings_init"));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action("init",array($this,"ultimate_headings_init"));
+			}
 			add_shortcode("ultimate_heading",array($this,"ultimate_headings_shortcode"));
 			add_action("wp_enqueue_scripts", array($this, "register_headings_assets"),1);
 		}
 		function register_headings_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-headings-style', 'headings' );
 
-			wp_register_script("ultimate-headings-script",plugins_url($js_path."headings".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-headings-script', 'headings', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		function ultimate_headings_init(){
 			if(function_exists("vc_map")){
@@ -154,6 +145,9 @@ if(!class_exists("Ultimate_Headings")){
 									__("H4","ultimate_vc") => "h4",
 									__("H5","ultimate_vc") => "h5",
 									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
 								),
 								"description" => __("Default is H2", "ultimate_vc"),
 							),
@@ -529,7 +523,7 @@ if(!class_exists("Ultimate_Headings")){
 		function ultimate_headings_shortcode($atts, $content = null){
 			$wrapper_style = $main_heading_style_inline = $sub_heading_style_inline = $line_style_inline = $icon_inline = $output = $el_class = '';
 			extract(shortcode_atts(array(
-				'main_heading' => '',
+				'main_heading' => "",
 				"main_heading_font_size"	=> "",
 				"main_heading_line_height" 	=> "",
 				"main_heading_font_family" 	=> "",
@@ -642,7 +636,7 @@ if(!class_exists("Ultimate_Headings")){
 				$line_style_inline .= 'border-color:'.$line_color.';';
 				$line_style_inline .= 'width:'.$wrap_width.'px;';
 				$wrapper_style .= 'height:'.$line_height.'px;';
-				$line = '<span class="uvc-headings-line" style="'.$line_style_inline.'"></span>';
+				$line = '<span class="uvc-headings-line" style="'.esc_attr( $line_style_inline ).'"></span>';
 				$icon_inline = $line;
 			}
 			else if($spacer == 'icon_only')
@@ -662,23 +656,23 @@ if(!class_exists("Ultimate_Headings")){
 				$alt = apply_filters('ult_get_img_single', $spacer_img, 'alt');
 				if($spacer_img_width !== '')
 					$spacer_inline = 'width:'.$spacer_img_width.'px';
-				$icon_inline = '<img src="'.apply_filters('ultimate_images', $icon_inline).'" class="ultimate-headings-icon-image" alt="'.$alt.'" style="'.$spacer_inline.'"/>';
+				$icon_inline = '<img src="'.esc_url(apply_filters('ultimate_images', $icon_inline)).'" class="ultimate-headings-icon-image" alt="'.esc_attr($alt).'" style="'.esc_attr($spacer_inline).'"/>';
 			}
 			//if spacer type is line with icon or only icon show icon or image respectively
 			if($spacer == 'line_with_icon' || $spacer == 'icon_only')
 			{
 				$icon_animation = '';
-				$icon_inline = do_shortcode('[just_icon icon_align="'.$alignment.'" icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_animation="'.$icon_animation.'"]');
+				$icon_inline = do_shortcode('[just_icon icon_align="'.esc_attr($alignment).'" icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_animation="'.esc_attr($icon_animation).'"]');
 			}
 			if($spacer == 'line_with_icon')
 			{
-				$data = 'data-hline_width="'.$wrap_width.'" data-hicon_type="'.$icon_type.'" data-hborder_style="'.$line_style.'" data-hborder_height="'.$line_height.'" data-hborder_color="'.$line_color.'"';
+				$data = 'data-hline_width="'.esc_attr($wrap_width).'" data-hicon_type="'.esc_attr($icon_type).'" data-hborder_style="'.esc_attr($line_style).'" data-hborder_height="'.esc_attr($line_height).'" data-hborder_color="'.esc_attr($line_color).'"';
 				if($icon_type == 'selector')
-					$data .= ' data-icon_width="'.$icon_size.'"';
+					$data .= ' data-icon_width="'.esc_attr($icon_size).'"';
 				else
-					$data .= ' data-icon_width="'.$img_width.'"';
+					$data .= ' data-icon_width="'.esc_attr($img_width).'"';
 				if($line_icon_fixer != '')
-					$data .= ' data-hfixer="'.$line_icon_fixer.'" ';
+					$data .= ' data-hfixer="'.esc_attr($line_icon_fixer).'" ';
 			}
 			else
 				$data = '';
@@ -712,15 +706,15 @@ if(!class_exists("Ultimate_Headings")){
 		  	);
 			$sub_heading_responsive = get_ultimate_vc_responsive_media_css($args);
 
-			$output = '<div id="'.$id.'" class="uvc-heading '.$is_vc_49_plus.' '.$id.' '.$uid.' '.$el_class.'" data-hspacer="'.$spacer.'" '.$data.' data-halign="'.$alignment.'" style="text-align:'.$alignment.'">';
+			$output = '<div id="'.esc_attr( $id ).'" class="uvc-heading '.esc_attr( $is_vc_49_plus ).' '.esc_attr( $id ).' '.esc_attr( $uid ).' '.esc_attr( $el_class ).'" data-hspacer="'.esc_attr( $spacer ).'" '.$data.' data-halign="'.esc_attr( $alignment ).'" style="text-align:'.esc_attr($alignment).'">';
 				if($spacer_position == 'top')
 					$output .= $this->ultimate_heading_spacer($wrapper_class, $wrapper_style, $icon_inline);
 				if($main_heading != '')
-					$output .= '<div class="uvc-main-heading ult-responsive" '.$main_heading_responsive.'><'.$heading_tag.' style="'.$main_heading_style_inline.'">'.$main_heading.'</'.$heading_tag.'></div>';
+					$output .= '<div class="uvc-main-heading ult-responsive" '.$main_heading_responsive.'><'.$heading_tag.' style="'.esc_attr($main_heading_style_inline).'">'.$main_heading.'</'.$heading_tag.'></div>';
 				if($spacer_position == 'middle')
 					$output .= $this->ultimate_heading_spacer($wrapper_class, $wrapper_style, $icon_inline);
 				if($content != '')
-					$output .= '<div class="uvc-sub-heading ult-responsive" '.$sub_heading_responsive.' style="'.$sub_heading_style_inline.'">'.do_shortcode($content).'</div>';
+					$output .= '<div class="uvc-sub-heading ult-responsive" '.$sub_heading_responsive.' style="'.esc_attr($sub_heading_style_inline).'">'.do_shortcode($content).'</div>';
 				if($spacer_position == 'bottom')
 					$output .= $this->ultimate_heading_spacer($wrapper_class, $wrapper_style, $icon_inline);
 			$output .= '</div>';
@@ -751,7 +745,7 @@ if(!class_exists("Ultimate_Headings")){
 		}
 	} // end class
 	new Ultimate_Headings;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ultimate_heading'))
 	{
 		class WPBakeryShortCode_ultimate_heading extends WPBakeryShortCode {
 		}

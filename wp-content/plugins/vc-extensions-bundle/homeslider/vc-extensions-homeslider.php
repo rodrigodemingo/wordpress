@@ -243,7 +243,7 @@ if (!class_exists('VC_Extensions_HomeSlider')) {
             "contentstyle" => "",
             "contentbackground" => "",
             "bottomshape" => "",
-            "navstyle" => "",
+            "navstyle" => "lavender",
             // "buttonsize" => "btn-large",
             "extraclass" => ""
           ), $atts));

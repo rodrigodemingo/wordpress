@@ -63,13 +63,12 @@
 	}
 	
 	// Visual Composer 5.x Check
-	if (TS_VCSC_VersionCompare(WPB_VC_VERSION, '5.0.0') >= 0) {
+	if (TS_VCSC_VersionCompare($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Version, '5.0.0') >= 0) {
 		$TS_VCSC_ComposerNativeAnimation 	= "true";
 	} else {
 		$TS_VCSC_ComposerNativeAnimation 	= "false";
 	}
 ?>
-
 <div id="ts-settings-rowcolumn" class="tab-content">
 	<?php if ((($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_additions', 1) == 1)) || (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "false"))) { ?>
 		<div class="ts-vcsc-section-main">

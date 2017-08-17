@@ -28,26 +28,33 @@ add_filter( 'pre_get_document_title', 'mfn_title' );
 
 
 /* ---------------------------------------------------------------------------
- * Meta and Desctiption
+ * Built-in SEO Fields
  * --------------------------------------------------------------------------- */
 if( ! function_exists( 'mfn_seo' ) )
 {
 	function mfn_seo() 
 	{
-		if( mfn_opts_get('mfn-seo') ){
+		if( mfn_opts_get( 'mfn-seo' ) ){
 	
 			// description
 			if( mfn_ID() && get_post_meta( mfn_ID(), 'mfn-meta-seo-description', true ) ){
 				echo '<meta name="description" content="'. stripslashes( get_post_meta( mfn_ID(), 'mfn-meta-seo-description', true ) ) .'" />'."\n";
-			} elseif( mfn_opts_get('meta-description') ){
-				echo '<meta name="description" content="'. stripslashes( mfn_opts_get('meta-description') ) .'" />'."\n";
+			} elseif( mfn_opts_get( 'meta-description' ) ){
+				echo '<meta name="description" content="'. stripslashes( mfn_opts_get( 'meta-description' ) ) .'" />'."\n";
 			}
 			
 			// keywords
 			if( mfn_ID() &&  get_post_meta( mfn_ID(), 'mfn-meta-seo-keywords', true ) ){
 				echo '<meta name="keywords" content="'. stripslashes( get_post_meta( mfn_ID(), 'mfn-meta-seo-keywords', true ) ) .'" />'."\n";
-			} elseif( mfn_opts_get('meta-keywords') ){
-				echo '<meta name="keywords" content="'. stripslashes( mfn_opts_get('meta-keywords') ) .'" />'."\n";
+			} elseif( mfn_opts_get( 'meta-keywords' ) ){
+				echo '<meta name="keywords" content="'. stripslashes( mfn_opts_get( 'meta-keywords' ) ) .'" />'."\n";
+			}
+			
+			// og:image
+			if( mfn_ID() &&  get_post_meta( mfn_ID(), 'mfn-meta-seo-og-image', true ) ){
+				echo '<meta property="og:image" content="'. stripslashes( get_post_meta( mfn_ID(), 'mfn-meta-seo-og-image', true ) ) .'" />'."\n";
+			} elseif( mfn_opts_get( 'mfn-seo-og-image' ) ){
+				echo '<meta property="og:image" content="'. stripslashes( mfn_opts_get( 'mfn-seo-og-image' ) ) .'" />'."\n";
 			}
 			
 		}
@@ -59,6 +66,16 @@ if( ! function_exists( 'mfn_seo' ) )
 	}
 }
 add_action( 'wp_seo', 'mfn_seo' );
+
+// TODO: Probably we do not need below function at all
+function mfn_opengraph_doctype( $output ) {
+	if( mfn_opts_get( 'mfn-seo' ) ){
+		return $output . ' xmlns:og="http://opengraphprotocol.org/schema/"';
+	} else {
+		return $output;
+	}
+}
+// add_filter( 'language_attributes', 'mfn_opengraph_doctype' );
 
 
 /* ---------------------------------------------------------------------------
@@ -120,7 +137,6 @@ if( ! function_exists( 'mfn_styles' ) )
 		}
 	
 		wp_enqueue_style( 'mfn-jquery-ui', 		THEME_URI .'/assets/ui/jquery.ui.all.css', false, THEME_VERSION, 'all' );
-		wp_enqueue_style( 'mfn-prettyPhoto', 	THEME_URI .'/assets/prettyPhoto/prettyPhoto.css', false, THEME_VERSION, 'all' );
 		wp_enqueue_style( 'mfn-jplayer',		THEME_URI .'/assets/jplayer/css/jplayer.blue.monday.css', false, THEME_VERSION, 'all' );	
 		
 		// rtl | demo -----
@@ -661,89 +677,6 @@ add_action('wp_footer', 'mfn_scripts_custom', 100);
 
 
 /* ---------------------------------------------------------------------------
- * Retina logo
-* --------------------------------------------------------------------------- */
-if( ! function_exists( 'mfn_retina_logo' ) )
-{
-	function mfn_retina_logo()
-	{
-		// logo - source -------------------------
-		if( $layoutID = mfn_layout_ID() ){
-				
-			$logo_src 			= get_post_meta( $layoutID, 'mfn-post-retina-logo-img', true );
-			$logo_sticky 		= get_post_meta( $layoutID, 'mfn-post-sticky-retina-logo-img', true ) ? get_post_meta( $layoutID, 'mfn-post-sticky-retina-logo-img', true ) : $logo_src;
-			$logo_mobile 		= get_post_meta( $layoutID, 'mfn-post-responsive-retina-logo-img', true ) ? get_post_meta( $layoutID, 'mfn-post-responsive-retina-logo-img', true ) : $logo_src;
-			$logo_mobile_sticky	= get_post_meta( $layoutID, 'mfn-post-responsive-sticky-retina-logo-img', true ) ? get_post_meta( $layoutID, 'mfn-post-responsive-sticky-retina-logo-img', true ) : $logo_src;
-				
-		} else {
-				
-			$logo_src 			= mfn_opts_get( 'retina-logo-img' );
-			$logo_sticky 		= mfn_opts_get( 'sticky-retina-logo-img' ) ? mfn_opts_get( 'sticky-retina-logo-img' ) : $logo_src;
-			$logo_mobile 		= mfn_opts_get( 'responsive-retina-logo-img' ) ? mfn_opts_get( 'responsive-retina-logo-img' ) : $logo_src;
-			$logo_mobile_sticky = mfn_opts_get( 'responsive-sticky-retina-logo-img' ) ? mfn_opts_get( 'responsive-sticky-retina-logo-img' ) : $logo_src;
-				
-		}
-		
-		if( $logo_src || $logo_sticky ){
-			echo '<!-- script | retina -->'."\n";
-			echo '<script id="mfn-dnmc-retina-js">'."\n";
-				echo '//<![CDATA['."\n";
-					echo 'jQuery(window).load(function(){'."\n";
-						echo 'var retina = window.devicePixelRatio > 1 ? true : false;';
-						echo 'if( retina ){';
-	
-							if( $logo_src ){
-								echo 'var retinaEl = jQuery("#logo img.logo-main");';
-								echo 'var retinaLogoW = retinaEl.width();';
-								echo 'var retinaLogoH = retinaEl.height();';
-								echo 'retinaEl';
-									echo '.attr( "src", "'. $logo_src .'" )';
-									echo '.width( retinaLogoW )';
-									echo '.height( retinaLogoH );';
-							}
-							
-							if( $logo_sticky ){
-								echo 'var stickyEl = jQuery("#logo img.logo-sticky");';
-								echo 'var stickyLogoW = stickyEl.width();';
-								echo 'var stickyLogoH = stickyEl.height();';
-								echo 'stickyEl';
-									echo '.attr( "src", "'. $logo_sticky .'" )';
-									echo '.width( stickyLogoW )';
-									echo '.height( stickyLogoH );';
-							}
-							
-							if( $logo_mobile ){
-								echo 'var mobileEl = jQuery("#logo img.logo-mobile");';
-								echo 'var mobileLogoW = mobileEl.width();';
-								echo 'var mobileLogoH = mobileEl.height();';
-								echo 'mobileEl';
-									echo '.attr( "src", "'. $logo_mobile .'" )';
-									echo '.width( mobileLogoW )';
-									echo '.height( mobileLogoH );';
-							}
-							
-							if( $logo_mobile_sticky ){
-								echo 'var mobileStickyEl = jQuery("#logo img.logo-mobile-sticky");';
-								echo 'var mobileStickyLogoW = mobileStickyEl.width();';
-								echo 'var mobileStickyLogoH = mobileStickyEl.height();';
-								echo 'mobileStickyEl';
-									echo '.attr( "src", "'. $logo_mobile_sticky .'" )';
-									echo '.width( mobileStickyLogoW )';
-									echo '.height( mobileStickyLogoH );';
-							}
-								
-						echo '}';
-					echo '});'."\n";
-				echo '//]]>'."\n";
-			echo '</script>'."\n";
-		}
-	
-	}
-}
-add_action('wp_head', 'mfn_retina_logo');
-
-
-/* ---------------------------------------------------------------------------
  * Scripts config
 * --------------------------------------------------------------------------- */
 if( ! function_exists( 'mfn_scripts_config' ) )
@@ -779,10 +712,10 @@ if( ! function_exists( 'mfn_scripts_config' ) )
 					
 				echo '};'."\n";
 				
-				// prettyphoto
-				$aPrettyOptions = mfn_opts_get('prettyphoto-options');
+				// lightbox
+				$aPrettyOptions = mfn_opts_get( 'prettyphoto-options' );
 				
-				echo 'window.mfn_prettyphoto = {';
+				echo 'window.mfn_lightbox = {';
 					if( is_array( $aPrettyOptions ) && isset( $aPrettyOptions['disable'] ) ){
 						echo 'disable:true,';
 					} else {
@@ -798,9 +731,6 @@ if( ! function_exists( 'mfn_scripts_config' ) )
 					} else {
 						echo 'title:false,';
 					}
-					echo 'style:"'. mfn_opts_get('prettyphoto','pp_default').'",';
-					echo 'width:'. intval( mfn_opts_get('prettyphoto-width',0) ).',';
-					echo 'height:'. intval( mfn_opts_get('prettyphoto-height',0) );
 				echo '};'."\n";
 				
 				// sliders
@@ -1272,6 +1202,8 @@ if( ! function_exists( 'mfn_body_classes' ) )
 		
 		// Responsive ===============================================
 		
+		if( ! mfn_opts_get( 'responsive' ) ) $classes[] = 'responsive-off';
+		
 		if( mfn_opts_get( 'responsive-boxed2fw' ) ) $classes[] = 'boxed2fw';
 		if( mfn_opts_get( 'no-hover' ) ) $classes[] = 'no-hover-'. mfn_opts_get( 'no-hover' );
 		if( mfn_opts_get( 'no-section-bg' ) ) $classes[] = 'no-section-bg-'. mfn_opts_get( 'no-section-bg' );
@@ -1331,7 +1263,9 @@ if( ! function_exists( 'mfn_body_classes' ) )
 		// demo / debug =============================================
 		if( $_GET && key_exists( 'mfn-rtl' , $_GET ) ) $classes[] = 'rtl';
 		if( $layoutID ) $classes[] = 'dbg-lay-id-'. $layoutID;
-		$classes[] = 'be-'. str_replace( '.', '', THEME_VERSION );
+
+		$reg = mfn_is_registered() ? 'reg-' : '';
+		$classes[] = 'be-'. $reg . str_replace( '.', '', THEME_VERSION );
 
 
 		return $classes;

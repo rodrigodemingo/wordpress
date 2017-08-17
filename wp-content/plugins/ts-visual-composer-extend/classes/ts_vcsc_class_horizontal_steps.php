@@ -177,7 +177,7 @@
 				$output								= '';
 				$style								= '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if (!empty($el_id)) {
 					$steps_id						= $el_id;
@@ -253,7 +253,7 @@
 					$style .= '</style>';
 				}
 				if (($style != "") && ($inline == "true")) {
-					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($style));
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($style));
 				}
 				
 				// Tooltip
@@ -1056,13 +1056,13 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Horizontal_Steps_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Horizontal_Steps_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Horizontal_Steps_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_Horizontal_Steps_Item extends WPBakeryShortCode {};
-	}
-	
+	}	
 	// Initialize "TS Horizontal Steps" Class
 	if (class_exists('TS_Horizontal_Steps')) {
 		$TS_Horizontal_Steps = new TS_Horizontal_Steps;

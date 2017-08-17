@@ -741,10 +741,10 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Posts_Image_Grid_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Posts_Image_Grid_Standalone extends WPBakeryShortCode {};
-	}
-	
+	}	
 	// Initialize "TS Posts Image" Class
 	if (class_exists('TS_Postsimage')) {
 		$TS_Postsimage = new TS_Postsimage;

@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		background-color: <?php mfn_opts_show( 'color-theme', '#0095eb' ) ?>;
 	}
 	
-	.Latest_news ul li .photo, .style-simple .opening_hours .opening_hours_wrapper li label,
+	.Latest_news ul li .photo, .Recent_posts.blog_news ul li .photo, .style-simple .opening_hours .opening_hours_wrapper li label,
 	.style-simple .timeline_items li:hover h3, .style-simple .timeline_items li:nth-child(even):hover h3, 
 	.style-simple .timeline_items li:hover .desc, .style-simple .timeline_items li:nth-child(even):hover,
 	.style-simple .offer_thumb .slider_pagination a.selected {

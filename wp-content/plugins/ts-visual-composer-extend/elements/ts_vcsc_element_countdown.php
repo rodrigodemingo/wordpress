@@ -1,6 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-	
+    global $VISUAL_COMPOSER_EXTENSIONS;	
 	$TS_VCSC_Countdown_Targets = array(
 		__( 'Specific Date Only', "ts_visual_composer_extend" )												=> "1",
 		__( 'Specific Date Only [Shortcode]', "ts_visual_composer_extend" )									=> "1S",
@@ -13,8 +12,7 @@
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_CustomPostTypesDownpage == "true") {
 		$TS_VCSC_Countdown_Targets[__( 'Downtime Expiration Date Only', "ts_visual_composer_extend" )] 		= "6";
 		$TS_VCSC_Countdown_Targets[__( 'Downtime Expiration Date + Time', "ts_visual_composer_extend" )] 	= "7";
-	};
-	
+	};	
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      => __( "TS Countdown", "ts_visual_composer_extend" ),
 		"base"                      => "TS-VCSC-Countdown",
@@ -752,11 +750,10 @@
 				"group"				=> "Other Settings",
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

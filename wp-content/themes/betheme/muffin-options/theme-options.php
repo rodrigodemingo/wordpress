@@ -40,10 +40,10 @@ if( ! function_exists( 'mfna_header_style' ) )
 			'simple'				=> array('title' => 'Simple', 			'img' => MFN_OPTIONS_URI.'img/select/header/simple.png'),
 			'simple,empty'			=> array('title' => 'Empty: Subpage without Header', 'img' => MFN_OPTIONS_URI.'img/select/header/empty.png'),
 			'below'					=> array('title' => 'Below Slider', 	'img' => MFN_OPTIONS_URI.'img/select/header/below.png'),
-			'split'					=> array('title' => 'Split Menu<br />(Page Options: Custom Menu is NOT supported)', 'img' => MFN_OPTIONS_URI.'img/select/header/split.png'),
-			'split,semi'			=> array('title' => 'Split Menu Semitransparent<br />(Page Options: Custom Menu is NOT supported)', 'img' => MFN_OPTIONS_URI.'img/select/header/split-semi.png'),
-			'below,split'			=> array('title' => 'Below Slider with Split Menu<br />(Page Options: Custom Menu is NOT supported)', 'img' => MFN_OPTIONS_URI.'img/select/header/below-split.png'),
-			'overlay,transparent'	=> array('title' => 'Overlay Menu<br />(Sticky Header affects ONLY the menu button)', 'img' => MFN_OPTIONS_URI.'img/select/header/overlay.png'),
+			'split'					=> array('title' => 'Split Menu<br /><i>&#8226; Page Options: Custom Menu is not supported</i>', 'img' => MFN_OPTIONS_URI.'img/select/header/split.png'),
+			'split,semi'			=> array('title' => 'Split Menu Semitransparent<br /><i>&#8226; Page Options: Custom Menu is not supported</i>', 'img' => MFN_OPTIONS_URI.'img/select/header/split-semi.png'),
+			'below,split'			=> array('title' => 'Below Slider with Split Menu<br /><i>&#8226; Page Options: Custom Menu is not supported</i>', 'img' => MFN_OPTIONS_URI.'img/select/header/below-split.png'),
+			'overlay,transparent'	=> array('title' => 'Overlay Menu<br /><i>&#8226; Menu has only 1 level<br />&#8226; Sticky Header affects only the menu button</i>', 'img' => MFN_OPTIONS_URI.'img/select/header/overlay.png'),
 		);
 	}
 }
@@ -1900,14 +1900,29 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'desc' 		=> __('Use this option if you set <strong>Front page displays: Your latest posts</strong> in Settings > Reading', 'mfn-opts'),
 					'args' 		=> array()
 				),
-
+					
 				array(
-					'id' 		=> 'excerpt-length',
-					'type' 		=> 'text',
-					'title' 	=> __('Excerpt Length', 'mfn-opts'),
-					'sub_desc' 	=> __('Number of words', 'mfn-opts'),
-					'class' 	=> 'small-text',
-					'std' 		=> '26',
+					'id' 		=> 'blog-orderby',
+					'type' 		=> 'select',
+					'title' 	=> __( 'Order by', 'mfn-opts' ),
+					'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
+					'options' 	=> array(
+						'date'			=> __( 'Date', 'mfn-opts' ),
+						'title'			=> __( 'Title', 'mfn-opts' ),
+						'rand'			=> __( 'Random', 'mfn-opts' ),
+					),
+					'std' 		=> 'date'
+				),
+				
+				array(
+					'id' 		=> 'blog-order',
+					'type' 		=> 'select',
+					'title' 	=> __( 'Order', 'mfn-opts' ),
+					'options' 	=> array(
+						'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+						'DESC'	=> __( 'Descending', 'mfn-opts' ),
+					),
+					'std' 		=> 'DESC'
 				),
 
 				array(
@@ -1916,6 +1931,15 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'title' 	=> __('Exclude Category', 'mfn-opts'),
 					'sub_desc' 	=> __('Exclude category from Blog page', 'mfn-opts'),
 					'desc' 		=> __('Category <b>slug</b>. Multiple slugs should be separated with <b>coma</b> ( , )', 'mfn-opts'),
+				),
+					
+				array(
+					'id' 		=> 'excerpt-length',
+					'type' 		=> 'text',
+					'title' 	=> __('Excerpt Length', 'mfn-opts'),
+					'sub_desc' 	=> __('Number of words', 'mfn-opts'),
+					'class' 	=> 'small-text',
+					'std' 		=> '26',
 				),
 					
 				array(
@@ -1941,14 +1965,21 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'options' 	=> array( '0' => 'Off', '1' => 'On' ),
 					'std' 		=> '0'
 				),
-					
+	
 				array(
 					'id' 		=> 'blog-meta',
-					'type' 		=> 'switch',
-					'title' 	=> __('Post Meta', 'mfn-opts'),
-					'sub_desc' 	=> __('Show Author, Date & Categories', 'mfn-opts'),
-					'options' 	=> array('1' => 'On','0' => 'Off'),
-					'std' 		=> '1'
+					'type' 		=> 'checkbox',
+					'title' 	=> __( 'Post Meta', 'mfn-opts' ),
+					'options' 	=> array(
+						'author'		=> __( 'Author', 'mfn-opts' ),
+						'date'			=> __( 'Date', 'mfn-opts' ),
+						'categories'	=> __( 'Categories & Tags<span>for some Blog styles</span>', 'mfn-opts' ),
+					),
+					'std'		=> array(
+						'author'		=> 'author',
+						'date' 			=> 'date',
+						'categories' 	=> 'categories',
+					),
 				),
 
 				// single -----
@@ -2184,13 +2215,13 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				array(
 					'id' 		=> 'portfolio-orderby',
 					'type' 		=> 'select',
-					'title' 	=> __('Order by', 'mfn-opts'),
-					'desc' 		=> __('Do not use random order with pagination or load more', 'mfn-opts'),
+					'title' 	=> __( 'Order by', 'mfn-opts' ),
+					'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
 					'options' 	=> array(
-						'date'			=> __('Date', 'mfn-opts'),
-						'menu_order' 	=> __('Menu order', 'mfn-opts'),
-						'title'			=> __('Title', 'mfn-opts'),
-						'rand'			=> __('Random', 'mfn-opts'),
+						'date'			=> __( 'Date', 'mfn-opts' ),
+						'menu_order' 	=> __( 'Menu order', 'mfn-opts' ),
+						'title'			=> __( 'Title', 'mfn-opts' ),
+						'rand'			=> __( 'Random', 'mfn-opts' ),
 					),
 					'std' 		=> 'date'
 				),
@@ -2198,10 +2229,10 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				array(
 					'id' 		=> 'portfolio-order',
 					'type' 		=> 'select',
-					'title' 	=> __('Order', 'mfn-opts'),
+					'title' 	=> __( 'Order', 'mfn-opts' ),
 					'options' 	=> array(
-						'ASC' 	=> __('Ascending', 'mfn-opts'),
-						'DESC'	=> __('Descending', 'mfn-opts'),
+						'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+						'DESC'	=> __( 'Descending', 'mfn-opts' ),
 					),
 					'std' 		=> 'DESC'
 				),
@@ -3322,51 +3353,59 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'id' 		=> 'seo-info-fields',
 					'type' 		=> 'info',
 					'title' 	=> '',
-					'desc' 		=> __('SEO Fields', 'mfn-opts'),
+					'desc' 		=> __( 'SEO Fields', 'mfn-opts' ),
 					'class' 	=> 'mfn-info',
 				),
 
 				array(
 					'id' 		=> 'mfn-seo',
 					'type' 		=> 'switch',
-					'title' 	=> __('Use built-in fields', 'mfn-opts'), 
-					'desc' 		=> __('Turn it OFF if you want to use external SEO plugin', 'mfn-opts'), 
-					'options' 	=> array('1' => 'On','0' => 'Off'),
+					'title' 	=> __( 'Use built-in fields', 'mfn-opts' ), 
+					'desc' 		=> __( 'Turn it <b>OFF</b> if you want to use external SEO or share plugin', 'mfn-opts' ), 
+					'options' 	=> array( '1' => 'On', '0' => 'Off' ),
 					'std' 		=> '1'
 				),
 				
 				array(
 					'id' 		=> 'meta-description',
 					'type' 		=> 'text',
-					'title' 	=> __('Meta Description', 'mfn-opts'),
-					'desc' 		=> __('These setting may be overridden for single posts & pages', 'mfn-opts'),
+					'title' 	=> __( 'Meta | Description', 'mfn-opts' ),
+					'desc' 		=> __( 'May be overridden for single posts, pages, portfolio', 'mfn-opts' ),
 					'std' 		=> get_bloginfo( 'description' ),
 				),
 				
 				array(
 					'id' 		=> 'meta-keywords',
 					'type' 		=> 'text',
-					'title' 	=> __('Meta Keywords', 'mfn-opts'),
-					'desc' 		=> __('These setting may be overridden for single posts & pages', 'mfn-opts'),
+					'title' 	=> __( 'Meta | Keywords', 'mfn-opts' ),
+					'desc' 		=> __( 'May be overridden for single posts, pages, portfolio', 'mfn-opts' ),
+				),
+					
+				array(
+					'id' 		=> 'mfn-seo-og-image',
+					'type' 		=> 'upload',
+					'title' 	=> __( 'Open Graph | Image', 'mfn-opts' ),
+					'sub_desc' 	=> __( 'Facebook share image', 'mfn-opts' ),
+					'desc' 		=> __( 'May be overridden for single posts, pages, portfolio', 'mfn-opts' ),	
 				),
 					
 				array(
 					'id' 		=> 'seo-info-advanced',
 					'type' 		=> 'info',
 					'title' 	=> '',
-					'desc' 		=> __('Advanced', 'mfn-opts'),
+					'desc' 		=> __( 'Advanced', 'mfn-opts' ),
 					'class' 	=> 'mfn-info',
 				),
 					
 				array(
 					'id' 		=> 'mfn-seo-schema-type',
 					'type' 		=> 'switch',
-					'title' 	=> __('Schema Type', 'mfn-opts'),
-					'desc' 		=> __('Add Schema Type to &lt;html&gt; tag', 'mfn-opts'),
-					'options' 	=> array('1' => 'On','0' => 'Off'),
+					'title' 	=> __( 'Schema Type', 'mfn-opts' ),
+					'desc' 		=> __( 'Add Schema Type to &lt;html&gt; tag', 'mfn-opts' ),
+					'options' 	=> array( '1' => 'On', '0' => 'Off' ),
 					'std' 		=> '1'
 				),
-
+					
 			),
 		);
 		
@@ -3610,26 +3649,30 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'std' 		=> '40',
 				),
 
-				// prettyphoto
+				// lightbox
 				array(
-					'id' 		=> 'addons-info-prettyphoto',
+					'id' 		=> 'addons-info-lightbox',
 					'type' 		=> 'info',
 					'title' 	=> '',
-					'desc' 		=> __('Pretty Photo', 'mfn-opts'),
+					'desc' 		=> __('Lightbox', 'mfn-opts'),
 					'class' 	=> 'mfn-info',
 				),
 					
+				/**
+				 * @since 17.8.3
+				 * Option name 'prettyphoto-options' left only for backward compatibility
+				 */	
 				array(
 					'id' 		=> 'prettyphoto-options',
 					'type' 		=> 'checkbox',
-					'title' 	=> __('Pretty Photo | Options', 'mfn-opts'),
+					'title' 	=> __( 'Lightbox | Options', 'mfn-opts' ),
 					'options' 	=> array(
-						'disable'			=> __('Disable<span>Disable prettyPhoto if you use other plugin</span>', 'mfn-opts'),
-						'disable-mobile'	=> __('Disable on Mobile only', 'mfn-opts'),
-						'title'				=> __('Show image alt text above prettyPhoto frame', 'mfn-opts'),
+						'disable'			=> __( 'Disable<span>Disable Magnific Popup if you prefer to use other plugin</span>', 'mfn-opts' ),
+						'disable-mobile'	=> __( 'Disable on Mobile only', 'mfn-opts' ),
+						'title'				=> __( 'Show image alt text as caption for lightbox image', 'mfn-opts' ),
 					),
 				),
-
+/*
 				array(
 					'id' 		=> 'prettyphoto',
 					'type' 		=> 'select',
@@ -3661,7 +3704,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'desc' 		=> __('px. Leave blank to use auto height', 'mfn-opts'),
 					'class' 	=> 'small-text',
 				),
-					
+*/					
 				// addons
 				array(
 					'id' 		=> 'addons-info-addons',
@@ -4481,7 +4524,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				array(
 					'id' 		=> 'color-footer-backtotop',
 					'type' 		=> 'color',
-					'title' 	=> __('Buton color', 'mfn-opts'),
+					'title' 	=> __('Button color', 'mfn-opts'),
 					'std' 		=> '#65666C',
 				),
 					
@@ -4946,9 +4989,9 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				array(
 					'id' 		=> 'font-size-content',
 					'type' 		=> 'typography',
-					'title' 	=> __('Content', 'mfn-opts'),
-					'sub_desc' 	=> __('This font size will be used for all theme texts<br/>default: 14', 'mfn-opts'),
-					'desc' 		=> __('Some of Google Fonts support multiple weights & styles. Include them in <b>Theme Options > Fonts > Family > Google Fonts Weight & Style</b>', 'mfn-opts'),
+					'title' 	=> __( 'Content', 'mfn-opts' ),
+					'sub_desc' 	=> __( 'All theme texts<br/>default: 14', 'mfn-opts' ),
+					'desc' 		=> __( 'Some of Google Fonts support multiple weights & styles. Include them in <b>Theme Options > Fonts > Family > Google Fonts Weight & Style</b>', 'mfn-opts' ),
 					'std' 		=> array(
 						'size' 				=> 14,
 						'line_height' 		=> 25,
@@ -4973,8 +5016,8 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 				array(
 					'id' 		=> 'font-size-menu',
 					'type' 		=> 'typography',
-					'title' 	=> __('Main menu', 'mfn-opts'),
-					'sub_desc' 	=> 'This font size will be used for all theme texts<br/>default: 15',
+					'title' 	=> __( 'Main Menu', 'mfn-opts' ),
+					'sub_desc' 	=> __( 'First level of Main Menu<br/>default: 15', 'mfn-opts' ),
 					'disable' 	=> 'line_height',
 					'std' 		=> array(
 						'size' 				=> 15,

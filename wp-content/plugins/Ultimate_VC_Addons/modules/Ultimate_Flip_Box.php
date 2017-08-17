@@ -9,7 +9,9 @@ if(!class_exists('AIO_Flip_Box'))
 	{
 		function __construct()
 		{
-			add_action('init',array($this,'block_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'block_init'));
+			}
 			add_shortcode('icon_counter',array($this,'block_shortcode'));
 			add_action( 'wp_enqueue_scripts', array( $this, 'flip_box_scripts' ), 1 );
 		}
@@ -297,6 +299,24 @@ if(!class_exists('AIO_Flip_Box'))
 								 "group" => "Front"
 							),
 							array(
+								"type" => "dropdown",
+								"heading" => __("Tag","ultimate_vc"),
+								"param_name" => "front_heading_tag",
+								"value" => array(
+									__("Default","ultimate_vc") => "h3",
+									__("H1","ultimate_vc") => "h1",
+									__("H2","ultimate_vc") => "h2",
+									__("H4","ultimate_vc") => "h4",
+									__("H5","ultimate_vc") => "h5",
+									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
+								),
+								"description" => __("Default is H3", "ultimate_vc"),
+								"group" => "Front"
+							),
+							array(
 								 "type" => "textarea",
 								 "class" => "",
 								 "heading" => __("Description on Front ","ultimate_vc"),
@@ -345,6 +365,24 @@ if(!class_exists('AIO_Flip_Box'))
 								 "value" => "",
 								 "description" => __("Some nice heading for the back side of the flip.","ultimate_vc"),
 								 "group" => "Back"
+							),
+							array(
+								"type" => "dropdown",
+								"heading" => __("Tag","ultimate_vc"),
+								"param_name" => "back_heading_tag",
+								"value" => array(
+									__("Default","ultimate_vc") => "h3",
+									__("H1","ultimate_vc") => "h1",
+									__("H2","ultimate_vc") => "h2",
+									__("H4","ultimate_vc") => "h4",
+									__("H5","ultimate_vc") => "h5",
+									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
+								),
+								"description" => __("Default is H3", "ultimate_vc"),
+								"group" => "Back"
 							),
 							array(
 								 "type" => "textarea",
@@ -670,7 +708,7 @@ if(!class_exists('AIO_Flip_Box'))
 		// Shortcode handler function for  icon block
 		function block_shortcode($atts)
 		{
-			$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $block_title_front = $block_desc_front = $block_title_back = $block_desc_back = $button_text = $button_link = $block_text_color = $block_front_color = $block_back_color = $block_back_text_color = $animation = $font_size_icon = $box_border_style = $box_border_size = $box_border_color = $border_size = $border_color = $box_border_color_back = $custom_link = $button_bg = $button_txt = $height_type = $box_height = $flip_type = $flip_box_style = $text_color = $bg_color = $front_text = $back_text = $box_border_color_advanced = '';
+			$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $block_title_front = $front_heading_tag = $block_desc_front = $block_title_back = $back_heading_tag = $block_desc_back = $button_text = $button_link = $block_text_color = $block_front_color = $block_back_color = $block_back_text_color = $animation = $font_size_icon = $box_border_style = $box_border_size = $box_border_color = $border_size = $border_color = $box_border_color_back = $custom_link = $button_bg = $button_txt = $height_type = $box_height = $flip_type = $flip_box_style = $text_color = $bg_color = $front_text = $back_text = $box_border_color_advanced = '';
 			$desc_font_line_height = $title_font_line_height = $title_font=$title_font_style=$title_font_size=$desc_font = $desc_font_style = $desc_font_size = '';
 			extract(shortcode_atts( array(
 				'icon_type' => 'selector',
@@ -689,8 +727,10 @@ if(!class_exists('AIO_Flip_Box'))
 				'icon_link' => '',
 				'icon_animation' => '',
 				'block_title_front' => '',
+				'front_heading_tag' => 'h3',
 				'block_desc_front' => '',
 				'block_title_back' => '',
+				'back_heading_tag' => 'h3',
 				'block_desc_back' =>'',
 				'custom_link' => '',
 				'button_text' =>'',
@@ -736,7 +776,7 @@ if(!class_exists('AIO_Flip_Box'))
 			if($icon_type == 'custom'){
 				$icon_style = 'none';
 			}
-			$flip_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_link="'.$icon_link.'" icon_animation="'.$icon_animation.'"]');
+			$flip_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_link="'.esc_attr($icon_link).'" icon_animation="'.esc_attr($icon_animation).'"]');
 			$css_trans = $icon_border = $box_border = '';
 			$height = $target = '';
 
@@ -758,7 +798,7 @@ if(!class_exists('AIO_Flip_Box'))
             }
             $flip_box_id = 'flip-box-wrap-'.rand(1000, 9999);
             $ult_flip_box_args = array(
-                'target' => '#'.$flip_box_id. ' h3.ult-responsive', // set targeted element e.g. unique class/id etc.
+                'target' => '#'.$flip_box_id. ' .ult-responsive.flipbox_heading', // set targeted element e.g. unique class/id etc.
                 'media_sizes' => array(
                     'font-size' => $title_font_size, // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
                    	'line-height' => $title_font_line_height
@@ -784,7 +824,7 @@ if(!class_exists('AIO_Flip_Box'))
             }
 
             $ult_flip_box_args_desc = array(
-                'target' => '#'.$flip_box_id. ' .ult-responsive', // set targeted element e.g. unique class/id etc.
+                'target' => '#'.$flip_box_id. ' .ifb-flip-box-section-content.ult-responsive', // set targeted element e.g. unique class/id etc.
                 'media_sizes' => array(
                     'font-size' => $desc_font_size, // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
                    	'line-height' => $desc_font_line_height
@@ -814,7 +854,7 @@ if(!class_exists('AIO_Flip_Box'))
 				}
 				if($animation !== 'none')
 				{
-					$css_trans = 'data-animation="'.$animation.'" data-animation-delay="03"';
+					$css_trans = 'data-animation="'.esc_attr( $animation ).'" data-animation-delay="03"';
 				}
 				if($block_text_color != ''){
 					$f_style .='color:'.$block_text_color.';';
@@ -858,28 +898,28 @@ if(!class_exists('AIO_Flip_Box'))
 				$verticalcont.='ifb-flip-box-section-vertical-middle';
 			}
 
-			$output .= '<div class="flip-box-wrap" style="'.$flip_design_style.'">';
-			$output .= '<div class="flip-box '.$height_type.' '.$el_class.' '. $flip_type .' flip-'.$height_type.'" '.$css_trans.' style="'.$height.'" '.$box_style_data.'>';
-			$output .= '<div class="ifb-flip-box" id="'.$flip_box_id.'">';
-				$output .= '<div class="ifb-face ifb-front " style="'.$f_style.' '.$box_border.' '.$border_front.'">
-							<div class="ifb-flip-box-section '.$verticalcont.'">
+			$output .= '<div class="flip-box-wrap" style="'.esc_attr($flip_design_style).'">';
+			$output .= '<div class="flip-box '.esc_attr($height_type).' '.esc_attr($el_class).' '. esc_attr($flip_type) .' flip-'.esc_attr($height_type).'" '.$css_trans.' style="'.esc_attr($height).'" '.$box_style_data.'>';
+			$output .= '<div class="ifb-flip-box" id="'.esc_attr($flip_box_id).'">';
+				$output .= '<div class="ifb-face ifb-front " style="'.esc_attr($f_style).' '.esc_attr($box_border).' '.esc_attr($border_front).'">
+							<div class="ifb-flip-box-section '.esc_attr($verticalcont).'">
 							';
 						if($icon !== '' || $icon_img !== '')
 								$output.='<div class="flip-box-icon">'.$flip_icon.'</div>';
 						if($block_title_front!='')
-							$output.='<h3 class="ult-responsive" '.$data_list.' style="'.$front_text.' '.$title_style.'">'.$block_title_front.'</h3>';
+							$output.='<'.$front_heading_tag.' class="ult-responsive flipbox_heading" '.$data_list.' style="'.esc_attr($front_text).' '.esc_attr($title_style).'">'.$block_title_front.'</'.$front_heading_tag.'>';
 						if($block_desc_front!='')
-							$output.='<div class="ifb-flip-box-section-content ult-responsive" '.$data_list_desc.' style="'.$desc_style.$front_text.'"><p>'.$block_desc_front.'</p></div>';
+							$output.='<div class="ifb-flip-box-section-content ult-responsive" '.$data_list_desc.' style="'.esc_attr($desc_style).esc_attr($front_text).'"><p>'.$block_desc_front.'</p></div>';
 					$output.='</div></div><!-- END .front -->
-						<div class="ifb-face ifb-back" style="'.$b_style.' '.$box_border.' '.$border_back.'">
-							<div class="ifb-flip-box-section '.$verticalcont.'">';
+						<div class="ifb-face ifb-back" style="'.esc_attr($b_style).' '.esc_attr($box_border).' '.esc_attr($border_back).'">
+							<div class="ifb-flip-box-section '.esc_attr($verticalcont).'">';
 							if($block_title_back!='')
-								$output.='<h3 class="ult-responsive" '.$data_list.' style="'.$back_text.' '.$title_style.'">'.$block_title_back.'</h3>';
+								$output.='<'.$back_heading_tag.' class="ult-responsive flipbox_heading" '.$data_list.' style="'.esc_attr($back_text).' '.esc_attr($title_style).'">'.$block_title_back.'</'.$back_heading_tag.'>';
 							if($block_desc_back!=''){
 								if($button_link !== ''){
 									$output .= '<div class="ifb-desc-back">';
 								}
-								$output.='<div class="ifb-flip-box-section-content ult-responsive" '.$data_list_desc.' style="'.$desc_style.$back_text.'"><p>'.$block_desc_back.'</p></div>';
+								$output.='<div class="ifb-flip-box-section-content ult-responsive" '.$data_list_desc.' style="'.esc_attr($desc_style).esc_attr($back_text).'"><p>'.$block_desc_back.'</p></div>';
 								if($button_link !== ''){
 									$output .= '</div>';
 								}
@@ -887,14 +927,14 @@ if(!class_exists('AIO_Flip_Box'))
 							if($button_text!== '' && $custom_link){
 								$link_prefix = '<div class="flip_link">';
 								if($button_bg !== '' && $button_txt !== '')
-									$link_style = 'style="background:'.$button_bg.'; color:'.$button_txt.';"';
+									$link_style = 'style="background:'.esc_attr($button_bg).'; color:'.esc_attr($button_txt).';"';
 								if($button_link!== ''){
 									$href = vc_build_link($button_link);
-									$target = ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-									$title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='" . $href['title'] . "'" : '';
-									$rel 	= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='" . $href['rel'] . "'" : '';
+									$target = ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr( trim( $href['target'] ) ) . "'" : '';
+									$title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='" . esc_attr($href['title']) . "'" : '';
+									$rel 	= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='" . esc_attr($href['rel']) . "'" : '';
 
-									$link_prefix .= '<a href = "'.$href['url'].'" '.$target.' '. $title .' '. $rel .' '.$link_style.'>';
+									$link_prefix .= '<a href = "'.esc_url($href['url']).'" '.$target.' '. $title .' '. $rel .' '.$link_style.'>';
 									$link_sufix .= '</a>';
 
 								}
@@ -925,25 +965,15 @@ if(!class_exists('AIO_Flip_Box'))
 			return $output;
 		}
 		function flip_box_scripts() {
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-			wp_register_script('flip_box_js', plugins_url($js_path.'flip-box'.$ext.'.js',__FILE__) , array('jquery'), ULTIMATE_VERSION, true);
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'flip_box_js', 'flip-box', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-flip-style', 'flip-box' );
 		}
 	}
 	//instantiate the class
 	new AIO_Flip_Box;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_icon_counter'))
 	{
 		class WPBakeryShortCode_icon_counter extends WPBakeryShortCode {
 		}

@@ -542,10 +542,19 @@ body #ls-layers table.noborder td {
 	font
 }
 
-
 .ls-real-time-preview {
 	display: none;
 	transform-origin: 0 0;
+}
+
+#ls-popup-preview {
+	/*background: url(../img/checkerboardpattern.png);*/
+	transform-origin: 0 0;
+}
+
+#ls-popup-preview a:focus {
+	color: transparent;
+	box-shadow: none;
 }
 
 
@@ -1113,6 +1122,7 @@ li.active .ls-sublayer-title {
 
 #ls-main-nav-bar .right.help {
 	color: #999 !important;
+	font-size: 12px;
 }
 
 
@@ -1188,16 +1198,15 @@ li.active .ls-sublayer-title {
 }
 
 .ls-publish button {
-	width: 180px;
+	min-width: 180px;
+	margin-right: 20px !important;
 	float: left;
 }
 
 
-.ls-publish .ls-save-shortcode,
-.ls-publish .ls-saving-warning {
+.ls-publish .ls-save-shortcode {
 	height: 40px;
 	padding: 3px;
-	margin: 0 0 0 195px;
 }
 
 .ls-save-shortcode p {

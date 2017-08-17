@@ -1,4 +1,7 @@
 <?php
+    /*
+     No Additional Setting Options
+    */
     if (!class_exists('TS_Parameter_TagEditor')) {
         class TS_Parameter_TagEditor {
             function __construct() {	

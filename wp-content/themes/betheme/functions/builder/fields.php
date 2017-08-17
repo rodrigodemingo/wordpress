@@ -658,7 +658,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'type' 		=> 'text',
 						'title' 	=> __('Count', 'mfn-opts'),
 						'sub_desc' 	=> __('Number of posts to show', 'mfn-opts'),
-						'std' 		=> '2',
+						'std' 		=> '3',
 						'class' 	=> 'small-text',
 					),
 						
@@ -666,7 +666,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id'		=> 'style',
 						'type'		=> 'select',
 						'title'		=> __( 'Style', 'mfn-opts' ),
-						'desc' 		=> __('If you do not know what <b>image size</b> is being used for selected style, please navigate to the: Appearance > <a target="_blank" href="themes.php?page=muffin_options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b>', 'mfn-opts'),	
+						'desc' 		=> __('If you do not know what <b>image size</b> is being used for selected style, please navigate to the: Appearance > <a target="_blank" href="admin.php?page=be-options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b>', 'mfn-opts'),	
 						'options'	=> array(
 							'classic'		=> __( 'Classic', 'mfn-opts' ),
 							'grid'			=> __( 'Grid', 'mfn-opts' ),
@@ -675,7 +675,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 							'photo'			=> __( 'Photo (Horizontal Images)', 'mfn-opts' ),
 							'timeline'		=> __( 'Timeline', 'mfn-opts' ),
 						),
-						'std'		=> 'classic',
+						'std'		=> 'grid',
 					),
 					
 					array(
@@ -709,24 +709,48 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id' 		=> 'info_options',
 						'type' 		=> 'info',
 						'title' 	=> '',
-						'desc' 		=> __('Options', 'mfn-opts'),
+						'desc' 		=> __( 'Options', 'mfn-opts' ),
 						'class' 	=> 'mfn-info',
 					),
 
 					array(
 						'id' 		=> 'category',
 						'type' 		=> 'select',
-						'title' 	=> __('Category', 'mfn-opts'),
+						'title' 	=> __( 'Category', 'mfn-opts' ),
 						'options' 	=> mfn_get_categories( 'category' ),
-						'sub_desc' 	=> __('Select posts category', 'mfn-opts'),
+						'sub_desc' 	=> __( 'Select posts category', 'mfn-opts' ),
 					),
 						
 					array(
 						'id'		=> 'category_multi',
 						'type'		=> 'text',
-						'title'		=> __('Multiple Categories', 'mfn-opts'),
-						'sub_desc'	=> __('Categories <b>slugs</b>', 'mfn-opts'),
-						'desc'		=> __('Slugs should be separated with <b>coma</b> ( , )', 'mfn-opts'),
+						'title'		=> __( 'Multiple Categories', 'mfn-opts' ),
+						'sub_desc'	=> __( 'Categories <b>slugs</b>', 'mfn-opts' ),
+						'desc'		=> __( 'Slugs should be separated with <b>coma</b> ( , )', 'mfn-opts' ),
+					),
+						
+					array(
+						'id'		=> 'orderby',
+						'type'		=> 'select',
+						'title'		=> __( 'Order by', 'mfn-opts' ),
+						'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
+						'options' 	=> array(
+							'date'			=> __( 'Date', 'mfn-opts' ),
+							'title'			=> __( 'Title', 'mfn-opts' ),
+							'rand'			=> __( 'Random', 'mfn-opts' ),
+						),
+						'std'		=> 'date'
+					),
+					
+					array(
+						'id'		=> 'order',
+						'type'		=> 'select',
+						'title'		=> __( 'Order', 'mfn-opts' ),
+						'options'	=> array(
+							'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+							'DESC' 	=> __( 'Descending', 'mfn-opts' ),
+						),
+						'std'		=> 'DESC'
 					),
 
 					// advanced
@@ -884,7 +908,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id' 		=> 'style',
 						'type' 		=> 'select',
 						'title' 	=> __('Style', 'mfn-opts'),
-						'desc' 		=> __('Image size for this item is the same as for Blog Page, please navigate to the: Appearance > <a target="_blank" href="themes.php?page=muffin_options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b> > Blog & Portfolio', 'mfn-opts'),	
+						'desc' 		=> __('Image size for this item is the same as for Blog Page, please navigate to the: Appearance > <a target="_blank" href="admin.php?page=be-options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b> > Blog & Portfolio', 'mfn-opts'),	
 						'options' 	=> array(
 							'' 			=> __('Default', 'mfn-opts'),
 							'featured'	=> __('Featured 1st', 'mfn-opts'),
@@ -900,29 +924,53 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'class' 	=> 'small-text',
 					),
 						
-					// options		
+					// options	
 					array(
 						'id' 		=> 'info_options',
 						'type' 		=> 'info',
 						'title' 	=> '',
-						'desc' 		=> __('Options', 'mfn-opts'),
+						'desc' 		=> __( 'Options', 'mfn-opts' ),
 						'class' 	=> 'mfn-info',
 					),
 
 					array(
 						'id' 		=> 'category',
 						'type' 		=> 'select',
-						'title' 	=> __('Category', 'mfn-opts'),
+						'title' 	=> __( 'Category', 'mfn-opts' ),
 						'options' 	=> mfn_get_categories( 'category' ),
-						'sub_desc' 	=> __('Select posts category', 'mfn-opts'),
+						'sub_desc' 	=> __( 'Select posts category', 'mfn-opts' ),
 					),
 						
 					array(
 						'id'		=> 'category_multi',
 						'type'		=> 'text',
-						'title'		=> __('Multiple Categories', 'mfn-opts'),
-						'sub_desc'	=> __('Categories Slugs', 'mfn-opts'),
-						'desc'		=> __('Slugs should be separated with <strong>coma</strong> (,).', 'mfn-opts'),
+						'title'		=> __( 'Multiple Categories', 'mfn-opts' ),
+						'sub_desc'	=> __( 'Categories <b>slugs</b>', 'mfn-opts' ),
+						'desc'		=> __( 'Slugs should be separated with <b>coma</b> ( , )', 'mfn-opts' ),
+					),
+						
+					array(
+						'id'		=> 'orderby',
+						'type'		=> 'select',
+						'title'		=> __( 'Order by', 'mfn-opts' ),
+						'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
+						'options' 	=> array(
+							'date'			=> __( 'Date', 'mfn-opts' ),
+							'title'			=> __( 'Title', 'mfn-opts' ),
+							'rand'			=> __( 'Random', 'mfn-opts' ),
+						),
+						'std'		=> 'date'
+					),
+					
+					array(
+						'id'		=> 'order',
+						'type'		=> 'select',
+						'title'		=> __( 'Order', 'mfn-opts' ),
+						'options'	=> array(
+							'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+							'DESC' 	=> __( 'Descending', 'mfn-opts' ),
+						),
+						'std'		=> 'DESC'
 					),
 						
 					// advanced
@@ -1003,29 +1051,53 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'class' 	=> 'small-text',
 					),
 						
-					// options
+					// options	
 					array(
 						'id' 		=> 'info_options',
 						'type' 		=> 'info',
 						'title' 	=> '',
-						'desc' 		=> __('Options', 'mfn-opts'),
+						'desc' 		=> __( 'Options', 'mfn-opts' ),
 						'class' 	=> 'mfn-info',
 					),
 
 					array(
 						'id' 		=> 'category',
 						'type' 		=> 'select',
-						'title' 	=> __('Category', 'mfn-opts'),
+						'title' 	=> __( 'Category', 'mfn-opts' ),
 						'options' 	=> mfn_get_categories( 'category' ),
-						'sub_desc' 	=> __('Select posts category', 'mfn-opts'),
+						'sub_desc' 	=> __( 'Select posts category', 'mfn-opts' ),
 					),
 						
 					array(
 						'id'		=> 'category_multi',
 						'type'		=> 'text',
-						'title'		=> __('Multiple Categories', 'mfn-opts'),
-						'sub_desc'	=> __('Categories Slugs', 'mfn-opts'),
-						'desc'		=> __('Slugs should be separated with <strong>coma</strong> (,).', 'mfn-opts'),
+						'title'		=> __( 'Multiple Categories', 'mfn-opts' ),
+						'sub_desc'	=> __( 'Categories <b>slugs</b>', 'mfn-opts' ),
+						'desc'		=> __( 'Slugs should be separated with <b>coma</b> ( , )', 'mfn-opts' ),
+					),
+						
+					array(
+						'id'		=> 'orderby',
+						'type'		=> 'select',
+						'title'		=> __( 'Order by', 'mfn-opts' ),
+						'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
+						'options' 	=> array(
+							'date'			=> __( 'Date', 'mfn-opts' ),
+							'title'			=> __( 'Title', 'mfn-opts' ),
+							'rand'			=> __( 'Random', 'mfn-opts' ),
+						),
+						'std'		=> 'date'
+					),
+					
+					array(
+						'id'		=> 'order',
+						'type'		=> 'select',
+						'title'		=> __( 'Order', 'mfn-opts' ),
+						'options'	=> array(
+							'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+							'DESC' 	=> __( 'Descending', 'mfn-opts' ),
+						),
+						'std'		=> 'DESC'
 					),
 
 					// advanced
@@ -1129,29 +1201,53 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'std'		=> 'h3'
 					),
 	
-					// options
+					// options	
 					array(
 						'id' 		=> 'info_options',
 						'type' 		=> 'info',
 						'title' 	=> '',
-						'desc' 		=> __('Options', 'mfn-opts'),
+						'desc' 		=> __( 'Options', 'mfn-opts' ),
 						'class' 	=> 'mfn-info',
 					),
-	
+
 					array(
 						'id' 		=> 'category',
 						'type' 		=> 'select',
-						'title' 	=> __('Category', 'mfn-opts'),
+						'title' 	=> __( 'Category', 'mfn-opts' ),
 						'options' 	=> mfn_get_categories( 'category' ),
-						'sub_desc' 	=> __('Select posts category', 'mfn-opts'),
+						'sub_desc' 	=> __( 'Select posts category', 'mfn-opts' ),
 					),
-	
+						
 					array(
 						'id'		=> 'category_multi',
 						'type'		=> 'text',
-						'title'		=> __('Multiple Categories', 'mfn-opts'),
-						'sub_desc'	=> __('Categories Slugs', 'mfn-opts'),
-						'desc'		=> __('Slugs should be separated with <strong>coma</strong> (,).', 'mfn-opts'),
+						'title'		=> __( 'Multiple Categories', 'mfn-opts' ),
+						'sub_desc'	=> __( 'Categories <b>slugs</b>', 'mfn-opts' ),
+						'desc'		=> __( 'Slugs should be separated with <b>coma</b> ( , )', 'mfn-opts' ),
+					),
+						
+					array(
+						'id'		=> 'orderby',
+						'type'		=> 'select',
+						'title'		=> __( 'Order by', 'mfn-opts' ),
+						'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
+						'options' 	=> array(
+							'date'			=> __( 'Date', 'mfn-opts' ),
+							'title'			=> __( 'Title', 'mfn-opts' ),
+							'rand'			=> __( 'Random', 'mfn-opts' ),
+						),
+						'std'		=> 'date'
+					),
+					
+					array(
+						'id'		=> 'order',
+						'type'		=> 'select',
+						'title'		=> __( 'Order', 'mfn-opts' ),
+						'options'	=> array(
+							'ASC' 	=> __( 'Ascending', 'mfn-opts' ),
+							'DESC' 	=> __( 'Descending', 'mfn-opts' ),
+						),
+						'std'		=> 'DESC'
 					),
 	
 					// advanced
@@ -1172,19 +1268,6 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 							'0'			=> __('No margins', 'mfn-opts'),
 						),
 					),
-	
-// 					array(
-// 						'id'		=> 'link',
-// 						'type' 		=> 'text',
-// 						'title' 	=> __('Button | Link', 'mfn-opts'),
-// 					),
-	
-// 					array(
-// 						'id'		=> 'link_title',
-// 						'type' 		=> 'text',
-// 						'title' 	=> __('Button | Title', 'mfn-opts'),
-// 						'class'		=> 'small-text',
-// 					),
 	
 					// custom
 					array(
@@ -3400,14 +3483,13 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id' 		=> 'link_image',
 						'type' 		=> 'upload',
 						'title' 	=> __('Zoomed image', 'mfn-opts'),
-						'desc' 		=> __('This image or embed video will be opened in lightbox.', 'mfn-opts'),
+						'desc' 		=> __('This <b>image or embed video</b> will be opened in lightbox.', 'mfn-opts'),
 					),
 						
 					array(
 						'id' 		=> 'link',
 						'type' 		=> 'text',
-						'title' 	=> __('Link', 'mfn-opts'),
-						'desc' 		=> __('This link will work only if you leave the above "Zoomed image" field empty.', 'mfn-opts'),
+						'title' 	=> __( 'Link', 'mfn-opts' ),
 					),
 						
 					array(
@@ -3497,6 +3579,102 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'desc'		=> __('Multiple classes should be separated with SPACE', 'mfn-opts'),
 					),
 
+				),
+			),
+				
+			// Image Gallery  ---------------------------------------------------------
+			
+			'image_gallery' => array(
+				'type' 		=> 'image_gallery',
+				'title' 	=> __( 'Image Gallery', 'mfn-opts' ),
+				'size' 		=> '1/1',
+				'cat' 		=> 'typography',
+				'fields' 	=> array(
+		
+					array(
+						'id' 		=> 'ids',
+						'type' 		=> 'upload_multi',
+						'title' 	=> __( 'Image Gallery', 'mfn-opts' ),
+					),
+	
+					// options
+					array(
+						'id' 		=> 'info_options',
+						'type' 		=> 'info',
+						'title' 	=> '',
+						'desc' 		=> __( 'Options', 'mfn-opts' ),
+						'class' 	=> 'mfn-info',
+					),
+	
+					array(
+						'id' 		=> 'columns',
+						'type' 		=> 'text',
+						'title' 	=> __( 'Columns', 'mfn-opts' ),
+						'desc' 		=> __( 'min: <b>1</b>, max: <b>9</b>', 'mfn-opts' ),
+						'class' 	=> 'small-text',
+						'std' 		=> '3',
+					),
+	
+					array(
+						'id' 		=> 'size',
+						'type' 		=> 'select',
+						'title' 	=> __( 'Size' , 'mfn-opts' ),
+						'options' 	=> array(
+							'thumbnail' => __( 'Thumbnail', 'mfn-opts' ),
+							'medium' 	=> __( 'Medium', 'mfn-opts' ),
+							'large' 	=> __( 'Large', 'mfn-opts' ),
+							'full' 		=> __( 'Full Size', 'mfn-opts' ),
+						),
+					),
+	
+					array(
+						'id' 		=> 'style',
+						'type' 		=> 'select',
+						'title' 	=> __( 'Style' , 'mfn-opts' ),
+						'options' 	=> array(
+							'' 			=> __( 'Default', 'mfn-opts' ),
+							'flat' 		=> __( 'Flat', 'mfn-opts' ),
+							'fancy' 	=> __( 'Fancy', 'mfn-opts' ),
+							'masonry' 	=> __( 'Masonry', 'mfn-opts' ),
+						),
+					),
+	
+					// advanced
+					array(
+						'id' 		=> 'info_advanced',
+						'type' 		=> 'info',
+						'title' 	=> '',
+						'desc' 		=> __( 'Advanced', 'mfn-opts' ),
+						'class' 	=> 'mfn-info',
+					),
+	
+					array(
+						'id'		=> 'greyscale',
+						'type'		=> 'select',
+						'title'		=> __( 'Greyscale Images', 'mfn-opts' ),
+						'options' 	=> array(
+							0 => __( 'No', 'mfn-opts' ),
+							1 => __( 'Yes', 'mfn-opts' ),
+						),
+					),
+	
+					// custom
+					array(
+						'id' 		=> 'info_custom',
+						'type' 		=> 'info',
+						'title' 	=> '',
+						'desc' 		=> __( 'Custom', 'mfn-opts' ),
+						'class' 	=> 'mfn-info',
+					),
+	
+					array(
+						'id' 		=> 'classes',
+						'type' 		=> 'text',
+						'title' 	=> __( 'Custom | Classes', 'mfn-opts' ),
+						'sub_desc'	=> __( 'Custom CSS Item Classes Names', 'mfn-opts' ),
+						'desc'		=> __( 'Multiple classes should be separated with SPACE', 'mfn-opts' ),
+					),
+		
 				),
 			),
 				
@@ -4443,7 +4621,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id'		=> 'style',
 						'type'		=> 'select',
 						'title'		=> __( 'Style', 'mfn-opts' ),
-						'desc' 		=> __('If you do not know what <b>image size</b> is being used for selected style, please navigate to the: Appearance > <a target="_blank" href="themes.php?page=muffin_options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b>', 'mfn-opts'),
+						'desc' 		=> __('If you do not know what <b>image size</b> is being used for selected style, please navigate to the: Appearance > <a target="_blank" href="admin.php?page=be-options">Theme Options</a> > Blog, Portfolio & Shop > <b>Featured Images</b>', 'mfn-opts'),
 						'options' 	=> array(
 							'flat'				=> __( 'Flat', 'mfn-opts' ),
 							'grid'				=> __( 'Grid', 'mfn-opts' ),
@@ -4501,6 +4679,7 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 						'id'		=> 'orderby',
 						'type'		=> 'select',
 						'title'		=> __('Order by', 'mfn-opts'),
+						'desc' 		=> __( 'Do not use random order with pagination or load more', 'mfn-opts' ),
 						'options' 	=> array(
 							'date'			=> __( 'Date', 'mfn-opts' ),
 							'menu_order' 	=> __( 'Menu order', 'mfn-opts' ),
@@ -6235,10 +6414,10 @@ if( ! function_exists( 'mfn_get_fields_item' ) )
 
 					array(
 						'id' 		=> 'content',
-						'type' 		=> 'textarea',
+						'type' 		=> 'visual',
 						'title' 	=> __('Visual Editor', 'mfn-opts'),
-						'param' 	=> 'editor',
-						'validate' 	=> 'html',
+// 						'param' 	=> 'editor',
+// 						'validate' 	=> 'html',
 					),
 
 					array(

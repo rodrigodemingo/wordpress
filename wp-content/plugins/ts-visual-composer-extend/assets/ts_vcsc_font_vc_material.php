@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_Material = array(
 	$this->TS_VCSC_Icons_Compliant_VC_Material = array(
         "Material Font (VC)" => array(
             array( 'vc-material vc-material-3d_rotation' => '3d rotation' ),

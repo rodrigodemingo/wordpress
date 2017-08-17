@@ -375,12 +375,7 @@ function setmytime( string ,float_val ){
 
             var off = bgcontain.offset().top;
             var left = bgcontain.offset().left;
-         
-            if(!bgcontain.hasClass('ult_aniamte') && float_val!==true){
-              jQuery('html, body').animate({
-                  scrollTop: bgcontain.offset().top-100
-              }, 1000);
-            }
+                    
             bgcontain.addClass('ult_aniamte');
 
             bgcontain.find("ul.ult_tabmenu li a.ult_a").click(function(b) {
@@ -598,7 +593,8 @@ jQuery(document).ready(function(){
            jQuery(this).closest(".ult_tabs").find(".ult_tabcontent").css({"overflow":"hidden"});
            jQuery(this).closest(".ult_tabs").find('.ult_tabcontent').animate({'height':cwidth},"slow");
        }
-       
+       var tab_content_class=jQuery(this).closest(".ult_tabs").find("div.ult_tabitemname:eq(" + j + ")");
+       jQuery(document).trigger('ultAdvancedTabClickedCarousel', tab_content_class );
     });
 
 });

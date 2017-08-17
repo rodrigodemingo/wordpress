@@ -182,8 +182,8 @@
 							<img src="<?php echo $revision->avatar ?>">
 						</td>
 						<td>
-							<?php echo __('Selected Revision by ', 'LayerSlider') ?>
-							<strong class="author"><?php echo $revision->nickname ?></strong>
+							<?php echo sprintf(__('Selected Revision by %s', 'LayerSlider'), '<strong class="author">'.$revision->nickname.'</strong>')  ?>
+
 						</td>
 					</tr>
 					<tr>
@@ -216,12 +216,12 @@
 				<?php
 					foreach($slider['layers'] as $key => $layer) :
 					$active = empty($key) ? 'active' : '';
-					$name = !empty($layer['properties']['title']) ? $layer['properties']['title'] : 'Slide #'.($key+1);
+					$name = !empty($layer['properties']['title']) ? $layer['properties']['title'] : sprintf(__('Slide #%d', 'LayerSlider'), ($key+1));
 					$bgImage = !empty($layer['properties']['background']) ? $layer['properties']['background'] : null;
 					$bgImageId = !empty($layer['properties']['backgroundId']) ? $layer['properties']['backgroundId'] : null;
 					$image = apply_filters('ls_get_image', $bgImageId, $bgImage, true);
 				?>
-				<a href="#" class="<?php echo $active ?>" data-help="<div style='background-image: url(<?php echo $image?>);'></div>" data-help-class="ls-slide-preview-tooltip popover-light ls-popup" data-help-delay="1" data-help-transition="false">
+				<a href="#" class="<?php echo $active ?>" data-help="<div style='background-image: url(<?php echo $image?>);'></div>" data-help-class="ls-slide-preview-tooltip popover-light km-ui-popup" data-help-delay="1" data-help-transition="false">
 					<span><?php echo $name ?></span>
 					<span class="dashicons dashicons-dismiss"></span>
 				</a>

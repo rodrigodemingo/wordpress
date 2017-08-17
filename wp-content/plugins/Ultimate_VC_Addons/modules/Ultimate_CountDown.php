@@ -9,25 +9,17 @@ if(!class_exists('Ultimate_CountDown'))
 	{
 		function __construct()
 		{
-			add_action('init',array($this,'countdown_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'countdown_init'));
+			}
 			add_shortcode('ult_countdown',array($this,'countdown_shortcode'));
 			add_action('admin_enqueue_scripts',array($this,'admin_scripts'));
 			add_action('wp_enqueue_scripts',array($this,'count_down_scripts'),1);
 		}
 		function count_down_scripts() {
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-			wp_register_script("jquery.timecircle",plugins_url($js_path."countdown".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
-			wp_register_script("jquery.countdown",plugins_url($js_path."count-timer".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery.timecircle', 'countdown', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery.countdown', 'count-timer', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-countdown', 'countdown' );
 		}
@@ -531,7 +523,7 @@ if(!class_exists('Ultimate_CountDown'))
 				}
 			}
 			else{
-				$data_attr .=  'data-br-color="'.$br_color.'" data-br-style="'.$br_style.'" data-br-size="'.$br_size.'" ';
+				$data_attr .=  'data-br-color="'.esc_attr( $br_color ).'" data-br-style="'.esc_attr($br_style).'" data-br-size="'.esc_attr($br_size).'" ';
 			}
 			// Responsive param
 
@@ -555,13 +547,13 @@ if(!class_exists('Ultimate_CountDown'))
 			if($timer_unit_font_family != '')
 			{
 				$tunifamily = get_ultimate_font_family($timer_unit_font_family);
-					$data_attr .= ' data-tuni-font-family ="'.$tunifamily.'"';
+					$data_attr .= ' data-tuni-font-family ="'.esc_attr($tunifamily).'"';
 			}
 			$stick_style = get_ultimate_font_style($tick_style);
 			$stick_unit_style = get_ultimate_font_style($tick_unit_style);
-			$data_attr .= ' data-tick-style="'.$stick_style.'" ';
-			$data_attr .= ' data-tick-p-style="'.$tick_sep_style.'" ';
-			$data_attr .= ' data-bg-color="'.$timer_bg_color.'" data-br-radius="'.$br_radius.'" data-padd="'.$br_time_space.'" ';
+			$data_attr .= ' data-tick-style="'.esc_attr($stick_style).'" ';
+			$data_attr .= ' data-tick-p-style="'.esc_attr($tick_sep_style).'" ';
+			$data_attr .= ' data-bg-color="'.esc_attr($timer_bg_color).'" data-br-radius="'.esc_attr($br_radius).'" data-padd="'.esc_attr($br_time_space).'" ';
 
 			switch( $tick_style ) {
                 case 'bold':
@@ -609,7 +601,7 @@ if(!class_exists('Ultimate_CountDown'))
 			$output .= '}';
 
 			$output .= '</style>';
-			$output .= '<div "'.$count_down_sep_data_list.'" class="ult-responsive ult_countdown '.$countdown_design_style.' '.$el_class.' '.$count_style.'">';
+			$output .= '<div "'.$count_down_sep_data_list.'" class="ult-responsive ult_countdown '.esc_attr($countdown_design_style).' '.esc_attr($el_class).' '.esc_attr($count_style).'">';
 
 			//Responsive param
 
@@ -626,7 +618,7 @@ if(!class_exists('Ultimate_CountDown'))
 			$count_down_data_list = get_ultimate_vc_responsive_media_css($count_down_args);
 
 			if($datetime!=''){
-				$output .='<div id="'.$count_down_id.'"  class="ult-responsive ult_countdown-div ult_countdown-dateAndTime '.$ult_tz.'" data-labels="'.$labels.'" data-labels2="'.$labels2.'"  data-terminal-date="'.$datetime.'" data-countformat="'.$count_frmt.'" data-time-zone="'.get_option('gmt_offset').'" data-time-now="'.str_replace('-', '/', current_time('mysql')).'"  data-tick-col="'.$tick_col.'"  '.$count_down_data_list.' data-tick-p-col="'.$tick_sep_col.'" '.$data_attr.'>'.$datetime.'</div>';
+				$output .='<div id="'.esc_attr($count_down_id).'"  class="ult-responsive ult_countdown-div ult_countdown-dateAndTime '.esc_attr($ult_tz).'" data-labels="'.esc_attr($labels).'" data-labels2="'.esc_attr($labels2).'"  data-terminal-date="'.esc_attr($datetime).'" data-countformat="'.esc_attr($count_frmt).'" data-time-zone="'.esc_attr(get_option('gmt_offset')).'" data-time-now="'.esc_attr(str_replace('-', '/', current_time('mysql'))).'"  data-tick-col="'.esc_attr($tick_col).'"  '.$count_down_data_list.' data-tick-p-col="'.esc_attr($tick_sep_col).'" '.$data_attr.'>'.$datetime.'</div>';
 			}
 			$output .='</div>';
 			$is_preset = false;
@@ -651,7 +643,7 @@ if(!class_exists('Ultimate_CountDown'))
 	}
 	//instantiate the class
 	$ult_countdown = new Ultimate_CountDown;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ult_countdown'))
 	{
 		class WPBakeryShortCode_ult_countdown extends WPBakeryShortCode {
 		}

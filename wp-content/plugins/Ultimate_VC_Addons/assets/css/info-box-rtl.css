@@ -195,8 +195,8 @@ a.aio-icon-box-link {
     vertical-align: middle;
     width: 100%
 }
-.heading-right-icon .aio-icon-header h3.aio-icon-title,
+.heading-right-icon .aio-icon-header .aio-icon-title,
 .heading-right-icon .aio-icon-description,
 .heading-right-icon .aio-icon-description * {
-    text-align: left
+    text-align: left;
 }

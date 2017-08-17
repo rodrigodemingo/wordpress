@@ -480,7 +480,7 @@ if (!class_exists('VC_Extensions_BackgroundButton')&&class_exists('WPBakeryShort
           $buttonicon = $icon_fontawesome = $icon_openiconic = $icon_typicons = $icon_entypo = $icon_linecons = $icon_pixelicons = $icon_monosocial = $icon_material = $css = '';
           $isicon = "icon-left";
           $buttonlabel = "Hello Button";
-          // $buttonimage = $isresize = $buttonlink = $extraclass = $startcolor = $endcolor = $fontsize = $iconcolor = $textcolor = $icon2size = $linktype = $lightboxmargin = $istooltip = $autoclose = $iconanimation = $minwidth = $tooltipanimation = $autoloaded = $linktype = $bgshape = $isicon = $extraicon = $buttonlabel = "";
+          $buttonimage = $isresize = $buttonlink = $extraclass = $startcolor = $endcolor = $fontsize = $iconcolor = $textcolor = $icon2size = $linktype = $lightboxmargin = $istooltip = $autoclose = $iconanimation = $minwidth = $tooltipanimation = $autoloaded = $linktype = $bgshape = $isicon = $extraicon = $buttonlabel = "";
           // $alignment = "fullwidth";
           extract(shortcode_atts(array(
             "icon_fontawesome" => 'fa fa-bullhorn',
@@ -503,7 +503,7 @@ if (!class_exists('VC_Extensions_BackgroundButton')&&class_exists('WPBakeryShort
             "isicon" => "icon-left",
             "buttonlabel" => "Hello Button",
             "css" => "",
-            "extraicon" => "",
+            "extraicon" => "yes",
             "icon2size" => "",
             "istooltip" => "",
             "autoloaded" => "",

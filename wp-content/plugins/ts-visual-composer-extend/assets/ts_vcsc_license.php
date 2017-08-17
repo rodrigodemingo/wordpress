@@ -444,12 +444,9 @@
 			update_site_option('ts_vcsc_extend_settings_licenseUpdate', 	0);
 		} else {
 			update_option('ts_vcsc_extend_settings_licenseUpdate', 			0);
-		}
-		
+		}		
 		$LicenseCheckStatus = "";
 	}
-?>
-<?php
 	echo '<div class="ts-vcsc-settings-group-header">';
 		echo '<div class="display_header">';
 			echo '<h2><span class="dashicons dashicons-admin-network"></span>Composium - Visual Composer Extensions v' . TS_VCSC_GetPluginVersion() . ' ... License Information</h2>';
@@ -477,11 +474,11 @@
 				}
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginIsMultiSiteActive == "true") {
 					if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "false") {
-						echo '<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">Please enter your license key in order to activate the Auto-Update and the bonus tinyMCE Font Icon Generator features of the plugin!</div>';
+						echo '<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">Please enter your license key in order to activate the auto-update routine of the plugin!</div>';
 					}
 				} else {
 					if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "false") {
-						echo '<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">Please enter your license key in order to activate the Auto-Update and the bonus tinyMCE Font Icon Generator features of the plugin!</div>';
+						echo '<div class="ts-vcsc-info-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">Please enter your license key in order to activate the auto-update routine of the plugin!</div>';
 					}
 				}
 			?>			
@@ -557,7 +554,7 @@
 										echo '<div class="ts_vcsc_extend_messi_link clearFixMe" data-title="Retrieve your Envato License Code" data-source="' . TS_VCSC_GetResourceURL('images/envato/envato_find_license_key.png') .'" style="cursor: pointer; margin-left: 10px; margin-top: 10px;">';
 											echo '<img style="float: left; border: 1px solid #CCCCCC; margin: 0px auto; max-width: 125px; height: auto;" src="' . TS_VCSC_GetResourceURL('images/envato/envato_find_license_key.png') .'">';
 										echo '</div>';
-										echo '<div style="margin-left: 10px; margin: 10px 0 20px 10px; width: 100%; float: left;">Click on Image to get Directions to retrieve your Envato License Key.</div>';
+										echo '<div style="margin-left: 10px; margin: 10px 0 20px 10px; width: 100%; float: left;">Click on image to get directions to retrieve your Envato License Key.</div>';
 									}
 								} else {
 									echo '<span id="Envato_Key_Missing" style="color: red;">Please enter your Purchase/License Key!</span>';
@@ -569,7 +566,7 @@
 										echo '<div class="ts_vcsc_extend_messi_link clearFixMe" data-title="Retrieve your Envato License Code" data-source="' . TS_VCSC_GetResourceURL('images/envato/envato_find_license_key.png') .'" style="cursor: pointer; margin-left: 10px; margin-top: 10px;">';
 											echo '<img style="float: left; border: 1px solid #CCCCCC; margin: 0px auto; max-width: 125px; height: auto;" src="' . TS_VCSC_GetResourceURL('images/envato/envato_find_license_key.png') .'">';
 										echo '</div>';
-										echo '<div style="margin-left: 10px; margin: 10px 0 20px 10px; width: 100%; float: left;">Click on Image to get Directions to retrieve your Envato License Key.</div>';
+										echo '<div style="margin-left: 10px; margin: 10px 0 20px 10px; width: 100%; float: left;">Click on image to get directions to retrieve your Envato License Key.</div>';
 									}
 								} else {
 									echo '<span id="Envato_Key_Missing" style="color: red;">Please enter your Purchase/License Key!</span>';

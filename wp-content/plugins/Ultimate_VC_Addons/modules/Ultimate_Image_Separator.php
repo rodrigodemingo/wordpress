@@ -6,27 +6,17 @@ if(!class_exists('Ultimate_Image_Separator'))
 {
 	class Ultimate_Image_Separator{
 		function __construct(){
-			add_action('init',array($this,'ultimate_img_separator_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_img_separator_init'));
+			}
 			add_shortcode('ultimate_img_separator',array($this,'ultimate_img_separator_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_easy_separator_assets'),1);
 		}
 		function register_easy_separator_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-easy-separator-style', 'image-separator' );
-						
-			wp_register_script('ult-easy-separator-script',plugins_url($js_path.'image-separator'.$ext.'.js',__FILE__),array('jquery'), ULTIMATE_VERSION);
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-easy-separator-script', 'image-separator', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		function ultimate_img_separator_init(){
 			if(function_exists('vc_map'))
@@ -176,9 +166,9 @@ if(!class_exists('Ultimate_Image_Separator'))
 				$href 		= 	vc_build_link($sep_link);
 
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 			}
 
 			$args = array(
@@ -225,22 +215,22 @@ if(!class_exists('Ultimate_Image_Separator'))
 				}
 				if($opacity == "set"){
 					$animation_el_class .= ' ult-animation ult-animate-viewport ';
-					$opacity_start_effect_data = 'data-opacity_start_effect="'.$opacity_start_effect.'"';
+					$opacity_start_effect_data = 'data-opacity_start_effect="'.esc_attr($opacity_start_effect).'"';
 				}
-				$animation_data .= ' data-animate="'.$animation.'" ';
-				$animation_data .= ' data-animation-delay="'.$animation_delay.'" ';
-				$animation_data .= ' data-animation-duration="'.$animation_duration.'" ';
-				$animation_data .= ' data-animation-iteration="'.$animation_iteration_count.'" ';
+				$animation_data .= ' data-animate="'.esc_attr($animation).'" ';
+				$animation_data .= ' data-animation-delay="'.esc_attr($animation_delay).'" ';
+				$animation_data .= ' data-animation-duration="'.esc_attr($animation_duration).'" ';
+				$animation_data .= ' data-animation-iteration="'.esc_attr($animation_iteration_count).'" ';
 			}
 			else
 				$animation_el_class .= 'ult-no-animation';
 
-			$output = '<div id="'.$id.'" class="ult-easy-separator-wrapper ult-responsive '.$img_separator_position.' '.$wrapper_class.'" style="'.$custom_position.'" data-vc-row="'.$ultimate_custom_vc_row.'" '.$data_list.'>';
+			$output = '<div id="'.esc_attr($id).'" class="ult-easy-separator-wrapper ult-responsive '.esc_attr($img_separator_position).' '.esc_attr($wrapper_class).'" style="'.esc_attr($custom_position).'" data-vc-row="'.esc_attr($ultimate_custom_vc_row).'" '.$data_list.'>';
 				$output .= '<div class="ult-easy-separator-inner-wrapper">';
-					$output .= '<div class="'.$animation_el_class.'" style="'.$animation_style.'"  '.$animation_data.' '.$opacity_start_effect_data.'>';
-						$output .= '<img class="ult-easy-separator-img" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'" />';
+					$output .= '<div class="'.esc_attr($animation_el_class).'" style="'.esc_attr($animation_style).'"  '.$animation_data.' '.$opacity_start_effect_data.'>';
+						$output .= '<img class="ult-easy-separator-img" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'" />';
 						if($url != '') {
-							$output .= '<a href="'.$url.'" '.$target.' '. $link_title .' '. $rel .'></a>';
+							$output .= '<a href="'.esc_attr($url).'" '.$target.' '. $link_title .' '. $rel .'></a>';
 						}
 					$output .= '</div>';
 				$output .= '</div>';

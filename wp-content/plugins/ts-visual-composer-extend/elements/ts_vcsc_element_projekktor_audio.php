@@ -1,6 +1,8 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-	
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_HTML5_Audio'))) {
+		class WPBakeryShortCode_TS_VCSC_HTML5_Audio extends WPBakeryShortCode {};
+	};
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                          => __( "TS Projekktor Audio", "ts_visual_composer_extend" ),
 		"base"                          => "TS_VCSC_HTML5_Audio",
@@ -472,10 +474,9 @@
 			),
 		)
 	);
-
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

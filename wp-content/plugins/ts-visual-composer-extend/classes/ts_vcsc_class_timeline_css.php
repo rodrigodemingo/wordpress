@@ -100,9 +100,10 @@
 				$timeline_array						= array();
 				$category_fields 	                = array();
 				$args = array(
+					'p'								=> $section,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_timeline',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -2049,7 +2050,7 @@
 				$styles									= '';
 				$rules									= '';
 				$wpautop 								= ($content_wpautop == "true" ? true : false);
-				$inline									= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline									= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$vcinline_status					= 'true';
@@ -2482,7 +2483,7 @@
 								$styles .= '</style>';
 								echo TS_VCSC_MinifyCSS($styles);
 							} else if ($inline == "true") {
-								wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($rules));
+								wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($rules));
 							}
 						}
 					}
@@ -2749,11 +2750,11 @@
 								__( "Default Styling", "ts_visual_composer_extend" )				=> "default",								
 								__( "Single Solid Line", "ts_visual_composer_extend" )				=> "singlesolid",
 								__( "Single Dotted Line", "ts_visual_composer_extend" )				=> "singledotted",
-								__( "Single Dashed Line ", "ts_visual_composer_extend" )			=> "singledashed",
+								__( "Single Dashed Line", "ts_visual_composer_extend" )				=> "singledashed",
 								__( "Single Gradient Line", "ts_visual_composer_extend" )			=> "singlegradient",
 								__( "Dual Solid Lines", "ts_visual_composer_extend" )				=> "dualsolid",
 								__( "Dual Dotted Lines", "ts_visual_composer_extend" )				=> "dualdotted",
-								__( "Dual Dashed Lines ", "ts_visual_composer_extend" )				=> "dualdashed",
+								__( "Dual Dashed Lines", "ts_visual_composer_extend" )				=> "dualdashed",
 								__( "Dual Gradient Lines", "ts_visual_composer_extend" )			=> "dualgradient",
 							),
 							"description"       		=> __( "Select if you want to assign different styles to content sections when using the dual columns layout.", "ts_visual_composer_extend" ),
@@ -3756,7 +3757,7 @@
 								__( "Use Single Column Styling", "ts_visual_composer_extend" )			=> "main",
 								__( "Customize Left Column", "ts_visual_composer_extend" )				=> "left",
 								__( "Customize Right Column", "ts_visual_composer_extend" )				=> "right",
-								__( "Customize Both Columns ", "ts_visual_composer_extend" )			=> "both",
+								__( "Customize Both Columns", "ts_visual_composer_extend" )				=> "both",
 							),
 							"description"       		=> __( "Select if you want to assign different styles to event sections when using the dual columns layout.", "ts_visual_composer_extend" ),
 							"dependency"            	=> array( 'element' => "timeline_custom_events", 'value' => 'true' ),
@@ -5474,13 +5475,13 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_CSS_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_CSS_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_CSS_Section'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_CSS_Section extends WPBakeryShortCode {};
 	}
-	// Initialize "TS CSS Timeline" Class
+	// Initialize "TS CSS Media Timeline" Class
 	if (class_exists('TS_Timeline_CSS')) {
 		$TS_Timeline_CSS = new TS_Timeline_CSS;
 	}

@@ -335,7 +335,7 @@
 				$output 							= '';
 				$styles								= '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				// Extract Section Dates from $content
 				preg_match_all('/TS_VCSC_Timeline_Horizontal_Item([^\]]+)/i', $content, $matches, PREG_OFFSET_CAPTURE);
@@ -463,7 +463,7 @@
 						$styles .= '</style>';
 					}
 					if (($styles != "") && ($inline == "true")) {
-						wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+						wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 					}
 				}
 				
@@ -1844,10 +1844,10 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_Horizontal_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_Horizontal_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_Horizontal_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_Horizontal_Item extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Horizontal Timeline" Class

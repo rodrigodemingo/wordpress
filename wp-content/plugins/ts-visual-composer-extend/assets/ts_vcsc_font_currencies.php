@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Currencies = array(
     $this->TS_VCSC_Icons_Compliant_Currencies = array(
         "Currencies Font" => array(
             array("ts-currencies-afghanistan1"		    => "afghanistan afghani"),

@@ -84,12 +84,15 @@ class Tribe__Events__Aggregator {
 		$section_name = 'tribe-aggregator-status';
 		$section_title = __( 'Event Aggregator System Status', 'the-events-calendar' );
 
-		$help->add_section( $section_name, $section_title, 60 );
-
 		ob_start();
 		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/status.php';
 		$status_html = ob_get_clean();
 
+		if ( empty( $status_html ) ) {
+			return;
+		}
+
+		$help->add_section( $section_name, $section_title, 60 );
 		$help->add_section_content( $section_name, $status_html );
 	}
 
@@ -251,7 +254,11 @@ class Tribe__Events__Aggregator {
 
 		$cache_group = $this->api( 'origins' )->cache_group;
 
-		return delete_transient( "{$cache_group}_origins" );
+		$purged = true;
+		$purged &= (bool) delete_transient( "{$cache_group}_origins" );
+		$purged &= (bool) delete_transient( "{$cache_group}_origin_limit" );
+
+		return $purged;
 	}
 
 	/**
@@ -456,7 +463,7 @@ class Tribe__Events__Aggregator {
 		$this->migrate = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page = Tribe__Events__Aggregator__Page::instance();
 		$this->service = tribe( 'events-aggregator.service' );
-		$this->settings = Tribe__Events__Aggregator__Settings::instance();
+		$this->settings = tribe( 'events-aggregator.settings' );
 		$this->records = Tribe__Events__Aggregator__Records::instance();
 		$this->cron = Tribe__Events__Aggregator__Cron::instance();
 		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;

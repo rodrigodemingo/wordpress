@@ -1344,6 +1344,7 @@
 					}
 					// Nivo Slider Layout
 					if (strtolower($content_style) == "nivoslider") {
+						wp_enqueue_script('ts-extend-hammer');
 						wp_enqueue_style('ts-extend-nivoslider');
 						wp_enqueue_script('ts-extend-nivoslider');
 						$fullwidth_allow			= "true";
@@ -3986,7 +3987,7 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Lightbox_Gallery'))) {
 		//class WPBakeryShortCode_TS_VCSC_Lightbox_Gallery extends WPBakeryShortCode {};
 		class WPBakeryShortCode_TS_VCSC_Lightbox_Gallery extends WPBakeryShortCode {
 			public function singleParamHtmlHolder($param, $value, $settings = Array(), $atts = Array()) {

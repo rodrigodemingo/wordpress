@@ -164,9 +164,10 @@ body.nice-scroll:not(.layout-boxed){padding-right:10px!important}
 
 #Filters .filters_wrapper{display:none;margin-top:20px}
 #Filters .filters_wrapper ul{display:none;overflow:hidden;margin:0}
-#Filters .filters_wrapper ul li{display:inline-block;width:19%;margin:.5%;list-style:none}
+#Filters .filters_wrapper ul li{display:inline-block;width:18.9%;margin:.5%;list-style:none}
 #Filters .filters_wrapper ul li a{display:block;padding:7px 10px;background:#fff;border:1px solid #F7F7F7;color:#858585}
 #Filters .filters_wrapper ul li a:hover,#Filters .filters_wrapper ul li.current-cat a{text-decoration:none;color:#fff}
+#Filters .filters_wrapper ul li.close{width:auto!important}
 #Filters .filters_wrapper ul li.close a{text-align:center;width:38px;padding:7px 0;background:#8B8B8B;border:1px solid #F7F7F7!important;color:#fff}
 #Filters .filters_wrapper ul li.close a:hover{background:#545454}
 #Filters .filters_wrapper li.reset-inner{display:none}
@@ -262,18 +263,18 @@ body.minimalist-header.header-below:not(.template-slider) #Header{min-height:90p
 	
 	.logo-no-margin.header-fw #Top_bar .column{margin:0;width:100%}
 	
+	.logo-no-sticky-padding #Top_bar.is-sticky #logo{padding:0!important}
+	.logo-no-sticky-padding #Top_bar.is-sticky #logo img.logo-sticky{max-height:60px}
+	
 	.logo-overflow #Top_bar .logo{height:60px;position:relative;z-index:198}
 	.logo-overflow #Top_bar #logo{height:auto!important;margin-top:0!important;z-index:199}
 	.logo-overflow #Top_bar #logo img{max-height:none;z-index:200}
 	
 	.logo-overflow #Top_bar.is-sticky #logo{height:auto!important}
-	.logo-overflow #Top_bar.is-sticky #logo img:not(.svg){max-height:110px!important}
+	.logo-overflow #Top_bar.is-sticky #logo img.logo-sticky:not(.svg){max-height:110px}
 	
 	.logo-overflow.header-creative #Top_bar:not(.is-sticky) .logo,
 	.logo-overflow.header-stack #Top_bar:not(.is-sticky) .logo{height:auto}
-	
-	.logo-no-sticky-padding #Top_bar.is-sticky #logo{padding:0!important}
-	.logo-no-sticky-padding #Top_bar.is-sticky #logo img{max-height:60px!important}
 
 	/* Menu wrapper */
 	#Top_bar .menu_wrapper {float:left;z-index:201;}
@@ -350,7 +351,7 @@ body.minimalist-header.header-below:not(.template-slider) #Header{min-height:90p
 #Top_bar .menu > li > a:after{content:"";height:4px;width:100%;position:absolute;left:0;top:-4px;z-index:203;opacity:0;filter:alpha(opacity=0)}
 #Top_bar .menu > li > a span:not(.description){display:block;line-height:60px;padding:0 20px;white-space:nowrap;border-right-width:1px;border-style:solid}
 #Top_bar .menu > li > a span.description{font-size:11px;line-height:12px!important;margin:-12px -15px 0;color:#aaa;font-weight:300;text-align:center;display:block}
-#Top_bar .menu > li > a span > span{display:inline!important;padding:0!important}
+#Top_bar .menu > li > a span > span:not(.description){display:inline!important;padding:0!important}
 #Top_bar .menu > li:last-child > a span{border:0}
 #Top_bar .menu > li > a:hover{text-decoration:none}
 
@@ -644,6 +645,7 @@ body.mobile-side-slide{position:relative;overflow-x:visible;}
 #Side_slide #menu ul li{width:100%;position:relative;border-top:1px solid rgba(255,255,255,.03)}
 #Side_slide #menu > ul:last-child > li:last-child{border-bottom:1px solid rgba(255,255,255,.03)}
 #Side_slide #menu ul li a{display:block;padding:11px 5px 10px 20px;margin-right:50px;text-decoration:none;line-height:19px}
+#Side_slide #menu ul li a span.description{display:block;opacity:.5}
 #Side_slide #menu ul li a .menu-arrow{display:none}
 #Side_slide #menu ul li ul{display:none;background:rgba(255,255,255,.025)}
 #Side_slide #menu ul li ul li a{padding-left:35px}
@@ -955,6 +957,7 @@ body.mobile-side-slide{position:relative;overflow-x:visible;}
 .post-nav .next-prev-nav li{float:left;margin-right:5px}
 .post-nav .next-prev-nav a.button{margin:0;padding:0!important}
 .post-nav .list-nav{float:right;line-height:49px}
+body.template-slider .post-nav{margin-top:30px}
 
 .post-nav.minimal.column{padding:0;background:none;position:relative;height:40px!important;}
 .post-nav.minimal a{position:absolute;top:0;opacity:.6;-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out;}
@@ -1109,18 +1112,32 @@ body.mobile-side-slide{position:relative;overflow-x:visible;}
 	.Recent_posts ul li .desc h6{position:relative;z-index:2;margin-bottom:3px;padding-bottom:3px;border-bottom-width:1px;border-style:solid}
 	.Recent_posts ul li .desc .date{position:relative;z-index:2}
 	.Recent_posts ul li .desc .date i{display:inline-block;margin-right:2px}
+	.Recent_posts ul li .photo{width:80px;height:80px;line-height:0;text-align:center;float:right;position:relative}
+	.Recent_posts ul li .photo .c{width:25px;height:25px;line-height:25px;z-index:3;text-align:center;color:#fff;position:absolute;right:-12px;bottom:12px;font-size:11px;-webkit-border-radius:3px;border-radius:3px}
+
 	.Recent_posts ul li.no-img{position:relative}
 	.Recent_posts ul li.no-img .photo{width:0;position:static}
 	.Recent_posts ul li.no-img .desc{margin-right:0;min-height:inherit}
-	.Recent_posts ul li .photo{width:80px;height:80px;line-height:0;text-align:center;float:right;position:relative}
-	.Recent_posts ul li .photo .c{width:25px;height:25px;line-height:25px;z-index:3;text-align:center;color:#fff;position:absolute;right:-12px;bottom:12px;font-size:11px;-webkit-border-radius:3px;border-radius:3px}
-	.Recent_posts ul li a:hover h6,.Recent_posts ul li a:hover .desc .date{color:#fff!important}
-	.Recent_posts ul li a:hover .desc:after{width:100%}
+	
+	.Recent_posts.classic ul li a:hover h6,
+	.Recent_posts.classic ul li a:hover .desc .date{color:#fff!important}
+	.Recent_posts.classic ul li a:hover .desc:after{width:100%}
 	
 		/* Formats */
 		.Recent_posts ul li.format-link .photo{background-color:#eee;background-image:url(../images/link.png);background-position:center center;background-repeat:no-repeat}
 		.Recent_posts ul li.format-quote .photo{background-color:#eee;background-image:url(../images/blockquote.png);background-position:center center;background-repeat:no-repeat;background-size:40% auto}	
 		
+		/* Recent posts | style: blog news */
+		.Recent_posts.blog_news ul li{margin-bottom:20px;overflow:hidden}
+		.Recent_posts.blog_news ul li .photo{float:left;width:30%;height:auto;border-right:3px solid #ddd;background-color:transparent}
+		.Recent_posts.blog_news ul li .photo .c{display:none}
+		.Recent_posts.blog_news ul li .desc{width:70%;margin-left:30%;padding-top:0;box-sizing:border-box;background:none!important}
+		.Recent_posts.blog_news ul li .desc:after{display:none}
+		.Recent_posts.blog_news ul li .desc h6{margin-top:-3px}
+		
+		.Recent_posts.blog_news ul li.no-img .photo{display:none}
+		.Recent_posts.blog_news ul li.no-img .desc{width:100%;margin-left:0;padding-left:0}
+
 		/* Animation */
 		.Recent_posts ul li a h6,.Recent_posts ul li a .desc .date,.Recent_posts ul li a .desc:after{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out}
 	
@@ -1586,6 +1603,10 @@ ul.testimonials-slider{max-height:260px}
 /* Dark ------------------------------------------------------------------------------ */
 .dark,.dark ul.timeline_items,.dark .icon_box a .desc,.dark .icon_box a:hover .desc,.dark .feature_list ul li a,.dark .list_item a,.dark .list_item a:hover,.dark .widget_recent_entries ul li a{color:#fff!important}
 .dark .ui-tabs .ui-tabs-panel,.dark .accordion .question .answer{color:#626262}
+
+/* Blockquote */
+.dark blockquote{background-image:url(../images/stripes/textline_dark.png)}
+.dark blockquote:after{background-image:url(../images/blockquote_dark.png)}
 
 /* Headings font */
 .dark h1,.dark h1 a,.dark h1 a:hover{color:#fff}

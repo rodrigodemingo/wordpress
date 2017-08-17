@@ -74,8 +74,8 @@ function layerslider_help($contextual_help, $screen_id, $screen) {
 	if(strpos($screen->base, 'layerslider') !== false && (!empty($_GET['page']) && $_GET['page'] !== 'ls-about' && $_GET['page'] !== 'ls-revisions' ) ) {
 		$screen->add_help_tab(array(
 			'id' => 'help',
-			'title' => 'Getting Help',
-			'content' => '<p>Please read our  <a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html" target="_blank">Online Documentation</a> carefully, it will likely answer all of your questions.</p><p>You can also check the <a href="https://support.kreaturamedia.com/faq/4/layerslider-for-wordpress/" target="_blank">FAQs</a> for additional information, including our support policies and licensing rules.</p>'
+			'title' => __('Getting Help', 'LayerSlider'),
+			'content' => '<p>'. sprintf(__('Please read our  %sOnline Documentation%s carefully, it will likely answer all of your questions.<br><br>You can also check the %sFAQs%s for additional information, including our support policies and licensing rules.', 'LayerSlider'), '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/faq/4/layerslider-for-wordpress/" target="_blank">', '</a>').'</p>'
 		));
 	}
 }

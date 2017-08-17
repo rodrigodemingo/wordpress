@@ -100,9 +100,10 @@
 				// Retrieve Skillset Post Main Content
 				$skill_array						= array();
 				$args = array(
+					'p'								=> $skillset_id,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_skillsets',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -390,9 +391,10 @@
 				// Retrieve Skillset Post Main Content
 				$skill_array						= array();
 				$args = array(
+					'p'								=> $skillset_id,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_skillsets',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -856,8 +858,10 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Skill_Sets_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Skill_Sets_Standalone extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Skill_Sets_Raphael'))) {
 		class WPBakeryShortCode_TS_VCSC_Skill_Sets_Raphael extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Skillsets" Class

@@ -1086,10 +1086,10 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Posts_Slider_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Posts_Slider_Standalone extends WPBakeryShortCode {};
-	}
-	
+	}	
 	// Initialize "TS Postslider" Class
 	if (class_exists('TS_Postslider')) {
 		$TS_Postslider = new TS_Postslider;

@@ -22,8 +22,9 @@
 			'link_url'					=> '',
 			'link_target'				=> '_parent',
 			// Tooltip Settings
-			'tooltip_css'				=> 'false',
-			'tooltip_content'			=> '',
+			'tooltip_tinymce'			=> 'false',
+			'tooltip_encoded'			=> '',
+			'tooltip_content'			=> '',			
 			'tooltip_position'			=> 'ts-simptip-position-top',
 			'tooltip_style'				=> 'ts-simptip-style-black',
 			'tooltip_animation'			=> 'swing',
@@ -38,7 +39,7 @@
 		), $atts ));
 		
 		wp_enqueue_script('ts-extend-adipoli');
-		if (($tooltip_css == "true") && ($tooltip_content != '')) {
+		if ((($tooltip_tinymce == "false") && ($tooltip_content != '')) || (($tooltip_tinymce == "true") && ($tooltip_encoded != ''))) {
 			wp_enqueue_style('ts-extend-tooltipster');
 			wp_enqueue_script('ts-extend-tooltipster');
 		}
@@ -116,9 +117,15 @@
 		// Tooltip
 		$tooltip_position				= TS_VCSC_TooltipMigratePosition($tooltip_position);
 		$tooltip_style					= TS_VCSC_TooltipMigrateStyle($tooltip_style);
-		if (strlen($tooltip_content) != 0) {
+		$tooltip_string					= '';
+		if (($tooltip_tinymce == "false") && ($tooltip_content != '')) {
+			$tooltip_string				= $tooltip_content;
+		} else if (($tooltip_tinymce == "true") && ($tooltip_encoded != '')) {
+			$tooltip_string				= $tooltip_encoded;
+		}
+		if ((($tooltip_tinymce == "false") && ($tooltip_content != '')) || (($tooltip_tinymce == "true") && ($tooltip_encoded != ''))) {
 			$adipoli_tooltipclasses		= "ts-has-tooltipster-tooltip";
-			$adipoli_tooltipcontent		= 'data-tooltipster-title="" data-tooltipster-text="' . $tooltip_content . '" data-tooltipster-image="" data-tooltipster-position="' . $tooltip_position . '" data-tooltipster-touch="false" data-tooltipster-arrow="true" data-tooltipster-theme="' . $tooltip_style . '" data-tooltipster-animation="' . $tooltip_animation . '" data-tooltipster-trigger="hover" data-tooltipster-offsetx="' . $tooltipster_offsetx . '" data-tooltipster-offsety="' . $tooltipster_offsety . '"';
+			$adipoli_tooltipcontent		= 'data-tooltipster-html="' . $tooltip_tinymce . '" data-tooltipster-title="" data-tooltipster-text="' . strip_tags($tooltip_string) . '" data-tooltipster-image="" data-tooltipster-position="' . $tooltip_position . '" data-tooltipster-touch="false" data-tooltipster-arrow="true" data-tooltipster-theme="' . $tooltip_style . '" data-tooltipster-animation="' . $tooltip_animation . '" data-tooltipster-trigger="hover" data-tooltipster-offsetx="' . $tooltipster_offsetx . '" data-tooltipster-offsety="' . $tooltipster_offsety . '"';
 		} else {
 			$adipoli_tooltipclasses		= "";
 			$adipoli_tooltipcontent		= "";

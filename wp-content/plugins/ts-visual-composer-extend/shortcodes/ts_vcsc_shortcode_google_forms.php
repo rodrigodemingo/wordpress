@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Google-Forms', 'TS_VCSC_Google_Forms_Function');
-	add_shortcode('TS_VCSC_Google_Forms', 'TS_VCSC_Google_Forms_Function');
 	function TS_VCSC_Google_Forms_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -31,8 +30,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Google_Forms extends WPBakeryShortCode {};
 	}
 ?>

@@ -41,8 +41,6 @@
         "Dashicons Font"              		        => array("setting" => "Dashicons",              "author" => "WordPress",                            "link" => "https://developer.wordpress.org/resource/dashicons",                 "type" => "WordPress",      "default" => "false",		"active" => "false",    "always" => "false",        "class" => "dashicons-",                "count" => "201"),
         "Custom User Font"              		    => array("setting" => "Custom",                 "author" => "Custom User Font",                     "link" => "https://icomoon.io/app/",                                            "type" => "Custom",         "default" => "false",		"active" => "false",    "always" => "false",        "class" => "",                          "count" => "0"),
     );
-
-    
     $this->TS_VCSC_Composer_Icon_Fonts = array(
         "Font Awesome (VC)"                  	    => "VC_Awesome",
         "Entypo Font (VC)"                          => "VC_Entypo",
@@ -190,6 +188,7 @@
         "TS Animations Frame"					    => array("setting" => "Animations",    		    "base" => "TS_VCSC_Animation_Frame",                "file" => "animations",  				"group" => "Other",         "type" => "class",			"default" => "false",		"active" => "false",	"deprecated" => "false",        "required" => "",       "children" => "0",      "introduced" => "2.5.0",    "retired" => ""),        
         "TS Icon Wall"                              => array("setting" => "IconWall",    		    "base" => "TS_VCSC_Icon_Wall_Container",            "file" => "iconwall",                   "group" => "Other",         "type" => "class",			"default" => "false",		"active" => "false",    "deprecated" => "false",        "required" => "",       "children" => "0",      "introduced" => "3.4.4",    "retired" => ""),        
         "TS Time / Date Dependency"                 => array("setting" => "TimeSensitive",          "base" => "TS_VCSC_TimeSensitive_Frame",            "file" => "timesensitive",              "group" => "Other",         "type" => "class",			"default" => "false",		"active" => "false",    "deprecated" => "false",        "required" => "",       "children" => "0",      "introduced" => "4.2.0",    "retired" => ""),
+        "TS Loan Calculator"					    => array("setting" => "LoanCalculator",         "base" => "TS_VCSC_Loan_Calculator",                "file" => "loancalculator",             "group" => "Other",         "type" => "class",		    "default" => "false",		"active" => "false",	"deprecated" => "false",        "required" => "",       "children" => "0",      "introduced" => "5.2.2",    "retired" => ""),
         // BETA Elements
         "TS Fancy Tabs (BETA)"					    => array("setting" => "FancyTabs",    		    "base" => "TS_VCSC_Fancy_Tabs_Container",           "file" => "fancytabs",                  "group" => "BETA",          "type" => "class",			"default" => "false",		"active" => "false",    "deprecated" => "false",        "required" => "4.3.0",  "children" => "0",      "introduced" => "3.3.0",    "retired" => ""),
         // Deprecated Elements
@@ -358,8 +357,6 @@
         "WooCommerce Parameters"                    => array("file" => "woocommerce"),
         "bbPress Parameters"              		    => array("file" => "bbpress"),
         "WYSIWYG Editor Parameter"                  => array("file" => "wysiwyg"),
-        //"Code Editor Parameter"                   => array("file" => "codeeditor"),
-        //"Load File Parameter"              		=> array("file" => "loadfile"),
     );
     
     

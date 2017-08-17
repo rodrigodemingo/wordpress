@@ -6,9 +6,9 @@
 		<div class="ls-set-screen-types">
 			<?php _e('Show this layer on the following devices:', 'LayerSlider') ?>
 
-				<button data-type="desktop" class="button dashicons dashicons-desktop playing" data-help="Show this layer on desktop."></button><!--
-			--><button data-type="tablet" class="button dashicons dashicons-tablet" data-help="Show this layer on tablets."></button><!--
-			--><button data-type="phone" class="button dashicons dashicons-smartphone" data-help="Show this layer on mobile phones."></button>
+				<button data-type="desktop" class="button dashicons dashicons-desktop playing" data-help="<?php _e('Show this layer on desktop.', 'LayerSlider') ?>"></button><!--
+			--><button data-type="tablet" class="button dashicons dashicons-tablet" data-help="<?php _e('Show this layer on tablets.', 'LayerSlider') ?>"></button><!--
+			--><button data-type="phone" class="button dashicons dashicons-smartphone" data-help="<?php _e('Show this layer on mobile phones.', 'LayerSlider') ?>"></button>
 
 		</div>
 
@@ -46,7 +46,7 @@
 			<div class="ls-image-uploader slide-image clearfix">
 				<input type="hidden" name="imageId">
 				<input type="hidden" name="image">
-				<div class="ls-image ls-upload ls-bulk-upload ls-layer-image not-set">
+				<div class="ls-image ls-upload ls-bulk-upload ls-layer-image not-set" data-l10n-set="<?php _e('Click to set', 'LayerSlider') ?>" data-l10n-change="<?php _e('Click to change', 'LayerSlider') ?>">
 					<div><img src="<?php echo LS_ROOT_URL.'/static/admin/img/blank.gif' ?>" alt=""></div>
 					<a href="#" class="aviary"></a>
 					<a href="#" class="dashicons dashicons-dismiss"></a>
@@ -61,7 +61,7 @@
 			<!-- Text/HTML/Video Layer -->
 			<div class="ls-html-code ls-hidden">
 				<div class="ls-html-textarea">
-					<textarea name="html" cols="50" rows="5" placeholder="Enter layer content here"></textarea>
+					<textarea name="html" cols="50" rows="5" placeholder="<?php _e('Enter layer content here', 'LayerSlider') ?>"></textarea>
 					<button type="button" class="button ls-upload ls-bulk-upload ls-insert-media">
 						<span class="dashicons dashicons-admin-media"></span>
 						<?php _e('Add Media', 'LayerSlider') ?>
@@ -75,7 +75,7 @@
 								<td>
 									<input type="hidden" name="posterId">
 									<input type="hidden" name="poster">
-									<div class="ls-image ls-upload ls-bulk-upload ls-media-image not-set">
+									<div class="ls-image ls-upload ls-bulk-upload ls-media-image not-set" data-l10n-set="<?php _e('Click to set', 'LayerSlider') ?>" data-l10n-change="<?php _e('Click to change', 'LayerSlider') ?>">
 										<div><img src="<?php echo LS_ROOT_URL.'/static/admin/img/blank.gif' ?>" alt=""></div>
 										<a href="#" class="aviary"></a>
 										<a href="#" class="dashicons dashicons-dismiss"></a>
@@ -112,24 +112,20 @@
 								<?php lsGetSelect($lsDefaults['layers']['mediaFillMode'], null, array('class' => 'sublayerprop')) ?>
 							</td>
 							<td>
-								<?php echo $lsDefaults['layers']['mediaVolume']['name'] ?> <br>
-								<?php lsGetInput($lsDefaults['layers']['mediaVolume'], null, array('class' => 'sublayerprop')) ?>
-							</td>
-							<td>
 								<?php echo $lsDefaults['layers']['mediaControls']['name'] ?> <br>
-								<?php lsGetCheckbox($lsDefaults['layers']['mediaControls'], null, array('class' => 'sublayerprop')) ?>
+								<?php lsGetSelect($lsDefaults['layers']['mediaControls'], null, array('class' => 'sublayerprop')) ?>
 							</td>
 							<td>
 								<?php echo $lsDefaults['layers']['mediaInfo']['name'] ?> <br>
-								<?php lsGetCheckbox($lsDefaults['layers']['mediaInfo'], null, array('class' => 'sublayerprop')) ?>
+								<?php lsGetSelect($lsDefaults['layers']['mediaInfo'], null, array('class' => 'sublayerprop')) ?>
 							</td>
-						</tr>
-					</table>
 
+							<td class="volume">
+								<?php echo $lsDefaults['layers']['mediaVolume']['name'] ?> <br>
+								<?php lsGetInput($lsDefaults['layers']['mediaVolume'], null, array('class' => 'sublayerprop')) ?>
+							</td>
 
-					<table class="ls-bgvideo-options">
-						<tr>
-							<td>
+							<td class="overlay">
 								<?php echo $lsDefaults['layers']['mediaOverlay']['name']; ?><br>
 								<?php
 
@@ -175,7 +171,7 @@
 						<li><span>[meta:&lt;fieldname&gt;]</span></li>
 					</ul>
 					<p>
-						<?php _e("Click on one or more post placeholders to insert them into your layer's content. Post placeholders act like shortcodes in WP, and they will be filled with the actual content from your posts.", "LayerSlider") ?><br>
+						<?php _e('Click on one or more post placeholders to insert them into your layer’s content. Post placeholders act like shortcodes in WP, and they will be filled with the actual content from your posts.', 'LayerSlider') ?><br>
 						<?php _e('Limit text length (if any)', 'LayerSlider') ?>
 						<input type="number" name="post_text_length">
 						<button type="button" class="button ls-configure-posts"><span class="dashicons dashicons-admin-post"></span><?php _e('Configure post options', 'LayerSlider') ?></button>
@@ -1533,8 +1529,16 @@
 		<h3 class="subheader"><?php _e('Linking', 'LayerSlider') ?></h3>
 		<div class="ls-slide-link clearfix">
 			<div>
-				<?php lsGetInput($lsDefaults['layers']['linkURL'], null, array('placeholder' => $lsDefaults['layers']['linkURL']['name'] )) ?>
-				<span><a href="#"><?php _e('use post URL', 'LayerSlider') ?></a></span>
+				<?php lsGetInput($lsDefaults['layers']['linkURL'], null, array('class' => 'url', 'placeholder' => $lsDefaults['layers']['linkURL']['name'] )) ?>
+				<input type="hidden" name="linkId">
+				<input type="hidden" name="linkName">
+				<input type="hidden" name="linkType">
+				<a href="#" class="change">
+					<span class="dashicons dashicons-editor-unlink"></span>
+					<?php _e('Change Link', 'LayerSlider') ?>
+				</a>
+				<span><a href="#" class="dyn"><?php _e('Use Dynamic post URL', 'LayerSlider') ?></a></span>
+				<!-- <span><a href="#" class="post"><?php _e('Choose Page or Post', 'LayerSlider') ?></a></span> -->
 			</div>
 			<?php lsGetSelect($lsDefaults['layers']['linkTarget'], null) ?>
 		</div>
@@ -1546,35 +1550,35 @@
 					<tr data-help="<?php echo $lsDefaults['layers']['ID']['tooltip'] ?>">
 						<td class="first"><input type="text" value="id" disabled></td>
 						<td class="second"><input type="text" name="id"></td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn't fit your needs, use custom attributes below to override it.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn’t fit your needs, use custom attributes below to override it.', 'LayerSlider') ?>">
 							<?php _e('On layer', 'LayerSlider') ?>
 						</td>
 					</tr>
 					<tr data-help="<?php echo $lsDefaults['layers']['class']['tooltip'] ?>">
 						<td class="first"><input type="text" value="class" disabled></td>
 						<td class="second"><input type="text" name="class"></td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn't fit your needs, use custom attributes below to override it.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn’t fit your needs, use custom attributes below to override it.', 'LayerSlider') ?>">
 							<?php _e('On layer', 'LayerSlider') ?>
 						</td>
 					</tr>
 					<tr data-help="<?php echo $lsDefaults['layers']['title']['tooltip'] ?>">
 						<td class="first"><input type="text" value="title" disabled></td>
 						<td class="second"><input type="text" name="title"></td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn't fit your needs, use custom attributes below to override it.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn’t fit your needs, use custom attributes below to override it.', 'LayerSlider') ?>">
 							<?php _e('On parent', 'LayerSlider') ?>
 						</td>
 					</tr>
 					<tr data-help="<?php echo $lsDefaults['layers']['alt']['tooltip'] ?>">
 						<td class="first"><input type="text" value="alt" disabled></td>
 						<td class="second"><input type="text" name="alt"></td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn't fit your needs, use custom attributes below to override it.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn’t fit your needs, use custom attributes below to override it.', 'LayerSlider') ?>">
 							<?php _e('On layer', 'LayerSlider') ?>
 						</td>
 					</tr>
 					<tr data-help="<?php echo $lsDefaults['layers']['rel']['tooltip'] ?>">
 						<td class="first"><input type="text" value="rel" disabled></td>
 						<td class="second"><input type="text" name="rel"></td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn't fit your needs, use custom attributes below to override it.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. Some attributes will be applied on the wrapper (if any), which is desirable in many cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. If the pre-defined option doesn’t fit your needs, use custom attributes below to override it.', 'LayerSlider') ?>">
 							<?php _e('On parent', 'LayerSlider') ?>
 						</td>
 					</tr>
@@ -1597,7 +1601,7 @@
 						<td class="second">
 							<input type="text" placeholder="<?php _e('Attribute value', 'LayerSlider') ?>">
 						</td>
-						<td class="third" data-help="<?php _e("In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. By default, new attributes will be applied on the wrapper (if any), which is desirable in most cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. Uncheck this option when you need to apply this attribute on the layer element in all cases.", 'LayerSlider') ?>">
+						<td class="third" data-help="<?php _e('In some cases your layers may be wrapped by another element. For example, an ＜A＞ tag when you use layer linking. By default, new attributes will be applied on the wrapper (if any), which is desirable in most cases (e.g. lightbox plugins). If there is no wrapper element, attributes will be automatically applied on the layer itself. Uncheck this option when you need to apply this attribute on the layer element in all cases.', 'LayerSlider') ?>">
 							<input type="checkbox" class="small noreset" checked> <?php _e('On parent', 'LayerSlider') ?>
 						</td>
 					</tr>
@@ -1792,7 +1796,7 @@
 								</tr>
 								<tr>
 									<td><?php echo $lsDefaults['layers']['fontSize']['name'] ?></td>
-									<td><?php lsGetInput($lsDefaults['layers']['fontSize'], null, array('class' => 'auto')) ?></td>
+									<td><?php lsGetInput($lsDefaults['layers']['fontSize'], null, array('class' => 'auto', 'data-css-property' => 'font-size')) ?></td>
 								</tr>
 								<tr>
 									<td><?php echo $lsDefaults['layers']['lineHeight']['name'] ?></td>
@@ -1813,6 +1817,10 @@
 								<tr>
 									<td><?php echo $lsDefaults['layers']['textDecoration']['name'] ?></td>
 									<td><?php lsGetSelect($lsDefaults['layers']['textDecoration'], null, array('class' => 'auto')) ?></td>
+								</tr>
+								<tr>
+									<td><?php echo $lsDefaults['layers']['letterSpacing']['name'] ?></td>
+									<td><?php lsGetInput($lsDefaults['layers']['letterSpacing'], null, array('class' => 'auto')) ?></td>
 								</tr>
 								<tr>
 									<td><?php echo $lsDefaults['layers']['color']['name'] ?></td>

@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_OpenIconic = array(
     $this->TS_VCSC_Icons_Compliant_VC_OpenIconic = array(
         "Open Iconic Font (VC)" => array(
             array("vc-oi vc-oi-dial" => "Dial"),

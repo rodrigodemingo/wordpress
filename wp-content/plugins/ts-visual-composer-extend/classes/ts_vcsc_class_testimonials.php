@@ -89,9 +89,10 @@
 				// Retrieve Testimonial Post Main Content
 				$testimonial_array					= array();
 				$args = array(
+					'p'								=> $testimonial,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_testimonials',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -339,9 +340,10 @@
 				$testimonial_array					= array();
 				$category_fields 	                = array();
 				$args = array(
+					'p'								=> $testimonial,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_testimonials',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -2328,23 +2330,24 @@
 				};
 			}
 		}
-	}
-	
+	}	
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Testimonial_Slider_Custom'))) {
 		class WPBakeryShortCode_TS_VCSC_Testimonial_Slider_Custom extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Testimonial_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Testimonial_Standalone extends WPBakeryShortCode {};
-		class WPBakeryShortCode_TS_VCSC_Testimonial_Single extends WPBakeryShortCode {};
-		class WPBakeryShortCode_TS_VCSC_Testimonial_Slider_Category extends WPBakeryShortCode {};
 	}
-	
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Testimonial_Single'))) {
+		class WPBakeryShortCode_TS_VCSC_Testimonial_Single extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Testimonial_Slider_Category'))) {
+		class WPBakeryShortCode_TS_VCSC_Testimonial_Slider_Category extends WPBakeryShortCode {};
+	}	
 	// Initialize "TS Testimonials" Class
 	if (class_exists('TS_Testimonials')) {
 		$TS_Testimonials = new TS_Testimonials;
-	}
-	
+	}	
 	// Function to Process Form Submission
 	if (!function_exists('TS_VCSC_Testimonial_Frontend_Submit')){
 		function TS_VCSC_Testimonial_Frontend_Submit($form_active, $post_status, $post_featured, $post_allowable, $post_category, $category_single, $string_confirm, $error_nonce, $error_title, $error_author, $error_content, $error_featured) {

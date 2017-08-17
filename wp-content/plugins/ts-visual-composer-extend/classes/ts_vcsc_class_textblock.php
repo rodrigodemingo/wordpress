@@ -18,7 +18,7 @@
                     }
                 }
                 if ((is_admin() == false) || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginAJAX == "true") || ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginAlways == "true")) {
-                    add_shortcode('TS_VCSC_Advanced_Textblock',				array($this, 'TS_VCSC_TextBlock_Output_Function'));
+                    add_shortcode('TS_VCSC_Advanced_Textblock',				array($this, 'TS_VCSC_TextBlock_Function'));
                 }                
             }
             
@@ -28,7 +28,7 @@
             }
             
             // Output of Advanced Textblock Element
-            function TS_VCSC_TextBlock_Output_Function($atts, $content = null) {
+            function TS_VCSC_TextBlock_Function($atts, $content = null) {
                 global $VISUAL_COMPOSER_EXTENSIONS;
                 ob_start();
 				
@@ -70,6 +70,15 @@
 					'styling_override'				=> 'false',
 					'styling_segments' 				=> '',
 					'styling_wpautop'				=> 'false',
+					// Content Height Settings
+					'height_type'					=> 'auto', // auto, fixed, maximum, minimum
+					'height_fixed'					=> 200,
+					'height_maximum'				=> 200,
+					'height_minimum'				=> 200,
+					// NiceScroll Settings
+					'scroll_nice'					=> 'true',
+					'scroll_color'					=> '#cacaca',
+					'scroll_background'				=> '#ededed',
 					// Effect Settings
 					'effect_shadow'					=> '',
 					'effect_viewportclass' 			=> '',
@@ -112,10 +121,16 @@
 						}
 					}
 				}
+				if (($scroll_nice == "true") && (($height_type == "maximum") || ($height_type == "fixed"))) {
+					wp_enqueue_style('ts-extend-perfectscrollbar');
+					wp_enqueue_script('ts-extend-perfectscrollbar');
+				} else {
+					$scroll_nice					= 'false';
+				}
 				wp_enqueue_script('ts-visual-composer-extend-front');
 				
 				$identifier							= mt_rand(999999, 9999999);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 
 				// Shadow Effect
 				if (($effect_shadow != '') && ($background_type != "transparent")) {
@@ -149,6 +164,10 @@
 					$a_href							= $link['url'];
 					$a_title 						= $link['title'];
 					$a_target 						= $link['target'];
+					$a_rel							= $link['rel'];
+					if (!empty($a_rel)) {
+						$a_rel 						= 'rel="' . esc_attr(trim($a_rel)) . '"';
+					}
 					if ($a_href != '') {
 						$link_start					= '<a id="ts-advanced-textblock-link-' . $identifier . '" class="ts-advanced-textblock-link" href="' . $a_href . '" target="' . $a_target . '" title="' . $a_title . '">';
 						$link_end					= '</a>';
@@ -290,8 +309,7 @@
 						}
 						$styling .= 'width: ' . $styling_width . '%;';
 						$styling .= 'display: ' . $styling_display . ';';
-						$styling .= 'float: ' . $styling_float . ';';
-						$styling .= $styling_padding;
+						$styling .= 'float: ' . $styling_float . ';';						
 						$styling .= $styling_margin;
 						$styling .= str_replace('|', '', $styling_border);
 						$styling .= $background_style;
@@ -314,14 +332,35 @@
 						$styling .= 'text-transform: ' . $styling_transform . ';';
 						$styling .= 'text-decoration: ' . $styling_decoration . ';';
 						$styling .= 'text-indent: ' . $styling_indent .'px;';
+						$styling .= $styling_padding;
+						if ($height_type == "fixed") {
+							$styling .= 'height: ' . $height_fixed . 'px;';
+						} else if ($height_type == "minimum") {
+							$styling .= 'min-height: ' . $height_minimum . 'px;';
+						} else if ($height_type == "maximum") {
+							$styling .= 'max-height: ' . $height_maximum . 'px;';
+						}
 					$styling .= '}';
+					// Custom Scrollbar Styling
+					if (($scroll_nice == "true") && (($height_type == "fixed") || ($height_type == "maximum"))) {
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content .ps__scrollbar-x-rail:hover,';
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content .ps__scrollbar-y-rail:hover,';
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content.ps--in-scrolling .ps__scrollbar-x-rail,';
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content.ps--in-scrolling .ps__scrollbar-y-rail {';
+							$styling .= 'background-color: ' . $scroll_background . ';';
+						$styling .= '}';
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content .ps__scrollbar-x-rail .ps__scrollbar-x,';
+						$styling .= 'body #' . $textbox_id . ' .ts-advanced-textblock-content .ps__scrollbar-y-rail .ps__scrollbar-y {';
+							$styling .= 'background-color: ' . $scroll_color . ';';
+						$styling .= '}';
+					}
 					// Segment Styling
 					$styling .= $styling_types;
 				if ($inline == "false") {
 					$styling .= '</style>';
 				}
 				if (($styling != "") && ($inline == "true")) {
-					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styling));
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styling));
 				}
 				
 				// VC Internal Override Filter
@@ -333,7 +372,9 @@
 				
 				// Create Content Output
 				$data_viewport 						= 'data-viewport-class="ts-infinite-css-' . $effect_viewportclass . '" data-viewport-offset="' . $effect_viewportoffset . '" data-viewport-delay="' . $effect_viewportdelay . '" data-viewport-opacity="1" data-viewport-mobile="' . $effect_viewportmobile . '"';
-				$data_shadow						= 'data-shadow-active="' . $shadow_active . '" data-shadow-class="' . $shadow_class . '"';				
+				$data_shadow						= 'data-shadow-active="' . $shadow_active . '" data-shadow-class="' . $shadow_class . '"';
+				$data_height						= 'data-height-type="' . $height_type . '" data-height-fixed="' . $height_fixed . '" data-height-minimum="' . $height_minimum . '" data-height-maximum="' . $height_maximum . '"';
+				$data_scroll						= 'data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-background="' . $scroll_background . '"';
 				
 				// Custom Style Rules
 				if (($styling != "") && ($inline == "false")) {
@@ -341,11 +382,11 @@
 				}
 				// Final Output
 				$output .= $link_start;
-					$output .= '<div id="' . $textbox_id . '" class="' . $css_class . ' ' . $shadow_class . ' ' . $viewport_effect . '" ' . $data_viewport . ' ' . $data_shadow . ' ' . $data_background . '>';						
+					$output .= '<div id="' . $textbox_id . '" class="' . $css_class . ' ' . $shadow_class . ' ' . $viewport_effect . '" ' . $data_viewport . ' ' . $data_shadow . ' ' . $data_background . ' ' . $data_height . '>';						
 						if ($background_type == "patternbolt") {
 							$output .= '<div id="ts-advanced-textblock-background-' . $identifier . '" class="ts-advanced-textblock-background ' . $class_background . '"></div>';
 						}
-						$output .= '<div id="ts-advanced-textblock-content-' . $identifier . '" class="ts-advanced-textblock-content">';
+						$output .= '<div id="ts-advanced-textblock-content-' . $identifier . '" class="ts-advanced-textblock-content" ' . $data_scroll . ' data-scroll-init="false">';
 							if (function_exists('wpb_js_remove_wpautop')){
 								$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
 							} else {
@@ -411,10 +452,106 @@
 							"description" 				=> __("Provide a link to another page to be used for the element.", "ts_visual_composer_extend"),
 							"dependency"            	=> array( 'element' => "link_textbox", 'value' => 'true' ),
 						),
-						// Background Settings
+						// Height Settings
                         array(
                             "type"                      => "seperator",
                             "param_name"                => "seperator_3",
+                            "seperator"					=> "Content Height",
+							"group"						=> "Global Styling",
+                        ),
+						array(
+							'type' 						=> 'dropdown',
+							'heading' 					=> __( 'Content Height: Type', 'ts_visual_composer_extend' ),
+							'param_name' 				=> 'height_type',
+							'value' => array(
+								__('Adjust Holder Automatically', 'ts_visual_composer_extend')		=> 'auto',
+								__('Use Fixed Height for Holder', 'ts_visual_composer_extend')		=> 'fixed',
+								__('Use Maximum Height for Holder', 'ts_visual_composer_extend')	=> 'maximum',
+								__('Use Minimum Height for Holder', 'ts_visual_composer_extend')	=> 'minimym',
+							),
+							'description' 				=> __( 'Select if and how the height for the step content holder shall be set.', 'ts_visual_composer_extend' ),
+							"group"						=> "Global Styling",
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Content Height: Fixed", "ts_visual_composer_extend" ),
+							"param_name"        		=> "height_fixed",
+							"value"             		=> "200",
+							"min"               		=> "100",
+							"max"               		=> "960",
+							"step"              		=> "1",
+							"unit"              		=> "px",
+							"dependency"        		=> array( 'element' => "height_type", 'value' => 'fixed' ),
+							"description"       		=> __( "Define the fixed height for the content holder, no matter the actual height of the content within.", "ts_visual_composer_extend" ),
+							"group"						=> "Global Styling",
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Content Height: Maximum", "ts_visual_composer_extend" ),
+							"param_name"        		=> "height_maximum",
+							"value"             		=> "200",
+							"min"               		=> "100",
+							"max"               		=> "960",
+							"step"              		=> "1",
+							"unit"              		=> "px",
+							"dependency"        		=> array( 'element' => "height_type", 'value' => 'maximum' ),
+							"description"       		=> __( "Define the maximum height for the content holder; if content height exceeds the maximum, a scrollbar will be provided.", "ts_visual_composer_extend" ),
+							"group"						=> "Global Styling",
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Content Height: Minimum", "ts_visual_composer_extend" ),
+							"param_name"        		=> "height_minimum",
+							"value"             		=> "200",
+							"min"               		=> "100",
+							"max"               		=> "960",
+							"step"              		=> "1",
+							"unit"              		=> "px",
+							"dependency"        		=> array( 'element' => "height_type", 'value' => 'minimum' ),
+							"description"       		=> __( "Define the minimum height for the content holder, even if the content is actually smaller.", "ts_visual_composer_extend" ),
+							"group"						=> "Global Styling",
+						),
+						// Scrollbar Settings
+                        array(
+                            "type"                      => "seperator",
+                            "param_name"                => "seperator_4",
+                            "seperator"					=> "Scrollbar Settings",							
+							"dependency"        		=> array( 'element' => "height_type", 'value' => array('fixed', 'maximum') ),
+							"group"						=> "Global Styling",
+                        ),
+						array(
+							"type"                  	=> "switch_button",
+							"heading"			    	=> __( "Scrollbar: Custom", "ts_visual_composer_extend" ),
+							"param_name"		    	=> "scroll_nice",
+							"value"                 	=> "true",
+							"description"		    	=> __( "Switch the toggle if you want to apply a custom scrollbar to the content section.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "height_type", 'value' => array('fixed', 'maximum') ),
+							"group" 					=> "Global Styling",
+						),
+						array(
+							"type"              		=> "colorpicker",
+							"heading"           		=> __( "Scrollbar: Main Color", "ts_visual_composer_extend" ),
+							"param_name"        		=> "scroll_color",
+							"value"             		=> "#cacaca",
+							"description"       		=> __( "Define the main color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"			=> "vc_col-sm-6 vc_column",
+							"group" 					=> "Global Styling",
+						),
+						array(
+							"type"              		=> "colorpicker",
+							"heading"           		=> __( "Scrollbar: Background Color", "ts_visual_composer_extend" ),
+							"param_name"        		=> "scroll_background",
+							"value"             		=> "#ededed",
+							"description"       		=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"			=> "vc_col-sm-6 vc_column",
+							"group" 					=> "Global Styling",
+						),						
+						// Background Settings
+                        array(
+                            "type"                      => "seperator",
+                            "param_name"                => "seperator_5",
                             "seperator"					=> "Background Styling",
 							"group"						=> "Global Styling",
                         ),
@@ -593,7 +730,7 @@
 						// Default Font Settings
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_4",
+                            "param_name"                => "seperator_6",
                             "seperator"					=> "Font Styling",
 							"group"						=> "Global Styling",
                         ),
@@ -766,7 +903,7 @@
 						// Paddings / Margins
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_5",
+                            "param_name"                => "seperator_7",
                             "seperator"					=> "Paddings + Margins",
 							"group"						=> "Global Styling",
                         ),	
@@ -825,7 +962,7 @@
 						// Border Settings
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_6",
+                            "param_name"                => "seperator_8",
                             "seperator"					=> "Border Styling",
 							"group"						=> "Global Styling",
                         ),	
@@ -856,7 +993,7 @@
 						// Display Settings
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_7",
+                            "param_name"                => "seperator_9",
                             "seperator"					=> "Display Settings",
 							"group"						=> "Global Styling",
                         ),
@@ -875,7 +1012,7 @@
 								__( "Table Cell", "ts_visual_composer_extend" )		=> "table-cell",
 								__( "Table Column", "ts_visual_composer_extend" )	=> "table-column",
 								__( "Table Row", "ts_visual_composer_extend" )		=> "table-row",
-								__( "Inline Table ", "ts_visual_composer_extend" )	=> "inline-table",
+								__( "Inline Table", "ts_visual_composer_extend" )	=> "inline-table",
 								__( "List Item", "ts_visual_composer_extend" )		=> "list-item",
 								__( "Run-In", "ts_visual_composer_extend" )			=> "run-in",
 								__( "None", "ts_visual_composer_extend" )			=> "none",
@@ -913,7 +1050,7 @@
 						// Custom Styling
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_8",
+                            "param_name"                => "seperator_10",
                             "seperator"					=> "Custom CSS Code",
 							"group"						=> "Global Styling",
                         ),
@@ -928,7 +1065,7 @@
 						// Segment Styling (H1 - H6, DIV, SPAN, DIV, P)
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_9",
+                            "param_name"                => "seperator_11",
                             "seperator"					=> "Segment Styling",
 							"group"						=> "Segment Styling",
                         ),
@@ -1033,7 +1170,7 @@
 										__( "Table Cell", "ts_visual_composer_extend" )		=> "table-cell",
 										__( "Table Column", "ts_visual_composer_extend" )	=> "table-column",
 										__( "Table Row", "ts_visual_composer_extend" )		=> "table-row",
-										__( "Inline Table ", "ts_visual_composer_extend" )	=> "inline-table",
+										__( "Inline Table", "ts_visual_composer_extend" )	=> "inline-table",
 										__( "List Item", "ts_visual_composer_extend" )		=> "list-item",
 										__( "Run-In", "ts_visual_composer_extend" )			=> "run-in",
 										__( "None", "ts_visual_composer_extend" )			=> "none",
@@ -1290,7 +1427,7 @@
 						// Shadow Effect
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_10",
+                            "param_name"                => "seperator_12",
                             "seperator"					=> "Shadow Effect",
 							"dependency"        		=> array( 'element' => "background_type", 'value' => array('color', 'image', 'pattern', 'gradient', 'patternbolt') ),
 							"group"						=> "Animation & Effects",
@@ -1321,7 +1458,7 @@
 						// Viewport Animation
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_11",
+                            "param_name"                => "seperator_13",
                             "seperator"					=> "Viewport Animation",
 							"group"						=> "Animation & Effects",
                         ),
@@ -1379,7 +1516,7 @@
 						// Other Settings
                         array(
                             "type"                      => "seperator",
-                            "param_name"                => "seperator_12",
+                            "param_name"                => "seperator_14",
                             "seperator"					=> "Other Settings",
 							"group"						=> "Other Settings",
                         ),
@@ -1410,7 +1547,7 @@
         }
     }
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Advanced_Textblock'))) {
 		class WPBakeryShortCode_TS_VCSC_Advanced_Textblock extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Advanced Textblock Element" Class

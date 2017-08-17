@@ -92,6 +92,9 @@
 			extract($args);
 			$title 										= apply_filters('widget_title', $instance['title']);			
 			$widget 									= (isset($instance['widget']) ? esc_attr($instance['widget']) : "");
+			if ($widget == '') {
+				return false;
+			}
 			$posttitle 									= (isset($instance['posttitle']) ? ($instance['posttitle'] ? "true" : "false") : "true");
 			$post 										= TS_VCSC_Element_Widget_GetPost($widget);
 			if ($post) {

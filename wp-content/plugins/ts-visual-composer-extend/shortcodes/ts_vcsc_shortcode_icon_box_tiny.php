@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Icon-Box-Tiny', 'TS_VCSC_Font_Iconbox_Tiny_Function');
-	add_shortcode('TS_VCSC_Icon_Box_Tiny', 'TS_VCSC_Font_Iconbox_Tiny_Function');
 	function TS_VCSC_Font_Iconbox_Tiny_Function ($atts, $content = null) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();

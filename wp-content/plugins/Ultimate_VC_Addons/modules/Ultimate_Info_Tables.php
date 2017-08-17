@@ -6,7 +6,9 @@
 if(!class_exists("Ultimate_Info_Table")){
 	class Ultimate_Info_Table{
 		function __construct(){
-			add_action("init",array($this,"ultimate_it_init"));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action("init",array($this,"ultimate_it_init"));
+			}
 			add_shortcode("ultimate_info_table",array($this,"ultimate_it_shortcode"));
 			add_action( 'wp_enqueue_scripts', array( $this, 'info_table_assets' ), 1 );
 		}
@@ -680,7 +682,7 @@ if(!class_exists("Ultimate_Info_Table")){
 		}
 	} // class Ultimate_Info_Table
 	new Ultimate_Info_Table;
-	if ( class_exists( 'WPBakeryShortCode' ) ) {
+	if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_info_table' ) ) {
 	    class WPBakeryShortCode_ultimate_info_table extends WPBakeryShortCode {
 	    }
 	}

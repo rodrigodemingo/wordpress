@@ -11,7 +11,9 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 		
 		function __construct()
 		{
-			add_action( 'init', array($this, 'init_range_slider') );
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action( 'init', array($this, 'init_range_slider') );
+			}
 			add_shortcode( 'ult_range_slider',array( $this,'ult_range_slider_shortcode' ) );
 			add_action( "wp_enqueue_scripts", array( $this, "range_slider_scripts" ), 1 );
 		}
@@ -72,13 +74,13 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 
 			//slider color setting setting 
 			$slider_color_data = '';
-			$slider_color_data .= $slider_color != ''? " data-slider_color = '".$slider_color."'" : '';
+			$slider_color_data .= $slider_color != ''? " data-slider_color = '".esc_attr($slider_color)."'" : '';
 			//$slider_color_data .= $slider_active_color != ''? " data-slider_active_color = '".$slider_active_color."'" : '' ;
 			//$slider_color_data .= $dragger_color != '' ? " data-dragger_color = '".$dragger_color."'" : '';
 		  	
 			// Title box style 
-			$title_box_data = $title_box_color != '' ? "data-title-background = ".$title_box_color." " : '';
-			$title_box_data .= $title_box != '' ? " data-title-box = ".$title_box." " : " data-title-box = auto ";
+			$title_box_data = $title_box_color != '' ? "data-title-background = ".esc_attr($title_box_color)." " : '';
+			$title_box_data .= $title_box != '' ? " data-title-box = ".esc_attr($title_box)." " : " data-title-box = auto ";
 			$title_style = " style = '"; //title box style var
 			$arrow_style = "";
 			
@@ -141,8 +143,8 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 			
 			//slider size data
 			$slider_bar_size = $slider_bar_size != '' ? ' '.$slider_bar_size.'px;' : ''; 
-			$slider_size_data = $slider_bar_size != '' ? ' data-slider_size = "'.$slider_bar_size.'px"' : ''; 
-			//$slider_size_data = $dragger_size != '' ? ' data-dragger_size = "'.$dragger_size.'px"' : ''; 
+			$slider_size_data = $slider_bar_size != '' ? ' data-slider_size = "'.esc_attr($slider_bar_size).'px"' : ''; 
+			//$slider_size_data = $dragger_size != '' ? ' data-dragger_size = "'.esc_attr($dragger_size).'px"' : ''; 
 			//title data
 		  	$slider_data = json_decode( urldecode( $slider_data ), true );
 
@@ -153,7 +155,7 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 				}
 			}
 
-		  	$steps_data = ' data-slider_steps = "'.$steps_count.'"';
+		  	$steps_data = ' data-slider_steps = "'.esc_attr( $steps_count).'"';
 
 		  	
 
@@ -229,10 +231,10 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 			//$desc_style .= $desc_min_height !== '' ? ' min-height:'.$desc_min_height.'px;' : '';
 			$desc_style .= "'";
 			
-			$desc_data = $adaptive_height !== '' ? ' data-adaptive_height = '.$adaptive_height.' ' : '';
+			$desc_data = $adaptive_height !== '' ? ' data-adaptive_height = '.esc_attr($adaptive_height).' ' : '';
 
 		  	/////////////////////////////////////////////////////////////////////////typogrphy data end/////////
-		  	$output .= '<div id="'.$id.'" class="ult-rs-wrapper"><div id="ult-range-slider " '.$slider_padding.' class="ult-rslider-container ult-responsive '.$el_class.'" '.$steps_data.$slider_color_data.$slider_size_data.$arrow_style.$title_box_data.$desc_data.' '.$title_responsive.'>';
+		  	$output .= '<div id="'.esc_attr($id).'" class="ult-rs-wrapper"><div id="ult-range-slider " '.$slider_padding.' class="ult-rslider-container ult-responsive '.esc_attr($el_class).'" '.$steps_data.$slider_color_data.$slider_size_data.$arrow_style.$title_box_data.$desc_data.' '.$title_responsive.'>';
 		  	if( isset( $slider_data ) ) {
 				foreach ( $slider_data as $slider_datas ){
 
@@ -242,7 +244,7 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 						//$output .= '<div class = "ult-tooltip ult-title'.$title_count.'" ><div class = "ult-tooltip-inner"'.$title_style.'>'.$slider_datas["slider_title"]; " '.$main_heading_responsive
 						//$output .= '</div></div>';
 
-						$output .= '<div class = "ult-tooltip '.$none_style.' ult-title'.$title_count.'" '.$title_style.'><span class="ult-content '.$center_class.'">'.$slider_datas["slider_title"];
+						$output .= '<div class = "ult-tooltip '.esc_attr($none_style).' ult-title'.esc_attr($title_count).'" '.$title_style.'><span class="ult-content '.esc_attr($center_class).'">'.$slider_datas["slider_title"];
 						$output .= '</span></div>';
 						//$output .= '</span><span class="ult-arrow" ></span></div>';
 					}
@@ -250,7 +252,7 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 				}
 			}
 
-		  	$output .= '<div class = "ult-rslider" style = "width:'.$slider_bar_size.'" ></div>';
+		  	$output .= '<div class = "ult-rslider" style = "width:'.esc_attr($slider_bar_size).'" ></div>';
 			//echo $title_border;
 			$output .= '</div>';
 			  	//description data
@@ -261,7 +263,7 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 						
 					if ( isset( $slider_datas["slider_desc"] ) ){
 							
-						$output .= '<div class = "ult-description ult-desc'.$desc_count.'"'.$desc_style.' >'.$slider_datas["slider_desc"].'</div>';
+						$output .= '<div class = "ult-description ult-desc'.esc_attr($desc_count).'"'.$desc_style.' >'.$slider_datas["slider_desc"].'</div>';
 					}
 					$desc_count = $desc_count + 1;
 				}
@@ -792,34 +794,20 @@ if( !class_exists( "Ultimate_Range_Slider" ) ){
 		} // init_range_slider() end
 
 		function range_slider_scripts() {
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
+			
 			Ultimate_VC_Addons::ultimate_register_style( 'ult_range_slider_css', 'range-slider' );
 
-			wp_register_script('ult_range_slider_js', plugins_url($js_path.'range-slider'.$ext.'.js',__FILE__) , array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-slider'), ULTIMATE_VERSION, true);
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_range_slider_js', 'range-slider', false, array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-slider'), ULTIMATE_VERSION, true );
 			
-			wp_register_script('ult_ui_touch_punch', plugins_url($js_path.'range-slider-touch-punch'.$ext.'.js',__FILE__) , array('jquery, jquery-ui-widget, jquery-ui-mouse'), ULTIMATE_VERSION, true);
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_ui_touch_punch', 'range-slider-touch-punch', false, array('jquery', 'jquery-ui-widget', 'jquery-ui-mouse' ), ULTIMATE_VERSION, true );
 
 			//jquery.ui.labeledslider
-			wp_register_script( 'ult_range_tick', plugins_url($js_path.'jquery-ui-labeledslider'.$ext.'.js',__FILE__) , array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-slider' ), ULTIMATE_VERSION, false);
-			
-
-			
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_range_tick', 'jquery-ui-labeledslider', false, array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-slider'), ULTIMATE_VERSION, false );
 		}
 	}
 	new Ultimate_Range_Slider;
 
-	if ( class_exists( "WPBakeryShortCode" ) ) {
+	if ( class_exists( "WPBakeryShortCode" ) && !class_exists( "WPBakeryShortCode_ult_range_slider" ) ) {
 		class WPBakeryShortCode_ult_range_slider extends WPBakeryShortCode {
 		}
 	}

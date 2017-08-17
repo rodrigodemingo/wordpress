@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to generate System Information Overview
 	add_shortcode('TS_VCSC_System_Information', 'TS_VCSC_System_Information');
 	function TS_VCSC_System_Information ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

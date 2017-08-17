@@ -172,6 +172,7 @@
 					var data = {
 						action : 'ult_get_attachment_url',
 						attach_id : parseInt(id),
+						security: uavc.ult_get_attachment_url
 					}
 					$.post(ajaxurl, data, function(img_url) {
 						$t.find( '.spinner.ult_img_single_spinner').css('visibility', 'hidden');

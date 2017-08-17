@@ -8,7 +8,9 @@ if(!class_exists('Ultimate_List_Icon'))
 	{
 		function __construct()
 		{
-			add_action('init',array($this,'list_icon_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'list_icon_init'));
+			}
 			add_shortcode('ultimate_icon_list',array($this,'ultimate_icon_list_shortcode'));
 			add_shortcode('ultimate_icon_list_item',array($this,'icon_list_item_shortcode'));
 		}
@@ -330,7 +332,7 @@ if(!class_exists('Ultimate_List_Icon'))
 			// enqueue js
 			//wp_enqueue_script('aio-tooltip',plugins_url('../assets/min-js/',__FILE__).'tooltip.min.js',array('jquery'));
 
-			$output = '<div class="uavc-list-icon uavc-list-icon-wrapper '.$is_vc_49_plus.' '.$el_class.' '.$css_icon_list.' '.$css_icon_list.'">';
+			$output = '<div class="uavc-list-icon uavc-list-icon-wrapper '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' '.esc_attr($css_icon_list).' '.esc_attr($css_icon_list).'">';
 			$output .= '<ul class="uavc-list">';
 			$output .= do_shortcode($content);
 			$output .= '</ul>';
@@ -374,7 +376,7 @@ if(!class_exists('Ultimate_List_Icon'))
 
 			if($icon_animation !== 'none')
 			{
-				$css_trans = 'data-animation="'.$icon_animation.'" data-animation-delay="03"';
+				$css_trans = 'data-animation="'.esc_attr($icon_animation).'" data-animation-delay="03"';
 			}
 			$output = $style = $link_sufix = $link_prefix = $target = $content_style = $href = $icon_align_style = '';
 
@@ -420,18 +422,18 @@ if(!class_exists('Ultimate_List_Icon'))
             $list_icon_data_list = get_ultimate_vc_responsive_media_css($list_icon_args);
 			$icon_animation = $icon_link = '';
 
-			$output .= '<div class="uavc-list-content" id="'.$list_icon_id.'">';
+			$output .= '<div class="uavc-list-content" id="'.esc_attr($list_icon_id).'">';
 
 			if($icon !== "" || $icon_img !== ''){
 				if($icon_type == 'custom'){
 					$icon_style = 'none';
 				}
-				$main_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$icon_size.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_link="'.$icon_link.'" icon_animation="'.$icon_animation.'"]');
-				$output .= "\n".'<div class="uavc-list-icon '.$el_class.' '.$css_icon_list.'" '.$css_trans.' style="'.$style.'">';
+				$main_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($icon_size).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_link="'.esc_attr($icon_link).'" icon_animation="'.esc_attr($icon_animation).'"]');
+				$output .= "\n".'<div class="uavc-list-icon '.esc_attr($el_class).' '.esc_attr($css_icon_list).'" '.$css_trans.' style="'.esc_attr($style).'">';
 				$output .= $main_icon;
 				$output .= "\n".'</div>';
 			}
-			$output .= '<span '.$list_icon_data_list.' class="uavc-list-desc ult-responsive" style="'.$content_style.'">'.do_shortcode($content).'</span>';
+			$output .= '<span '.$list_icon_data_list.' class="uavc-list-desc ult-responsive" style="'.esc_attr($content_style).'">'.do_shortcode($content).'</span>';
 			$output .= '</div>';
 
 			$output = '<li>'.$output.'</li>';
@@ -444,11 +446,11 @@ if(class_exists('Ultimate_List_Icon'))
 	$Ultimate_List_Icon = new Ultimate_List_Icon;
 }
 //Extend WPBakeryShortCodesContainer class to inherit all required functionality
-if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+if ( class_exists( 'WPBakeryShortCodesContainer' ) && !class_exists( 'WPBakeryShortCode_ultimate_icon_list' ) ) {
     class WPBakeryShortCode_ultimate_icon_list extends WPBakeryShortCodesContainer {
     }
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_icon_list_item' ) ) {
     class WPBakeryShortCode_ultimate_icon_list_item extends WPBakeryShortCode {
     }
 }

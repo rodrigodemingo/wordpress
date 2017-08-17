@@ -40,20 +40,19 @@ if(!class_exists('Ultimate_Icon_Manager_Param'))
 			}
 
 			$output = '<div class="my_param_block">'
-					 .'<input name="'.$settings['param_name'].'"
-					  class="wpb_txt_icon_value wpb_vc_param_value wpb-textinput '.$settings['param_name'].' 
-					  '.$settings['type'].'_field" type="hidden" 
-
-					  value="'.$value.'" ' . $dependency . ' id="'.$pcnt.'"/>'
+					 .'<input name="'.esc_attr( $settings['param_name'] ).'"
+					  class="wpb_txt_icon_value wpb_vc_param_value wpb-textinput '. esc_attr( $settings['param_name'] ).' 
+					  '.esc_attr( $settings['type'] ).'_field" type="hidden" 
+					  value="'.esc_attr( $value ).'" ' . $dependency . ' id="'.esc_attr( $pcnt ).'"/>'
 					 .'</div>';
 			if($vc_is_inline){
 				$output .= '<script type="text/javascript">
-					var val=jQuery("#'.$pcnt.'").val();
+					var val=jQuery("#'.esc_attr( $pcnt ).'").val();
 					//alert("yes");
-					var val=jQuery("#'.$pcnt.'").val();
-					var pmid="'.$pcnt.'";
-					var pmid="'.$pcnt.'";
-					var val=jQuery("#'.$pcnt.'").val();
+					var val=jQuery("#'.esc_attr( $pcnt ).'").val();
+					var pmid="'.esc_attr( $pcnt ).'";
+					var pmid="'.esc_attr( $pcnt ).'";
+					var val=jQuery("#'.esc_attr( $pcnt ).'").val();
 					if(val==""){
 							val="none";
 						}
@@ -61,9 +60,9 @@ if(!class_exists('Ultimate_Icon_Manager_Param'))
 							val="none";
 						}
 
-						jQuery(".preview-icon-'.$pcnt.'").html("<i class="+val+"></i>");
+						jQuery(".preview-icon-'.esc_attr( $pcnt ).'").html("<i class="+val+"></i>");
 
-						jQuery(".icon-list-'.$pcnt.' li[data-icons=\'"+ val+"\']").addClass("selected");
+						jQuery(".icon-list-'.esc_attr( $pcnt ).' li[data-icons=\'"+ val+"\']").addClass("selected");
 
 						jQuery(".icons-list li").click(function() {
 
@@ -84,8 +83,8 @@ if(!class_exists('Ultimate_Icon_Manager_Param'))
 
 
 				jQuery(document).ready(function(){
-					var pmid="'.$pcnt.'";
-					var val=jQuery("#'.$pcnt.'").val();
+					var pmid="'.esc_attr( $pcnt ).'";
+					var val=jQuery("#'.esc_attr( $pcnt ).'").val();
 					if(val==""){
 						val="none";
 					}
@@ -93,9 +92,9 @@ if(!class_exists('Ultimate_Icon_Manager_Param'))
 						val="none";
 					}
 
-					jQuery(".preview-icon-'.$pcnt.'").html("<i class="+val+"></i>");
+					jQuery(".preview-icon-'.esc_attr( $pcnt ).'").html("<i class="+val+"></i>");
 
-					jQuery(".icon-list-'.$pcnt.' li[data-icons=\'"+ val+"\']").addClass("selected");
+					jQuery(".icon-list-'.esc_attr( $pcnt ).' li[data-icons=\'"+ val+"\']").addClass("selected");
 				});
 				jQuery(".icons-list li").click(function() {
 					var id=jQuery(this).attr("id");
@@ -108,7 +107,7 @@ if(!class_exists('Ultimate_Icon_Manager_Param'))
                 });
 				</script>';
 					}
-			$output .= '<div class="wpb_txt_icons_block" data-old-icon-value="'.$pcnt.'">'.$font_manager.'</div>';
+			$output .= '<div class="wpb_txt_icons_block" data-old-icon-value="'.esc_attr( $pcnt ).'">'.$font_manager.'</div>';
 			return $output;
 		}
 

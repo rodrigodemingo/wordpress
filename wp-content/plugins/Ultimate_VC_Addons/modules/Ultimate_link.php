@@ -10,28 +10,19 @@ if(!class_exists('AIO_creative_link'))
 	{
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_createlink'));
+			}
 			add_shortcode('ult_createlink',array($this,'ult_createlink_shortcode'));
-			add_action('init',array($this,'ultimate_createlink'));
 			add_action( 'wp_enqueue_scripts', array( $this, 'creative_link_scripts'), 1 );
 		}
 
 		//enque script
 		function creative_link_scripts(){
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ult_cllink', 'creative-link' );
 
-			wp_register_script("jquery.ult_cllink",plugins_url($js_path."creative-link".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery.ult_cllink', 'creative-link', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 
 		// Shortcode handler function for stats Icon
@@ -71,11 +62,10 @@ if(!class_exists('AIO_creative_link'))
 				$href = vc_build_link($btn_link);
 
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
 				$alt_text 		= ( isset( $href['title'] ) && $href['title'] !== '' ) ? $href['title'] : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
-				$target 		= ( isset( $href['target'] ) ) ? "target='" . trim( $href[ 'target' ] ) . "'" : '' ;
-
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
+				
 				if($url==''){
 					$url="javascript:void(0);";
 				}
@@ -104,12 +94,12 @@ $css_class ='';$title_style='';$secondtitle_style=$span_style='';
 
 $data_link='';
  if($link_hover_style==''){
-		$data_link .='data-textcolor="'.$text_color.'" ';
-		$data_link .='data-texthover="'.$text_hovercolor.'"';
+		$data_link .='data-textcolor="'.esc_attr($text_color).'" ';
+		$data_link .='data-texthover="'.esc_attr($text_hovercolor).'"';
 	}
 	else{
-		$data_link .='data-textcolor="'.$text_color.'" ';
-		$data_link .='data-texthover="'.$text_hovercolor.'"';
+		$data_link .='data-textcolor="'.esc_attr($text_color).'" ';
+		$data_link .='data-texthover="'.esc_attr($text_hovercolor).'"';
 	}
 
 if($link_hover_style=='Style_2'){
@@ -121,17 +111,17 @@ if($link_hover_style=='Style_2'){
 	}
 	if($text_hovercolor=='' && $bghovercolor==''){
 
-		$data_link .='data-bgcolor="'.$background_color.'"';
-		$data_link .='data-bghover="'.$background_color.'"';
+		$data_link .='data-bgcolor="'.esc_attr($background_color).'"';
+		$data_link .='data-bghover="'.esc_attr($background_color).'"';
 		//$data_link .='data-texthover="'.$text_color.'"';
 	}
 	else{
 
-		$data_link .='data-bgcolor="'.$background_color.'"';
-		$data_link .='data-bghover="'.$bghovercolor.'"';
+		$data_link .='data-bgcolor="'.esc_attr($background_color).'"';
+		$data_link .='data-bghover="'.esc_attr($bghovercolor).'"';
 	}
 }
-$data_link .='data-style="'.$link_hover_style.'"';
+$data_link .='data-style="'.esc_attr($link_hover_style).'"';
 
 /*--- border style---*/
 
@@ -213,7 +203,7 @@ if($title_font_size!=''){
 //$colorstyle .='font-size:'.$title_font_size.'px;';
 }
 $borderstyle .=$data_border; //text color for btm border
-$after .='<span class="ult_link_btm3 " style="'.$borderstyle.'"></span>';
+$after .='<span class="ult_link_btm3 " style="'.esc_attr($borderstyle).'"></span>';
 
 }
 else if($link_hover_style=='Style_4'){               //style4
@@ -227,7 +217,7 @@ if($title_font_size!=''){
 ///$colorstyle .='font-size:'.$title_font_size.'px;';
 }
 $borderstyle .=$data_border; //text color for btm border
-$after .='<span class="ult_link_btm4 " style="'.$borderstyle.'"></span>';
+$after .='<span class="ult_link_btm4 " style="'.esc_attr($borderstyle).'"></span>';
 }
 else if($link_hover_style=='Style_6'){               //style6
 $class .='ult_cl_link_6';
@@ -236,7 +226,7 @@ $colorstyle .='color:'.$text_hovercolor.';';
 if($title_font_size!=''){
 //$colorstyle .='font-size:'.$title_font_size.'px;';
 }
-$after .='<span class="ult_btn6_link_top " data-color="'.$dot_color.'">•</span>';
+$after .='<span class="ult_btn6_link_top " data-color="'.esc_attr($dot_color).'">•</span>';
 }
 else if($link_hover_style=='Style_5'){               //style5
 $class .='ult_cl_link_5';
@@ -249,8 +239,8 @@ $data_border .='border-color:'.$border_color.';';
 $data_border .='border-bottom-width:'.$border_size.'px;';
 $data_border .='border-style:'.$border_style.';';
 $borderstyle .=$data_border; //text color for btm border
-$before='<span class="ult_link_top" style="'.$borderstyle.'"></span>';
-$after .='<span class="ult_link_btm  " style="'.$borderstyle.'"></span>';
+$before='<span class="ult_link_top" style="'.esc_attr($borderstyle).'"></span>';
+$after .='<span class="ult_link_btm  " style="'.esc_attr($borderstyle).'"></span>';
 }
 
 else if($link_hover_style=='Style_7'){               //style7
@@ -260,8 +250,8 @@ $class .='ult_cl_link_7';
 $borderstyle .='background:'.$border_color.';';
 $borderstyle .='height:'.$border_size.'px;';
 
-$before='<span class="ult_link_top btn7_link_top " style="'.$borderstyle.'"></span>';
-$after .='<span class="ult_link_btm  btn7_link_btm" style="'.$borderstyle.'"></span>';
+$before='<span class="ult_link_top btn7_link_top " style="'.esc_attr($borderstyle).'"></span>';
+$after .='<span class="ult_link_btm  btn7_link_btm" style="'.esc_attr($borderstyle).'"></span>';
 }
 
 else if($link_hover_style=='Style_8'){               //style8
@@ -278,8 +268,8 @@ $borderhover .='outline-color:'.$border_hovercolor.';';
 $borderhover .='outline-width:'.$border_size.'px;';
 $borderhover .='outline-style:'.$border_style.';'; //text color for btm border
 
-$before='<span class="ult_link_top ult_btn8_link_top " style="'.$borderstyle.'"></span>';
-$after .='<span class="ult_link_btm  ulmt_btn8_link_btm" style="'.$borderhover.'"></span>';
+$before='<span class="ult_link_top ult_btn8_link_top " style="'.esc_attr($borderstyle).'"></span>';
+$after .='<span class="ult_link_btm  ulmt_btn8_link_btm" style="'.esc_attr($borderhover).'"></span>';
 }
 else if($link_hover_style=='Style_9'){               //style9
 $class .='ult_cl_link_9';
@@ -294,8 +284,8 @@ $borderstyle .= 'border-top-style:'.$border_style.';';
 $borderstyle .= 'border-top-color:'.$border_color.';';
 
 //$borderstyle .='height:'; //text color for btm border
-$before='<span class="ult_link_top ult_btn9_link_top " style="'.$borderstyle.'"></span>';
-$after .='<span class="ult_link_btm  ult_btn9_link_btm" style="'.$borderstyle.'"></span>';
+$before='<span class="ult_link_top ult_btn9_link_top " style="'.esc_attr($borderstyle).'"></span>';
+$after .='<span class="ult_link_btm  ult_btn9_link_btm" style="'.esc_attr($borderstyle).'"></span>';
 
 }
 else if($link_hover_style=='Style_10'){               //style10
@@ -334,7 +324,7 @@ $span_style1 .= 'color:'.$text_hovercolor.';';
 	$domain=(explode("}",$domain));
 	$ult_style11css=$domain[0];
 
-$before='<span class="ult_link_top ult_btn11_link_top " style="'.$span_style1.';'.$ult_style11css.'">'.$text.'</span>';
+$before='<span class="ult_link_top ult_btn11_link_top " style="'.esc_attr($span_style1).';'.esc_attr($ult_style11css).'">'.$text.'</span>';
 
 }
 //echo $bghovercolor;
@@ -349,11 +339,11 @@ if($link_hover_style=='Style_2'){
 
 	if($link_hover_style!='Style_10'){
 
-			$output .='<span id="'.$creative_link_id.'" class="ult_main_cl '.$is_vc_49_plus.' '.$el_class.' '.$style11_css_class.'" >
-	 			<span class="'.$class.'  ult_crlink" >
-					<a '.$creative_link_data_list.' href = "'.esc_attr($url).'" '.$target.' class="ult_colorlink ult-responsive '.$css_class .'" style="'.$colorstyle.' "  '.$data_link.' title="'.$alt_text.'" '. $rel .'>
+			$output .='<span id="'.esc_attr($creative_link_id).'" class="ult_main_cl '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' '.esc_attr($style11_css_class).'" >
+	 			<span class="'.esc_attr($class).'  ult_crlink" >
+					<a '.$creative_link_data_list.' href = "'.esc_url($url).'" '.$target.' class="ult_colorlink ult-responsive '.esc_attr($css_class) .'" style="'.esc_attr($colorstyle).' "  '.$data_link.' title="'.esc_attr($alt_text).'" '. $rel .'>
 						'.$before.'
-						<span data-hover="'.$text.'" style="'.$title_style.';'.$span_style.';'.$ult_style11css.'" class="ult_btn10_span  '.$ult_style2css.' ">'.$text.'</span>
+						<span data-hover="'.esc_attr($text).'" style="'.esc_attr($title_style).';'.esc_attr($span_style).';'.esc_attr($ult_style11css).'" class="ult_btn10_span  '.esc_attr($ult_style2css).' ">'.$text.'</span>
 						'.$after.'
 					</a>
 				</span>
@@ -362,14 +352,14 @@ if($link_hover_style=='Style_2'){
 		}
 	  else if($link_hover_style=='Style_10'){
 
-			$output .='<span id="'.$creative_link_id.'" class=" ult_main_cl  '.$el_class.'" >
-	 			<span  class="'.$class.'  ult_crlink" id="'.$id.'">
-					<a '.$creative_link_data_list.' href = "'.esc_attr($url).'" '.$target.' class="ult_colorlink  ult-responsive "  style="'.$colorstyle.' "  '.$data_link.' title="'.$alt_text.'" '. $rel .'>
-						<span   class="ult_btn10_span  '.$css_class .'" style="'.$span_style.'" data-color="'.$border_color.'"  data-bhover="'.$bghovercolor.'" data-bstyle="'.$border_style.'">
-							<span class="ult_link_btm  ult_btn10_link_top" style="'.$span_style1.'">
-								<span style="'.$title_style.';color:'.$text_hovercolor.'" class="style10-span">'.$text.'</span>
+			$output .='<span id="'.esc_attr($creative_link_id).'" class=" ult_main_cl  '.esc_attr($el_class).'" >
+	 			<span  class="'.esc_attr($class).'  ult_crlink" id="'.esc_attr($id).'">
+					<a '.$creative_link_data_list.' href = "'.esc_url($url).'" '.$target.' class="ult_colorlink  ult-responsive "  style="'.esc_attr($colorstyle).' "  '.$data_link.' title="'.esc_attr($alt_text).'" '. $rel .'>
+						<span   class="ult_btn10_span  '.esc_attr($css_class) .'" style="'.esc_attr($span_style).'" data-color="'.esc_attr($border_color).'"  data-bhover="'.esc_attr($bghovercolor).'" data-bstyle="'.esc_attr($border_style).'">
+							<span class="ult_link_btm  ult_btn10_link_top" style="'.esc_attr($span_style1).'">
+								<span style="'.esc_attr($title_style).';color:'.esc_attr($text_hovercolor).'" class="style10-span">'.$text.'</span>
 							</span>
-							<span style="'.$title_style.';">'.$text.'</span>
+							<span style="'.esc_attr($title_style).';">'.$text.'</span>
 						</span>
 
 					</a>
@@ -672,7 +662,7 @@ if(class_exists('AIO_creative_link'))
 $AIO_creative_link = new AIO_creative_link;
 
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ult_createlink' ) ) {
     class WPBakeryShortCode_ult_createlink extends WPBakeryShortCode {
     }
 }

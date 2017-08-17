@@ -1,6 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-	
+    global $VISUAL_COMPOSER_EXTENSIONS;	
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      => __( "TS Spacer / Clear", "ts_visual_composer_extend" ),
 		"base"                      => "TS-VCSC-Spacer",
@@ -107,11 +106,10 @@
 				"dependency"        => array( 'element' => "implement", 'value' => 'screens' )
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Countricons = array(
     $this->TS_VCSC_Icons_Compliant_Countricons = array(
         "Countricons Font" => array(
             array("ts-countricons-afghanistan"	        => "afhanistan"),

@@ -1,7 +1,7 @@
 // Porto Config Scss Plugins File
 
 
-// Created at 2017-04-13 08:34:38
+// Created at 2017-08-15 13:14:00
 
 
 
@@ -23,10 +23,10 @@ $grid-gutter-width:         30px !default;
 // Large screen / wide desktop
 
 
-$container-large-desktop: (1170px) !default;
+$container-large-desktop: (1140px) !default;
 
 
-$screen-lg: (1200px) !default;
+$screen-lg: (1170px) !default;
 
 
 
@@ -573,37 +573,38 @@ $pre-border-color:            #ccc !default;
 
 
 
-    $border-radius-base:  0 !default;
+     $border-radius-base:  4px !default;
 
 
-    $border-radius-large: 0 !default;
+    $border-radius-large: 6px !default;
 
 
-    $border-radius-small: 0 !default;
+    $border-radius-small: 3px !default;
 
 
-    $pager-border-radius: 0 !default;
+    $pager-border-radius: 15px !default;
 
 
-    $badge-border-radius: 0 !default;
+    $badge-border-radius: 10px !default;
 
 
-    $border-radius-normal: 0;
+    $border-radius-normal: 5px;
 
 
-    $border-radius-base:   0;
+    $border-radius-base  : 4px;
 
 
-    $border-radius-thick:  0;
+    $border-radius-thick:  7px;
 
 
-    $border-radius-strong: 0;
+    $border-radius-strong: 8px;
 
 
-    $scroll-border-radius: 0;
+    $scroll-border-radius: 10px;
 
 
-    $scroll-border-radius-large: 0;
+    $scroll-border-radius-large: 12px;
+
 
 
 
@@ -616,19 +617,19 @@ $pre-border-color:            #ccc !default;
     //** Padding around the thumbnail image
 
 
-    $thumbnail-padding:      0 !default;
+    $thumbnail-padding:      4px !default;
 
 
     //** Thumbnail border color
 
 
-    $thumbnail-border:       transparent !default;
+    $thumbnail-border:       #ddd !default;
 
 
-    $thumbnail-border-width: 0;
+    $thumbnail-border-width: 1px;
 
 
-    $thumbnail-slide-width:  100%;
+    $thumbnail-slide-width:  99.5%;
 
 
 

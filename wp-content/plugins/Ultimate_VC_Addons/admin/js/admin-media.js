@@ -68,16 +68,22 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 				data:
 				{
 					action: 'smile_ajax_add_zipped_font',
+					security: uavc.add_zipped_font,
 					values: selection,
 				},
 				beforeSend: function()
 				{
 					$('.spinner').css({opacity:0, display:"block", visibility:'visible',position:'absolute', top:'21px', left:'345px'}).animate({opacity:1});
 				},
-				/*error: function()
+				error: function()
 				{
-					alert('Couldn\'t add the font because the server didn’t respond.<br/>Please reload the page, then try again');
-				},*/
+					$('.spinner').hide();
+					msg.html("<div class='error'><p>Couldn\'t add the font because the server didn’t respond. Please reload the page, then try again.</p></div>");
+					msg.show();
+					setTimeout(function() {
+						msg.slideUp();
+					}, 5000);
+				},
 				success: function(response)
 				{
 					$('.spinner').hide();
@@ -121,6 +127,7 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 			{
 				action: 'smile_ajax_remove_zipped_font',
 				del_font: del_font,
+				security: uavc.remove_zipped_font
 			},
 			beforeSend: function()
 			{

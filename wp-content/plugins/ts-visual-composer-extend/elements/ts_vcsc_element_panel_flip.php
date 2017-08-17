@@ -1,6 +1,8 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-	
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Panel_Flip'))) {
+		class WPBakeryShortCode_TS_VCSC_Panel_Flip extends WPBakeryShortCode {};
+	};
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      => __( "TS Panel Flip", "ts_visual_composer_extend" ),
 		"base"                      => "TS_VCSC_Panel_Flip",
@@ -457,6 +459,19 @@
 				"dependency"        => array( 'element' => "front_content_customize", 'value' => 'true' ),
 				"group" 			=> "Front Panel",
 			),
+			array(
+				"type"              => "nouislider",
+				"heading"           => __( "Front Panel: Line Height", "ts_visual_composer_extend" ),
+				"param_name"        => "front_panel_line",
+				"value"             => "110",
+				"min"               => "100",
+				"max"               => "250",
+				"step"              => "1",
+				"unit"              => '%',
+				"description"       => __( "Define the line height for the front panel content.", "ts_visual_composer_extend" ),
+				"dependency"        => array( 'element' => "front_content_customize", 'value' => 'true' ),
+				"group" 			=> "Front Panel",
+			),
 			// Front Panel Styling
 			array(
 				"type"              => "seperator",
@@ -835,6 +850,19 @@
 				"param_name"        => "back_panel_background",
 				"value"             => "#ffffff",
 				"description"       => __( "Define the background color for the back panel.", "ts_visual_composer_extend" ),
+				"dependency"        => array( 'element' => "back_content_customize", 'value' => 'true' ),
+				"group" 			=> "Back Panel",
+			),
+			array(
+				"type"              => "nouislider",
+				"heading"           => __( "Back Panel: Line Height", "ts_visual_composer_extend" ),
+				"param_name"        => "back_panel_line",
+				"value"             => "110",
+				"min"               => "100",
+				"max"               => "250",
+				"step"              => "1",
+				"unit"              => '%',
+				"description"       => __( "Define the line height for the back panel content.", "ts_visual_composer_extend" ),
 				"dependency"        => array( 'element' => "back_content_customize", 'value' => 'true' ),
 				"group" 			=> "Back Panel",
 			),
@@ -1416,11 +1444,10 @@
 				"group"				=> "Other Settings",
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

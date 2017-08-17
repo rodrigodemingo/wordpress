@@ -448,11 +448,18 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 		public function bsf_add_registration_message( $plugin_data, $response ) {
 
-			$plugin_init = $plugin_data['plugin'];
+			$plugin_init = isset( $plugin_data['plugin'] ) ? $plugin_data['plugin'] : '';
 
-			$product_id        = brainstrom_product_id_by_init( $plugin_init );
-			$bundled           = self::bsf_is_product_bundled( $plugin_init, 'init' );
-			$registration_page = bsf_registration_page_url( '', $product_id );
+			if ( '' !== $plugin_init ) {
+				$product_id        = brainstrom_product_id_by_init( $plugin_init );
+				$bundled           = self::bsf_is_product_bundled( $plugin_init, 'init' );
+				$registration_page = bsf_registration_page_url( '', $product_id );
+			} else {
+				$plugin_name 		= isset( $plugin_data['name'] ) ? $plugin_data['name'] : '';
+				$product_id  		= brainstrom_product_id_by_name( $plugin_name );
+				$bundled           	= self::bsf_is_product_bundled( $plugin_name, 'name' );
+				$registration_page 	= bsf_registration_page_url( '', $product_id );
+			}
 
 			if ( ! empty( $bundled ) ) {
 				$parent_id   = $bundled[0];

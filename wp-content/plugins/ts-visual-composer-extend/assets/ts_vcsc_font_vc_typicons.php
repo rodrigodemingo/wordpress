@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_Typicons = array(
     $this->TS_VCSC_Icons_Compliant_VC_Typicons = array(
         "Typicons Font (VC)" => array(
             array("typcn typcn-adjust-brightness" => "Adjust Brightness"),

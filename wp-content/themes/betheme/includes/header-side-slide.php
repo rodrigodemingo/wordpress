@@ -145,16 +145,20 @@ echo '</div>';
 if( mfn_opts_get( 'header-search' ) ){
 	echo '<div class="search-wrapper">';
 
-	$translate[ 'search-placeholder' ] = mfn_opts_get( 'translate' ) ? mfn_opts_get( 'translate-search-placeholder', 'Enter your search' ) : __( 'Enter your search', 'betheme' );
-
-	echo '<form id="side-form" method="get" action="'. esc_url( home_url( '/' ) ) .'">';
-
-	echo '<input type="text" class="field" name="s" id="s" placeholder="'. $translate['search-placeholder'] .'" />';
-	echo '<input type="submit" class="submit" value="" style="display:none;" />';
-
-	echo '<a class="submit" href="#"><i class="icon-search-fine"></i></a>';
-
-	echo '</form>';
+		$translate[ 'search-placeholder' ] = mfn_opts_get( 'translate' ) ? mfn_opts_get( 'translate-search-placeholder', 'Enter your search' ) : __( 'Enter your search', 'betheme' );
+	
+		echo '<form id="side-form" method="get" action="'. esc_url( home_url( '/' ) ) .'">';
+	
+			if( mfn_opts_get( 'header-search' ) == 'shop' ){
+				echo '<input type="hidden" name="post_type" value="product" />';
+			}
+			
+			echo '<input type="text" class="field" name="s" id="s" placeholder="'. $translate['search-placeholder'] .'" />';
+			echo '<input type="submit" class="submit" value="" style="display:none;" />';
+		
+			echo '<a class="submit" href="#"><i class="icon-search-fine"></i></a>';
+	
+		echo '</form>';
 
 	echo '</div>';
 }

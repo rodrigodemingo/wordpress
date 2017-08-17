@@ -6,27 +6,18 @@
 if(!class_exists('Ultimate_Video_Banner')) {
 	class Ultimate_Video_Banner {
 		function __construct() {
-			add_action('init',array($this,'ultimate_video_banner_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_video_banner_init'));
+			}
 			add_shortcode('ultimate_video_banner',array($this,'ultimate_video_banner_shortcode'));
 			add_action("wp_enqueue_scripts", array($this, "register_video_banner_assets"),1);
 		}
 
 		function register_video_banner_assets() {
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
+			
 			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-video-banner-style', 'video-banner' );
 
-			wp_register_script('ultimate-video-banner-script',plugins_url($js_path.'video-banner'.$ext.'.js',__FILE__),array('jquery'),ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-video-banner-script', 'video-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 
 		function ultimate_video_banner_init() {
@@ -332,21 +323,21 @@ if(!class_exists('Ultimate_Video_Banner')) {
 				$img_info = apply_filters('ult_get_img_single', $video_banner_placeholder, 'url', 'full');
 
 				$placeholder = $img_info;
-				$placeholder_css = 'background-image:url('.$placeholder.');';
+				$placeholder_css = 'background-image:url('.esc_url( $placeholder ).');';
 			}
 
-			$output = '<div id="'.$video_id.'" class="'.$vc_css_class.' ult-video-banner ult-vdo-effect '.$video_banner_effect.' utl-video-banner-item ult-responsive" '.$banner_height_responsive_data.' data-current-time="'.$video_banner_start_time.'" data-placeholder="'.$placeholder.'" style="'.$placeholder_css.'">';
+			$output = '<div id="'.esc_attr($video_id).'" class="'.esc_attr($vc_css_class).' ult-video-banner ult-vdo-effect '.esc_attr($video_banner_effect).' utl-video-banner-item ult-responsive" '.$banner_height_responsive_data.' data-current-time="'.esc_attr($video_banner_start_time).'" data-placeholder="'.esc_attr($placeholder).'" style="'.esc_attr($placeholder_css).'">';
 				if($video_banner_mp4_link != '' || $video_banner_webm_ogg_link != '') :
-					$output .= '<video autoplay loop '.$video_banner_mute.' poster="'.$placeholder.'">';
+					$output .= '<video autoplay loop '.$video_banner_mute.' poster="'.esc_attr($placeholder).'">';
 						if($video_banner_mp4_link != '')
-							$output .= '<source src="'.$video_banner_mp4_link.'" type="video/mp4">';
+							$output .= '<source src="'.esc_attr($video_banner_mp4_link).'" type="video/mp4">';
 						if($video_banner_webm_ogg_link != '') :
 							$ext = pathinfo($video_banner_webm_ogg_link);
 							if($ext['extension'] == 'webm')
 								$type = 'webm';
 							else
 								$type = 'ogg';
-							$output .= '<source src="'.$video_banner_webm_ogg_link.'" type="video/'.$type.'">';
+							$output .= '<source src="'.esc_url($video_banner_webm_ogg_link).'" type="video/'.esc_attr($type).'">';
 						endif;
 						$output.= __('Your browser does not support the video tag.','ultimate_vc');
 					$output .= '</video>';
@@ -354,21 +345,21 @@ if(!class_exists('Ultimate_Video_Banner')) {
 				if($video_banner_title != '' || $content != '') :
 					$output .= '<div class="ult-video-banner-desc">';
 						if($video_banner_title != '') :
-							$output .= '<h2 class="ult-video-banner-title" style="'.$title_style_inline.'">'.__($video_banner_title, 'ultimate_vc').'</h2>';
+							$output .= '<h2 class="ult-video-banner-title" style="'.esc_attr($title_style_inline).'">'.__($video_banner_title, 'ultimate_vc').'</h2>';
 						endif;
 						if($video_banner_content != '') :
-							$output .= '<div class="ult-video-banner-content" style="'.$desc_style_inline.'">'.__($video_banner_content, 'ultimate_vc').'</div>';
+							$output .= '<div class="ult-video-banner-content" style="'.esc_attr($desc_style_inline).'">'.__($video_banner_content, 'ultimate_vc').'</div>';
 						endif;
 					$output .= '</div>';
 				endif;
-				$output .= '<div class="ult-video-banner-overlay" data-overlay="'.$video_banner_overlay_color.'" data-overlay-hover="'.$video_banner_overlay_hover_color.'"></div>';
+				$output .= '<div class="ult-video-banner-overlay" data-overlay="'.esc_attr($video_banner_overlay_color).'" data-overlay-hover="'.esc_attr($video_banner_overlay_hover_color).'"></div>';
 			$output .= '</div>';
 			return $output;
 		}
 	}
 }
 $Ultimate_Video_Banner = new Ultimate_Video_Banner;
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_video_banner' ) ) {
     class WPBakeryShortCode_ultimate_video_banner extends WPBakeryShortCode {
     }
 }

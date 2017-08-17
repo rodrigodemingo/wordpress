@@ -1,6 +1,5 @@
 <?php
-	global $VISUAL_COMPOSER_EXTENSIONS;
-	
+	global $VISUAL_COMPOSER_EXTENSIONS;	
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                          => __( "TS Video Youtube", "ts_visual_composer_extend" ),
 		"base"                          => "TS-VCSC-Youtube",
@@ -124,7 +123,7 @@
 				"type"				    => "seperator",
 				"param_name"		    => "seperator_3",
 				"seperator"				=> "Player Settings",
-			),
+			),				
 			array(
 				"type"                  => "nouislider",
 				"heading"               => __( "Start Time", "ts_visual_composer_extend" ),
@@ -148,7 +147,22 @@
 				"unit"                  => 's',
 				"description"           => __( "Select a time in seconds at which the video should stop playing; must be larger than 'Start Time'; set to 0 (zero) to disable..", "ts_visual_composer_extend" ),
 				"dependency"            => array( 'element' => "content_type", 'value' => 'video' ),
-			),				
+			),
+			array(
+				"type"                  => "dropdown",
+				"heading"               => __( "Video Quality", "ts_visual_composer_extend" ),
+				"param_name"            => "video_quality",
+				"value"                 => array(
+					__("Automatic", "ts_visual_composer_extend")				=> "auto",
+					__("Tiny (144p)", "ts_visual_composer_extend")				=> "tiny",
+					__("Small (240p)", "ts_visual_composer_extend")				=> "small",
+					__("Medium (360p)", "ts_visual_composer_extend")			=> "medium",
+					__("Large (480p)", "ts_visual_composer_extend")				=> "large",
+					__("HD (720p)", "ts_visual_composer_extend")				=> "hd720",
+					__("Full HD (1080p)", "ts_visual_composer_extend")			=> "hd1080",
+				),
+				"description"           => __( "Select the desired initial video quality request for the player; YouTube can still select a different quality if applicable.", "ts_visual_composer_extend" ),					
+			),		
 			array(
 				"type"                  => "dropdown",
 				"heading"               => __( "Video Controls 1", "ts_visual_composer_extend" ),
@@ -900,11 +914,10 @@
 				"group" 				=> "Other Settings",
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

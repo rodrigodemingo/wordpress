@@ -907,6 +907,8 @@ if( ! function_exists( 'sc_blog' ) )
 			
 			'category'			=> '',
 			'category_multi'	=> '',
+			'orderby'			=> 'date',
+			'order'				=> 'DESC',
 			
 			'exclude_id'		=> '',
 			'filters'			=> '',
@@ -932,6 +934,8 @@ if( ! function_exists( 'sc_blog' ) )
 		$args = array(
 			'posts_per_page'		=> intval($count),
 			'paged' 				=> $paged,
+			'orderby'				=> $orderby,
+			'order'					=> $order,
 			'post_status'			=> 'publish',
 			'ignore_sticky_posts'	=> 0,
 		);
@@ -1045,7 +1049,7 @@ if( ! function_exists( 'sc_blog' ) )
 						$images_only = 'images_only';
 					}
 
-					$output .= mfn_content_post( $query_blog, $style ,$images_only );
+					$output .= mfn_content_post( $query_blog, $style, $images_only );
 										
 				$output .= '</div>';
 	
@@ -1074,8 +1078,12 @@ if( ! function_exists( 'sc_blog_slider' ) )
 		extract(shortcode_atts(array(
 			'title'				=> '',
 			'count'				=> 5,
+			
 			'category'			=> '',
 			'category_multi'	=> '',
+			'orderby'			=> 'date',
+			'order'				=> 'DESC',
+			
 			'more'				=> '',
 			'style'				=> '',
 			'navigation'		=> '',
@@ -1091,6 +1099,8 @@ if( ! function_exists( 'sc_blog_slider' ) )
 		
 		$args = array(
 			'posts_per_page'		=> intval($count),
+			'orderby' 				=> $orderby,
+			'order'					=> $order,
 			'no_found_rows'			=> 1,
 			'post_status'			=> 'publish',
 			'ignore_sticky_posts'	=> 0,
@@ -1175,8 +1185,12 @@ if( ! function_exists( 'sc_blog_news' ) )
 			'title'				=> '',
 			'count'				=> 5,
 			'style'				=> '',
+			
 			'category'			=> '',
 			'category_multi'	=> '',
+			'orderby'			=> 'date',
+			'order'				=> 'DESC',
+			
 			'excerpt'			=> '',
 			'link'				=> '',
 			'link_title'		=> '',
@@ -1184,6 +1198,8 @@ if( ! function_exists( 'sc_blog_news' ) )
 		
 		$args = array(
 			'posts_per_page'		=> intval($count),
+			'orderby' 				=> $orderby,
+			'order'					=> $order,
 			'no_found_rows'			=> 1,
 			'post_status'			=> 'publish',
 			'ignore_sticky_posts'	=> 0,
@@ -1281,6 +1297,8 @@ if( ! function_exists( 'sc_blog_teaser' ) )
 
 			'category'			=> '',
 			'category_multi'	=> '',
+			'orderby'			=> 'date',
+			'order'				=> 'DESC',
 			
 // 			'link'				=> '',
 // 			'link_title'		=> '',
@@ -1289,6 +1307,8 @@ if( ! function_exists( 'sc_blog_teaser' ) )
 		
 		$args = array(
 			'posts_per_page'		=> 3,
+			'orderby' 				=> $orderby,
+			'order'					=> $order,
 			'no_found_rows'			=> 1,
 			'post_status'			=> 'publish',
 			'ignore_sticky_posts'	=> 0,
@@ -1420,23 +1440,11 @@ if( ! function_exists( 'sc_shop_slider' ) )
 		if( $show == 'featured' ){
 			
 			// featured ------------------------------
-			$args['meta_key'] 		= '_featured';
-			$args['meta_value'] 	= 'yes';
+			$args['post__in'] =  array_merge( array( 0 ), wc_get_featured_product_ids() );
 			
 		} elseif( $show == 'onsale' ){
 
 			// onsale --------------------------------
-			/*
-			$args['meta_query'] = array(
-				array(
-					'key'           => '_sale_price',
-					'value'         => 0,
-					'compare'       => '>',
-					'type'          => 'numeric'
-				),
-			);
-			*/
-			
 			$args['post__in'] =  array_merge( array( 0 ), wc_get_product_ids_on_sale() );
 			
 		} elseif( $show == 'best-selling' ){
@@ -1853,12 +1861,16 @@ if( ! function_exists( 'sc_google_font' ) )
 	{
 		extract(shortcode_atts(array(
 			'font' 				=> '',
+			
 			'size' 				=> '25',
 			'weight'			=> '400',
+
 			'italic'			=> '',
 			'letter_spacing' 	=> '',
-			'color'				=> '',
 			'subset' 			=> '',
+			
+			'color'				=> '',
+			'inline' 			=> '',
 		), $attr));
 		
 		// style
@@ -1883,15 +1895,19 @@ if( ! function_exists( 'sc_google_font' ) )
 			$subset	= '&amp;subset='. str_replace( ' ', '', $subset );
 		} else {
 			$subset = false;	
+		}
+
+		// class
+		$class = '';
+		if( $inline ){
+			$class .= ' inline';
 		}	
 		
 		// slug
 		$font_slug	= str_replace( ' ', '+', $font );
 		wp_enqueue_style( $font_slug, 'http'. mfn_ssl() .'://fonts.googleapis.com/css?family='. $font_slug .':'. $weight . $subset );
 
-// 		$output = '<link type="text/css" rel="stylesheet" href="http'. mfn_ssl() .'://fonts.googleapis.com/css?family='. $font_slug .':'. $weight . $subset .'">'."\n";
-
-		$output = '<div class="google_font" style="'. $style .'">'. do_shortcode( $content ) .'</div>'."\n";
+		$output = '<div class="google_font'. esc_attr( $class ).'" style="'. $style .'">'. do_shortcode( $content ) .'</div>'."\n";
 		
 	    return $output;
 	}
@@ -1980,7 +1996,7 @@ if( ! function_exists( 'sc_pricing_item' ) )
 					}
 				
 					if( $title ) $output .= '<h2>'. $title .'</h2>';	
-					if( $price ){ 
+					if( $price || ( $price === '0' ) ){
 						$output .= '<div class="price">';
 							if( $currency_pos != 'right' ) $output .= '<sup class="currency">'. $currency .'</sup>';
 							$output .= '<span>'. $price .'</span>';
@@ -2672,7 +2688,7 @@ if( ! function_exists( 'sc_button' ) )
 		// FIX | prettyphoto
 		if( strpos( $class, 'prettyphoto' ) !== false ){
 			$class 	= str_replace( 'prettyphoto', '', $class );
-			$rel = 'prettyphoto '. $rel;
+			$rel = 'prettyphoto '. $rel; // do not change order
 		}
 		
 		// class
@@ -5320,7 +5336,6 @@ if( ! function_exists( 'sc_gallery' ) )
 		$class = $atts['link'];
 		if( $atts['style'] ) $class .= ' '. $atts['style'];
 		if( $atts['greyscale'] ) $class .= ' greyscale';
-		if( $atts['greyscale'] ) $class .= ' greyscale';
 		
 	
 		$id = intval( $atts['id'] );
@@ -5449,6 +5464,31 @@ if( ! function_exists( 'sc_gallery' ) )
 		return $output;
 	}
 }
+
+
+/* ---------------------------------------------------------------------------
+ * Raw [raw][/raw]
+ * WordPress 4.8 | Text Widget - autop
+ * --------------------------------------------------------------------------- */
+function sc_raw($content) {
+	$new_content = '';
+	$pattern_full = '{(\[raw\].*?\[/raw\])}is';
+	$pattern_contents = '{\[raw\](.*?)\[/raw\]}is';
+	$pieces = preg_split( $pattern_full, $content, -1, PREG_SPLIT_DELIM_CAPTURE );
+
+	foreach ( $pieces as $piece ) {
+		if( preg_match( $pattern_contents, $piece, $matches ) ){
+			$new_content .= $matches[1];
+		} else {
+			$new_content .= wptexturize( wpautop( $piece ) );
+		}
+	}
+
+	return $new_content;
+}
+
+remove_filter( 'widget_text_content', 'wpautop' );
+add_filter( 'widget_text_content', 'sc_raw', 99 );
 
 
 // column shortcodes -----------------------

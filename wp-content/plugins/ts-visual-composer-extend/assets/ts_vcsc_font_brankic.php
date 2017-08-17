@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Brankic = array(
     $this->TS_VCSC_Icons_Compliant_Brankic = array(
         "Brankic 1979 Font" => array(
             array("ts-brankic-number" => "number 1"),

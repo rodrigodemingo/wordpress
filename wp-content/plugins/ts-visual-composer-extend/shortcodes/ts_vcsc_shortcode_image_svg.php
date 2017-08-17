@@ -8,8 +8,6 @@
 		wp_enqueue_script('ts-extend-nacho');
 		wp_enqueue_style('ts-extend-nacho');
 		wp_enqueue_script('ts-extend-snapsvg');
-		wp_enqueue_style('ts-extend-tooltipster');
-		wp_enqueue_script('ts-extend-tooltipster');
 		wp_enqueue_style('ts-visual-composer-extend-front');
 		wp_enqueue_script('ts-visual-composer-extend-front');
 		wp_enqueue_style('ts-extend-imageeffects');
@@ -30,6 +28,12 @@
 			'link_container'				=> 'false',
 			'trigger'						=> 'image',
 			'link'							=> '',
+
+			'scroll_target'					=> '',
+			'scroll_speed'					=> 2000,
+			'scroll_effect'					=> 'linear',
+			'scroll_offset'					=> 'desktop:0px;tablet:0px;mobile:0px',
+			'scroll_hashtag'				=> 'false',
 			
 			'color_fill'					=> '#ffffff',
 			'color_title'					=> '#3498db',
@@ -52,6 +56,7 @@
 			
 			'content_tooltip'				=> 'true',
 			'content_tooltip_position'		=> 'ts-simptip-position-top',
+			'content_tooltip_style'			=> 'ts-simptip-style-black',
 			
 			'tooltipster_offsetx'			=> 0,
 			'tooltipster_offsety'			=> 0,
@@ -66,7 +71,7 @@
 		$output = $notice = $visible = $styles = '';
 		
 		$randomizer							= mt_rand(999999, 9999999);
-		$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 		
 		if (!empty($el_id)) {
 			$image_svg_id					= $el_id;
@@ -90,6 +95,29 @@
 			if (!empty($a1_rel)) {
 				$a1_rel 					= 'rel="' . esc_attr(trim($a1_rel)) . '"';
 			}
+		} else if (($trigger == "scroll") && ($scroll_target != '')) {
+			$scroll_target					= str_replace("#", "", $scroll_target);
+			$a_href							= "#" . $scroll_target;
+			$a_title 						= "";
+			$a_target 						= "_parent";
+			$a_rel							= 'rel="bookmark"';
+		}
+		
+		// Scroll Navigation
+		if (($trigger == "scroll") && ($scroll_target != '')) {
+			wp_enqueue_script('jquery-easing');
+			$scroll_offset 					= explode(';', $scroll_offset);			
+			$offsetDesktop					= explode(':', $scroll_offset[0]);
+			$offsetDesktop					= str_replace("px", "", $offsetDesktop[1]);
+			$offsetTablet					= explode(':', $scroll_offset[1]);
+			$offsetTablet					= str_replace("px", "", $offsetTablet[1]);
+			$offsetMobile					= explode(':', $scroll_offset[2]);
+			$offsetMobile					= str_replace("px", "", $offsetMobile[1]);	
+			$scroll_class					= 'ts-button-page-navigator';			
+			$scroll_data					= 'data-scroll-target="' . $scroll_target . '" data-scroll-speed="' . $scroll_speed . '" data-scroll-effect="' . $scroll_effect . '" data-scroll-offsetdesktop="' . $offsetDesktop . '" data-scroll-offsettablet="' . $offsetTablet . '" data-scroll-offsetmobile="' . $offsetMobile . '" data-scroll-hashtag="' . $scroll_hashtag . '"';
+		} else {
+			$scroll_class					= '';
+			$scroll_data					= '';
 		}
 		
 		// Lightbox
@@ -102,20 +130,12 @@
 		}
 		
 		// Tooltip
-		if (($text_content != '') && ($content_tooltip == "true")) {
-			if (($content_tooltip_position == "ts-simptip-position-top") || ($content_tooltip_position == "top")) {
-				$content_tooltip_position	= "top";
-			}
-			if (($content_tooltip_position == "ts-simptip-position-left") || ($content_tooltip_position == "left")) {
-				$content_tooltip_position	= "left";
-			}
-			if (($content_tooltip_position == "ts-simptip-position-right") || ($content_tooltip_position == "right")) {
-				$content_tooltip_position	= "right";
-			}
-			if (($content_tooltip_position == "ts-simptip-position-bottom") || ($content_tooltip_position == "bottom")) {
-				$content_tooltip_position	= "bottom";
-			}
-			$tooltip_content 				= 'data-tooltipster-title="' . $text_title . '" data-tooltipster-text="' . $text_content . '" data-tooltipster-image="" data-tooltipster-position="' . $content_tooltip_position . '" data-tooltipster-touch="false" data-tooltipster-arrow="true" data-tooltipster-theme="tooltipster-black" data-tooltipster-animation="swing" data-tooltipster-trigger="hover" data-tooltipster-offsetx="' . $tooltipster_offsetx . '" data-tooltipster-offsety="' . $tooltipster_offsety . '"';
+		if ((($text_title != '') || ($text_content != '')) && ($content_tooltip == "true")) {
+			wp_enqueue_style('ts-extend-tooltipster');
+			wp_enqueue_script('ts-extend-tooltipster');
+			$tooltip_position				= TS_VCSC_TooltipMigratePosition($content_tooltip_position);
+			$tooltip_style					= TS_VCSC_TooltipMigrateStyle($content_tooltip_style);
+			$tooltip_content 				= 'data-tooltipster-title="' . $text_title . '" data-tooltipster-text="' . $text_content . '" data-tooltipster-image="" data-tooltipster-position="' . $tooltip_position . '" data-tooltipster-touch="false" data-tooltipster-arrow="true" data-tooltipster-theme="' . $tooltip_style . '" data-tooltipster-animation="swing" data-tooltipster-trigger="hover" data-tooltipster-offsetx="' . $tooltipster_offsetx . '" data-tooltipster-offsety="' . $tooltipster_offsety . '"';
 			$tooltip_class					= 'ts-has-tooltipster-tooltip';			
 			$container_addition				= 0;
 		} else {
@@ -162,7 +182,7 @@
 			}
 		}
 		if (($styles != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 		}
 		
 		$output .= '<div id="' . $image_svg_id . '-holder" class="ts-image-svg-holder ' . $css_class . ' ' . $tooltip_class . '" ' . $tooltip_content . ' style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
@@ -180,6 +200,8 @@
 								$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a1_rel . ' title="" class="ts-image-svg-wrapper" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 180,50 -180,0 L 0,0 180,0 z">';
 							} else if ($trigger == "image") {
 								$output .= '<a href="' . $modal_image[0] . '" class="ts-image-svg-wrapper nch-lightbox-media no-ajaxy" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 180,50 -180,0 L 0,0 180,0 z" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							} else if ($trigger == "scroll") {
+								$output .= '<a href="' . $a_href . '" class="ts-image-svg-wrapper ' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . ' data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 180,50 -180,0 L 0,0 180,0 z">';
 							}
 						}
 							$output .= '<figure>';
@@ -195,6 +217,8 @@
 											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" title="">';
 										} else if (($trigger == "image") && ($link_container == "false")) {
 											$output .= '<a href="' . $modal_image[0] . '" class="nch-lightbox-media no-ajaxy" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+										} else if (($trigger == "scroll") && ($link_container == "false")) {
+											$output .= '<a href="' . $a_href . '" class="' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . '>';
 										}
 											$output .= '<button class="ts-image-svg-button" style="background: ' . $color_button_back . '; color: ' . $color_button_text . ';">' . $text_button . '</button>';
 										if ($link_container == "false") {
@@ -222,6 +246,8 @@
 								$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a1_rel . ' title="" class="ts-image-svg-wrapper" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 0,75 c 30,0 60,-20 90,-20 40,0 60,20 90,20 l 0,-75 z">';
 							} else if ($trigger == "image") {
 								$output .= '<a href="' . $modal_image[0] . '" class="ts-image-svg-wrapper nch-lightbox-media no-ajaxy" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 0,75 c 30,0 60,-20 90,-20 40,0 60,20 90,20 l 0,-75 z" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							} else if ($trigger == "scroll") {
+								$output .= '<a href="' . $a_href . '" class="ts-image-svg-wrapper ' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . ' data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 0,75 c 30,0 60,-20 90,-20 40,0 60,20 90,20 l 0,-75 z">';
 							}
 						}					
 							$output .= '<figure class="ts-image-svg-figure">';
@@ -237,6 +263,8 @@
 											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" title="">';
 										} else if (($trigger == "image") && ($link_container == "false")) {
 											$output .= '<a href="' . $modal_image[0] . '" class="nch-lightbox-media no-ajaxy" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+										} else if (($trigger == "scroll") && ($link_container == "false")) {
+											$output .= '<a href="' . $a_href . '" class="' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . '>';
 										}
 											$output .= '<button class="ts-image-svg-button" style="background: ' . $color_button_back . '; color: ' . $color_button_text . ';">' . $text_button . '</button>';
 										if ($link_container == "false") {
@@ -264,6 +292,8 @@
 								$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a1_rel . ' title="" class="ts-image-svg-wrapper" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 180,0 0,60 c 0,0 -55,-25 -90,16 C 50,30 0,60 0,60 z">';
 							} else if ($trigger == "image") {
 								$output .= '<a href="' . $modal_image[0] . '" class="ts-image-svg-wrapper nch-lightbox-media no-ajaxy" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 180,0 0,60 c 0,0 -55,-25 -90,16 C 50,30 0,60 0,60 z" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							} else if ($trigger == "scroll") {
+								$output .= '<a href="' . $a_href . '" class="ts-image-svg-wrapper ' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . ' data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,0 180,0 0,60 c 0,0 -55,-25 -90,16 C 50,30 0,60 0,60 z">';
 							}
 						}					
 							$output .= '<figure class="ts-image-svg-figure">';
@@ -279,6 +309,8 @@
 											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" title="">';
 										} else if (($trigger == "image") && ($link_container == "false")) {
 											$output .= '<a href="' . $modal_image[0] . '" class="nch-lightbox-media no-ajaxy" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+										} else if (($trigger == "scroll") && ($link_container == "false")) {
+											$output .= '<a href="' . $a_href . '" class="' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . '>';
 										}
 											$output .= '<button class="ts-image-svg-button" style="background: ' . $color_button_back . '; color: ' . $color_button_text . ';">' . $text_button . '</button>';
 										if ($link_container == "false") {
@@ -306,6 +338,8 @@
 								$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a1_rel . ' title="" class="ts-image-svg-wrapper" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="M 0,0 0,50 90,75 180.5,50 180,0 z">';
 							} else if ($trigger == "image") {
 								$output .= '<a href="' . $modal_image[0] . '" class="ts-image-svg-wrapper nch-lightbox-media no-ajaxy" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="M 0,0 0,50 90,75 180.5,50 180,0 z" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							} else if ($trigger == "scroll") {
+								$output .= '<a href="' . $a_href . '" class="ts-image-svg-wrapper ' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . ' data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="M 0,0 0,50 90,75 180.5,50 180,0 z">';
 							}
 						}	
 							$output .= '<figure class="ts-image-svg-figure">';
@@ -321,6 +355,8 @@
 											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" title="">';
 										} else if (($trigger == "image") && ($link_container == "false")) {
 											$output .= '<a href="' . $modal_image[0] . '" class="nch-lightbox-media no-ajaxy" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+										} else if (($trigger == "scroll") && ($link_container == "false")) {
+											$output .= '<a href="' . $a_href . '" class="' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . '>';
 										}
 											$output .= '<button class="ts-image-svg-button" style="background: ' . $color_button_back . '; color: ' . $color_button_text . ';">' . $text_button . '</button>';
 										if ($link_container == "false") {
@@ -347,6 +383,8 @@
 								$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a1_rel . ' title="" class="ts-image-svg-wrapper" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,320 L 0,290 L 180,260 L 180,320 z">';
 							} else if ($trigger == "image") {
 								$output .= '<a href="' . $modal_image[0] . '" class="ts-image-svg-wrapper nch-lightbox-media no-ajaxy" data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,320 L 0,290 L 180,260 L 180,320 z" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							} else if ($trigger == "scroll") {
+								$output .= '<a href="' . $a_href . '" class="ts-image-svg-wrapper ' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . ' data-easing="easeinout" data-speed="' . $speed_svg . '" data-path-hover="m 0,320 L 0,290 L 180,260 L 180,320 z">';
 							}
 						}
 							$output .= '<figure>';
@@ -362,6 +400,8 @@
 											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" title="">';
 										} else if (($trigger == "image") && ($link_container == "false")) {
 											$output .= '<a href="' . $modal_image[0] . '" class="nch-lightbox-media no-ajaxy" data-title="' . $text_title . '" rel="' . ($lightbox_group == "true" ? "nachogroup" : $lightbox_group_name) . '" data-effect="' . $lightbox_effect . '" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+										} else if (($trigger == "scroll") && ($link_container == "false")) {
+											$output .= '<a href="' . $a_href . '" class="' . $scroll_class . '" target="' . $a_target . '" ' . $a_rel . ' title="" ' . $scroll_data . '>';
 										}
 											$output .= '<div class="ts-image-svg-button" style="color: ' . $color_button_text . ';"><span style="">' . $text_button . '</span></div>';
 										if ($link_container == "false") {

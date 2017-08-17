@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Google-Charts', 'TS_VCSC_Google_Charts_Function');
-	add_shortcode('TS_VCSC_Google_Charts', 'TS_VCSC_Google_Charts_Function');
 	function TS_VCSC_Google_Charts_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -841,8 +840,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Google_Charts extends WPBakeryShortCode {};
 	}
 ?>

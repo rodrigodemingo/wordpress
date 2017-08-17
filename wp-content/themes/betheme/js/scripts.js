@@ -9,29 +9,24 @@
 
     var scrollticker;	// Scroll Timer | don't need to set this in every scroll
     
-    var rtl 			= $('body').hasClass('rtl');
-    var simple			= $('body').hasClass('style-simple');
+    var rtl 			= $( 'body' ).hasClass( 'rtl' );
+    var simple			= $( 'body' ).hasClass( 'style-simple' );
     
     var top_bar_top 	= '61px';
     var header_H 		= 0;
     var mobile_init_W 	= ( window.mfn.mobile_init ) ? window.mfn.mobile_init : 1240;
 
-    var pretty 			= false;
+    var lightbox_attr 	= false;
     
     
     /* ---------------------------------------------------------------------------
-	 * prettyPhoto
+	 * Lightbox | Magnific Popup
 	 * --------------------------------------------------------------------------- */
 
-    if( ! window.mfn_prettyphoto.disable ){
-    	if( ! ( window.mfn_prettyphoto.disableMobile && ( $(window).width() < 768 ) ) ){
-    		pretty = {
-				default_width	: window.mfn_prettyphoto.width  ? window.mfn_prettyphoto.width  : 500,
-				default_height	: window.mfn_prettyphoto.height ? window.mfn_prettyphoto.height : 344,
-				show_title		: window.mfn_prettyphoto.title  ? window.mfn_prettyphoto.title  : false,
-				theme			: window.mfn_prettyphoto.style  ? window.mfn_prettyphoto.style  : 'pp_default',
-				deeplinking		: false,
-				social_tools	: false
+    if( ! window.mfn_lightbox.disable ){
+    	if( ! ( window.mfn_lightbox.disableMobile && ( window.innerWidth < 768 ) ) ){
+    		lightbox_attr = {
+				title : window.mfn_lightbox.title  ? window.mfn_lightbox.title  : false,
     		};
     	}
     } 
@@ -56,6 +51,7 @@
     	
     	return height;
     }
+
     
     /* ---------------------------------------------------------------------------
 	 * Header | Sticky
@@ -63,7 +59,7 @@
     
 	function mfn_sticky(){
 		if( $( 'body' ).hasClass( 'sticky-header' ) ){	
-			if( ! ( $( 'body' ).hasClass( 'header-creative' ) && $(window).width() >= 768 ) ){
+			if( ! ( $( 'body' ).hasClass( 'header-creative' ) && window.innerWidth >= 768 ) ){
 
 				var start_y = header_H;
 				var window_y = $(window).scrollTop();
@@ -94,6 +90,9 @@
 							.removeClass( 'is-sticky' )
 							.css( 'top', top_bar_top );
 						
+						// Retina Logo - max height
+						sticky_logo();
+						
 						// Header width
 						mfn_header();
 						
@@ -107,6 +106,36 @@
 		}
 	}
 	
+	
+	/* ---------------------------------------------------------------------------
+	 * Header | Sticky | Retina Logo - max height
+	 * --------------------------------------------------------------------------- */
+	function sticky_logo(){
+		
+		// ! retina display
+		if( ! window.devicePixelRatio > 1 ){
+			return false;
+		}
+		
+		var parent = $( '#Top_bar #logo' );
+		
+		// ! retina logo set
+		if( ! parent.hasClass( 'retina' ) ){
+			return false;
+		}
+			
+		var el = $( 'img.logo-main', parent );
+		var height = el.data( 'height' );
+		
+		if( $( 'body' ).hasClass( 'logo-overflow' ) ){
+			// do nothing
+		} else if( height > parent.data( 'height' ) ){
+			height = parent.data( 'height' );
+		}
+		
+		el.css( 'max-height', height + 'px' );
+		
+	}
 	
 	/* ---------------------------------------------------------------------------
 	 * Header | Sticky | Height
@@ -189,9 +218,10 @@
 		}
 
 		// FIX | responsive
+
 		if( $( window ).width() < mobile_init_W  ){
-			
-			if( $(window).width() < 768 ){
+
+			if( $( window ).width() < 768 ){
 				
 				// mobile
 				if( ! $( 'body' ).hasClass( 'mobile-sticky' ) ){
@@ -207,7 +237,16 @@
 				
 			}
 
-		}			
+		} else {
+			
+			// desktop
+			
+			// FIX | header creative			
+			if( $( 'body' ).hasClass( 'header-creative' ) ){
+				stickyH = 0;
+			}
+
+		}
 		
 		return stickyH;
 	}
@@ -562,7 +601,7 @@
 			el.toggleClass('active');
 			
 			// sticky menu button
-			if( el.hasClass('is-sticky') && el.hasClass('active') && ( $(window).width() < 768 ) ){
+			if( el.hasClass('is-sticky') && el.hasClass('active') && ( window.innerWidth < 768 ) ){
 				
 				var top = 0;
 				if( menuWrap.length ){
@@ -615,7 +654,7 @@
 			
 			var reload = function(){
 
-				if( ( $(window).width() < ss_mobile_init_W ) ){
+				if( ( window.innerWidth < ss_mobile_init_W ) ){
 					constructor();
 				} else {
 					destructor();
@@ -630,6 +669,12 @@
 					pos = 'left';
 				}
 
+				// responsive off
+				if( $( 'body' ).hasClass( 'responsive-off' ) ){
+					ss_mobile_init_W = 0;
+				}
+				
+				// header simple
 				if( $( 'body' ).hasClass( 'header-simple' ) ){
 					ss_mobile_init_W = 9999;
 				}
@@ -797,6 +842,294 @@
 		if( $( 'body' ).hasClass( 'mobile-side-slide' ) ){
 			sideSlide();
 		}
+		
+		
+		/* ---------------------------------------------------------------------------
+		 * Gallery | WordPress Gallery
+		 * --------------------------------------------------------------------------- */
+        
+		$( '.gallery' ).each(function(){
+			
+			var el = $(this);
+			var parentID = el.attr( 'id' );
+			
+			$( '> br', el ).remove();
+			
+			$( '.gallery-icon > a', el )
+				.wrap( '<div class="image_frame scale-with-grid"><div class="image_wrapper"></div></div>' )
+				.prepend( '<div class="mask"></div>' )
+				.children( 'img' )
+					.css( 'height', 'auto' )
+					.css( 'width', '100%' );
+
+			// Link | Media File
+			if( el.hasClass( 'file' ) ){
+				$( '.gallery-icon a', el ).attr( 'rel', 'prettyphoto['+ parentID +']' );
+			}
+			
+			// Masonry
+			if( el.hasClass( 'masonry' ) ){
+
+				el.isotope({
+					itemSelector	: '.gallery-item',
+					layoutMode		: 'masonry',
+					isOriginLeft	: rtl ? false : true
+				});
+				
+			}
+			
+		});
+
+		
+		/* ---------------------------------------------------------------------------
+		 * Lightbox | PrettyPhoto
+		 * --------------------------------------------------------------------------- */
+		
+		$( 'a[rel^="prettyphoto[portfolio]"]' ).each(function(){
+			
+			var el = $(this);
+			var parent = el.closest( '.column' );
+			var index = $( '.column' ).index( parent );
+			
+			el.attr( 'rel', 'prettyphoto[portfolio-'+ index +']' );
+			
+		});
+		
+
+		/* ---------------------------------------------------------------------------
+		 * Lightbox | Magnific Popup
+		 * with prettyPhoto backward compatibility
+		 * --------------------------------------------------------------------------- */
+
+		function lightbox(){
+			
+			var galleries = [];
+			
+			
+			// init -----------
+			
+			var init = function(){
+				
+				if( lightbox_attr ){
+					compatibility();
+					set_type();
+					constructor();
+				}
+				
+			};
+			
+			
+			// backward compatibility for prettyPhoto ----------
+			
+			var compatibility = function(){
+				
+				$( 'a[rel^="prettyphoto"], a.prettyphoto, a[rel^="prettyphoto"]' ).each(function(){
+					
+					var el 	= $( this );
+					var rel = el.attr( 'rel' );
+
+					if( rel ){
+						rel = rel.replace( 'prettyphoto', 'lightbox' );
+					} else {
+						rel = 'lightbox';
+					}
+					
+					// Visual Composer prettyPhoto
+					var data_rel = el.attr( 'data-rel' );
+					if( data_rel ){
+						rel = data_rel.replace( 'prettyPhoto', 'lightbox' );
+						el.removeAttr( 'data-rel' );
+					}
+					
+					el.removeClass( 'prettyphoto' ).attr( 'rel', rel );
+
+				});
+
+			};
+			
+			
+			// check if item is a part of gallery ----------
+			
+			var is_gallery = function( rel ){
+				
+				if( ! rel ){
+					return false;
+				}
+				
+				var reg_exp = /\[(?:.*)\]/;
+				var gallery = reg_exp.exec( rel );
+				
+				if( gallery ){
+					gallery = gallery[0];
+					gallery = gallery.replace( '[','' ).replace( ']','' );
+					return gallery;
+				}
+				
+				return false;
+			};
+			
+			
+			// set array of names of galleries ----------
+			
+			var set_gallery = function( gallery ){
+				
+				if( galleries.indexOf( gallery ) == -1 ){
+					galleries.push( gallery );
+					return true;
+				}
+				
+				return false;
+			};
+			
+
+			// get file type by link ----------
+			
+			var get_type = function( src ){
+				
+				if( src.match(/youtube\.com\/watch/i) || src.match(/youtu\.be/i) ){
+					return 'iframe';
+					
+				} else if( src.match(/vimeo\.com/i) ){
+					return 'iframe';
+					
+				} else if( src.match(/\biframe=true\b/i) ){
+					return 'ajax';
+					
+				} else if( src.match(/\bajax=true\b/i) ){
+					return 'ajax';
+					
+				} else if( src.substr(0,1) == '#' ){
+					return 'inline';
+					
+				} else {
+					return 'image';
+					
+				}
+			};
+			
+			
+			// set file type ----------
+			
+			var set_type = function(){
+
+				$( 'a[rel^="lightbox"]' ).each(function(){
+					
+					var el 		= $( this );
+					var href 	= el.attr( 'href' );
+					var rel 	= el.attr( 'rel' );
+					
+					if( href ){
+						
+						// gallery
+						var gallery = is_gallery( rel );
+						if( gallery ){
+							el.attr( 'data-type', 'gallery' );
+							set_gallery( gallery );
+							return true;
+						}
+						
+						el.attr( 'data-type', get_type( href ) );
+					}
+
+				});
+				
+//				console.log( galleries );
+				
+			};
+			
+			
+			// constructor ----------
+			
+			var constructor = function(){
+				
+				var attr = {
+					autoFocusLast	: false,
+					removalDelay	: 160,
+					image			: {
+						titleSrc	: function( item ){
+							return ( lightbox_attr.title ) ? item.img.attr( 'alt' ) : false;
+						}
+					}
+				};
+
+				// image
+				
+				$( 'a[rel^="lightbox"][data-type="image"]' ).magnificPopup({
+					autoFocusLast	: attr.autoFocusLast,
+					removalDelay	: attr.removalDelay,
+					type			: 'image',
+					image			: attr.image
+				});
+				
+				// iframe | video
+				
+				$( 'a[rel^="lightbox"][data-type="iframe"]' ).magnificPopup({
+					autoFocusLast	: attr.autoFocusLast,
+					removalDelay	: attr.removalDelay,
+					type			: 'iframe'		
+				});
+				
+				// inline
+				
+				$( 'a[rel^="lightbox"][data-type="inline"]' ).magnificPopup({
+					autoFocusLast	: attr.autoFocusLast,
+					type			: 'inline',
+					midClick		: true,
+					callbacks		: {
+						open: function(){
+							$( '.mfp-content' ).children().addClass( 'mfp-inline' );
+						},
+						beforeClose: function(){
+							$( '.mfp-content' ).children().removeClass( 'mfp-inline' );
+						}
+					}
+				});
+				
+				// gallery
+				
+				for( var i = 0, len = galleries.length; i < len; i++ ){
+					
+					var gallery = '[' + galleries[i] + ']';
+					gallery = 'a[rel^="lightbox' + gallery +'"]';
+				
+					$( gallery ).magnificPopup({
+						autoFocusLast	: attr.autoFocusLast,
+						removalDelay	: attr.removalDelay,
+						type			: 'image',
+						image			: attr.image,
+						gallery			: {
+							enabled		: true,
+						}
+					});
+				}
+				
+			};
+			
+			
+			// Visual Composer prettyPhoto | unbind ----------
+			
+			var unbindPretty = function(){
+				
+				if( lightbox_attr ){
+					$( 'a[data-rel^="prettyPhoto"], a[rel^="lightbox"]' ).each( function(){
+						$( this ).unbind( 'click.prettyphoto' );
+					});
+				}
+				
+			}
+			
+			
+			// init ----------
+			
+			init();
+			
+			// onload ----------
+			
+			$( window ).on( 'load', unbindPretty );
+				
+		}
+
+		lightbox();
 
 		
 		/* ---------------------------------------------------------------------------
@@ -896,13 +1229,14 @@
 				// active ----------
 				
 				var hash;
-				var activeSelector = '.menu > li.current-menu-item, .menu > li.current-menu-parent, .menu > li.current-menu-ancestor, .menu > li.current-page-ancestor, .menu > li.current_page_item, .menu > li.current_page_parent, .menu > li.current_page_ancestor';
+				var activeSelector 	= '.menu > li.current-menu-item, .menu > li.current-menu-parent, .menu > li.current-menu-ancestor, .menu > li.current-page-ancestor, .menu > li.current_page_item, .menu > li.current_page_parent, .menu > li.current_page_ancestor';
+				var activeClasses 	= 'current-menu-item current-menu-parent current-menu-ancestor current-page-ancestor current_page_item current_page_parent current_page_ancestor';
 				
 				if( $( activeSelector, menu ).length ){
-					
+
 					// remove duplicated 
 					$( activeSelector, menu )
-						.not(':first').removeClass( 'current-menu-item current-menu-parent current-menu-ancestor current-page-ancestor current_page_item current_page_parent current_page_ancestor' );
+						.not(':first').removeClass( activeClasses );
 					
 					// remove if 1st link to section & section is not visible
 					hash = $( activeSelector, menu ).find('a[data-hash]').attr( 'data-hash' );
@@ -923,7 +1257,7 @@
 				} else {
 					
 					// add to first if none is active
-					var first = $( '.menu > li:first-child', menu );
+					var first = $( '.menu:first-child > li:first-child', menu );
 					var firstA  = first.children('a');
 					
 					if( firstA.attr( 'data-hash' ) ){		
@@ -955,7 +1289,7 @@
 					
 					// mobile - sticky header - close menu
 					
-					if( $(window).width() < 768 ){
+					if( window.innerWidth < 768 ){
 						$('.responsive-menu-toggle').removeClass('active');
 						$('#Top_bar #menu').hide();
 					}
@@ -965,7 +1299,7 @@
 					var headerFixedAbH = $('.header-fixed.ab-show #Action_bar').innerHeight();
 					var tabsHeaderH = $(hash).siblings('.ui-tabs-nav').innerHeight();
 					
-					var offset = headerFixedAbH - tabsHeaderH - adminBarH();
+					var offset = headerFixedAbH + tabsHeaderH + adminBarH();
 					
 					// sticky height
 					
@@ -1115,7 +1449,7 @@
 		 * Scroll | niceScroll
 		 * --------------------------------------------------------------------------- */
 		
-        if( $('body').hasClass('nice-scroll-on') && $(window).width() >= 768 && ! navigator.userAgent.match(/(Android|iPod|iPhone|iPad|IEMobile|Opera Mini)/))
+        if( $('body').hasClass('nice-scroll-on') && window.innerWidth >= 768 && ! navigator.userAgent.match(/(Android|iPod|iPhone|iPad|IEMobile|Opera Mini)/))
         {
         	$('html').niceScroll({
         		autohidemode		: false,
@@ -1133,7 +1467,7 @@
 	    }
 
         
-        if( ('#Header_creative.scroll').length && $(window).width() >= 1240 ){
+        if( ('#Header_creative.scroll').length && window.innerWidth >= 1240 ){
         	$('#Header_creative.scroll').niceScroll({
         		autohidemode		: false,
         		cursorborder		: 0,
@@ -1146,65 +1480,6 @@
         	});
         }
 
-        
-        /* ---------------------------------------------------------------------------
-		 * Gallery | WordPress Gallery
-		 * --------------------------------------------------------------------------- */
-        
-		$('.gallery').each(function(){
-			
-			var el = $(this);
-			var parentID = el.attr('id');
-			
-			$('> br', el).remove();
-			
-			$('.gallery-icon > a', el)
-				.wrap('<div class="image_frame scale-with-grid"><div class="image_wrapper"></div></div>')
-				.prepend('<div class="mask"></div>')
-				.children('img' )
-					.css('height', 'auto')
-					.css('width', '100%');
-
-			// Link | Media File
-			if( el.hasClass( 'file' ) ){
-				$('.gallery-icon a', el ).attr('rel', 'prettyphoto['+ parentID +']');
-			}
-			
-			// Masonry
-			if( el.hasClass( 'masonry' ) ){
-
-				el.isotope({
-					itemSelector	: '.gallery-item',
-					layoutMode		: 'masonry',
-					isOriginLeft	: rtl ? false : true
-				});
-				
-			}
-			
-		});
-
-		
-		/* ---------------------------------------------------------------------------
-		 * Lightbox | PrettyPhoto
-		 * --------------------------------------------------------------------------- */
-		
-		$('a[rel^="prettyphoto[portfolio]"]').each(function(){
-			
-			var el = $(this);
-			var parent = el.closest('.column');
-			var index = $( ".column" ).index( parent );
-			
-			el.attr( 'rel', 'prettyphoto[portfolio-'+ index +']' );		
-			
-		});
-
-		function mfn_pretty(){
-			if( pretty ){
-				$( 'a[rel^="prettyphoto"], .prettyphoto' ).prettyPhoto( pretty );
-			}
-		}
-		mfn_pretty();
-		
         
 		/* ---------------------------------------------------------------------------
 		 * Black & White
@@ -1291,7 +1566,7 @@
 		var ua = navigator.userAgent,
 		isMobileWebkit = /WebKit/.test(ua) && /Mobile/.test(ua);
 		
-		if( ! isMobileWebkit && $(window).width() >= 768 ){
+		if( ! isMobileWebkit && window.innerWidth >= 768 ){
 			
 			if( window.mfn.parallax == 'stellar' ){
 				
@@ -1359,7 +1634,7 @@
 				
 				mfn_jPlayer();
 				
-				mfn_pretty();
+				lightbox();
 
 				// isotope fix: second resize
 				
@@ -1874,6 +2149,139 @@
 
 		
 		/* ---------------------------------------------------------------------------
+		 * Retina Logo
+		 * --------------------------------------------------------------------------- */
+		
+		function retinaLogo(){
+			if( window.devicePixelRatio > 1 ){
+				
+				var el 		= '';
+				var src 	= '';
+				var height 	= '';
+				
+				var parent 	= $( '#Top_bar #logo' );
+				var parentH	= parent.data( 'height' );
+				
+				var maxH	= {
+					sticky : {
+						init 			: 35,
+						no_padding		: 60,
+						overflow 		: 110
+					},
+					mobile : {
+						mini 			: 50,
+						mini_no_padding	: 60
+					},
+					mobile_sticky : {
+						init 			: 50,
+						no_padding		: 60,
+						overflow 		: 80
+					}
+				};
+
+				$( '#Top_bar #logo img' ).each( function( index ){
+					
+					el 		= $( this );
+					src 	= el.data( 'retina' );
+					height 	= el.height();
+
+					
+					// main -----
+					
+					if( el.hasClass( 'logo-main' ) ){
+						
+						if( $( 'body' ).hasClass( 'logo-overflow' ) ){
+							
+							// do nothing
+							
+						} else if( height > parentH ){
+							
+							height = parentH;
+							
+						}
+						
+					}
+					
+					// sticky -----
+					
+					if( el.hasClass( 'logo-sticky' ) ){
+						
+						if( $( 'body' ).hasClass( 'logo-overflow' ) ){
+							
+							if( height > maxH.sticky.overflow ){
+								height = maxH.sticky.overflow;
+							}
+								
+						} else if( $( 'body' ).hasClass( 'logo-no-sticky-padding' ) ){
+							
+							if( height > maxH.sticky.no_padding ){
+								height = maxH.sticky.no_padding;
+							}
+								
+						} else if( height > maxH.sticky.init ){
+							
+							height = maxH.sticky.init;
+							
+						}
+						
+					}
+					
+					// mobile -----
+					
+					if( el.hasClass( 'logo-mobile' ) ){
+						
+						if( $( 'body' ).hasClass( 'mobile-header-mini' ) ){
+							
+							if( parent.data( 'padding' ) > 0 ){
+								
+								if( height > maxH.mobile.mini ){
+									height = maxH.mobile.mini;
+								}
+								
+							} else {
+								
+								if( height > maxH.mobile.mini_no_padding ){
+									height = maxH.mobile.mini_no_padding;
+								}
+								
+							}
+								
+						}
+						
+					}
+					
+					// mobile-sticky -----
+					
+					if( el.hasClass( 'logo-mobile-sticky' ) ){
+						
+						if( $( 'body' ).hasClass( 'logo-no-sticky-padding' ) ){
+							
+							if( height > maxH.mobile_sticky.no_padding ){
+								height = maxH.mobile_sticky.no_padding;
+							}
+								
+						} else if( height > maxH.mobile_sticky.init ){
+							height = maxH.mobile_sticky.init;
+						}
+						
+					}
+
+					
+					// SET
+					
+					if( src ){
+						el.parent().addClass( 'retina' );
+						el.attr( 'src', src ).css( 'max-height', height + 'px' );												
+					}
+					
+				});
+				
+			}
+		}
+		retinaLogo();
+
+		
+		/* ---------------------------------------------------------------------------
 		 * Isotope
 		 * --------------------------------------------------------------------------- */
 		
@@ -2359,20 +2767,6 @@
 			$(window).bind( 'debouncedresize', function(){
 				slider.slick( 'slickSetOption', 'slidesToShow', slickAutoResponsive( slider, 5, size ), false );
 				slider.slick( 'slickSetOption', 'slidesToScroll', slickAutoResponsive( slider, scroll, size ), true );
-			});
-			
-			// prettyPhoto | disable on dragstart
-			slider.on( 'dragstart', '.slick-slide a[rel="prettyphoto"]', function( event ){
-				if( pretty ){	
-					$(this).addClass( 'unbind-pretty' ).unbind( 'click.prettyphoto' );
-				}
-			});
-
-			// prettyPhoto | enable after change
-			slider.on( 'afterChange', function( event, slick, currentSlide, nextSlide ){
-				if( pretty ){						
-					$( 'a.unbind-pretty[rel="prettyphoto"]', slider ).prettyPhoto( pretty ).removeClass( 'unbind-pretty' );			
-				}
 			});
 	
 		});

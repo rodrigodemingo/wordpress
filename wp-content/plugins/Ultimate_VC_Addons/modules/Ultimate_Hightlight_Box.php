@@ -6,27 +6,17 @@ if(!class_exists('Ultimate_Highlight_Box'))
 {
 	class Ultimate_Highlight_Box{
 		function __construct(){
-			add_action('init',array($this,'ctaction_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ctaction_init'));
+			}
 			add_shortcode('ultimate_ctation',array($this,'call_to_action_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_cta_assets'),1);
 		}
 		function register_cta_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
 			Ultimate_VC_Addons::ultimate_register_style( 'utl-ctaction-style', 'highlight-box' );
 
-			wp_register_script('utl-ctaction-script',plugins_url($js_path.'highlight-box'.$ext.'.js',__FILE__),array('jquery'), ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'utl-ctaction-script', 'highlight-box', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		function ctaction_init(){
 			if(function_exists('vc_map'))
@@ -483,13 +473,13 @@ if(!class_exists('Ultimate_Highlight_Box'))
 
 			if($ctaction_background != '')
 			{
-				$data .= ' data-background="'.$ctaction_background.'" ';
+				$data .= ' data-background="'.esc_attr($ctaction_background).'" ';
 				$text_style_inline .= 'background:'.$ctaction_background.';';
 			}
 			if($ctaction_background_hover != '')
-				$data .= ' data-background-hover="'.$ctaction_background_hover.'" ';
+				$data .= ' data-background-hover="'.esc_attr($ctaction_background_hover).'" ';
 
-			$data .= ' data-override="'.$ctaction_override.'" ';
+			$data .= ' data-override="'.esc_attr($ctaction_override).'" ';
 
 			if($ctaction_padding_top != '')
 				$text_style_inline .= 'padding-top:'.$ctaction_padding_top.'px;';
@@ -507,28 +497,28 @@ if(!class_exists('Ultimate_Highlight_Box'))
 				$href = vc_build_link($ctaction_link);
 
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] ) ) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
 				if($url != '')
 				{
-					$ctaction_link_html = '<a href="'.$url.'" class="ulimate-call-to-action-link" '.$target.' '. $link_title .' '. $rel .'></a>';
+					$ctaction_link_html = '<a href="'.esc_url($url).'" class="ulimate-call-to-action-link" '.$target.' '. $link_title .' '. $rel .'></a>';
 				}
 			}
 
 			if($enable_icon == 'enable_icon_value')
 			{
-				$icon_inline = do_shortcode('[just_icon icon_align="center" icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'"]');
+				$icon_inline = do_shortcode('[just_icon icon_align="center" icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'"]');
 			}
 			else
 				$effect = 'no-effect';
 
-			$output .= '<div id="'.$highlight_box_id.'" '.$data_list.' class="ultimate-call-to-action '.$is_vc_49_plus.' '.$el_class.' ult-responsive" style="'.$text_style_inline.'" '.$data.'>';
+			$output .= '<div id="'.esc_attr($highlight_box_id).'" '.$data_list.' class="ultimate-call-to-action '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' ult-responsive" style="'.esc_attr($text_style_inline).'" '.$data.'>';
 
 				if($icon_inline != '')
-					$output .= '<div class="ultimate-ctaction-icon ctaction-icon-'.$effect.'">'.$icon_inline.'</div>';
-				$output .= '<div class="uvc-ctaction-data uvc-ctaction-data-'.$effect.' ult-responsive">'.do_shortcode($content).'</div>';
+					$output .= '<div class="ultimate-ctaction-icon ctaction-icon-'.esc_attr($effect).'">'.$icon_inline.'</div>';
+				$output .= '<div class="uvc-ctaction-data uvc-ctaction-data-'.esc_attr($effect).' ult-responsive">'.do_shortcode($content).'</div>';
 			$output .= $ctaction_link_html.'</div>';
 			$is_preset = false; //Display settings for Preset
 			if(isset($_GET['preset'])) {
@@ -556,7 +546,7 @@ if(class_exists('Ultimate_Highlight_Box'))
 	$Ultimate_Highlight_Box = new Ultimate_Highlight_Box;
 }
 
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_ctation' ) ) {
     class WPBakeryShortCode_ultimate_ctation extends WPBakeryShortCode {
     }
 }

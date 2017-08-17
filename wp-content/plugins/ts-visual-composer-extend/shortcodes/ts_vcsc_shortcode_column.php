@@ -1,7 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
 	add_filter('TS_VCSC_ComposerColumnAdditions_Filter',	'TS_VCSC_ComposerColumnAdditions', 		10, 2);
-
 	function TS_VCSC_ComposerColumnAdditions($output, $atts, $content='') {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -38,8 +36,7 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	
+	}	
 	if (!function_exists('vc_theme_before_vc_column')){
 		function vc_theme_before_vc_column($atts, $content = null){
 			return apply_filters( 'TS_VCSC_ComposerColumnAdditions_Filter', '', $atts, $content );

@@ -10,24 +10,16 @@ if(!class_exists('AIO_Stats_Counter'))
 		// constructor
 		function __construct()
 		{
-			add_action('init',array($this,'counter_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'counter_init'));
+			}
 			add_action("wp_enqueue_scripts", array($this, "register_counter_assets"),1);
 			add_shortcode('stat_counter',array($this,'counter_shortcode'));
 		}
 		function register_counter_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-			wp_register_script("ult-stats-counter-js",plugins_url($js_path."countUp".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-stats-counter-js', 'countUp', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-stats-counter-style', 'stats-counter' );
 		}
@@ -623,7 +615,7 @@ if(!class_exists('AIO_Stats_Counter'))
 			$css_stat_counter = esc_attr( $css_stat_counter );
 			$class = $style = $title_style = $desc_style = $suf_pref_style = '';
 			//$font_args = array();
-			$stats_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_link="'.$icon_link.'" icon_animation="'.$icon_animation.'"]');
+			$stats_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_link="'.esc_attr($icon_link).'" icon_animation="'.esc_attr($icon_animation).'"]');
 
 			/* title */
 			if($title_font != '')
@@ -711,7 +703,7 @@ if(!class_exists('AIO_Stats_Counter'))
 				$style.='color:'.$icon_color.';';
 			if($icon_animation !== 'none')
 			{
-				$css_trans = 'data-animation="'.$icon_animation.'" data-animation-delay="03"';
+				$css_trans = 'data-animation="'.esc_attr($icon_animation).'" data-animation-delay="03"';
 			}
 			if($font_size_counter !== '')
 			$counter_font = 'font-size:'.$font_size_counter.'px;';
@@ -767,7 +759,7 @@ if(!class_exists('AIO_Stats_Counter'))
 				$class.= ' '.$el_class;
 			$ic_position = 'stats-'.$icon_position;
 			$ic_class = 'aio-icon-'.$icon_position;
-			$output = '<div class="stats-block '.$ic_position.' '.$class.' '.$css_stat_counter.'">';
+			$output = '<div class="stats-block '.esc_attr($ic_position).' '.esc_attr($class).' '.esc_attr($css_stat_counter).'">';
 				//$output .= '<div class="stats-icon" style="'.$style.'">
 				//				<i class="'.$stats_icon.'"></i>
 				//			</div>';
@@ -779,19 +771,19 @@ if(!class_exists('AIO_Stats_Counter'))
 					$counter_decimal = 'none';
 				}
 				if($icon_position !== "right")
-					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
-				$output .= '<div class="stats-desc" id="'.$counter_resp_id.'">';
+					$output .= '<div class="'.esc_attr($ic_class).'">'.$stats_icon.'</div>';
+				$output .= '<div class="stats-desc" id="'.esc_attr($counter_resp_id).'">';
 					if($counter_prefix !== ''){
-						$output .= '<div class="counter_prefix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_prefix.'</div>';
+						$output .= '<div class="counter_prefix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.esc_attr($counter_font).' '.esc_attr($suf_pref_style).'">'.$counter_prefix.'</div>';
 					}
-					$output .= '<div id="'.$id.'" data-id="'.$id.'" '.$stats_counter_val_data_list.' class="stats-number ult-responsive" style="'.$counter_font.' '.$counter_color.' '.$desc_style.'" data-speed="'.$speed.'" data-counter-value="'.$counter_value.'" data-separator="'.$counter_sep.'" data-decimal="'.$counter_decimal.'">0</div>';
+					$output .= '<div id="'.esc_attr($id).'" data-id="'.esc_attr($id).'" '.$stats_counter_val_data_list.' class="stats-number ult-responsive" style="'.esc_attr($counter_font).' '.esc_attr($counter_color).' '.esc_attr($desc_style).'" data-speed="'.esc_attr($speed).'" data-counter-value="'.esc_attr($counter_value).'" data-separator="'.esc_attr($counter_sep).'" data-decimal="'.esc_attr($counter_decimal).'">0</div>';
 					if($counter_suffix !== ''){
-						$output .= '<div class="counter_suffix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_suffix.'</div>';
+						$output .= '<div class="counter_suffix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.esc_attr($counter_font).' '.esc_attr($suf_pref_style).'">'.$counter_suffix.'</div>';
 					}
-					$output .= '<div '.$counter_resp_id.' '.$stats_counter_data_list.' class="stats-text ult-responsive" style="'.$title_font.' '.$counter_color.' '.$title_style.'">'.$counter_title.'</div>';
+					$output .= '<div '.$counter_resp_id.' '.$stats_counter_data_list.' class="stats-text ult-responsive" style="'.esc_attr($title_font).' '.esc_attr($counter_color).' '.esc_attr($title_style).'">'.$counter_title.'</div>';
 				$output .= '</div>';
 				if($icon_position == "right")
-					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
+					$output .= '<div class="'.esc_attr($ic_class).'">'.$stats_icon.'</div>';
 			$output .= '</div>';
 			$is_preset = false; //Display settings for Preset
 			if(isset($_GET['preset'])) {
@@ -818,7 +810,7 @@ if(class_exists('AIO_Stats_Counter'))
 {
 	$AIO_Stats_Counter = new AIO_Stats_Counter;
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_stat_counter' ) ) {
     class WPBakeryShortCode_stat_counter extends WPBakeryShortCode {
     }
 }

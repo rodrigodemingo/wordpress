@@ -1,7 +1,6 @@
 <?php
 	global $VISUAL_COMPOSER_EXTENSIONS;
 ?>
-
 <div id="ts-settings-apis" class="tab-content">
 	<div class="ts-vcsc-section-main">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-admin-network"></i>External API Information</div>

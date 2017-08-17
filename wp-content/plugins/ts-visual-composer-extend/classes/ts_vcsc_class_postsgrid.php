@@ -1,6 +1,6 @@
 <?php
-	if (!class_exists('TS_Postgrids')){
-		class TS_Postgrids {
+	if (!class_exists('TS_Isotope_Postgrids')){
+		class TS_Isotope_Postgrids {
 			function __construct() {
 				global $VISUAL_COMPOSER_EXTENSIONS;
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
@@ -989,12 +989,12 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Posts_Grid_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Posts_Grid_Standalone extends WPBakeryShortCode {};
-	}
-	
-	// Initialize "TS Skillsets" Class
-	if (class_exists('TS_Postgrids')) {
-		$TS_Postgrids = new TS_Postgrids;
+	}	
+	// Initialize "TS Isotope Post Grid" Class
+	if (class_exists('TS_Isotope_Postgrids')) {
+		$TS_Isotope_Postgrids = new TS_Isotope_Postgrids;
 	}
 ?>

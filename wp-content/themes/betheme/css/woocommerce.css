@@ -59,6 +59,9 @@
 .woocommerce table.cart a.remove{color:#fff !important;padding:0}
 .woocommerce table.cart a.remove span{padding:8px 17px;}
 
+.button-stroke button.pswp__button{border:none}
+.button-stroke button.pswp__button:hover{background-color:transparent!important}
+
 /* Shop filters ---------------------------------------------------------------------- */
 .shop-filters{margin-bottom:20px;padding:15px;background-image:url(../images/stripes/stripes_5_b.png);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;overflow:hidden}
 .shop-filters .woocommerce-result-count{margin:12px 0 0}
@@ -107,8 +110,10 @@
 .woocommerce.columns-0 ul.products li.product a.button:after{content:""!important;margin-left:0!important}
 
 /* Product */
-.woocommerce ul.products li.product .image_frame{position:relative}
-.woocommerce ul.products li.product.outofstock .image_frame .image_wrapper img{filter:alpha(opacity=350);opacity:.3}
+.woocommerce ul.products li.product .image_frame,
+.woocommerce ul.products li.product .hover_box_product{position:relative}
+.woocommerce ul.products li.product.outofstock .image_frame .image_wrapper img,
+.woocommerce ul.products li.product.outofstock .hover_box_product .hover_box_wrapper{opacity:.5}
 .woocommerce ul.products li.product .star-rating{font-size:12px}
 .woocommerce ul.products li.product h3,.woocommerce-page ul.products li.product h4{margin-bottom:5px}
 .woocommerce ul.products li.product .price,.woocommerce-page ul.products li.product .price{font-size:18px;margin-bottom:0}
@@ -184,6 +189,7 @@
 .woocommerce .product.modern .product_wrapper .summary div[itemprop="offers"]{width:46%;float:right;}
 .woocommerce .product.modern .product_wrapper .summary .price{float:right;}
 .woocommerce .product.modern .product_wrapper .summary div[itemprop="description"]{width:50%;margin:0 4% 20px 0;float:left;}
+.woocommerce .product.modern .product_wrapper .summary .woocommerce-product-details__short-description{float:left}
 .woocommerce .product.modern .product_wrapper .summary p.stock {float:right;font-size:1em;max-width:46%;}
 .woocommerce .product.modern .product_wrapper .summary .cart{max-width:46%;float:right;}
 .woocommerce .product.modern .product_wrapper .summary .cart .button{float:right;}
@@ -197,6 +203,10 @@
 
 .woocommerce .product.modern .product_wrapper .share_wrapper{float:left;position:static;width:100%;padding:10px 10px 15px;box-sizing:border-box;background:none;border-width:1px 0 0;text-align:left;}
 .woocommerce .product.modern .product_wrapper .share_wrapper .stButton{margin:0 10px 0 0}
+
+@media only screen and (min-width: 768px){
+	.woocommerce .product.modern .product_wrapper .summary .woocommerce-product-details__short-description{width:50%;margin:0 4% 20px 0}
+}
 
 @media only screen and (min-width: 768px) and (max-width: 959px){	
 	.woocommerce .product.modern .product_wrapper .summary .single_variation{float:right;}

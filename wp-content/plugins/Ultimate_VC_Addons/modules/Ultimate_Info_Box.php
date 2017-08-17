@@ -9,12 +9,14 @@ if(!class_exists('AIO_Icons_Box'))
 	{
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				// Initialize the icon box component for Visual Composer
+				add_action('init', array( &$this, 'icon_box_init' ) );
+			}
 			// Add shortcode for icon box
 			add_shortcode('bsf-info-box', array(&$this, 'icon_boxes' ) );
-			// Initialize the icon box component for Visual Composer
-			add_action('init', array( &$this, 'icon_box_init' ) );
-
 			add_action( 'wp_enqueue_scripts', array( $this, 'icon_box_scripts' ), 1 );
+
 		}
 		// Add shortcode for icon-box
 		function icon_boxes($atts, $content = null)
@@ -64,8 +66,8 @@ if(!class_exists('AIO_Icons_Box'))
 			$html = $target = $suffix = $prefix = $title_style = $desc_style = $inf_design_style = '';
 			$inf_design_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_info_box, ' ' ), "bsf-info-box", $atts );
  			$inf_design_style = esc_attr( $inf_design_style );
-			$box_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_animation="'.$icon_animation.'"]');
-			$prefix .= '<div class="aio-icon-component '.$inf_design_style.' '.$css_class.' '.$el_class.' '.$hover_effect.'">';
+			$box_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_animation="'.esc_attr($icon_animation).'"]');
+			$prefix .= '<div class="aio-icon-component '.esc_attr($inf_design_style).' '.esc_attr($css_class).' '.esc_attr($el_class).' '.esc_attr($hover_effect).'">';
 			$suffix .= '</div> <!-- aio-icon-component -->';
 
 			$ex_class = $ic_class = '';
@@ -138,7 +140,7 @@ if(!class_exists('AIO_Icons_Box'))
 			$box_style = $box_style_data = '';
 			if($pos=='square_box'){
 				if($box_min_height!='') {
-					$box_style_data .="data-min-height='".$box_min_height."px'";
+					$box_style_data .="data-min-height='".esc_attr($box_min_height)."px'";
 				}
 				if($box_border_color!=''){
 					$box_style .="border-color:".$box_border_color.";";
@@ -153,7 +155,7 @@ if(!class_exists('AIO_Icons_Box'))
 					$box_style .="background-color:".$box_bg_color.";";
 				}
 			}
-			$html .= '<div id="'.$info_box_id.'" class="aio-icon-box '.$ex_class.'" style="'.$box_style.'" '.$box_style_data.' >';
+			$html .= '<div id="'.esc_attr($info_box_id).'" class="aio-icon-box '.esc_attr($ex_class).'" style="'.esc_attr($box_style).'" '.$box_style_data.' >';
 
 			if($pos == "heading-right" || $pos == "right"){
 					if($pos == "right"){
@@ -167,33 +169,33 @@ if(!class_exists('AIO_Icons_Box'))
 							{
 								$href 			= vc_build_link($link);
 								$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
-								$link_prefix = '<a class="aio-icon-box-link" href="'. $url .'" '. $target .' '. $rel .' '. $link_title .'>';
+								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
+								$link_prefix = '<a class="aio-icon-box-link" href="'. esc_url($url) .'" '. $target .' '. $rel .' '. $link_title .'>';
 								$link_sufix = '</a>';
 							}
 						}
-						$html .= $link_prefix.'<'. $heading_tag .' class="aio-icon-title ult-responsive" '.$info_box_data_list.' style="'.$title_style.'">'.$title.'</'. $heading_tag .'>'.$link_sufix;
+						$html .= $link_prefix.'<'. $heading_tag .' class="aio-icon-title ult-responsive" '.$info_box_data_list.' style="'.esc_attr($title_style).'">'.$title.'</'. $heading_tag .'>'.$link_sufix;
 						$html .= '</div> <!-- header -->';
 					}
 					if($pos !== "right"){
 						if($icon !== 'none' || $icon_img !== '')
-							$html .= '<div class="'.$ic_class.'" >'.$box_icon.'</div>';
+							$html .= '<div class="'.esc_attr($ic_class).'" >'.$box_icon.'</div>';
 					}
 					if($content !== ''){
-						$html .= '<div class="aio-icon-description ult-responsive" '.$info_box_desc_data_list.' style="'.$desc_style.'">';
+						$html .= '<div class="aio-icon-description ult-responsive" '.$info_box_desc_data_list.' style="'.esc_attr($desc_style).'">';
 						$html .= do_shortcode($content);
 						if($link !== 'none'){
 							if($read_more == 'more')
 							{
 								$href 			= vc_build_link($link);
 								$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-								$more_link = '<a class="aio-icon-read x" href="'. $url .'" '. $target .' '. $rel .' '. $link_title .'>';
+								$more_link = '<a class="aio-icon-read x" href="'. esc_url($url) .'" '. $target .' '. $rel .' '. $link_title .'>';
 								$more_link .= $read_text;
 								$more_link .= '&nbsp;&raquo;';
 								$more_link .= '</a>';
@@ -205,13 +207,13 @@ if(!class_exists('AIO_Icons_Box'))
 					if($pos == "right"){
 						$html .= '</div> <!-- aio-ibd-block -->';
 						if($icon !== 'none' || $icon_img !== '')
-							$html .= '<div class="'.$ic_class.'">'.$box_icon.'</div>';
+							$html .= '<div class="'.esc_attr($ic_class).'">'.$box_icon.'</div>';
 					}
 
 				}
 				else {
 					if($icon !== 'none' || $icon_img != '')
-						$html .= '<div class="'.$ic_class.'">'.$box_icon.'</div>';
+						$html .= '<div class="'.esc_attr($ic_class).'">'.$box_icon.'</div>';
 					if($pos == "left")
 						$html .= '<div class="aio-ibd-block">';
 					if($title !== ''){
@@ -222,30 +224,30 @@ if(!class_exists('AIO_Icons_Box'))
 							{
 								$href = vc_build_link($link);
 								$url 	= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-								$target = ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-								$rel 	= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+								$target = ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+								$rel 	= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-								$link_prefix = '<a class="aio-icon-box-link" href="'. $url .'" '. $target .' '. $rel .' '. $link_title .'>';
+								$link_prefix = '<a class="aio-icon-box-link" href="'. esc_url($url) .'" '. $target .' '. $rel .' '. $link_title .'>';
 								$link_sufix = '</a>';
 							}
 						}
-						$html .= $link_prefix.'<'. $heading_tag .' class="aio-icon-title ult-responsive" '.$info_box_data_list.' style="'.$title_style.'">'.$title.'</'. $heading_tag .'>'.$link_sufix;
+						$html .= $link_prefix.'<'. $heading_tag .' class="aio-icon-title ult-responsive" '.$info_box_data_list.' style="'.esc_attr($title_style).'">'.$title.'</'. $heading_tag .'>'.$link_sufix;
 						$html .= '</div> <!-- header -->';
 					}
 					if($content !== ''){
-						$html .= '<div class="aio-icon-description ult-responsive" '.$info_box_desc_data_list.' style="'.$desc_style.'">';
+						$html .= '<div class="aio-icon-description ult-responsive" '.$info_box_desc_data_list.' style="'.esc_attr($desc_style).'">';
 						$html .= do_shortcode($content);
 						if($link !== 'none'){
 							if($read_more == 'more')
 							{
 								$href = vc_build_link($link);
 								$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+								$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+								$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+								$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-								$more_link = '<a class="aio-icon-read xx" href="'. $url .'" '. $target .' '. $rel .' '. $link_title .'>';
+								$more_link = '<a class="aio-icon-read xx" href="'. esc_url($url) .'" '. $target .' '. $rel .' '. $link_title .'>';
 								$more_link .= $read_text;
 								$more_link .= '&nbsp;&raquo;';
 								$more_link .= '</a>';
@@ -266,11 +268,11 @@ if(!class_exists('AIO_Icons_Box'))
 				{
 					$href = vc_build_link($link);
 					$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-					$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-					$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-					$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+					$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+					$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+					$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-					$output = $prefix.'<a class="aio-icon-box-link" href="'. $url .'" '. $target .' '. $rel .' '. $link_title .'>'.$html.'</a>'.$suffix;
+					$output = $prefix.'<a class="aio-icon-box-link" href="'. esc_attr($url) .'" '. $target .' '. $rel .' '. $link_title .'>'.$html.'</a>'.$suffix;
 				} else {
 					$output = $prefix.$html.$suffix;
 				}
@@ -656,6 +658,9 @@ if(!class_exists('AIO_Icons_Box'))
 									__("H4","ultimate_vc") => "h4",
 									__("H5","ultimate_vc") => "h5",
 									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
 								),
 								"description" => __("Default is H3", "ultimate_vc"),
 								"group" => "Typography"
@@ -787,21 +792,9 @@ if(!class_exists('AIO_Icons_Box'))
 			} // end function check 'vc_map'
 		}// end function icon_box_init
 		function icon_box_scripts() {
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
-			Ultimate_VC_Addons::ultimate_register_style( 'info_box_js', 'info-box' );
-
-			wp_register_style('info-box-style', plugins_url($css_path.'info-box'.$ext.'.css',__FILE__) , array(), ULTIMATE_VERSION, false);
+			Ultimate_VC_Addons::ultimate_register_style( 'info-box-style', 'info-box' );
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'info_box_js', 'info-box' );
 		}
 	}//Class end
 }

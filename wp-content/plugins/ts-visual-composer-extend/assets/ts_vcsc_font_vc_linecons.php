@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_Linecons = array(
 	$this->TS_VCSC_Icons_Compliant_VC_Linecons = array(
         "Linecons Font (VC)" => array(
             array("vc_li vc_li-heart" => "Heart"),

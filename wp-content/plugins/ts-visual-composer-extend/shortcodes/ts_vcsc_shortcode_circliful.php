@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Circliful', 'TS_VCSC_Circliful_Function');
-	add_shortcode('TS_VCSC_Circliful', 'TS_VCSC_Circliful_Function');
 	function TS_VCSC_Circliful_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();		
@@ -90,7 +89,7 @@
 		
 		$output 								= '';
 		$styles									= '';
-		$inline									= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline									= TS_VCSC_FrontendAppendCustomRules('style');
 
 		if ($circle_fill == "true") {
 			$circliful_colors					= 'data-fgcolor="' . $color_foreground . '" data-bgcolor="' . $color_background . '" data-fill="' . $circle_inside . '"';
@@ -217,7 +216,7 @@
 			$styles .= '</style>';
 		}
 		if (($styles != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 		}
 
 		// Tooltip
@@ -253,8 +252,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Circliful extends WPBakeryShortCode {};
 	}
 ?>

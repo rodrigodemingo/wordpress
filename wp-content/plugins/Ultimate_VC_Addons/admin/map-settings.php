@@ -1,7 +1,7 @@
 <?php
 	if(isset($_POST['submit-map-settings'])) {
-		$map_key = $_POST['map_key'];
-		$is_update = bsf_update_option('map_key', $map_key);
+		$map_key = sanitize_text_field( $_POST['map_key'] );
+		$is_update = bsf_update_option( 'map_key', $map_key );
 	}
 ?>
 
@@ -26,9 +26,9 @@
 				        	<form action="" method="post">
 				        		<p><label><?php echo __('API Key', 'ultimate_vc'); ?></label>
 				        			<?php $map_key = bsf_get_option('map_key'); ?>
-				        			<input type="text" name="map_key" value="<?php echo $map_key; ?>"/></p>
-				        		<p><?php echo __('Get your API Key ', 'ultimate_vc'); ?><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><?php echo __('here', 'ultimate_vc'); ?></a> or <?php echo __('read ', 'ultimate_vc'); ?><a href="http://bsf.io/google-map-api-key" target="_blank"><?php echo __('this article', 'ultimate_vc'); ?></a><?php echo __(' for more information.', 'ultimate_vc'); ?></p>
-				        		<p class="submit"><input type="submit" name="submit-map-settings" id="submit-map-settings" class="button button-primary" value="<?php echo __('Save Changes', 'ultimate_vc'); ?>"></p>
+				        			<input type="text" name="map_key" value="<?php echo esc_html( $map_key ); ?>"/></p>
+				        		<p><?php echo __('Get your API Key ', 'ultimate_vc'); ?><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><?php echo __( 'here', 'ultimate_vc' ); ?></a> or <?php echo __( 'read ', 'ultimate_vc' ); ?><a href="http://bsf.io/google-map-api-key" target="_blank"><?php echo __('this article', 'ultimate_vc'); ?></a><?php echo __(' for more information.', 'ultimate_vc'); ?></p>
+				        		<p class="submit"><input type="submit" name="submit-map-settings" id="submit-map-settings" class="button button-primary" value="<?php echo __( 'Save Changes', 'ultimate_vc' ); ?>"></p>
 				        	</form>
 						</div><!--bsf wrap content-->
 

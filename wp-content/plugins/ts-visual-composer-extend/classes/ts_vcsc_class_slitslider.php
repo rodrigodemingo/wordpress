@@ -49,6 +49,10 @@
 					'icon'							=> '',
 					'title'							=> '',				
 					'cite'							=> '',
+					// NiceScroll
+					'nicescroll'					=> 'false',
+					'scrollcolor'					=> '#ededed',
+					'scrollborder'					=> '#f7f7f7',
 					// Animation
 					'orientation'					=> 'horizontal',
 					'rotation1'						=> -25,
@@ -264,7 +268,8 @@
 				), $atts ));			
 				
 				if (($nicescroll == 'true') && ($frontend_edit == 'false')) {
-					wp_enqueue_script('ts-extend-nicescroll');
+					wp_enqueue_style('ts-extend-perfectscrollbar');
+					wp_enqueue_script('ts-extend-perfectscrollbar');
 				}
 				if (($nav_touch == 'true') && ($frontend_edit == 'false')) {
 					wp_enqueue_script('ts-extend-hammer');
@@ -274,6 +279,8 @@
 				$output 							= '';
 				$fullwidth_allow					= "true";
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
+				$styles								= '';
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if (!empty($el_id)) {
 					$slitslider_id					= $el_id;
@@ -289,6 +296,26 @@
 				$offsetMobile						= explode(':', $offset[2]);
 				$offsetMobile						= str_replace("px", "", $offsetMobile[1]);
 				
+				// Custom Styling
+				if (($nicescroll == 'true') && ($frontend_edit == 'false')) {
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message .ps__scrollbar-x-rail .ps__scrollbar-x,';
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message .ps__scrollbar-y-rail .ps__scrollbar-y {';
+						$styles .= 'background-color: ' . $scrollcolor . ';';
+					$styles .= '}';
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message .ps__scrollbar-x-rail:hover,';
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message .ps__scrollbar-y-rail:hover,';
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message.ps--in-scrolling .ps__scrollbar-x-rail,';
+					$styles .= 'body #' . $slitslider_id . ' .ts-slit-slide .ts-slit-slide-inner-message.ps--in-scrolling .ps__scrollbar-y-rail {';
+						$styles .= 'background-color: ' . $scrollborder . ';';
+					$styles .= '}';
+				}				
+				if (($inline == "true") && ($styles != '') && ($frontend_edit == 'false')) {
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
+				} else if ($frontend_edit == 'false') {
+					$styles							= '<style id="ts-slit-slider-styling-' . $slitslider_random . '-styles" type="text/css">' . $styles . '</styles>';
+				}
+				
+				// Visual Composer Class Override
 				if (function_exists('vc_shortcode_custom_css_class')) {
 					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-slit-slider-wrapper ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_SlitSlider_Container', $atts);
 				} else {
@@ -296,6 +323,9 @@
 				}
 				
 				if ($frontend_edit == "false") {
+					if (($inline == "false") && ($styles != '')) {
+						$output .= TS_VCSC_MinifyCSS($styles);
+					}
 					$data_pageheight				= 'data-pageheight="' . ($type == 'page' ? 'true' : 'false') . '" data-minimum="' . $minimum . '" data-desktop="' . $offsetDesktop . '" data-tablet="' . $offsetTablet . '" data-mobile="' . $offsetMobile . '"';
 					$data_general					= 'data-speed="' . $speed . '" data-nicescroll="' . $nicescroll . '" data-scrollcolor="' . $scrollcolor . '" data-scrollborder="' . $scrollborder . '"';
 					$data_fullwidth					= 'data-inline="' . $frontend_edit . '" data-fullwidth="' . $fullwidth . '" data-break-parents="' . $breakouts . '"';
@@ -440,26 +470,28 @@
 						// NiceScroll Settings
 						array(
 							"type"                  	=> "switch_button",
-							"heading"			    	=> __( "Use NiceScroll", "ts_visual_composer_extend" ),
+							"heading"			    	=> __( "Scrollbar: Custom", "ts_visual_composer_extend" ),
 							"param_name"		    	=> "nicescroll",
 							"value"                 	=> "true",
 							"admin_label"				=> true,
-							"description"		    	=> __( "Switch the toggle if you want to use the NiceScroll script in order to style any content scrollbars.", "ts_visual_composer_extend" )
+							"description"		    	=> __( "Switch the toggle if you want to use a custom scrollbar for the slide content.", "ts_visual_composer_extend" )
 						),
 						array(
 							"type"              		=> "colorpicker",
-							"heading"           		=> __( "Scrollbar Color", "ts_visual_composer_extend" ),
+							"heading"           		=> __( "Scrollbar: Main Color", "ts_visual_composer_extend" ),
 							"param_name"        		=> "scrollcolor",
 							"value"             		=> "#ededed",
-							"description"       		=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
+							"description"       		=> __( "Define the main color for the scrollbar.", "ts_visual_composer_extend" ),
+							"edit_field_class"			=> "vc_col-sm-6 vc_column",
 							"dependency"		    	=> array( 'element' => "nicescroll", 'value' => 'true' ),
 						),
 						array(
 							"type"              		=> "colorpicker",
-							"heading"           		=> __( "Scrollbar Border", "ts_visual_composer_extend" ),
+							"heading"           		=> __( "Scrollbar: Background Color", "ts_visual_composer_extend" ),
 							"param_name"        		=> "scrollborder",
 							"value"             		=> "#f7f7f7",
-							"description"       		=> __( "Define the border color for the scrollbar.", "ts_visual_composer_extend" ),
+							"description"       		=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
+							"edit_field_class"			=> "vc_col-sm-6 vc_column",
 							"dependency"		    	=> array( 'element' => "nicescroll", 'value' => 'true' ),
 						),						
 						// Full Width Settings
@@ -1112,10 +1144,10 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_SlitSlider_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_SlitSlider_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_SlitSlider_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_SlitSlider_Item extends WPBakeryShortCode {};
 	}
 	// Initialize "TS SlitSlider" Class

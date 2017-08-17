@@ -134,7 +134,7 @@
 				}, {
 					text : 'Google Font',
 					onclick : function() {
-						editor.insertContent('[google_font font="Open Sans" size="25" weight="400" italic="0" letter_spacing="" color="#626262" subset=""]Insert your content here[/google_font]');
+						editor.insertContent('[google_font font="Open Sans" size="25" weight="400" italic="0" letter_spacing="" color="#626262" subset="" inline=""]Insert your content here[/google_font]');
 					}
 				}, {
 					text : 'Heading',

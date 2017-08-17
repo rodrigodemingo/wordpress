@@ -1,5 +1,4 @@
 <?php
-	// Class for Visual Composer Element
     if (!class_exists('TS_VCSC_VCWidgets_Element')){
         class TS_VCSC_VCWidgets_Element {
             function __construct() {
@@ -281,7 +280,7 @@
         }
     }
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_VCWidget_Output'))) {
 		class WPBakeryShortCode_TS_VCSC_VCWidget_Output extends WPBakeryShortCode {};
 	}
 	// Initialize "TS VC Widgets Element" Class

@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Themify = array(
     $this->TS_VCSC_Icons_Compliant_Themify = array(
         "Themify Icons Font" => array(
             array("ts-themify-agenda" => "agenda"),

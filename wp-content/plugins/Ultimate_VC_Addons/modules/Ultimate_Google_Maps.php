@@ -6,7 +6,9 @@
 if(!class_exists("Ultimate_Google_Maps")){
 	class Ultimate_Google_Maps{
 		function __construct(){
-			add_action("init",array($this,"google_maps_init"));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action("init",array($this,"google_maps_init"));
+			}
 			add_shortcode("ultimate_google_map",array($this,"display_ultimate_map"));
 			add_action('wp_enqueue_scripts', array($this, 'ultimate_google_map_script'),1);
 		}
@@ -416,7 +418,7 @@ if(!class_exists("Ultimate_Google_Maps")){
 			if($map_vc_template == 'map_vc_template_value')
 				$el_class .= 'uvc-boxed-layout';
 
-			$output .= "<div id='".$wrap_id."' class='ultimate-map-wrapper ".$is_vc_49_plus." ".$el_class."' style='".$gmap_design_css." ".($map_height!="" ? "height:" . $map_height . ";" : "")."'><div id='" . $id . "' data-map_override='".$map_override."' class='ultimate_google_map wpb_content_element ".$margin_css."'" . ($width!="" || $map_height!="" ? " style='".$border_css . ($width!="" ? "width:" . $width . ";" : "") . ($map_height!="" ? "height:" . $map_height . ";" : "") . "'" : "") . "></div></div>";
+			$output .= "<div id='".esc_attr($wrap_id)."' class='ultimate-map-wrapper ".esc_attr($is_vc_49_plus)." ".esc_attr($el_class)."' style='".esc_attr($gmap_design_css)." ".($map_height!="" ? "height:" . $map_height . ";" : "")."'><div id='" . esc_attr($id) . "' data-map_override='".esc_attr($map_override)."' class='ultimate_google_map wpb_content_element ".esc_attr($margin_css)."'" . ($width!="" || $map_height!="" ? " style='".esc_attr($border_css) . ($width!="" ? "width:" . esc_attr($width) . ";" : "") . ($map_height!="" ? "height:" . esc_attr($map_height) . ";" : "") . "'" : "") . "></div></div>";
 
 			if($scrollwheel == "disable"){
 				$scrollwheel = 'false';
@@ -470,12 +472,12 @@ if(!class_exists("Ultimate_Google_Maps")){
 				if($marker_lat!="" && $marker_lng!="")
 				{
 				$output .= "
-						var x = '".$infowindow_open."';
+						var x = '".esc_attr($infowindow_open)."';
 						var marker_$id = new google.maps.Marker({
 						position: new google.maps.LatLng($marker_lat, $marker_lng),
 						animation:  google.maps.Animation.DROP,
 						map: map_$id,
-						icon: '".$icon_url."'
+						icon: '".esc_url($icon_url)."'
 					});
 					google.maps.event.addListener(marker_$id, 'click', toggleBounce);";
 
@@ -577,7 +579,7 @@ if(!class_exists("Ultimate_Google_Maps")){
 		}
 	}
 	new Ultimate_Google_Maps;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ultimate_google_map'))
 	{
 		class WPBakeryShortCode_ultimate_google_map extends WPBakeryShortCode {
 		}

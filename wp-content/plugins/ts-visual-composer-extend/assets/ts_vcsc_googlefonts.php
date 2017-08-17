@@ -132,7 +132,7 @@
 						}
 					?>	
 					<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						Some elements include a custom Google font picker, allowing you to override fonts pre-defined by a theme or plugin with a font of your choice. When not using the Google Font Manager, all available Google Fonts are activated by default, but this manager allows you to build your own set by enabling/disabling the fonts you want to use and/or do not need. By marking some fonts as "favorite", those fonts will be listed on top of the font selector list (in alphabetical order).
+						Many elements from this plugin include a custom Google font picker, allowing you to override fonts pre-defined by a theme or plugin with a font of your choice. When not using the Google Font Manager, all available Google Fonts are deactivated by default, and you will only have access to so-called "web-safe fonts". This manager allows you to build a custom set of Google Fonts to be used with those elements by simply enabling/disabling the fonts you want to use and/or do not need. By marking some fonts as "favorite", those fonts will be listed on top of the font selector list (in alphabetical order) for faster access.
 					</div>
 					<?php
 						$fonts_total								= sizeof($font_array);
@@ -163,7 +163,7 @@
 				<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-edit"></i>Font Selections</div>
 				<div class="ts-vcsc-section-content">
 					<div class="ts-vcsc-notice-field ts-vcsc-success" style="margin-top: 10px; font-size: 13px; text-align: justify;">
-						The following tabs, sorted by alphabet, will give you access to all <?php echo $fonts_total; ?> Google Fonts currently registered with this add-on. Simply click on any font you want to add to your personal collection, and once you created your personal set, save the collection. For quick access to your favorite fonts, which will be listed first in the font selectbox when editing an element, you can mark fonts as "favorite" as well.
+						The following tabs, sorted alphabetically, will give you access to all <?php echo $fonts_total; ?> Google Fonts currently registered with this add-on. Simply click on any font you want to add to your personal collection, and once you created your personal set, save the collection. For quick access to your favorite fonts, which will be listed first in the font selectbox when editing an element, you can mark fonts as "favorite" as well.
 					</div>
 					<div class="ts-vcsc-notice-field ts-vcsc-warning" style="margin-top: 10px; font-size: 13px; text-align: justify;">
 						For performance reasons, the Google Fonts Manager intentionally is not loading the respective CSS font files for each font. With <?php echo $fonts_total; ?> fonts total, that can result in extended load times, although the individual font files are fairly small, the combined amount is a different story. But you have the option to manually trigger the loading of those files by clicking on the respective button located in each tab, or the "load all" button above the tabs. <strong>Once a CSS font file has been loaded, you will be able to see how the font will actually look like.</strong>

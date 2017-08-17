@@ -1,6 +1,6 @@
 <?php
 	// Implement tinyMCE Button and Controls for Generator
-	// ---------------------------------------------------	
+	// ---------------------------------------------------
 	function TS_VCSC_AddEditorButton() {
 		global $typenow;
 		if(!in_array($typenow, array('post', 'page'))) {
@@ -23,12 +23,12 @@
 		array_push($buttons, 'vcecomposer_button');
 		return $buttons;
 	}
-	
+
 	// Implement Shortcode Button next to "Add Media" Button
 	add_action('admin_head', 				'TS_VCSC_AddEditorButton');
 	add_action('media_buttons_context',		'TS_VCSC_EditorButton', 1);
 	add_action('admin_footer',				'TS_VCSC_EditorButtonContent');
-	
+
 	function TS_VCSC_EditorButton($context) {
 		if (!(strpos($_SERVER['REQUEST_URI'], 'widgets.php'))) {
 			$img 			= TS_VCSC_GetResourceURL('images/other/ts_vcsc_generator.png');
@@ -47,7 +47,7 @@
 	function TS_VCSC_EditorButtonContent() {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		$output = '';
-		
+
 		$TS_VCSC_Border_Type = array(
 			__( "Solid Border", "ts_visual_composer_extend" )                  => "solid",
 			__( "Dotted Border", "ts_visual_composer_extend" )                 => "dotted",
@@ -94,7 +94,7 @@
 			__( "Float Left", "ts_visual_composer_extend" )                    => "ts-align-floatleft",
 			__( "Float Right", "ts_visual_composer_extend" )                   => "ts-align-floatright"
 		);
-		
+
 		if (strpos($_SERVER['REQUEST_URI'], 'post.php') || strpos($_SERVER['REQUEST_URI'], 'post-new.php')) { ?>
 			<div id="ts_tiny_fonts_container" style="display: none; direction: ltr;">
 				<?php
@@ -192,10 +192,9 @@
 					echo $output;
 				?>
 			</div>
-		
+
 			<div id="ts_tiny_popup_container" style="font-size: 13px; direction: ltr;">
 				<div style="height: 100%;">
-					
 					<div id="ts_tiny_tinymce_import_inner" style="padding: 15px; display: none;">
 						<table id="ts_tiny_tinymce_table_importCODE" class="ts_tiny_form ts_tiny_table ts_tiny_tinymce_table_importCODE" cellspacing="0" style="margin-bottom: 20px;">
 							<tr>
@@ -208,21 +207,20 @@
 							<tr class="tbl_last">
 								<td colspan="2" style="width: 100%;">
 									<input style="margin-top: 10px; float: left; margin-right: 20px; width: 200px;" type="button" value="<?php _e( "Import Settings", "ts_visual_composer_extend" ); ?>" name="ts_tiny_import_code" id="ts_tiny_import_code" class="button-secondary" />
-								</td>    
+								</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="width: 100%; padding-top: 15px; border-bottom: 1px solid #DDDDDD;"></td>
 							</tr>
 						</table>
 					</div>
-					
 					<div id="ts_tiny_popup_container_inner" style="">
 						<div style="float: left; width: 100%; border-bottom: 1px solid #DDDDDD; margin-bottom: 15px; padding-bottom: 15px;">
 							<div style="float: left; width: 100px; margin-right: 20px;">
 								<img src="<?php echo TS_VCSC_GetResourceURL('images/other/icon_fonts.png'); ?>" style="width: 200px; height: 71px;">
 							</div>
 						</div>
-	
+
 						<form id="ts_tiny_tinymce_form" name="ts_tiny_tinymce_form" autocomplete="off" style=""/>
 							<table id="ts_tiny_tinymce_table_icon" class="ts_tiny_form ts_tiny_table ts_tiny_tinymce_table_icon" cellspacing="0" style="">
 								<tr>
@@ -392,7 +390,7 @@
 																$TS_VCSC_FirstFontOutput = "true";
 																break;
 															}
-														}														
+														}
 													}
 												$output .= '</ul>';
 											$output .= '</div>';
@@ -985,7 +983,6 @@
 									<td colspan="2" style="width: 100%; padding-top: 15px; border-bottom: 1px solid #DDDDDD;"></td>
 								</tr>
 							</table>
-							
 							<table id="ts_tiny_tinymce_table_preview" class="ts_tiny_form ts_tiny_table ts_tiny_tinymce_table_preview" cellspacing="0" style="margin-bottom: 20px;">
 								<tr>
 									<td colspan="2" style="width: 100%;">
@@ -1001,30 +998,24 @@
 									<td colspan="2" style="width: 100%; padding-top: 15px; border-bottom: 1px solid #DDDDDD;"></td>
 								</tr>
 							</table>
-							
 							<?php
 								$shortcodeMessage 	= base64_encode('<p style="font-weight: bold;">' . __( "Shortcode", "ts_visual_composer_extend" ) . ':</p>' . __( "You need to select an icon first!", "ts_visual_composer_extend" ));
 								$htmlcodeMessage 	= base64_encode('<p style="font-weight: bold;">' . __( "HTML Code", "ts_visual_composer_extend" ) . ':</p>' . __( "You need to select an icon first!", "ts_visual_composer_extend" ));
 							?>
-	
 							<div id="ts_tiny_tinymce_shortcode" data-code="<?php echo $shortcodeMessage; ?>"><p style="font-weight: bold;"><?php _e( "Shortcode", "ts_visual_composer_extend" ); ?>:</p><?php _e( "You need to select an icon first!", "ts_visual_composer_extend" ); ?></div>
 							<div id="ts_tiny_tinymce_shortcode_insert" style="display: none !important"></div>
 							<textarea rows="10" id="ts_tiny_tinymce_shortcode_copy" name="ts_tiny_tinymce_shortcode_copy" style="position: absolute; left: -9999px; height: 0px !important; width: 100%; border: none; opacity: 0;"></textarea>
-							
 							<div id="ts_tiny_tinymce_html" data-code="<?php echo $htmlcodeMessage; ?>"><p style="font-weight: bold;"><?php _e( "HTML Code", "ts_visual_composer_extend" ); ?>:</p><?php _e( "You need to select an icon first!", "ts_visual_composer_extend" ); ?></div>
 							<div id="ts_tiny_tinymce_html_insert" style="display: none !important"></div>
 							<textarea rows="10" id="ts_tiny_tinymce_html_copy" name="ts_tiny_tinymce_html_copy" style="position: absolute; left: -9999px; height: 0px !important; width: 100%; border: none; opacity: 0;"></textarea>
-	
 							<table id="ts_tiny_tinymce_table_close" class="ts_tiny_form ts_tiny_table ts_tiny_tinymce_table_close" cellspacing="0" style="">
-								<tr>
-									<td colspan="2" style="width: 100%; border-bottom: 1px solid #DDDDDD; height: 20px;"></td>
-								</tr>
+								<tr><td colspan="2" style="width: 100%; border-bottom: 1px solid #DDDDDD; height: 20px;"></td></tr>
 								<tr class="tbl_last">
 									<td colspan="2" style="width: 100%;">
-										<button style="margin-top: 10px; margin-bottom: 10px; float: left; margin-right: 20px; width: 200px;" type="button" value="<?php _e( "Insert Shortcode", "ts_visual_composer_extend" ); ?>" name="ts_tiny_insert_iconSHORT" id="ts_tiny_insert_iconSHORT" class="button-primary" data-error="<?php _e( "You must select an icon before you can create and insert any code!", "ts_visual_composer_extend" ); ?>" data-failure="<?php _e( "The plugin could not automatically insert the Shortcode - Please copy and paste the code manually!", "ts_visual_composer_extend" ); ?>"/><?php _e( "Insert Shortcode", "ts_visual_composer_extend" ); ?></button>
+										<button style="margin-top: 10px; margin-bottom: 10px; float: left; margin-right: 20px; width: 200px;" type="button" value="<?php _e( "Insert Shortcode", "ts_visual_composer_extend" ); ?>" name="ts_tiny_insert_iconSHORT" id="ts_tiny_insert_iconSHORT" class="button-primary" data-error="<?php _e( "You must select an icon before you can create and insert any code!", "ts_visual_composer_extend" ); ?>" data-failure="<?php _e( "The plugin could not automatically insert the Shortcode - Please copy and paste the code manually!", "ts_visual_composer_extend" ); ?>"><?php _e( "Insert Shortcode", "ts_visual_composer_extend" ); ?></button>
 										<button style="margin-top: 10px; margin-bottom: 10px; margin-right: 20px; width: 200px; display: inline-block;" data-clipboard-action="copy" data-clipboard-target="#ts_tiny_tinymce_shortcode_copy" type="button" value="<?php _e( "Copy Shortcode", "ts_visual_composer_extend" ); ?>" name="ts_tiny_clipboard_copy_shortcode" id="ts_tiny_clipboard_copy_shortcode" class="button-secondary" data-error="<?php _e( "No Icon Shortcode has been generated yet.", "ts_visual_composer_extend" ); ?>" data-success="<?php _e( "Icon Shortcode has been copied to Clipboard.", "ts_visual_composer_extend" ); ?>"/><?php _e( "Copy Shortcode", "ts_visual_composer_extend" ); ?></button>
-										<button style="margin-top: 10px; margin-bottom: 10px; float: right;" type="button" value="<?php _e( "Close", "ts_visual_composer_extend" ); ?>" name="ts_tiny_close_icon" id="ts_tiny_close_icon" class="button-secondary" /><?php _e( "Close", "ts_visual_composer_extend" ); ?></button>
-									</td>    
+										<button style="margin-top: 10px; margin-bottom: 10px; float: right;" type="button" value="<?php _e( "Close", "ts_visual_composer_extend" ); ?>" name="ts_tiny_close_icon" id="ts_tiny_close_icon" class="button-secondary"><?php _e( "Close", "ts_visual_composer_extend" ); ?></button>
+									</td>
 								</tr>
 							</table>
 						</form>

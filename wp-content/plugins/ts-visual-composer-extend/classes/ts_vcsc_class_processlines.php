@@ -127,7 +127,7 @@
 				$output								= '';
 				$styles								= '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_LoadFrontEndWaypoints == "true") && ($animation_view1 != "") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false")) {
 					if (wp_script_is('waypoints', $list = 'registered')) {
@@ -348,7 +348,7 @@
 					$styles .= '</style>';
 				}
 				if (($styles != "") && ($inline == "true")) {
-					wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 				}
 				
 				// Create Final Output
@@ -445,6 +445,9 @@
 					'date'							=> '',
 					'sub_date'						=> '',
 					'title'							=> '',
+					// Link Data
+					'link_usage'					=> 'none',
+					'link_data'						=> '',
 					// WPAutoP Callback
 					'content_wpautop'				=> 'false',
 					// Other
@@ -482,6 +485,18 @@
 				}
 				
 				$icon_size_adjust					= ($icon_size - 2*$icon_frame_thick - 2*$icon_padding);
+				
+				// Link Values
+				if ($link_usage != "none") {
+					$link 							= TS_VCSC_Advancedlinks_GetLinkData($link_data);
+					$a_href							= $link['url'];
+					$a_title 						= $link['title'];
+					$a_target 						= $link['target'];
+					$a_rel 							= $link['rel'];
+					if (!empty($a_rel)) {
+						$a_rel 						= 'rel="' . esc_attr(trim($a_rel)) . '"';
+					}
+				}
 				
 				if ($animation_class != "") {
 					if ($animation_trigger == "viewport") {						
@@ -639,7 +654,13 @@
 							}
 						$output .= '</div>';
 						$output .= '<div class="ts-processline-item-date">' . $date . '</div>';
-						$output .= '<div class="ts-processline-item-title">' . $title . '</div>';
+						$output .= '<div class="ts-processline-item-title">';
+							if (($link_usage == "title") && ($a_href != '')) {
+								$output .= '<a class="ts-processline-item-link" href="' . $a_href . '" target="' . $a_target . '" title="' . $a_title . '" ' . $a_rel . '>' . $title . '</a>';
+							} else {
+								$output .= $title;
+							}
+						$output .= '</div>';
 						$output .= '<div class="ts-processline-item-content">';
 							if (function_exists('wpb_js_remove_wpautop')){
 								$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -1445,6 +1466,7 @@
 					"as_child"							=> array('only' => 'TS_VCSC_ProcessLines_Container'),
 					"category"                  		=> __( 'VC Extensions', "ts_visual_composer_extend" ),
 					"description"               		=> __("Place a single process lines item", "ts_visual_composer_extend"),
+					"show_settings_on_create" 			=> true,
 					"js_view"							=> "TS_VCSC_ProcessLinesItemViewCustom",
 					"admin_enqueue_js"            		=> "",
 					"admin_enqueue_css"           		=> "",
@@ -1495,11 +1517,34 @@
 							"param_name"				=> "content",
 							"value"						=> "",
 							"description"				=> __( "Create the content for this step in the process line.", "ts_visual_composer_extend" ),
-						),						
-						// Icon / Image / String Settings
+						),
+						// Process Link
 						array(
 							"type"              		=> "seperator",
 							"param_name"        		=> "seperator_2",
+							"seperator"					=> "Process Line Link",
+						),
+						array(
+							"type"              		=> "dropdown",
+							"heading"           		=> __( "Step Link: Usage", "ts_visual_composer_extend" ),
+							"param_name"        		=> "link_usage",
+							"value"             		=> array(
+								__( "No Link", "ts_visual_composer_extend" )                          	=> "none",
+								__( "Add Link to Step Title", "ts_visual_composer_extend" )				=> "title",
+							),
+							"description"       		=> __( "Define if and where you want to add a link to this step in the process line.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type" 						=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ParameterLinkPicker['enabled'] == "false" ? "vc_link" : "advancedlinks"),
+							"heading" 					=> __("Step Link: Data", "ts_visual_composer_extend"),
+							"param_name" 				=> "link_date",
+							"description" 				=> __("Provide a link to another site/page for this step in the process line.", "ts_visual_composer_extend"),
+							"dependency"    			=> array( 'element' => 'link_usage', 'value' => "title" ),
+						),
+						// Icon / Image / String Settings
+						array(
+							"type"              		=> "seperator",
+							"param_name"        		=> "seperator_3",
 							"seperator"					=> "Step Icon",
 							"group"						=> "Step Icon",
 						),					
@@ -1582,7 +1627,7 @@
 						// Icon / Image Border Settings
 						array(
 							"type"              		=> "seperator",
-							"param_name"        		=> "seperator_3",
+							"param_name"        		=> "seperator_4",
 							"seperator"					=> "Step Icon Border Settings",
 							"dependency"        		=> array( 'element' => "timeline_style", 'value' => array('style1', 'style3') ),
 							"group"						=> "Step Icon",
@@ -1668,7 +1713,7 @@
 						),
 						array(
 							"type"              		=> "seperator",
-							"param_name"        		=> "seperator_4",
+							"param_name"        		=> "seperator_5",
 							"seperator"					=> "Step Icon Animation",
 							"group"						=> "Step Icon",
 						),
@@ -1738,10 +1783,10 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_ProcessLines_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_ProcessLines_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_ProcessLines_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_ProcessLines_Item extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Process Lines" Class

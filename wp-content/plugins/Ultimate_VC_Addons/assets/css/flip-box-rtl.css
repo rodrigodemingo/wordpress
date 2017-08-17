@@ -63,7 +63,7 @@
 .flip-box-wrap:hover .ifb-back {
     z-index: 1
 }
-.flip-box-wrap .flip-box h3 {
+.flip-box-wrap .flip-box .flipbox_heading {
     margin: 15px 0 12px;
     line-height: 1.3em;
     font-size: 16px;

@@ -10,30 +10,21 @@ if(!class_exists('AIO_ultimate_exp_section'))
 	{
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_ultimate_exp_section'));
+			}
 			add_shortcode('ultimate_exp_section',array($this,'ultimate_exp_section_shortcode'));
-			add_action('init',array($this,'ultimate_ultimate_exp_section'));
 			add_action( 'wp_enqueue_scripts', array( $this, 'ultimate_exp_scripts') , 1);
 
 		}
 
 		function ultimate_exp_scripts(){
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
+			
 			Ultimate_VC_Addons::ultimate_register_style( 'style_ultimate_expsection', 'expandable-section' );
 
-			wp_register_script("jquery_ultimate_expsection",plugins_url($js_path."expandable-section".$ext.".js",__FILE__),array('jquery','jquery_ui'),ULTIMATE_VERSION);
-			wp_register_script("jquery_ui",plugins_url($js_path."jquery-ui".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery_ultimate_expsection', 'expandable-section', false, array('jquery','jquery_ui'), ULTIMATE_VERSION, false );
 
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery_ui', 'jquery-ui', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 
 		// Shortcode handler function for stats Icon
@@ -110,7 +101,7 @@ if(!class_exists('AIO_ultimate_exp_section'))
 				/*---------- data attribute-----------------------------*/
 				//echo $title_margin.$title_padding;
 				$data='';
-				$data.='data-textcolor="'.$text_color.'"';
+				$data.='data-textcolor="'.esc_attr($text_color).'"';
 				if($text_hovercolor==' '){
 					$text_hovercolor=$text_color;
 				}
@@ -119,26 +110,26 @@ if(!class_exists('AIO_ultimate_exp_section'))
 					$title_alignment = 'center';
 				}
 
-				$data.='data-texthover="'.$text_hovercolor.'"';
-				$data.='data-icncolor="'.$icon_color.'"';
-				$data.='data-ihover="'.$icon_hover_color.'"';
-				$data.='data-height="'.$section_height.'"';
+				$data.='data-texthover="'.esc_attr($text_hovercolor).'"';
+				$data.='data-icncolor="'.esc_attr($icon_color).'"';
+				$data.='data-ihover="'.esc_attr($icon_hover_color).'"';
+				$data.='data-height="'.esc_attr($section_height).'"';
 
-				$data.='data-cntbg="'.$background_color.'"';
-				$data.='data-cnthvrbg="'.$bghovercolor.'"';
-				$data.='data-headerbg="'.$background_color.'"';
+				$data.='data-cntbg="'.esc_attr($background_color).'"';
+				$data.='data-cnthvrbg="'.esc_attr($bghovercolor).'"';
+				$data.='data-headerbg="'.esc_attr($background_color).'"';
 				if($bghovercolor==' '){
 					$bghovercolor=$background_color;
 				}
-				$data.='data-headerhover="'.$bghovercolor.'"';
-				$data.='data-title="'.$title.'"';
+				$data.='data-headerhover="'.esc_attr($bghovercolor).'"';
+				$data.='data-title="'.esc_attr($title).'"';
 				if($new_title==' '){
 					$new_title=$title;
 				}
 
-				$data.='data-newtitle="'.$new_title.'"';
+				$data.='data-newtitle="'.esc_attr($new_title).'"';
 				//echo $new_icon;
-				$data.='data-icon="'.$icon.'"';
+				$data.='data-icon="'.esc_attr($icon).'"';
 				//echo $new_icon;
 				if($new_icon==' '){
 					$new_icon=$icon;
@@ -146,56 +137,56 @@ if(!class_exists('AIO_ultimate_exp_section'))
 				if($new_icon =='none'){
 				 $new_icon=$icon;
 				}
-				$data.='data-newicon="'.$new_icon.'"';
+				$data.='data-newicon="'.esc_attr($new_icon).'"';
 				/*----active icon --------*/
 
 				if($icon_active_color==''){
 					$icon_active_color=$icon_hover_color;
 				}
-				$data.='data-activeicon="'.$icon_active_color.'"';
+				$data.='data-activeicon="'.esc_attr($icon_active_color).'"';
 
 
 				if($icon_style!= 'none'){
-					$data.='data-icnbg="'.$icon_color_bg.'"';
-					$data.='data-icnhvrbg="'.$icon_color_hoverbg.'"';
+					$data.='data-icnbg="'.esc_attr($icon_color_bg).'"';
+					$data.='data-icnhvrbg="'.esc_attr($icon_color_hoverbg).'"';
 					if($icon_active_color_bg==' '){
 					$icon_active_color_bg=$icon_color_hoverbg;
 					}
-					$data.='data-activeiconbg="'.$icon_active_color_bg.'"';
+					$data.='data-activeiconbg="'.esc_attr($icon_active_color_bg).'"';
 
 				}
 				if($icon_style== 'advanced'){
-					$data.='data-icnbg="'.$icon_color_bg.'"';
-					$data.='data-icnhvrbg="'.$icon_color_hoverbg.'"';
-					$data.='data-icnborder="'.$icon_color_border.'"';
+					$data.='data-icnbg="'.esc_attr($icon_color_bg).'"';
+					$data.='data-icnhvrbg="'.esc_attr($icon_color_hoverbg).'"';
+					$data.='data-icnborder="'.esc_attr($icon_color_border).'"';
 					if($icon_color_hoverborder==' '){
 					$icon_color_hoverborder=$icon_color_border;
 					}
-					$data.='data-icnhvrborder="'.$icon_color_hoverborder.'"';
+					$data.='data-icnhvrborder="'.esc_attr($icon_color_hoverborder).'"';
 					if($icon_active_color_bg==' '){
 					$icon_active_color_bg=$bghovercolor;
 					}
-					$data.='data-activeiconbg="'.$icon_active_color_bg.'"';
+					$data.='data-activeiconbg="'.esc_attr($icon_active_color_bg).'"';
 
 					if($icon_color_activeborder==' '){
 					$icon_color_activeborder=$icnhvrborder;
 					}
-					$data.='data-activeborder="'.$icon_color_activeborder.'"';
+					$data.='data-activeborder="'.esc_attr($icon_color_activeborder).'"';
 
 				}
-				$data.='data-effect="'.$exp_effect.'"';
-				$data.='data-override="'.$map_override.'"';
+				$data.='data-effect="'.esc_attr($exp_effect).'"';
+				$data.='data-override="'.esc_attr($map_override).'"';
 
 				/*---active color ----------*/
 				if($title_active==''){
 					$title_active=$text_hovercolor;
 				}
-				$data.='data-activetitle="'.$title_active.'"';
+				$data.='data-activetitle="'.esc_attr($title_active).'"';
 
 				if($title_active_bg==' '){
 					$title_active_bg=$bghovercolor;
 				}
-				$data.='data-activebg="'.$title_active_bg.'"';
+				$data.='data-activebg="'.esc_attr($title_active_bg).'"';
 
 				/*----active icon --------*/
 
@@ -210,10 +201,10 @@ if(!class_exists('AIO_ultimate_exp_section'))
 				$data.='data-activeicon="'.$icon_active_color_bg.'"';*/
 
 
-/*------------icon style---------*/
-$iconoutput =$newsrc=$src1=$img_ext='';
-$style =$css_trans=$iconbgstyle='';
-if($icon_type == 'custom'){
+				/*------------icon style---------*/
+				$iconoutput =$newsrc=$src1=$img_ext='';
+				$style =$css_trans=$iconbgstyle='';
+				if($icon_type == 'custom'){
 
 				if($icon_img!==''){
 
@@ -250,8 +241,8 @@ if($icon_type == 'custom'){
 					if($icon_align == 'center') {
 						$style .= 'display:inline-block;';
 					}
-					$iconoutput .= "\n".'<span class="aio-icon-img '.$el_class.' '.'ult_expsection_icon " style="font-size:'.$img_width.'px;'.$style.'" '.$css_trans.'>';
-					$iconoutput .= "\n\t".'<img class="img-icon ult_exp_img '.$img_ext.'" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'" />';
+					$iconoutput .= "\n".'<span class="aio-icon-img '.esc_attr($el_class).' '.'ult_expsection_icon " style="font-size:'.esc_attr($img_width).'px;'.esc_attr($style).'" '.$css_trans.'>';
+					$iconoutput .= "\n\t".'<img class="img-icon ult_exp_img '.esc_attr($img_ext).'" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'" />';
 					$iconoutput .= "\n".'</span>';
 				}
 				if(!empty($img)){
@@ -287,8 +278,8 @@ if($icon_type == 'custom'){
 					$style .= 'display:inline-block;';
 				}
 				if($icon !== ""){
-					$iconoutput .= "\n".'<span class="aio-icon  '.$icon_style.' '.$el_class.' ult_expsection_icon " '.$css_trans.' style="'.$style.'">';
-					$iconoutput .= "\n\t".'<i class="'.$icon.' ult_ex_icon"  ></i>';
+					$iconoutput .= "\n".'<span class="aio-icon  '.esc_attr($icon_style).' '.esc_attr($el_class).' ult_expsection_icon " '.$css_trans.' style="'.esc_attr($style).'">';
+					$iconoutput .= "\n\t".'<i class="'.esc_attr($icon).' ult_ex_icon"  ></i>';
 					$iconoutput .= "\n".'</span>';
 				}
 				if($icon !== "" && $icon!=="none"){
@@ -306,11 +297,11 @@ if($icon_type == 'custom'){
 
 /*----------- image replace ----------------*/
 
-$data.='data-img="'.$src1.'"';
+$data.='data-img="'.esc_url($src1).'"';
 if($newsrc==''){
 	$newsrc=$src1;
 }
-$data.='data-newimg="'.$newsrc.'"';
+$data.='data-newimg="'.esc_url($newsrc).'"';
 
 /*------------header bg style---------*/
 
@@ -407,7 +398,7 @@ $headerstyle .= 'text-align:' . $title_alignment . ';';
 
 if($iconoutput!=''){
 	$icon_output='	<div class="ult-just-icon-wrapper ult_exp_icon">
-					<div class="align-icon '.$icon_css_class.'">
+					<div class="align-icon '.esc_attr($icon_css_class).'">
 						'.$iconoutput.'
 					</div>
 				</div>';
@@ -422,18 +413,18 @@ if($section_width !==' '){
 	$section_style='max-width:'.$section_width.'px;';
 }
 
-$output.='<div class="ult_exp_section_layer '.$is_vc_49_plus.' '.$extra_class.'" >
-	<div id="'.$ult_expandable_id.'"  '.$data_list.' class="ult_exp_section  ult-responsive '.$css_class .'" style="'.$headerstyle.'" '.$data.'>';
+$output.='<div class="ult_exp_section_layer '.esc_attr($is_vc_49_plus).' '.esc_attr($extra_class).'" >
+	<div id="'.esc_attr( $ult_expandable_id ).'"  '.$data_list.' class="ult_exp_section  ult-responsive '.esc_attr($css_class) .'" style="'.esc_attr($headerstyle).'" '.$data.'>';
 
 		if($icon_align=='left'){
-			$output.='<div class="ult_exp_section-main '.$position.'">'.$icon_output.'
+			$output.='<div class="ult_exp_section-main '.esc_attr($position).'">'.$icon_output.'
 				<div class="ult_expheader" >'.$title.'
 				</div>
 			</div>
 		</div>';
 		}
 		else if($icon_align=='top'){
-		$output.='<div class="ult_exp_section-main '.$position.'">
+		$output.='<div class="ult_exp_section-main '.esc_attr($position).'">
 						'.$icon_output.'
 						<div class="ult_expheader" >'.$title.'
 						 </div></div>
@@ -441,15 +432,15 @@ $output.='<div class="ult_exp_section_layer '.$is_vc_49_plus.' '.$extra_class.'"
 
 		}else{
 
-		$output.='<div  class="ult_exp_section-main '.$position.'">
+		$output.='<div  class="ult_exp_section-main '.esc_attr($position).'">
 					<div class="ult_expheader" >'.$title.'
 					 </div>'.$icon_output.'</div>
 				</div>';
 		}
 		if($content!=''){
-		$output.='<div class="ult_exp_content '.$desc_css_class.'" style="'.$cnt_style.'">';
+		$output.='<div class="ult_exp_content '.esc_attr($desc_css_class).'" style="'.esc_attr($cnt_style).'">';
 
-		$output.='<div class="ult_ecpsub_cont" style="'.$section_style.'" >';
+		$output.='<div class="ult_ecpsub_cont" style="'.esc_attr($section_style).'" >';
 		$output.=	do_shortcode($content);
 		$output.='</div>';
 		}
@@ -1126,7 +1117,7 @@ $AIO_ultimate_exp_section = new AIO_ultimate_exp_section;
 
 }
 
-if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+if ( class_exists( 'WPBakeryShortCodesContainer' ) && !class_exists( 'WPBakeryShortCode_ultimate_exp_section' ) ) {
 		class WPBakeryShortCode_ultimate_exp_section extends WPBakeryShortCodesContainer {
 		}
 	}

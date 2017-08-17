@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to Build Icon Preview for Specific Font
 	add_shortcode('TS_VCSC_Icon_Preview', 'TS_VCSC_Icon_Font_Preview');
 	function TS_VCSC_Icon_Font_Preview ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

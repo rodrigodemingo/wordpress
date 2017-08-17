@@ -22,7 +22,7 @@
     margin: 0;
     border: none
 }
-.ult-banner-block h3.bb-top-title {
+.ult-banner-block .bb-top-title {
     color: #fff;
     margin: 0;
     padding: .7em 15px;
@@ -35,13 +35,13 @@
     z-index: 99;
     opacity: 1
 }
-.ult-banner-block h3.title-left {
+.ult-banner-block .title-left {
     text-align: right
 }
-.ult-banner-block h3.title-center {
+.ult-banner-block .title-center {
     text-align: center
 }
-.ult-banner-block h3.bb-top-title i {
+.ult-banner-block .bb-top-title i {
     float: left;
     font-size: 1em;
     line-height: 1.2;
@@ -136,7 +136,7 @@ a.bb-link {
     -ms-transform: translateX(50%);
     transform: translateX(50%)
 }
-.ult-banner-block.ult-banner-block-custom-height h3.bb-top-title {
+.ult-banner-block.ult-banner-block-custom-height .bb-top-title {
     position: absolute;
     bottom: 0
 }

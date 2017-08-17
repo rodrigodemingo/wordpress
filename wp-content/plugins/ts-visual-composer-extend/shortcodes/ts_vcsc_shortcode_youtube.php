@@ -38,6 +38,7 @@
 			'video_loop'					=> 'false',
 			'video_start'					=> 0,
 			'video_end'						=> 0,
+			'video_quality'					=> 'auto', // auto, tiny, small, medium, large, hd720, hd1080
 			
 			'overlay_visibility'			=> 'hover', // hover, only_deco, only_title, always
 			'overlay_animation'				=> 'zoom', // zoom, rotate, none
@@ -243,6 +244,7 @@
 		}
 		$videos_controls					= '&controls=' . $video_controls;
 		$videos_autohide					= '&autohide=' . $video_autohide;
+		$videos_quality						= '&vq=' . $video_quality;
 		if ($video_start > 0) {
 			$videos_start					= '&start=' . $video_start;
 		} else {
@@ -303,7 +305,7 @@
 				} else {
 						$output .= '<div id="' . $modal_id . '" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' nchgrid-item nch-lightbox-youtube nch-lightbox-single ' . $overlay_visible . ' nch-lightbox-hover-' . $overlay_animation . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $parent_dimensions . '">';
 				}
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 							$output .= '<img class="nchgrid-image-' . $overlay_animation . '" src="' . $modal_image . '" title="" data-no-lazy="1" style="display: block; ' . $image_dimensions . '">';
 							$output .= '<div class="nchgrid-caption ' . $overlay_classes . '" style="' . $overlay_background . ' ' . $overlay_styling . '">' . $overlay_addition . '</div>';
 							if (!empty($content_youtube_title)) {
@@ -348,7 +350,7 @@
 				} else {
 						$output .= '<div id="' . $modal_id . '" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' nchgrid-item nch-lightbox-youtube nch-lightbox-single ' . $overlay_visible . ' nch-lightbox-hover-' . $overlay_animation . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $parent_dimensions . '">';
 				}
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 							$output .= '<img class="nchgrid-image-' . $overlay_animation . '" src="' . $modal_image . '" title="" data-no-lazy="1" style="display: block; ' . $image_dimensions . '">';
 							$output .= '<div class="nchgrid-caption ' . $overlay_classes . '" style="' . $overlay_background . ' ' . $overlay_styling . '">' . $overlay_addition . '</div>';
 							if (!empty($content_youtube_title)) {
@@ -389,7 +391,7 @@
 				} else {
 						$output .= '<div id="' . $modal_id . '" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' nchgrid-item nch-lightbox-youtube nch-lightbox-single ' . $overlay_visible . ' nch-lightbox-hover-' . $overlay_animation . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $parent_dimensions . '">';
 				}
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 							$output .= '<img class="nchgrid-image-' . $overlay_animation . '" src="' . $modal_image . '" title="" data-no-lazy="1" style="display: block; ' . $image_dimensions . '">';
 							$output .= '<div class="nchgrid-caption ' . $overlay_classes . '" style="' . $overlay_background . ' ' . $overlay_styling . '">' . $overlay_addition . '</div>';
 							if (!empty($content_youtube_title)) {
@@ -409,7 +411,7 @@
 				} else {
 						$output .= '<div id="' . $modal_id . '" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' nchgrid-item nch-lightbox-youtube nch-lightbox-single ' . $overlay_visible . ' nch-lightbox-hover-' . $overlay_animation . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $parent_dimensions . '">';
 				}
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 							$output .= '<img class="nchgrid-image-' . $overlay_animation . '" src="' . $modal_image . '" title="" data-no-lazy="1" style="display: block; ' . $image_dimensions . '">';
 							$output .= '<div class="nchgrid-caption ' . $overlay_classes . '" style="' . $overlay_background . ' ' . $overlay_styling . '">' . $overlay_addition . '</div>';
 							if (!empty($content_youtube_title)) {
@@ -431,7 +433,7 @@
 					} else {
 							$output .= '<div id="' . $modal_id . '" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' nchgrid-item nch-lightbox-youtube nch-lightbox-single ' . $overlay_visible . ' nch-lightbox-hover-' . $overlay_animation . ' ' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px; ' . $parent_dimensions . '">';
 					}
-							$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+							$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy" target="_blank" data-thumbnail="' . $modal_image . '" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 								$output .= '<img class="nchgrid-image-' . $overlay_animation . '" src="' . $modal_image . '" title="" data-no-lazy="1" style="display: block; ' . $image_dimensions . '">';
 								$output .= '<div class="nchgrid-caption ' . $overlay_classes . '" style="' . $overlay_background . ' ' . $overlay_styling . '">' . $overlay_addition . '</div>';
 								if (!empty($content_youtube_title)) {
@@ -451,7 +453,7 @@
 			if ($content_youtube_trigger == "icon") {
 				$icon_style = 'color: ' . $content_youtube_iconcolor . '; width:' . $content_youtube_iconsize . 'px; height:' . $content_youtube_iconsize . 'px; font-size:' . $content_youtube_iconsize . 'px; line-height:' . $content_youtube_iconsize . 'px;';
 				$output .= '<div id="' . $modal_id . '" style="" class="' . $modal_id . '-parent nch-holder ts-vcsc-font-icon ts-font-icons ts-shortcode ts-icon-align-center ' . $el_class . ' ' . $css_class . ' ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-					$output .= '<a class="ts-font-icons-link nch-lightbox-media no-ajaxy" href="' . $content_youtube . '" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+					$output .= '<a class="ts-font-icons-link nch-lightbox-media no-ajaxy" href="' . $content_youtube . '" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 						$output .= '<i class="ts-font-icon ' . $content_youtube_icon . '" style="' . $icon_style . '"></i>';
 					$output .= '</a>';
 				$output .= '</div>';
@@ -459,7 +461,7 @@
 			if (($content_youtube_trigger == "flat") || ($content_youtube_trigger == "flaticon")) {
 				wp_enqueue_style('ts-extend-buttonsdual');
 				$button_style				= $content_youtube_buttonstyle . ' ' . $content_youtube_buttonhover;
-				$output .= '<a id="' . $modal_id . '" class="ts-dual-buttons-wrapper nch-lightbox-media no-ajaxy ' . $css_class . ' ' . $el_class . '" href="' . $content_youtube . '" target="_blank" data-title="' . $content_youtube_title . '" data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
+				$output .= '<a id="' . $modal_id . '" class="ts-dual-buttons-wrapper nch-lightbox-media no-ajaxy ' . $css_class . ' ' . $el_class . '" href="' . $content_youtube . '" target="_blank" data-title="' . $content_youtube_title . '" data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '>';
 					$output .= '<div id="' . $modal_id . '-trigger" class="ts-dual-buttons-container clearFixMe ' . $button_style . ' ' . $modal_id . '-parent nch-holder ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' style="display: block; width: 100%; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
 						if (($content_youtube_icon != '') && ($content_youtube_icon != 'transparent') && ($content_youtube_trigger == "flaticon")) {
 							$output .= '<i class="ts-dual-buttons-icon ' . $content_youtube_icon . '" style="font-size: ' . $content_youtube_buttonsize . 'px; line-height: ' . $content_youtube_buttonsize . 'px;"></i>';
@@ -473,25 +475,25 @@
 					$output .= '<div class="ts-lightbox-button-1 clearFixMe">';
 						$output .= '<div class="top">' . $content_youtube_title . '</div>';
 						$output .= '<div class="bottom">' . $content_youtube_subtitle . '</div>';
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy icon" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '><span class="youtube">' . $content_youtube_buttontext . '</span></a>';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy icon" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '><span class="youtube">' . $content_youtube_buttontext . '</span></a>';
 					$output .= '</div>';
 				$output .= '</div>';
 			}
 			if ($content_youtube_trigger == "simple") {
 				$output .= '<div id="' . $modal_id . '-trigger" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' ' . $youtube_tooltipclasses . ' ' . $css_class . '" ' . $youtube_tooltipcontent . ' style="display: block; width: 100%; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-					$output .= '<a href="' . $content_youtube . '" class="ts-lightbox-button-2 icon nch-lightbox" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '><span class="youtube">' . $content_youtube_buttontext . '</span></a>';
+					$output .= '<a href="' . $content_youtube . '" class="ts-lightbox-button-2 icon nch-lightbox" target="_blank" data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . '><span class="youtube">' . $content_youtube_buttontext . '</span></a>';
 				$output .= '</div>';
 			}
 			if ($content_youtube_trigger == "text") {
 				$output .= '<div id="' . $modal_id . '-trigger" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' ' . $css_class . '" style="text-align: center; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-					$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . ' target="_blank">' . $content_youtube_text . '</a>';
+					$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . ' target="_blank">' . $content_youtube_text . '</a>';
 				$output .= '</div>';
 			}
 			if ($content_youtube_trigger == "custom") {
 				if ($content_raw != "") {
 					$content_raw =  rawurldecode(base64_decode(strip_tags($content_raw)));
 					$output .= '<div id="' . $modal_id . '-trigger" class="' . $modal_id . '-parent nch-holder ' . $el_class . ' ' . $css_class . '" style="text-align: center; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . 'style="" target="_blank">';
+						$output .= '<a href="' . $content_youtube . '" class="nch-lightbox-media no-ajaxy ' . $youtube_tooltipclasses . '" ' . $youtube_tooltipcontent . ' data-title="' . $content_youtube_title . '" ' . $playlistdata . ' data-infobar="' . $video_infobar . '" data-controls="' . $video_controls . '" data-autohide="' . $video_autohide . '" data-start="' . $video_start . '" data-end="' . $video_end . '" data-related="' . $video_related . '" data-loop="' . $video_loop . '" data-modest="' . $video_modest . '" data-quality="' . $video_quality . '" data-videoplay="' . $lightbox_play . '" data-type="youtube" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $nacho_color . 'style="" target="_blank">';
 							$output .= $content_raw;
 						$output .= '</a>';
 					$output .= '</div>';
@@ -538,7 +540,7 @@
 			}
 			$output .= $overlay_start;	
 				$output .= '<div id="' . $modal_id . '" class="ts-video-container ' . $content_ratio . ' ' . $youtube_tooltipclasses . ' ' . $overlay_class . '" ' . $youtube_tooltipcontent . ' style="">';
-					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $modal_image . $video_autoplay . $videos_infobar . $videos_controls . $videos_autohide . $videos_start . $videos_end . $videos_related . $videos_loop . $video_playlist . $videos_modest . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $modal_image . $video_autoplay . $videos_infobar . $videos_controls . $videos_autohide . $videos_start . $videos_end . $videos_related . $videos_loop . $video_playlist . $videos_modest . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 					$output .= $overlay_data;
 				$output .= '</div>';
 				$output	.= $overlay_handle;
@@ -548,7 +550,7 @@
 		if (($content_type == "playlist") && ($content_lightbox == "false")) {
 			$output .= $overlay_start;
 				$output .= '<div id="' . $modal_id . '" class="ts-video-container ' . $content_ratio . ' ' . $youtube_tooltipclasses . ' ' . $overlay_class . '" ' . $youtube_tooltipcontent . ' style="">';
-					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=playlist&list=' . TS_VCSC_PlaylistID_Youtube($content_playlist) . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=playlist&list=' . TS_VCSC_PlaylistID_Youtube($content_playlist) . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 					$output .= $overlay_data;
 				$output .= '</div>';
 			$output .= $overlay_end;
@@ -557,7 +559,7 @@
 		if (($content_type == "searchterm") && ($content_lightbox == "false")) {
 			$output .= $overlay_start;
 				$output .= '<div id="' . $modal_id . '" class="ts-video-container ' . $content_ratio . ' ' . $youtube_tooltipclasses . ' ' . $overlay_class . '" ' . $youtube_tooltipcontent . ' style="">';
-					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=search&list=' . str_replace(' ', '', $content_search) . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=search&list=' . str_replace(' ', '', $content_search) . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 					$output .= $overlay_data;
 				$output .= '</div>';
 			$output .= $overlay_end;
@@ -568,12 +570,12 @@
 				$videos 	= explode(",", str_replace(' ', '', $content_combination));
 				$count 		= count($videos);
 				if ($count == 1) {
-					$iframe = '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $content_combination . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$iframe = '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $content_combination . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 				} else if ($count > 1){
 					$first = $videos[0];
 					array_shift($videos);
 					$other = implode(",", $videos);
-					$iframe = '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $first . '?playlist=' . $other . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$iframe = '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed/' . $first . '?playlist=' . $other . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 				}
 				$output .= '<div id="' . $modal_id . '" class="ts-video-container ' . $content_ratio . ' ' . $youtube_tooltipclasses . ' ' . $overlay_class . '" ' . $youtube_tooltipcontent . ' style="">';
 					$output .= $iframe;
@@ -585,7 +587,7 @@
 		if (($content_type == "uploads") && ($content_lightbox == "false")) {
 			$output .= $overlay_start;
 				$output .= '<div id="' . $modal_id . '" class="ts-video-container ' . $content_ratio . ' ' . $youtube_tooltipclasses . ' ' . $overlay_class . '" ' . $youtube_tooltipcontent . ' style="">';
-					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=user_uploads&list=' . $content_uploads . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+					$output .= '<iframe class="ts-video-iframe" width="100%" height="auto" ' . $overlay_lazy . ' src="https://www.youtube.com/embed?listType=user_uploads&list=' . $content_uploads . $videos_infobar . $video_autoplay . $videos_controls . $videos_autohide . $videos_related . $videos_loop . $videos_modest . $videos_quality . '&wmode=opaque" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 					$output .= $overlay_data;
 				$output .= '</div>';
 			$output .= $overlay_end;

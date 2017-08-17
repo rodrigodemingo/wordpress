@@ -496,13 +496,13 @@ if(!function_exists('register_bsf_core_admin_styles')) {
 
 		if( in_array($hook, $hook_array) || strpos( $hook, 'bsf-extensions' ) !== false ){
 			// add function here
-			global $bsf_core_path, $bsf_core_version;
+			global $bsf_core_path;
 			$bsf_core_url = bsf_convert_core_path_to_relative($bsf_core_path);
 			$path = $bsf_core_url.'/assets/css/style.css';
-			wp_register_style( 'bsf-core-admin', $path, '', $bsf_core_version );
+			wp_register_style( 'bsf-core-admin', $path );
 			wp_enqueue_style( 'bsf-core-admin' );
 
-			wp_register_style( 'brainstorm-switch', $bsf_core_url.'/assets/css/switch.css', '', $bsf_core_version );
+			wp_register_style( 'brainstorm-switch', $bsf_core_url.'/assets/css/switch.css', '' );
 			wp_enqueue_style( 'brainstorm-switch' );
 			
 			wp_register_script( 'brainstorm-switch', $bsf_core_url.'/assets/js/switch.js', array( 'jquery' ), '', true );

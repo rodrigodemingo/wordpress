@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to generate Page/Post Content Export
 	add_shortcode('TS_VCSC_Content_Export', 'TS_VCSC_Content_Export');
 	function TS_VCSC_Content_Export ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

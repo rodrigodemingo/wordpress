@@ -79,8 +79,6 @@
 		add_option('ts_vcsc_extend_settings_builtinLightbox', 					1);
 		add_option('ts_vcsc_extend_settings_lightboxIntegration', 				0);
 		add_option('ts_vcsc_extend_settings_allowAutoUpdate', 					1);
-		add_option('ts_vcsc_extend_settings_allowNotification', 				1);
-		add_option('ts_vcsc_extend_settings_allowMenuBarNotice', 				0);
 		add_option('ts_vcsc_extend_settings_allowDeprecated', 					0);
 		add_option('ts_vcsc_extend_settings_allowShortcodesWidgets', 			1);
 		add_option('ts_vcsc_extend_settings_allowFullOptions', 					0);

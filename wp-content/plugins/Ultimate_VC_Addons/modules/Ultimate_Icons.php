@@ -8,7 +8,9 @@ if(!class_exists('Ultimate_Icons'))
 	{
 		function __construct()
 		{
-			add_action('init',array($this,'ultimate_icon_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_icon_init'));
+			}
 			add_shortcode('ultimate_icons',array($this,'ultimate_icons_shortcode'));
 			add_shortcode('single_icon',array($this,'single_icon_shortcode'));
 		}
@@ -299,8 +301,8 @@ if(!class_exists('Ultimate_Icons'))
 				'css_icon' =>'',
 			),$atts));
 			$icon_design_css = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_icon, ' ' ), "ultimate_icons", $atts );
- 			$icon_design_css = esc_attr( $icon_design_css );
-			$output = '<div class="'.$icon_design_css.' '.$align.' uavc-icons '.$el_class.'">';
+ 			
+ 			$output = '<div class="'.esc_attr($icon_design_css).' '.esc_attr($align).' uavc-icons '.esc_attr($el_class).'">';
 			$output .= do_shortcode($content);
 			$output .= '</div>';
 
@@ -334,21 +336,21 @@ if(!class_exists('Ultimate_Icons'))
 
 			if($icon_animation !== 'none')
 			{
-				$css_trans = 'data-animation="'.$icon_animation.'" data-animation-delay="03"';
+				$css_trans = 'data-animation="'.esc_attr($icon_animation).'" data-animation-delay="03"';
 			}
 			$output = $style = $link_sufix = $link_prefix = $target = $href = $icon_align_style = '';
 			$uniqid = uniqid();
 			if($icon_link !== ''){
 				$href 			= vc_build_link($icon_link);
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
-				$link_prefix .= '<a class="aio-tooltip '.$uniqid.'" href = "' . $url . '" '.$target.' '. $link_title .' '. $rel . ' data-toggle="tooltip" data-placement="'.$tooltip_disp.'" title="'.$tooltip_text.'">';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
+				$link_prefix .= '<a class="aio-tooltip '.esc_attr($uniqid).'" href = "' . esc_url($url) . '" '.$target.' '. $link_title .' '. $rel . ' data-toggle="tooltip" data-placement="'.esc_attr($tooltip_disp).'" title="'.esc_attr($tooltip_text).'">';
 				$link_sufix .= '</a>';
 			} else {
 				if($tooltip_disp !== ""){
-					$link_prefix .= '<span class="aio-tooltip '.$uniqid.'" href = "'.$href.'" '.$target.' data-toggle="tooltip" data-placement="'.$tooltip_disp.'" title="'.$tooltip_text.'">';
+					$link_prefix .= '<span class="aio-tooltip '.esc_attr($uniqid).'" href = "'.esc_url($href).'" '.$target.' data-toggle="tooltip" data-placement="'.esc_attr($tooltip_disp).'" title="'.esc_attr($tooltip_text).'">';
 					$link_sufix .= '</span>';
 				}
 			}
@@ -375,15 +377,15 @@ if(!class_exists('Ultimate_Icons'))
 				$style .= 'margin-right:'.$icon_margin.'px;';
 
 			if($icon !== ""){
-				$output .= "\n".$link_prefix.'<div class="aio-icon '.$icon_style.' '.$el_class.'" '.$css_trans.' style="'.$style.'">';
-				$output .= "\n\t".'<i class="'.$icon.'"></i>';
+				$output .= "\n".$link_prefix.'<div class="aio-icon '.esc_attr($icon_style).' '.esc_attr($el_class).'" '.$css_trans.' style="'.esc_attr($style).'">';
+				$output .= "\n\t".'<i class="'.esc_attr($icon).'"></i>';
 				$output .= "\n".'</div>'.$link_sufix;
 			}
 			//$output .= do_shortcode($content);
 			if($tooltip_disp !== ""){
 				$output .= '<script>
 					jQuery(function () {
-						jQuery(".'.$uniqid.'").bsf_tooltip("hide");
+						jQuery(".'.esc_attr($uniqid).'").bsf_tooltip("hide");
 					})
 				</script>';
 			}
@@ -396,11 +398,11 @@ if(class_exists('Ultimate_Icons'))
 	$Ultimate_Icons = new Ultimate_Icons;
 }
 //Extend WPBakeryShortCodesContainer class to inherit all required functionality
-if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+if ( class_exists( 'WPBakeryShortCodesContainer' ) && !class_exists( 'WPBakeryShortCode_ultimate_icons' ) ) {
     class WPBakeryShortCode_ultimate_icons extends WPBakeryShortCodesContainer {
     }
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_single_icon' ) ) {
     class WPBakeryShortCode_single_icon extends WPBakeryShortCode {
     }
 }

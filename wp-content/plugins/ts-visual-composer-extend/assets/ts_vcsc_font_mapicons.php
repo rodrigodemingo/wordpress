@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_MapIcons = array(
     $this->TS_VCSC_Icons_Compliant_MapIcons = array(
         "Mapicons Font" => array(
             array("ts-mapicons-map-pin" => "pin"),

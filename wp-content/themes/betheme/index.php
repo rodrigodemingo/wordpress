@@ -116,7 +116,11 @@ $translate['item-all'] 		= mfn_opts_get('translate') ? mfn_opts_get('translate-i
 									<?php 
 										echo '<li class="reset-inner"><a data-rel="*" href="'. get_permalink( mfn_ID() ) .'">'. $translate['item-all'] .'</a></li>';
 										if( $categories = get_categories() ){
+											$exclude = mfn_get_excluded_categories();
 											foreach( $categories as $category ){
+												if( $exclude && in_array( $category->slug, $exclude ) ){
+													continue;
+												}
 												echo '<li><a data-rel=".category-'. $category->slug .'" href="'. get_term_link($category) .'">'. $category->name .'</a></li>';
 											}
 										}

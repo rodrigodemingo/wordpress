@@ -191,12 +191,17 @@ blockquote {
 		<?php if( strpos( $aFont['big']['weight_style'], 'italic' ) ) echo 'font-style: italic;' ?>
 	}
 	
-	#menu > ul > li > a, a.button.action_button {
+	#menu > ul > li > a, a.button.action_button, #overlay-menu ul li a{
 		font-size: <?php echo $aFont['menu']['size']; ?>px;
 		font-weight: <?php echo str_replace( 'italic', '', $aFont['menu']['weight_style'] ) ?>;	
 		letter-spacing: <?php echo $aFont['menu']['letter_spacing']; ?>px;
 		<?php if( strpos( $aFont['menu']['weight_style'], 'italic' ) ) echo 'font-style: italic;' ?>
 	}
+	
+	#overlay-menu ul li a{
+		line-height: <?php echo ( $aFont['menu']['size'] + $aFont['menu']['size'] * 0.5 ); ?>px;
+	}
+	
 	#Subheader .title {
 		font-size: <?php echo $aFont['title']['size']; ?>px;
 		line-height: <?php echo $aFont['title']['line_height']; ?>px;
@@ -295,8 +300,11 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, a.button.action_button {
+		#menu > ul > li > a, a.button.action_button, #overlay-menu ul li a {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
+		}
+		#overlay-menu ul li a{
+			line-height: <?php echo ( $aFont['menu']['size'] + $aFont['menu']['size'] * 0.5 ); ?>px;
 		}
 		#Subheader .title {
 			font-size: <?php echo $aFont['title']['size']; ?>px;
@@ -381,8 +389,11 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, a.button.action_button {
+		#menu > ul > li > a, a.button.action_button, #overlay-menu ul li a {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
+		}
+		#overlay-menu ul li a{
+			line-height: <?php echo ( $aFont['menu']['size'] + $aFont['menu']['size'] * 0.5 ); ?>px;
 		}
 		#Subheader .title {
 			font-size: <?php echo $aFont['title']['size']; ?>px;
@@ -467,8 +478,11 @@ blockquote {
 			font-size: <?php echo $aFont['big']['size']; ?>px;
 			line-height: <?php echo $aFont['big']['line_height']; ?>px;
 		}
-		#menu > ul > li > a, a.button.action_button {
+		#menu > ul > li > a, a.button.action_button, #overlay-menu ul li a {
 			font-size: <?php echo $aFont['menu']['size']; ?>px;
+		}
+		#overlay-menu ul li a{
+			line-height: <?php echo ( $aFont['menu']['size'] + $aFont['menu']['size'] * 0.5 ); ?>px;
 		}
 		#Subheader .title {
 			font-size: <?php echo $aFont['title']['size']; ?>px;
@@ -687,16 +701,10 @@ blockquote {
 		top: <?php echo $aLogo['responsive_menu_T']; ?>px;
 	}
 	<?php if( $aLogo['vertical_padding'] ): ?>
-	
 	.mobile-header-mini #Top_bar #logo{
 		height:50px!important;
 		line-height:50px!important;
-		margin:5px 0!important;
-	}
-	.mobile-sticky #Top_bar.is-sticky #logo{
-		height:50px!important;
-		line-height:50px!important;
-		margin:5px 50px;
+		margin:5px 0;
 	}
 	<?php endif; ?>
 }

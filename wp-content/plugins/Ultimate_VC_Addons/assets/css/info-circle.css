@@ -10,7 +10,7 @@
     text-align: center
 }
 .info-wrapper {
-	padding-top: 1px; // collapsing margin behavior - http://goo.gl/qe7Qkn
+	padding-top: 1px; /* collapsing margin behavior - http://goo.gl/qe7Qkn */
 }
 .info-circle-wrapper {
     width: 100%

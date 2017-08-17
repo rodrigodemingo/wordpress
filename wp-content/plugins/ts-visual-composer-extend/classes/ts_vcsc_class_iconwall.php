@@ -135,7 +135,7 @@
 				
 				$wall_random						= mt_rand(999999, 9999999);
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if (!empty($el_id)) {
 					$wall_id						= $el_id;
@@ -266,7 +266,7 @@
 						$styles .= '</style>';
 					}
 					if (($styles != "") && ($inline == "true")) {
-						wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+						wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 					}
 					
 					// Create Final Output
@@ -1368,11 +1368,11 @@
 			}
 		}
 	}
-	
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Icon_Wall_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Icon_Wall_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Icon_Wall_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_Icon_Wall_Item extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Icon Wall" Class

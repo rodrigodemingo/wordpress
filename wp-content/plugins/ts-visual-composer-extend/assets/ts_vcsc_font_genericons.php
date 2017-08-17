@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Genericons = array(
     $this->TS_VCSC_Icons_Compliant_Genericons = array(
         "Genericons Font" => array(
             array('ts-genericons-standard'                 => 'standard'),

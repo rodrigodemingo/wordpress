@@ -809,6 +809,13 @@
 					// KML File Import
 					'import_kml_file'				=> 'false',
 					'import_kml_path'				=> '',
+					// Marker Export
+					'export_button_use'				=> 'false',
+					'export_button_title'			=> 'Download Markers via CSV',
+					'export_button_icon'			=> 'false',
+					'export_file_header'			=> 'true',
+					'export_file_name'				=> 'mapmarkerexport',
+					'export_file_scope'				=> 'id,title,group,address,latitude,longitude,description',
 					// Cluster Settings
 					'clusterer_curves'				=> 'false',
 					'clusterer_type'				=> 'default', 			// default, pins, singlepin, people, conversations, hearts, custom
@@ -1080,6 +1087,7 @@
 					$import_path_marker				= '';
 				}
 				$map_import							= 'data-import-markerjson="' . $import_json_marker . '" data-import-markerpath="' . $import_path_marker . '" data-import-markerheight="' . $import_height_marker . '" data-import-markerwidth="' . $import_width_marker . '" data-import-kmlfile="' . $import_kml_file . '" data-import-kmlpath="' . $import_kml_path . '"';
+				$map_export							= 'data-export-use="' . $export_button_use . '" data-export-title="' . $export_button_title . '" data-export-icononly="' . $export_button_icon . '" data-export-filename="' . $export_file_name . '" data-export-fileheader="' . $export_file_header . '" data-export-filescope="' . $export_file_scope . '"';
 				$map_window							= 'data-window-global="' . $window_global . '" data-window-offset="' . $window_offset . '" data-window-mapclick="' . $window_mapclick . '" data-window-closer="' . $window_closer . '" data-window-maxwidth="' . $window_maxwdidth . '" data-window-shadow="' . $window_shadow . '" data-window-background="' . $window_background . '" data-window-fontcolor="' . $window_fontcolor . '" data-window-arrowshow="' . $window_arrowshow . '" data-window-arrowcolor="' . $window_arrowcolor . '"';
 				
 				// Compile Language Settings
@@ -1093,7 +1101,7 @@
 				$map_language						.= 'data-string-listingbutton="' . $string_listings_button . '" data-string-listingsearch="' . $string_listings_search . '"';
 				
 				// Compile Map Attributes
-				$map_attributes						= $map_data . ' ' . $map_preloader . ' ' . $map_marker . ' ' . $map_clusterer . ' ' . $map_street . ' ' . $map_controls . ' ' . $map_filter . ' ' . $map_styler . ' ' . $map_locator . ' ' . $map_sumostrings . ' ' . $map_search . ' ' . $map_draggable . ' ' . $map_layers . ' ' . $map_window . ' ' . $map_import . ' ' . $map_snazzystyle . ' ' . $map_language;
+				$map_attributes						= $map_data . ' ' . $map_preloader . ' ' . $map_marker . ' ' . $map_clusterer . ' ' . $map_street . ' ' . $map_controls . ' ' . $map_filter . ' ' . $map_styler . ' ' . $map_locator . ' ' . $map_sumostrings . ' ' . $map_search . ' ' . $map_draggable . ' ' . $map_layers . ' ' . $map_window . ' ' . $map_import . ' ' . $map_export . ' ' . $map_snazzystyle . ' ' . $map_language;
 
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
 					$output .= '<div id="' . $map_id . '" class="' . $css_class . '" data-urlcheck="' . $map_id . '" data-random="' . $map_random . '" ' . $map_fullwidth . ' style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
@@ -1830,13 +1838,25 @@
 							),
 							"description"           	=> __( "Select how the map should react if a window resize event has been detected.", "ts_visual_composer_extend" )
 						),						
-						array(
+						/*array(
 							"type"              		=> "switch_button",
 							"heading"               	=> __( "Require Activate on Mobile", "ts_visual_composer_extend" ),
 							"param_name"            	=> "googlemap_mobile",
 							"value"                 	=> "false",
 							"description"           	=> __( "Switch the toggle if the map should require activation on mobile devices to ease scrolling.", "ts_visual_composer_extend" )
-						),								
+						),*/						
+						array(
+							"type"                  	=> "dropdown",
+							"heading"               	=> __("Require Map Activation", "ts_visual_composer_extend"),
+							"param_name"            	=> "googlemap_mobile",
+							"admin_label"           	=> true,
+							"value"                 	=> array(
+								__("Do Not Require Activation", "ts_visual_composer_extend")	=> "false",
+								__("Mobile Devices Only", "ts_visual_composer_extend")			=> "true",
+								__("Require On All Devices", "ts_visual_composer_extend")		=> "always",
+							),
+							"description"           	=> __( "Select if the map should require a manual activation to make it visible on the screen.", "ts_visual_composer_extend" )
+						),						
 						array(
 							"type"              		=> "switch_button",
 							"heading"               	=> __( "Use Metric Dimensions", "ts_visual_composer_extend" ),
@@ -4880,13 +4900,25 @@
 							),
 							"description"           	=> __( "Select how the map should react if a window resize event has been detected.", "ts_visual_composer_extend" )
 						),						
-						array(
+						/*array(
 							"type"              		=> "switch_button",
 							"heading"               	=> __( "Require Activate on Mobile", "ts_visual_composer_extend" ),
 							"param_name"            	=> "googlemap_mobile",
 							"value"                 	=> "false",
 							"description"           	=> __( "Switch the toggle if the map should require activation on mobile devices to ease scrolling.", "ts_visual_composer_extend" )
-						),
+						),*/						
+						array(
+							"type"                  	=> "dropdown",
+							"heading"               	=> __("Require Map Activation", "ts_visual_composer_extend"),
+							"param_name"            	=> "googlemap_mobile",
+							"admin_label"           	=> true,
+							"value"                 	=> array(
+								__("Do Not Require Activation", "ts_visual_composer_extend")	=> "false",
+								__("Mobile Devices Only", "ts_visual_composer_extend")			=> "true",
+								__("Require On All Devices", "ts_visual_composer_extend")		=> "always",
+							),
+							"description"           	=> __( "Select if the map should require a manual activation to make it visible on the screen.", "ts_visual_composer_extend" )
+						),		
 						array(
 							"type"              		=> "switch_button",
 							"heading"               	=> __( "Use Metric Dimensions", "ts_visual_composer_extend" ),
@@ -5873,13 +5905,19 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Single'))) {
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Single extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Marker'))) {
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Marker extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Overlay'))) {
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Overlay extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Curveline'))) {
 		class WPBakeryShortCode_TS_VCSC_GoogleMapsPlus_Curveline extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Google Maps Plus" Class

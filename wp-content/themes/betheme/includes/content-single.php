@@ -103,23 +103,40 @@ $translate['readmore'] 		= mfn_opts_get('translate') ? mfn_opts_get('translate-r
 							}
 						?>
 						
-						<?php if( mfn_opts_get( 'blog-meta' ) ): ?>
+						<?php 
+							$show_meta = false;
+							$blog_meta = mfn_opts_get( 'blog-meta' );
+							
+							if( is_array( $blog_meta ) ){
+								if( isset( $blog_meta['author'] ) || isset( $blog_meta['date'] ) || isset( $blog_meta['categories'] ) ){
+									$show_meta = true;
+								}
+							}
+						?>
+						
+						<?php if( $show_meta ): ?>
 							<div class="post-meta clearfix">
 							
 								<div class="author-date">
 								
-									<span class="vcard author post-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
-										<span class="label"><?php echo $translate['published']; ?></span>
-										<i class="icon-user"></i>
-										<span class="fn" itemprop="name"><a href="<?php echo get_author_posts_url( get_the_author_meta('ID') ); ?>"><?php the_author_meta( 'display_name' ); ?></a></span>
-									</span> 
+									<?php if( isset( $blog_meta['author'] ) ): ?>
+										<span class="vcard author post-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+											<span class="label"><?php echo $translate['published']; ?></span>
+											<i class="icon-user"></i>
+											<span class="fn" itemprop="name"><a href="<?php echo get_author_posts_url( get_the_author_meta('ID') ); ?>"><?php the_author_meta( 'display_name' ); ?></a></span>
+										</span> 
+									<?php endif; ?>
 									
-									<span class="date">
-										<span class="label"><?php echo $translate['at']; ?></span>
-										<i class="icon-clock"></i>
-										<time class="entry-date updated" datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished" ><?php echo get_the_date(); ?></time>
-										<meta itemprop="dateModified" content="<?php echo get_the_date('c'); ?>"/>
-									</span>	
+									<?php if( isset( $blog_meta['date'] ) ): ?>
+										<span class="date">
+											<?php if( isset( $blog_meta['author'] ) ): ?>
+												<span class="label"><?php echo $translate['at']; ?></span>
+											<?php endif; ?>
+											<i class="icon-clock"></i>
+											<time class="entry-date updated" datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished" ><?php echo get_the_date(); ?></time>
+											<meta itemprop="dateModified" content="<?php echo get_the_date('c'); ?>"/>
+										</span>
+									<?php endif; ?>	
 									
 									<?php if( mfn_opts_get( 'mfn-seo-schema-type' ) ): ?>
 									
@@ -138,26 +155,28 @@ $translate['readmore'] 		= mfn_opts_get('translate') ? mfn_opts_get('translate-r
 									
 								</div>
 								
-								<div class="category meta-categories">
-									<span class="cat-btn"><?php echo $translate['categories']; ?> <i class="icon-down-dir"></i></span>
-									<div class="cat-wrapper"><?php echo get_the_category_list(); ?></div>
-								</div>
-								
-								<div class="category mata-tags">
-									<span class="cat-btn"><?php echo $translate['tags']; ?> <i class="icon-down-dir"></i></span>
-									<div class="cat-wrapper">
-										<ul>
-											<?php
-												if( $terms = get_the_terms( false, 'post_tag' ) ){
-													foreach( $terms as $term ){
-														$link = get_term_link( $term, 'post_tag' );
-														echo '<li><a href="' . esc_url( $link ) . '">' . $term->name .'</a></li>';
-													}
-												}
-											?>
-										</ul>
+								<?php if( isset( $blog_meta['categories'] ) ): ?>
+									<div class="category meta-categories">
+										<span class="cat-btn"><?php echo $translate['categories']; ?> <i class="icon-down-dir"></i></span>
+										<div class="cat-wrapper"><?php echo get_the_category_list(); ?></div>
 									</div>
-								</div>
+									
+									<div class="category mata-tags">
+										<span class="cat-btn"><?php echo $translate['tags']; ?> <i class="icon-down-dir"></i></span>
+										<div class="cat-wrapper">
+											<ul>
+												<?php
+													if( $terms = get_the_terms( false, 'post_tag' ) ){
+														foreach( $terms as $term ){
+															$link = get_term_link( $term, 'post_tag' );
+															echo '<li><a href="' . esc_url( $link ) . '">' . $term->name .'</a></li>';
+														}
+													}
+												?>
+											</ul>
+										</div>
+									</div>
+								<?php endif; ?>
 	
 							</div>
 						<?php endif; ?>

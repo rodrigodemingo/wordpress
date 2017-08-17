@@ -112,7 +112,7 @@
 		$output 							= '';
 		$styles								= '';
 		$wpautop 							= ($content_wpautop == "true" ? true : false);
-		$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 		
 		if (!empty($el_id)) {
 			$info_box_id					= $el_id;
@@ -282,7 +282,7 @@
 			$styles .= '</style>';
 		}
 		if (($styles != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 		}
 		
 		// Animation Data

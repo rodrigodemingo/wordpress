@@ -13,6 +13,7 @@
         'ts_logos'                                      => 55,
         'ts_downtime'                                   => 56, 
     );
+	
     
     // Default Values for Downtime Manager
     // -----------------------------------
@@ -34,6 +35,7 @@
         'tablet'						                => '',
         'mobile'						                => '',
     );
+	
     
     // Default Values for Sidebars Manager
     // -----------------------------------
@@ -42,7 +44,7 @@
         'ids'                                           => 'ts-custom-sidebar-1,ts-custom-sidebar-2',
         'names'                                         => '',
     );
-
+	
 
     // Envato Item Information
     // -----------------------
@@ -106,6 +108,7 @@
     } else {
         $this->TS_VCSC_EditorLivePreview				= "false";
         $this->TS_VCSC_EditorIconFontsInternal			= "false";
+		$this->TS_VCSC_VisualComposer_Version			= "0.0.0";
         $this->TS_VCSC_VisualComposer_Compliant			= "false";
         $this->TS_VCSC_VisualComposer_LeanMap 			= "false";
         $this->TS_VCSC_EditorFullWidthInternal			= "false";
@@ -222,10 +225,7 @@
     // Check if Lightbox Integration with Media Manager
     if (get_option('ts_vcsc_extend_settings_lightboxIntegration', 0) == 1)      { $this->TS_VCSC_UseLightboxAutoMedia = "true"; } 			else { $this->TS_VCSC_UseLightboxAutoMedia = "false"; }
     // Plugin Menu Location
-    if (get_option('ts_vcsc_extend_settings_mainmenu', 1) == 1)                 { $this->TS_VCSC_PluginMainMenu = "true"; }                 else { $this->TS_VCSC_PluginMainMenu = "false"; }  
-    // Update Notification
-    if (get_option('ts_vcsc_extend_settings_allowNotification', 1) == 1)        { $this->TS_VCSC_UseUpdateNotification = "true"; }          else { $this->TS_VCSC_UseUpdateNotification = "false"; }
-    if (get_option('ts_vcsc_extend_settings_allowMenuBarNotice', 0) == 1)       { $this->TS_VCSC_UseUpdateMenuBarNotice = "true"; }         else { $this->TS_VCSC_UseUpdateMenuBarNotice = "false"; }
+    if (get_option('ts_vcsc_extend_settings_mainmenu', 1) == 1)                 { $this->TS_VCSC_PluginMainMenu = "true"; }                 else { $this->TS_VCSC_PluginMainMenu = "false"; }
 	// Auto-Update Routine
     if (get_option('ts_vcsc_extend_settings_allowAutoUpdate', 1) == 1)          { $this->TS_VCSC_UseUpdateAutomatic = "true"; }             else { $this->TS_VCSC_UseUpdateAutomatic = "false"; }
     // Shortcodes in Widgets
@@ -265,8 +265,8 @@
     // Define Output Priority for JS Variables
     // ---------------------------------------
     $this->TS_VCSC_Extensions_VariablesPriority         = get_option('ts_vcsc_extend_settings_variablesPriority', '6');
-    
-    
+
+	
     // License Check Variables
     // -----------------------
     $this->TS_VCSC_External_URL                         = "http://maintenance.krautcoding.com/licenses/ts-envato-api-check-vc-extensions.php?license=";
@@ -292,6 +292,8 @@
         'MThhNDI5ZGEtOTliYi00OTI4LWI3ZDMtZTAwZDMwZmQzNzQ1',
         'ZWVlZmEwOWEtZTJhYy00YTczLTk1N2MtZjViYTA3N2E3ZmQ1',
         'YmI0MWI5MzEtZmU1Yy00ZmVlLWE4ODUtNjQyN2RhMzlmMTc5',
+		'ZjQwNGZmMzEtMTM0OS00ZjZmLWFmZDktMjI5MGY5NmRlZTFk',
+		'YTY1MjgxYWQtYmM2My00YTM1LThhOTItMjgwM2YyZGQ2ODk2',
     );
     
     

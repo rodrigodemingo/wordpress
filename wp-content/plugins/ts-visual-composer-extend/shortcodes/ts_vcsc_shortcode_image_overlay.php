@@ -1,5 +1,4 @@
 <?php
-	add_shortcode('TS_VCSC_Image_Overlay', 'TS_VCSC_Image_Overlay_Function');
 	add_shortcode('TS-VCSC-Image-Overlay', 'TS_VCSC_Image_Overlay_Function');
 	function TS_VCSC_Image_Overlay_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

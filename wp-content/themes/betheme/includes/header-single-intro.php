@@ -81,62 +81,81 @@
 			echo '<h'. $h .' class="intro-title">'. get_the_title() .'</h'. $h .'>';
 		?>
 		
-		<?php if( mfn_opts_get( 'blog-meta' ) ): ?>
+		<?php 
+			$show_meta = false;
+			$blog_meta = mfn_opts_get( 'blog-meta' );
+			
+			if( is_array( $blog_meta ) ){
+				if( isset( $blog_meta['author'] ) || isset( $blog_meta['date'] ) || isset( $blog_meta['categories'] ) ){
+					$show_meta = true;
+				}
+			}
+		?>
+		
+		<?php if( $show_meta ): ?>
 			<div class="intro-meta">
 
-				<div class="author">
-					<i class="icon-user"></i>
-					<span><a href="<?php echo get_author_posts_url( get_the_author_meta('ID') ); ?>"><?php the_author_meta( 'display_name' ); ?></a></span>
-				</div>
+				<?php if( isset( $blog_meta['author'] ) ): ?>
+					<div class="author">
+						<i class="icon-user"></i>
+						<span><a href="<?php echo get_author_posts_url( get_the_author_meta('ID') ); ?>"><?php the_author_meta( 'display_name' ); ?></a></span>
+					</div>
+				<?php endif; ?>
 
-				<div class="date">
-					<i class="icon-clock"></i>
-					<span><?php echo get_the_date(); ?></span>
-				</div>	
-				
-				<?php if( $categories = get_the_category() ): ?>
-					<div class="categories">
-						<i class="icon-docs"></i>
-						<?php 
-							$string_cat = '';
-							foreach( $categories as $cat ){
-								$string_cat .= '<a href="'. get_category_link( $cat->term_id ) .'">'. $cat->name .'</a>, ';
-							}
-							$string_cat = rtrim( $string_cat, ", " );
-							echo '<span>'. $string_cat .'</span>';
-						?>
+				<?php if( isset( $blog_meta['date'] ) ): ?>
+					<div class="date">
+						<i class="icon-clock"></i>
+						<span><?php echo get_the_date(); ?></span>
 					</div>
 				<?php endif; ?>
 				
-				<?php 
-					$terms = get_the_terms( false, 'portfolio-types' );
-					if( is_array( $terms ) ): 
-				?>
-					<div class="categories">
-						<i class="icon-docs"></i>
-						<?php
-							$string_term = '';
-							foreach( $terms as $term ){
-								$string_term .= '<a href="'. get_term_link( $term, 'post_tag' ) .'">'. $term->name .'</a>, ';
-							}
-							$string_term = rtrim( $string_term, ", " );
-							echo '<span>'. $string_term .'</span>';
-						?>
-					</div>
-				<?php endif; ?>
+				<?php if( isset( $blog_meta['categories'] ) ): ?>
 				
-				<?php if( $terms = get_the_terms( false, 'post_tag' ) ): ?>
-					<div class="tags">
-						<i class="icon-tag"></i>
-						<?php 
-							$string_term = '';
-							foreach( $terms as $term ){
-								$string_term .= '<a href="'. get_term_link( $term, 'post_tag' ) .'">'. $term->name .'</a>, ';
-							}
-							$string_term = rtrim( $string_term, ", " );
-							echo '<span>'. $string_term .'</span>';
-						?>
-					</div>
+					<?php if( $categories = get_the_category() ): ?>
+						<div class="categories">
+							<i class="icon-docs"></i>
+							<?php 
+								$string_cat = '';
+								foreach( $categories as $cat ){
+									$string_cat .= '<a href="'. get_category_link( $cat->term_id ) .'">'. $cat->name .'</a>, ';
+								}
+								$string_cat = rtrim( $string_cat, ", " );
+								echo '<span>'. $string_cat .'</span>';
+							?>
+						</div>
+					<?php endif; ?>
+					
+					<?php 
+						$terms = get_the_terms( false, 'portfolio-types' );
+						if( is_array( $terms ) ): 
+					?>
+						<div class="categories">
+							<i class="icon-docs"></i>
+							<?php
+								$string_term = '';
+								foreach( $terms as $term ){
+									$string_term .= '<a href="'. get_term_link( $term, 'post_tag' ) .'">'. $term->name .'</a>, ';
+								}
+								$string_term = rtrim( $string_term, ", " );
+								echo '<span>'. $string_term .'</span>';
+							?>
+						</div>
+					<?php endif; ?>
+					
+					<?php if( $terms = get_the_terms( false, 'post_tag' ) ): ?>
+						<div class="tags">
+							<i class="icon-tag"></i>
+							<?php 
+								$string_term = '';
+								foreach( $terms as $term ){
+									$string_term .= '<a href="'. get_term_link( $term, 'post_tag' ) .'">'. $term->name .'</a>, ';
+								}
+								$string_term = rtrim( $string_term, ", " );
+								echo '<span>'. $string_term .'</span>';
+							?>
+						</div>
+					<?php endif; ?>
+					
 				<?php endif; ?>
 
 			</div>

@@ -16,7 +16,7 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
             "params" => array(
               array(
                 "type" => "attach_image",
-                "edit_field_class" => "vc_col-xs-6 cqadmin-firstcol-offset",
+                "edit_field_class" => "vc_column vc_col-xs-6 cqadmin-firstcol-offset",
                 "heading" => __("Before image", "vc_beforeafter_cq"),
                 "param_name" => "beforeimage",
                 "value" => "",
@@ -24,11 +24,49 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
               ),
               array(
                 "type" => "attach_image",
-                "edit_field_class" => "vc_col-xs-6 cqadmin-firstcol-offset",
+                "edit_field_class" => "vc_column vc_col-xs-6 cqadmin-firstcol-offset",
                 "heading" => __("After image", "vc_beforeafter_cq"),
                 "param_name" => "afterimage",
                 "value" => "",
                 "description" => __("Select image from media library.", "vc_beforeafter_cq")
+              ),
+              array(
+                "type" => "textfield",
+                "edit_field_class" => "vc_column vc_col-xs-6",
+                "class" => "",
+                "heading" => __("Caption for the before image (optional)", "vc_beforeafter_cq"),
+                "param_name" => "caption1",
+                "value" => "",
+                "description" => __("", "vc_beforeafter_cq")
+              ),
+              array(
+                "type" => "textfield",
+                "edit_field_class" => "vc_column vc_col-xs-6",
+                "class" => "",
+                "heading" => __("Caption for the after image (optional)", "vc_beforeafter_cq"),
+                "param_name" => "caption2",
+                "value" => "",
+                "description" => __("", "vc_beforeafter_cq")
+              ),
+              array(
+                "type" => "colorpicker",
+                "edit_field_class" => "vc_column vc_col-xs-6",
+                "holder" => "div",
+                "class" => "",
+                "heading" => __("Caption text color", 'vc_beforeafter_cq'),
+                "param_name" => "captioncolor",
+                "value" => '',
+                "description" => __("Default is dark gray.", 'vc_beforeafter_cq')
+              ),
+              array(
+                "type" => "colorpicker",
+                "edit_field_class" => "vc_column vc_col-xs-6",
+                "holder" => "div",
+                "class" => "",
+                "heading" => __("Caption background color", 'vc_beforeafter_cq'),
+                "param_name" => "captionbg",
+                "value" => '',
+                "description" => __("Default is white.", 'vc_beforeafter_cq')
               ),
               array(
                 "type" => "dropdown",
@@ -209,6 +247,13 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
               ),
               array(
                 "type" => "textfield",
+                "heading" => __("min-width for the caption", "vc_beforeafter_cq"),
+                "param_name" => "captionminwidth",
+                "value" => "",
+                "description" => __("Require this to display the caption properly, default is 240px.", "vc_beforeafter_cq")
+              ),
+              array(
+                "type" => "textfield",
                 "heading" => __("Extra class name", "vc_beforeafter_cq"),
                 "param_name" => "extraclass",
                 "value" => "",
@@ -320,7 +365,7 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
 
       function cq_vc_beforeafter_func($atts, $content=null, $tag) {
           $handleicon = $icon_fontawesome = $icon_openiconic = $icon_typicons = $icon_entypo = $icon_linecons = $icon_material = $handlecolor = '';
-          $beforeimage = $afterimage = $handletooltip = $autoslide = $link = '';
+          $beforeimage = $afterimage = $handletooltip = $autoslide = $caption1 = $caption2 = $captioncolor = $captionbg = $captionminwidth = $link = '';
           extract(shortcode_atts(array(
             "handleicon" => 'fontawesome',
             "icon_fontawesome" => 'fa fa-arrows-h',
@@ -337,6 +382,11 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
             "handlestyle" => 'lightgray',
             "handlecolor" => '',
             "iconcolor" => '',
+            "caption1" => '',
+            "caption2" => '',
+            "captioncolor" => '',
+            "captionbg" => '',
+            "captionminwidth" => '',
             "extraclass" => ""
           ), $atts));
 
@@ -367,10 +417,12 @@ if (!class_exists('VC_Extensions_BeforeAfter')) {
           $afterimage = wp_get_attachment_image_src($afterimage, 'full');
           $output = '';
           if($link["url"]!=="") $output .= '<a href="'.$link["url"].'" title="'.$link["title"].'" target="'.$link["target"].'" class="cq-beforeafter-link">';
-          $output .= '<div class="cq-beforeafter '.$extraclass.'" data-autoslide="'.$autoslide.'" data-iconcolor="'.$iconcolor.'" data-handlestyle="'.$handlestyle.'" data-handlecolor="'.$handlecolor.'">';
+          $output .= '<div class="cq-beforeafter '.$extraclass.'" data-autoslide="'.$autoslide.'" data-iconcolor="'.$iconcolor.'" data-handlestyle="'.$handlestyle.'" data-handlecolor="'.$handlecolor.'" data-captioncolor="'.$captioncolor.'" data-captionbg="'.$captionbg.'" data-captionminwidth="'.$captionminwidth.'">';
           $output .= '<img class="cq-beforeafter-img" src="'.$beforeimage[0].'" />';
+          if($caption1!="")$output .= '<span class="cq-beforeafter-caption cq-beforeafter-captionleft">'.$caption1.'</span>';
           $output .= '<div class="cq-beforeafter-resize">';
           $output .= '<img class="cq-beforeafter-img" src="'.$afterimage[0].'" />';
+          if($caption2!="")$output .= '<span class="cq-beforeafter-caption cq-beforeafter-captionright">'.$caption2.'</span>';
           $output .= '</div>';
           $output .= '<span class="cq-beforeafter-handle '.$handlestyle.'">';
           if(version_compare(WPB_VC_VERSION,  "4.4")>=0&&isset(${'icon_' . $handleicon})){

@@ -38,10 +38,10 @@
 			if ($img_id != "") {
 				$image_data 				= get_post($img_id);
 				$image_array['alt']			= get_post_meta($img_id, '_wp_attachment_image_alt', true);
-				$image_array['caption']		= $image_data->post_excerpt;
-				$image_array['content']		= $image_data->post_content;
-				$image_array['title']		= $image_data->post_title;
-				$image_array['type']		= $image_data->post_mime_type;
+				$image_array['caption']		= (isset($image_data->post_excerpt) ? $image_data->post_excerpt : '');
+				$image_array['content']		= (isset($image_data->post_content) ? $image_data->post_content : '');
+				$image_array['title']		= (isset($image_data->post_title) ? $image_data->post_title : '');
+				$image_array['type']		= (isset($image_data->post_mime_type) ? $image_data->post_mime_type : '');
 			}
 			return $image_array;
 		}
@@ -157,7 +157,7 @@
                 parse_str($urls['query']);
                 $imgPath = $v;
             }
-            return "https://img.youtube.com/vi/" . $imgPath . "/hqdefault.jpg";
+            return "https://img.youtube.com/vi/" . $imgPath . "/maxresdefault.jpg";
         }
     }
     if (!function_exists('TS_VCSC_VideoID_Youtube')){
@@ -1150,6 +1150,45 @@
 		function TS_VCSC_ConvertPlaceholderComma($string){
 			$string = str_replace(array("|comma|", "/comma/", "{comma}", "[comma]"), ",", $string);
 			return $string;
+		}
+	}
+	if (!function_exists('TS_VCSC_CheckRegisteredFileStatus')) {
+		function TS_VCSC_CheckRegisteredFileStatus($file, $type) {			
+			if (($type == "style") && ($file != '')) {
+				return $filestatus = array(
+					'registered'		=> wp_style_is($file, 'registered'),
+					'enqueued'			=> wp_style_is($file, 'enqueued'),
+					'done'				=> wp_style_is($file, 'done'),
+					'to_do'				=> wp_style_is($file, 'to_do'),
+				);
+			} else if (($type == "script") && ($file != '')) {
+				return $filestatus = array(
+					'registered'		=> wp_script_is($file, 'registered'),
+					'enqueued'			=> wp_script_is($file, 'enqueued'),
+					'done'				=> wp_script_is($file, 'done'),
+					'to_do'				=> wp_script_is($file, 'to_do'),
+				);
+			} else {
+				return $filestatus = array(
+					'registered'		=> false,
+					'enqueued'			=> false,
+					'done'				=> false,
+					'to_do'				=> false,
+				);
+			}
+		}
+	}
+	if (!function_exists('TS_VCSC_FrontendAppendCustomRules')) {
+		function TS_VCSC_FrontendAppendCustomRules($type) {
+			if ($type == "style") {
+				wp_enqueue_style('ts-visual-composer-extend-custom');
+				return "true";
+			} else if ($type == "script") {
+				wp_enqueue_style('ts-visual-composer-extend-custom');
+				return "true";
+			} else {
+				return "false";
+			}
 		}
 	}
 ?>

@@ -8,7 +8,9 @@ if(!class_exists('AIO_Interactive_Banners'))
 	class AIO_Interactive_Banners
 	{
 		function __construct() {
-			add_action('init',array($this,'banner_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'banner_init'));
+			}
 			add_shortcode('interactive_banner',array($this,'banner_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_ib_banner_assets'),1);
 		}
@@ -37,6 +39,23 @@ if(!class_exists('AIO_Interactive_Banners'))
 								"value" => "",
 								"description" => __("Give a title to this banner","ultimate_vc")
 							),
+							array(
+								"type" => "dropdown",
+								"heading" => __("Tag","ultimate_vc"),
+								"param_name" => "heading_tag",
+								"value" => array(
+									__("Default","ultimate_vc") => "h3",
+									__("H1","ultimate_vc") => "h1",
+									__("H2","ultimate_vc") => "h2",
+									__("H4","ultimate_vc") => "h4",
+									__("H5","ultimate_vc") => "h5",
+									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
+								),
+								"description" => __("Default is H3", "ultimate_vc"),
+								),
 							array(
 								"type" => "dropdown",
 								"class" => "",
@@ -401,9 +420,10 @@ if(!class_exists('AIO_Interactive_Banners'))
 		// Shortcode handler function for stats banner
 		function banner_shortcode($atts)
 		{
-			$banner_title = $banner_title_line_height = $banner_desc = $banner_desc_line_height = $banner_icon = $banner_image = $banner_link = $banner_link_text = $banner_style = $banner_bg_color = $el_class = $animation = $icon_disp = $link_opts = $banner_title_location = $banner_title_style_inline = $banner_desc_style_inline = $banner_overlay_bg_color = $banner_link_text_color = $banner_link_bg_color = $css_ibanner = $target = $link_title  = $rel  = '';
+			$banner_title = $heading_tag = $banner_title_line_height = $banner_desc = $banner_desc_line_height = $banner_icon = $banner_image = $banner_link = $banner_link_text = $banner_style = $banner_bg_color = $el_class = $animation = $icon_disp = $link_opts = $banner_title_location = $banner_title_style_inline = $banner_desc_style_inline = $banner_overlay_bg_color = $banner_link_text_color = $banner_link_bg_color = $css_ibanner = $target = $link_title  = $rel  = '';
 			extract(shortcode_atts( array(
 				'banner_title' => '',
+				'heading_tag'	=> 'h3',
 				'banner_desc' => '',
 				'banner_title_location' => 'center',
 				'icon_disp' => 'none',
@@ -519,45 +539,50 @@ if(!class_exists('AIO_Interactive_Banners'))
 				$icon_style.='color:'.$icon_color.';';
 
 			if($banner_icon !== '')
-				$icon = '<i class="'.$banner_icon.'"  style= "'.$icon_style.'"></i>';
+				$icon = '<i class="'.esc_attr($banner_icon).'"  style= "'.esc_attr($icon_style).'"></i>';
 			$img = apply_filters('ult_get_img_single', $banner_image, 'url');
 			$alt = apply_filters('ult_get_img_single', $banner_image, 'alt');
 			$href = vc_build_link($banner_link);
 			$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 			$banner_top_style='';
 			if($banner_height!='' && $banner_height_val!=''){
 				$banner_top_style = 'height:'.$banner_height_val.'px;';
 			}
-			$output .= "\n".'<div id="'.$interactive_banner_1_id.'" class="ult-banner-block '.$is_vc_49_plus.' ult-bb-'.$link_opts.' '.$banner_height.' banner-'.$banner_style.' '.$el_class.'"  '.$css_trans.' style="'.$banner_top_style.''.$headerstyle.'">';
+
+			$heading_tag = ( isset($heading_tag) && trim($heading_tag) != "" ) ? $heading_tag : 'h2';
+			if($heading_tag == 'p')
+					$banner_title_style_inline .= 'transform: none;';
+
+			$output .= "\n".'<div id="'.esc_attr($interactive_banner_1_id).'" class="ult-banner-block '.esc_attr($is_vc_49_plus).' ult-bb-'.esc_attr($link_opts).' '.esc_attr($banner_height).' banner-'.esc_attr($banner_style).' '.esc_attr($el_class).'"  '.$css_trans.' style="'.esc_attr($banner_top_style).''.esc_attr($headerstyle).'">';
 			if($img !== '')
-				$output .= "\n\t".'<img src="'.apply_filters('ultimate_images', $img).'" alt="'.$alt.'">';
+				$output .= "\n\t".'<img src="'.esc_url(apply_filters('ultimate_images', $img)).'" alt="'.esc_attr($alt).'">';
 			if($banner_title !== ''){
-				$output .= "\n\t".'<h3 '.$interactive_banner_1_data_list.' class="title-'.$banner_title_location.' bb-top-title ult-responsive" style="'.$banner_title_style_inline.'">'.$banner_title;
+				$output .= "\n\t".'<'.$heading_tag.' '.$interactive_banner_1_data_list.' class="title-'.esc_attr($banner_title_location).' bb-top-title ult-responsive" style="'.esc_attr($banner_title_style_inline).'">'.$banner_title;
 				if($icon_disp == "with_heading" || $icon_disp == "both")
 					$output .= $icon;
-				$output .= '</h3>';
+				$output .= '</'.$heading_tag.'>';
 			}
 			$banner_overlay_bg_color = 'background:'.$banner_overlay_bg_color.';';
-			$output .= "\n\t".'<div class="mask '.$banner_opacity.'-background" style="'.$banner_overlay_bg_color.'">';
+			$output .= "\n\t".'<div class="mask '.esc_attr($banner_opacity).'-background" style="'.esc_attr($banner_overlay_bg_color).'">';
 			if($icon_disp == "with_description" || $icon_disp == "both"){
 				if($banner_icon !== ''){
 					$output .= "\n\t\t".'<div class="bb-back-icon">'.$icon.'</div>';
-					$output .= "\n\t\t".'<p class="" style="'.$banner_desc_style_inline.'">'.$banner_desc.'</p>';
+					$output .= "\n\t\t".'<p class="" style="'.esc_attr($banner_desc_style_inline).'">'.$banner_desc.'</p>';
 				}
 			} else {
-				$output .= "\n\t\t".'<div '.$interactive_banner_desc_1_data_list.' class="bb-description ult-responsive" style="'.$banner_desc_style_inline.'">'.$banner_desc.'</div>';
+				$output .= "\n\t\t".'<div '.$interactive_banner_desc_1_data_list.' class="bb-description ult-responsive" style="'.esc_attr($banner_desc_style_inline).'">'.$banner_desc.'</div>';
 			}
 			if($link_opts == "more"){
 				$button_style = 'background:'.$banner_link_bg_color.';';
 				$button_style .= 'color:'.$banner_link_text_color.';';
-				$output .= "\n\t\t".'<a class="bb-link" href="'.$url.'" '.$target.' '. $link_title .' '. $rel .' style="'.$button_style.'">'.$banner_link_text.'</a>';
+				$output .= "\n\t\t".'<a class="bb-link" href="'.esc_url($url).'" '.$target.' '. $link_title .' '. $rel .' style="'.esc_attr($button_style).'">'.$banner_link_text.'</a>';
 			}
 			$output .= "\n\t".'</div>';
 			if($link_opts == "box")
-				$output .= '<a class="bb-link" href="'.$url.'" '.$target.' '. $link_title .' '. $rel .'></a>';
+				$output .= '<a class="bb-link" href="'.esc_url($url).'" '.$target.' '. $link_title .' '. $rel .'></a>';
 			$output .= "\n".'</div>';
 
 			$is_preset = false; //Display settings for Preset
@@ -586,7 +611,7 @@ if(class_exists('AIO_Interactive_Banners'))
 {
 	$AIO_Interactive_Banners = new AIO_Interactive_Banners;
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_interactive_banner' ) ) {
     class WPBakeryShortCode_interactive_banner extends WPBakeryShortCode {
     }
 }

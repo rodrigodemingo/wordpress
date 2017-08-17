@@ -296,6 +296,23 @@
     background-image: url(../img/icon_videocard.png) !important;
     background-size: 32px;
 }
+.cq_vc_stepcard_item {
+    background-image: url(../img/icon_stepcard_item.png) !important;
+    background-size: 32px;
+}
+.cq_vc_stepcard {
+    background-image: url(../img/icon_stepcard.png) !important;
+    background-size: 32px;
+}
+.cq_vc_timelinecard_item {
+    background-image: url(../img/icon_timelinecard_item.png) !important;
+    background-size: 32px;
+}
+.cq_vc_timelinecard {
+    background-image: url(../img/icon_timelinecard.png) !important;
+    background-size: 32px;
+}
+
 
 
 

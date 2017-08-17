@@ -1,3 +1,43 @@
+3.16.15 - 16-August-2017
+- Improvement: Added tag options for titles in Flipbox.
+- Improvement: iHover style addition.
+- Fix: Info List icon position in RTL should not change.
+- Fix: Fancy text slide up effect is not working in the Advanced tab.
+- Fix: Advanced carousel dot navigation color option is not working.
+- Fix: Dual button getting collapse in expandable section.
+- Fix: Carousel loading issue in tabs.
+- Fix: Interactive banner-2 title alignment issue.
+- Fix: iHover style not working in Internet Explorer.
+
+3.16.14.1 - 11-August-2017
+- Fix: Element converting into text-blocks.
+
+3.16.14 - 1-August-2017
+- Improvement: Added div, paragraph and span tag options with heading tags for title in modules.
+- Improvement: Interactive banner added Title tags option.
+- Improvement: iHover - added Title tags option.
+- Improvement: Compress plugin images.
+- Fix: Timeline issue with the link.
+- Fix: Info box alignment issue with icon at right with heading.
+- Fix: Dual button font size and line height option not working.
+- Fix: Hotspot RTL Compatibility.
+- Fix: Just icon tooltip text is not working.
+- Fix: Fatal error for redeclaration class in modules.
+- Fix: Advanced tabs scroll issue while click on tab.
+
+3.16.13 - 18-July-2017
+- Improvement: Optimize all the plugin code.
+- Improvement: Provide filters for theme authors to disable enqueing google fonts in front end.
+- Fix: Flipbox flip not working on some of the websites.
+
+3.16.12 - 4-May-2017
+- Fix: PHP Warning in font manager appearing on front end for some users.
+
+3.16.11 - 29-Apr-2017
+- Improved overall security of the plugin by added sanitization wherever required, All the Ajax actions are now checked for user capabilities and nounce to harden the security.
+- Fix: Dual button not working properly for the second style.
+- Fix: WooCommere compatibility for version v3.0.4.
+
 3.16.10 - 07-Apr-2017
 - Fix: Google Fonts Manager loading fonts with http instead of https in the preview.
 - Fix: Google Fonts URL returning 404 if the generated URL had duplicate '|' character.

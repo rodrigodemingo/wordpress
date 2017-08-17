@@ -1,7 +1,6 @@
 <?php
 	global $VISUAL_COMPOSER_EXTENSIONS;
 ?>
-
 <div id="ts-settings-other" class="tab-content">
 	<div class="ts-vcsc-section-main">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-menu"></i>Single Page Navigator Builder <span class="ts-vcsc-element-count">(<i class="dashicons-image-filter"></i> <?php echo ($Extra_Navigator); ?>)</span></div>

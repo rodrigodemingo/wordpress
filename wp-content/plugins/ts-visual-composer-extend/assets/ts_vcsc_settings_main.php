@@ -38,11 +38,9 @@
 				update_option('ts_vcsc_extend_settings_customTimelines',			intval(((isset($_POST['ts_vcsc_extend_settings_customTimelines']))			?	$_POST['ts_vcsc_extend_settings_customTimelines'] 			: 0)));
 				update_option('ts_vcsc_extend_settings_customLogo',					intval(((isset($_POST['ts_vcsc_extend_settings_customLogo'])) 				?	$_POST['ts_vcsc_extend_settings_customLogo'] 				: 0)));				
 			}
-			if ((($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_iconicum', 1) == 1)) || (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "false") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "true"))) {
-				update_option('ts_vcsc_extend_settings_useMenuGenerator',			intval(((isset($_POST['ts_vcsc_extend_settings_useMenuGenerator']))			?	$_POST['ts_vcsc_extend_settings_useMenuGenerator'] 			: 0)));
-				update_option('ts_vcsc_extend_settings_useIconGenerator',			intval(((isset($_POST['ts_vcsc_extend_settings_useIconGenerator']))			?	$_POST['ts_vcsc_extend_settings_useIconGenerator'] 			: 0)));
-				update_option('ts_vcsc_extend_settings_useTinyMCEMedia',			intval(((isset($_POST['ts_vcsc_extend_settings_useTinyMCEMedia']))			?	$_POST['ts_vcsc_extend_settings_useTinyMCEMedia'] 			: 0)));
-			}
+			update_option('ts_vcsc_extend_settings_useMenuGenerator',				intval(((isset($_POST['ts_vcsc_extend_settings_useMenuGenerator']))			?	$_POST['ts_vcsc_extend_settings_useMenuGenerator'] 			: 0)));
+			update_option('ts_vcsc_extend_settings_useIconGenerator',				intval(((isset($_POST['ts_vcsc_extend_settings_useIconGenerator']))			?	$_POST['ts_vcsc_extend_settings_useIconGenerator'] 			: 0)));
+			update_option('ts_vcsc_extend_settings_useTinyMCEMedia',				intval(((isset($_POST['ts_vcsc_extend_settings_useTinyMCEMedia']))			?	$_POST['ts_vcsc_extend_settings_useTinyMCEMedia'] 			: 0)));
 			update_option('ts_vcsc_extend_settings_mainmenu', 						intval(((isset($_POST['ts_vcsc_extend_settings_mainmenu'])) 				?	$_POST['ts_vcsc_extend_settings_mainmenu'] 					: 0)));
 			update_option('ts_vcsc_extend_settings_translationsDomain',				intval(((isset($_POST['ts_vcsc_extend_settings_translationsDomain'])) 		?	$_POST['ts_vcsc_extend_settings_translationsDomain'] 		: 0)));
 			update_option('ts_vcsc_extend_settings_previewImages',					intval(((isset($_POST['ts_vcsc_extend_settings_previewImages'])) 			?	$_POST['ts_vcsc_extend_settings_previewImages'] 			: 0)));			
@@ -59,8 +57,6 @@
 			update_option('ts_vcsc_extend_settings_lightboxIntegration',			intval(((isset($_POST['ts_vcsc_extend_settings_lightboxIntegration'])) 		?	$_POST['ts_vcsc_extend_settings_lightboxIntegration'] 		: 0)));
 			update_option('ts_vcsc_extend_settings_lightboxPrettyPhoto',			intval(((isset($_POST['ts_vcsc_extend_settings_lightboxPrettyPhoto'])) 		?	$_POST['ts_vcsc_extend_settings_lightboxPrettyPhoto'] 		: 0)));
 			update_option('ts_vcsc_extend_settings_allowAutoUpdate',				intval(((isset($_POST['ts_vcsc_extend_settings_allowAutoUpdate'])) 			?	$_POST['ts_vcsc_extend_settings_allowAutoUpdate'] 			: 0)));			
-			update_option('ts_vcsc_extend_settings_allowMenuBarNotice',				intval(((isset($_POST['ts_vcsc_extend_settings_allowMenuBarNotice']))		?	$_POST['ts_vcsc_extend_settings_allowMenuBarNotice']		: 0)));			
-			update_option('ts_vcsc_extend_settings_allowNotification',				intval(((isset($_POST['ts_vcsc_extend_settings_allowNotification'])) 		?	$_POST['ts_vcsc_extend_settings_allowNotification'] 		: 0)));
 			update_option('ts_vcsc_extend_settings_allowDeprecated',				intval(((isset($_POST['ts_vcsc_extend_settings_allowDeprecated'])) 			?	$_POST['ts_vcsc_extend_settings_allowDeprecated'] 			: 0)));
 			update_option('ts_vcsc_extend_settings_allowShortcodesWidgets',			intval(((isset($_POST['ts_vcsc_extend_settings_allowShortcodesWidgets'])) 	?	$_POST['ts_vcsc_extend_settings_allowShortcodesWidgets']	: 0)));			
 			update_option('ts_vcsc_extend_settings_allowAutoParagraphs',			intval(((isset($_POST['ts_vcsc_extend_settings_allowAutoParagraphs'])) 		?	$_POST['ts_vcsc_extend_settings_allowAutoParagraphs']		: 0)));
@@ -347,15 +343,24 @@
 				'forward'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerForward']),
 				'played'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerPlayed']),
 				'buffered'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerBuffered']),
-				'currenttime'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerCurrentYime']),
+				'currenttime'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerCurrenttime']),
 				'duration'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerDuration']),
 				'volume'			=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerVolume']),
-				'togglemute'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleMute']),
+				'togglemute'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerTogglemute']),
 				'togglecaptions'	=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleCaptions']),
 				'togglefullscreen'	=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerToggleFullscreen']),
-				'frametitle'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerFrameTitle']),
+				'frametitle'		=> trim ($_POST['ts_vcsc_extend_settings_languagePlyrPlayerFrametitle']),
 			);
 			update_option('ts_vcsc_extend_settings_translationsPlyrPlayer',			$TS_VCSC_PlyrVideo_Language);
+			
+			// Language Settings: Loan Calculator
+			$TS_VCSC_LoanCalculator_Language = array ();
+			foreach ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Loan_Calculator_Language_Defaults as $key => $value) {
+				$settings_key 		= explode("_", $key);
+				$settings_key 		= ucwords($settings_key[0]) . ucwords($settings_key[1]);
+				$TS_VCSC_LoanCalculator_Language[$key] = trim ($_POST['ts_vcsc_extend_settings_languageLoanCalculator' . $settings_key]);
+			}
+			update_option('ts_vcsc_extend_settings_translationsLoanCalculator',		$TS_VCSC_LoanCalculator_Language);
 			
 			// Language Settings: Isotope Posts
 			$TS_VCSC_Isotope_Posts_Language = array(
@@ -614,9 +619,7 @@
 		$ts_vcsc_extend_settings_builtinLightbox					= get_option('ts_vcsc_extend_settings_builtinLightbox', 			1);
 		$ts_vcsc_extend_settings_lightboxIntegration				= get_option('ts_vcsc_extend_settings_lightboxIntegration', 		0);
 		$ts_vcsc_extend_settings_lightboxPrettyPhoto				= get_option('ts_vcsc_extend_settings_lightboxPrettyPhoto', 		0);
-		$ts_vcsc_extend_settings_allowAutoUpdate					= get_option('ts_vcsc_extend_settings_allowAutoUpdate', 			1);
-		$ts_vcsc_extend_settings_allowNotification					= get_option('ts_vcsc_extend_settings_allowNotification', 			1);
-		$ts_vcsc_extend_settings_allowMenuBarNotice					= get_option('ts_vcsc_extend_settings_allowMenuBarNotice', 			0);		
+		$ts_vcsc_extend_settings_allowAutoUpdate					= get_option('ts_vcsc_extend_settings_allowAutoUpdate', 			1);	
 		$ts_vcsc_extend_settings_allowDeprecated					= get_option('ts_vcsc_extend_settings_allowDeprecated', 			0);
 		$ts_vcsc_extend_settings_variablesPriority					= get_option('ts_vcsc_extend_settings_variablesPriority', 			'6');
 		$ts_vcsc_extend_settings_allowShortcodesWidgets 			= get_option('ts_vcsc_extend_settings_allowShortcodesWidgets', 		1);
@@ -656,6 +659,9 @@
 		// Language Settings: Plyr Video Player
 		$TS_VCSC_PlyrVideo_Language 								= get_option('ts_vcsc_extend_settings_translationsPlyrPlayer',		$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Plyr_Player_Language_Defaults);
 		
+		// Language Settings: Loan Calculator
+		$TS_VCSC_LoanCalculator_Language							= get_option('ts_vcsc_extend_settings_translationsLoanCalculator',	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Loan_Calculator_Language_Defaults);
+
 		// Language Settings: Isotope Posts
 		$TS_VCSC_Isotope_Posts_Language 							= get_option('ts_vcsc_extend_settings_translationsIsotopePosts',	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Isotope_Posts_Language_Defaults);
 		
@@ -748,16 +754,16 @@
 	// License Message Check
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginIsMultiSiteActive == "true") {
 		if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "false") {
-			echo '<div class="clearFixMe" style="font-weight: bold; text-align: justify; color: green; margin: 20px 0 10px 0; padding: 10px; background: #ffffff; border: 1px solid #dddddd;">Please enter your License Key in order to activate the Auto-Update and the bonus tinyMCE Font Icon Generator features of the plugin!</div>';
+			echo '<div class="clearFixMe" style="font-weight: bold; text-align: justify; color: green; margin: 20px 0 10px 0; padding: 10px; background: #ffffff; border: 1px solid #dddddd;">Please enter your license key in order to activate the auto-update routine of the plugin!</div>';
 		}
 	} else {
 		if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "false") {
-			echo '<div class="clearFixMe" style="font-weight: bold; text-align: justify; color: green; margin: 20px 0 10px 0; padding: 10px; background: #ffffff; border: 1px solid #dddddd;">Please enter your License Key in order to activate the Auto-Update and the bonus tinyMCE Font Icon Generator features of the plugin!</div>';
+			echo '<div class="clearFixMe" style="font-weight: bold; text-align: justify; color: green; margin: 20px 0 10px 0; padding: 10px; background: #ffffff; border: 1px solid #dddddd;">Please enter your license key in order to activate the auto-update routine of the plugin!</div>';
 		}
 	}
 	
 	// Visual Composer 5.x Check
-	if (TS_VCSC_VersionCompare(WPB_VC_VERSION, '5.0.0') >= 0) {
+	if (TS_VCSC_VersionCompare($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Version, '5.0.0') >= 0) {
 		$TS_VCSC_ComposerSectionElement 							= "true";
 	} else {
 		$TS_VCSC_ComposerSectionElement 							= "false";
@@ -792,14 +798,12 @@
 		return $output;
 	}
 ?>
-
 <div id="ts_vcsc_extend_errors" style="display: none;">
 	<div class="ts-vcsc-section-main">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-hammer ts-vcsc-section-title-icon"></i><span class="ts-vcsc-section-title-header"></span></div>
 		<div class="ts-vcsc-section-content"></div>
 	</div>
 </div>
-
 <form id="ts_vcsc_extend_settings" data-type="settings" class="ts_vcsc_extend_global_settings" name="ts_vcsc_extend_settings" style="margin-top: 25px; width: 100%;" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 	<span id="gallery_settings_true" style="display: none !important; margin-bottom: 20px;">
 		<input type="text" style="width: 20%;" id="ts_vcsc_extend_settings_true" name="ts_vcsc_extend_settings_true" value="0" size="100">
@@ -871,7 +875,7 @@
 					<li id="link-ts-settings-iconview"	data-tab="ts-settings-iconview" 		data-order="15"		data-name="Icon Preview"			class="link-url"><i class="dashicons-visibility"></i>Icon Previews<span id="errorTab15" class="errorMarker"></span></li>
 				</a>
 				<?php
-					if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "true")) {
+					if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") {
 						if (get_option('ts_vcsc_extend_settings_useMenuGenerator', 0) == 1) {
 							echo '<a href="admin.php?page=TS_VCSC_Generator" target="_parent" style="color: #000000;">';
 								echo '<li id="link-ts-settings-generator" 		data-tab="ts-settings-generator"	data-order="16"		data-name="Icon Generator"			class="link-url"><i class="dashicons-hammer"></i>Icon Generator<span id="errorTab16" class="errorMarker"></span></li>';
@@ -936,13 +940,8 @@
 							echo '<li id="link-ts-settings-transfers" 		data-tab="ts-settings-transfers"		data-order="28"		data-name="Transfer Settings"		class="link-url ' . $TS_VCSC_SimpleOptionsClass . '"><i class="dashicons-migrate"></i>Transfer Settings<span id="errorTab28" class="errorMarker"></span></li>';
 						echo '</a>';
 					}
-					if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ShowNotificationPage == "true") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseUpdateNotification == "true")) {
-						echo '<a href="admin.php?page=TS_VCSC_Notification" target="_parent">';
-							echo '<li id="link-ts-settings-update" 			data-tab="ts-settings-update" 			data-order="29"		data-name="Update Available"		class="link-url link-update"><i class="dashicons-update"></i>Update Available<span id="errorTab29" class="errorMarker"></span></li>';
-						echo '</a>';
-					}
 					echo '<a href="admin.php?page=TS_VCSC_About" target="_parent" style="color: #000000;">';
-						echo '<li id="link-ts-settings-about" 				data-tab="ts-settings-about"			data-order="30"		data-name="About Composium"			class="link-url last"><i class="dashicons-info"></i>About Composium<span id="errorTab30" class="errorMarker"></span></li>';
+						echo '<li id="link-ts-settings-about" 				data-tab="ts-settings-about"			data-order="29"		data-name="About Composium"			class="link-url last"><i class="dashicons-info"></i>About Composium<span id="errorTab29" class="errorMarker"></span></li>';
 					echo '</a>';
 				?>
 			</ul>

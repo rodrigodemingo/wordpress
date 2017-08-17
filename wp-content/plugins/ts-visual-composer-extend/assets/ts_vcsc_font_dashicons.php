@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Dashicons = array(
     $this->TS_VCSC_Icons_Compliant_Dashicons = array(
         "Dashicons Font" => array(
             array("dashicons-menu" => "menu"),

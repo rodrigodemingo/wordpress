@@ -1,5 +1,29 @@
 # Redux Framework Changelog
 
+## 3.6.5
+* Modified: #3321 - Font subset in typography not rendering on IE and Edge (Seriously?  People still use those?)
+* Modified: PHP7 compatibility.
+
+## 3.6.4.4
+* Fixed:    #3293 - Required not liking/hiding fields with switch default of 'false'.
+
+## 3.6.4.3
+* Fixed:    Remove leftover var_dump from the core.
+
+## 3.6.4.2
+* Fixed:    Tracking and newsletter popups were failing due to broken javascript.
+* Fixed:    #3291: Required with parent as an array not checking properly.  Someone took out my object check!! - kp
+* Modified: Date field calander now renders on .redux-container div.
+
+## 3.6.4.1
+* Updated:  googlegonts.php file.
+* Modified: = and != required statements now use typesafe comparisons.
+* Fixed:    link_color field now properly displays all color fields.
+* Added:    link_color field now included 'focus' color block.
+* Modified: Re-styled link_color field to be more inline with other fields of it's type, that is, it looks better.
+* Added:    'title' attribute to image_select field, since 'alt' was no longer working to display hover tooltip.
+* Fixed:    Default data not saving correctly in sorter field.
+
 ## 3.6.4
 * WP.org release
 

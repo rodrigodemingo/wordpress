@@ -110,11 +110,15 @@ jQuery('form').submit(function(){
 
 function mfnBuilder(){
 		
-	var desktop = jQuery('#mfn-desk');
-	if( ! desktop.length ) return false;	// Exit if Builder HTML does not exist
+	var desktop = jQuery( '#mfn-desk' );
+	if( ! desktop.length ){
+		return false;	// Exit if Builder HTML does not exist
+	}
 	
-	var sectionID 	= jQuery('#mfn-row-id');
-	var wrapID 		= jQuery('#mfn-wrap-id');
+	var sectionID 	= jQuery( '#mfn-row-id' );
+	var wrapID 		= jQuery( '#mfn-wrap-id' );
+	
+	var qt_exists 	= false;
 
 
 	// Sizes ----------------------------------------
@@ -153,6 +157,7 @@ function mfnBuilder(){
 		'how_it_works'		: [ '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
 		'icon_box'			: [ '1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
 		'image'				: [ '1/6', '1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
+		'image_gallery'		: [ '1/1' ],
 		'info_box'			: [ '1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
 		'list'				: [ '1/6', '1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
 		'map'				: [ '1/6', '1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '5/6', '1/1' ],
@@ -639,25 +644,25 @@ function mfnBuilder(){
 	
 
 	// Element | Edit --------------------------------------------
-	jQuery('.mfn-element-edit').click(function(){
+	jQuery( '.mfn-element-edit' ).click( function(){
 		
 		enableBeforeUnload();
 		
-		var el = jQuery(this).closest('.mfn-element');
-		var meta = el.children('.mfn-element-meta');
-
-		
 		// disable background content scrolling & dragging
-		jQuery('body').addClass('mfn-popup-open');
-		jQuery('#mfn-content').find('.ui-sortable').sortable('disable');
-		jQuery(this).closest('.mfn-row').addClass('editing');
+		jQuery( 'body' ).addClass( 'mfn-popup-open' );
+		jQuery( '#mfn-content' ).find( '.ui-sortable' ).sortable( 'disable' );
+		jQuery( this ).closest( '.mfn-row' ).addClass( 'editing' );
 		
 		
-		meta.wrap('<div class="mfn-popup mfn-popup-item-edit"><div class="mfn-popup-inside"><div class="mfn-popup-content"></div></div></div>');
-		meta.show();
+		var el = jQuery(this).closest( '.mfn-element' );
+		var meta = el.children( '.mfn-element-meta' );
+
+		meta
+			.wrap( '<div class="mfn-popup mfn-popup-item-edit"><div class="mfn-popup-inside"><div class="mfn-popup-content"></div></div></div>' )
+			.show();
 		
-		var popup = meta.closest('.mfn-popup');
-		var title = el.attr('data-title');
+		var popup = meta.closest( '.mfn-popup' );
+		var title = el.attr( 'data-title' );
 		
 		popup.find('.mfn-popup-inside').prepend('<div class="mfn-popup-header"><div class="mfn-ph-left"><span class="mfn-ph-btn mfn-ph-desc">'+ title +'</span></div><div class="mfn-ph-right"><a class="mfn-ph-btn mfn-ph-close dashicons dashicons-no" href="#"></a></div></div>');	
 		
@@ -678,20 +683,31 @@ function mfnBuilder(){
 	
 			try {
 				
-				jQuery('.wp-switch-editor.switch-html').click();
-				jQuery('.wp-switch-editor.switch-tmce').click();
+				jQuery( '#content-tmce.wp-switch-editor' ).click();
 				
-				tinymce.execCommand('mceAddEditor', true, 'mfn-editor');
+				if( ! qt_exists ){
+					quicktags({
+						id : 'mfn-editor'
+					});
+					qt_exists = true;
+				}
 				
-			} catch (err) {
+				tinymce.execCommand( 'mceAddEditor', true, 'mfn-editor' );
+
+				jQuery( '.switch-html', popup ).click(function(){
+					jQuery(this).closest('.wp-editor-wrap').removeClass('tmce-active').addClass('html-active');
+				});
+				
+				jQuery( '.switch-tmce', popup ).click(function(){
+					jQuery(this).closest('.wp-editor-wrap').removeClass('html-active').addClass('tmce-active');
+				});
+				
+			} catch( err ){
+				
 //				console.log(err);
+				
 			}
 			
-			jQuery('.mfn-popup .mce-tinymce .mce-i-wp_more, .mfn-popup .mce-tinymce .mce-i-dfw, .mfn-popup .mce-tinymce .mce_woocommerce_shortcodes_button, .mfn-popup .mce-tinymce .mce_revslider')
-				.closest('.mce-btn').remove();
-			
-			jQuery('.mfn-popup textarea.editor').closest('td').prepend('<a href="#" class="mfn-switch-editor">Visual / HTML<span>may remove some tags</span></a>');
-
 			jQuery( 'html' ).scrollTop( scrTop );
 		}
 		
@@ -729,38 +745,48 @@ function mfnBuilder(){
 	
 	// Element | Close -----------------------------------------
 	
-	jQuery('body').on('click', '.mfn-popup-item-edit .mfn-ph-close', function(e){
+	jQuery( 'body' ).on( 'click', '.mfn-popup-item-edit .mfn-ph-close', function( e ){
 		e.preventDefault();
-
 		
+		var popup = jQuery( this ).closest( '.mfn-popup' );
+		
+
 		// Tiny MCE Editor ---------------------------------------
 		
 		try {
 			
-			if( ! tinymce.get( 'mfn-editor' ) ){	
-				tinymce.execCommand( 'mceAddEditor', false, 'mfn-editor' );				
-			} 
+			if( ! tinymce.getContent ){
+				tinymce.execCommand( 'mceToggleEditor', false, 'mfn-editor' )
+			}
+
+			/*
+			 * Do NOT change order of below lines
+			 * Get editor content, save it to variable, destroy editor, set textarea content
+			 */
 			
-			var tinyHTML = tinymce.get( 'mfn-editor' ).getContent();		// Fix | HTML Tags 1/2
+			var editorContent =  tinymce.get( 'mfn-editor' ).getContent();
 			
+			jQuery( '.wp-editor-wrap', popup ).removeClass( 'html-active' ).addClass( 'tmce-active' );		
 			tinymce.execCommand( 'mceRemoveEditor', false, 'mfn-editor' );
 			
-			jQuery( '#mfn-editor' ).val( tinyHTML );						// Fix | HTML Tags 2/2
+			jQuery( '#mfn-editor' ).val( editorContent );
 			
-	    } catch (err) {
-//		    console.log(err);
+	    } catch( err ){
+	    	
+//		    console.log( err );
+	    	
 	    }
 	    
-	    jQuery('.mfn-switch-editor').remove();
-	    jQuery('#mfn-editor').removeAttr('id');
+	    jQuery( '#mfn-editor' ).removeAttr( 'id' );
 	    
-	    // _____
+	    // end: Tiny MCE Editor
 	    
 	    
-	    // Tabs | destroy sortable
+	    // UI Sortable | destroy
 	    
-		jQuery('.tabs-ul.ui-sortable').sortable('destroy');
-
+		jQuery( '.gallery-container.ui-sortable' ).sortable( 'destroy' );
+		jQuery( '.tabs-ul.ui-sortable' ).sortable( 'destroy' );
+		
 	    
 		// Background Scrolling & Dragging | enable
 		
@@ -771,7 +797,6 @@ function mfnBuilder(){
 		
 		// Fade Out
 		
-		var popup = jQuery( this ).closest( '.mfn-popup' );
 		popup.fadeOut( 300 );
 		
 		

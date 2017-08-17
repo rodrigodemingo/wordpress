@@ -7,7 +7,9 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 	class Ultimate_Carousel {
 
 		function __construct() {
-			add_action( "init", array( $this, "init_carousel_addon" ) );
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action( "init", array( $this, "init_carousel_addon" ) );
+			}
 			add_shortcode( "ultimate_carousel", array( $this, "ultimate_carousel_shortcode" ) );
 			add_action( "wp_enqueue_scripts", array( $this, "ultimate_front_scripts" ), 1 );
 			add_action( "admin_enqueue_scripts", array( $this, "custom_param_styles" ) );
@@ -30,21 +32,9 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 		}
 
 		function ultimate_front_scripts() {
-			$bsf_dev_mode = bsf_get_option( 'dev_mode' );
-			if ( $bsf_dev_mode === 'enable' ) {
-				$js_path  = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext      = '';
-			} else {
-				$js_path  = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext      = '.min';
-			}
-			wp_register_script( "ult-slick", plugins_url( $js_path . "slick" . $ext . ".js", __FILE__ ), array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_register_script( "ult-slick-custom", plugins_url( $js_path . "slick-custom" . $ext . ".js", __FILE__ ), array(
-				'jquery',
-				'ult-slick'
-			), ULTIMATE_VERSION, false );
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-slick', 'slick', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-slick-custom', 'slick-custom', false, array( 'jquery', 'ult-slick' ), ULTIMATE_VERSION, false );
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-slick', 'slick' );
 			Ultimate_VC_Addons::ultimate_register_style( 'ult-icons', plugins_url( "../assets/css/icons.css", __FILE__ ), true );
@@ -637,16 +627,16 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 			if ( is_rtl() ) {
 				if ( $arrows !== 'off' && $arrows !== '' ) {
 					$settings .= 'arrows: true,';
-					$settings .= 'nextArrow: \'<button type="button" role="button" aria-label="Next" style="' . $arr_style . '" class="slick-next ' . $arrow_style . '"><i class="' . $prev_icon . '"></i></button>\',';
-					$settings .= 'prevArrow: \'<button type="button" role="button" aria-label="Previous" style="' . $arr_style . '" class="slick-prev ' . $arrow_style . '"><i class="' . $next_icon . '"></i></button>\',';
+					$settings .= 'nextArrow: \'<button type="button" role="button" aria-label="Next" style="' . esc_attr($arr_style) . '" class="slick-next ' . esc_attr($arrow_style) . '"><i class="' . esc_attr($prev_icon) . '"></i></button>\',';
+					$settings .= 'prevArrow: \'<button type="button" role="button" aria-label="Previous" style="' . esc_attr($arr_style) . '" class="slick-prev ' . esc_attr($arrow_style) . '"><i class="' . esc_attr($next_icon) . '"></i></button>\',';
 				} else {
 					$settings .= 'arrows: false,';
 				}
 			} else {
 				if ( $arrows !== 'off' && $arrows !== '' ) {
 					$settings .= 'arrows: true,';
-					$settings .= 'nextArrow: \'<button type="button" role="button" aria-label="Next" style="' . $arr_style . '" class="slick-next ' . $arrow_style . '"><i class="' . $next_icon . '"></i></button>\',';
-					$settings .= 'prevArrow: \'<button type="button" role="button" aria-label="Previous" style="' . $arr_style . '" class="slick-prev ' . $arrow_style . '"><i class="' . $prev_icon . '"></i></button>\',';
+					$settings .= 'nextArrow: \'<button type="button" role="button" aria-label="Next" style="' . esc_attr($arr_style) . '" class="slick-next ' . esc_attr($arrow_style) . '"><i class="' . esc_attr($next_icon) . '"></i></button>\',';
+					$settings .= 'prevArrow: \'<button type="button" role="button" aria-label="Previous" style="' . esc_attr($arr_style) . '" class="slick-prev ' . esc_attr($arrow_style) . '"><i class="' . esc_attr($prev_icon) . '"></i></button>\',';
 				} else {
 					$settings .= 'arrows: false,';
 				}
@@ -743,10 +733,10 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 			$settings .= 'pauseOnDotsHover: true,';
 			if ( $dots_icon !== 'off' && $dots_icon !== '' ) {
 				if ( $dots_color !== 'off' && $dots_color !== '' ) {
-					$custom_dots = 'style="color:' . $dots_color . ';"';
+					$custom_dots = 'style= "color:' . esc_attr( $dots_color ) . ';"';
 				}
 				$settings .= 'customPaging: function(slider, i) {
-                   return \'<i type="button" ' . $custom_dots . ' class="' . $dots_icon . '" data-role="none"></i>\';
+                   return \'<i type="button" ' . $custom_dots . ' class="' . esc_attr( $dots_icon ) . '" data-role="none"></i>\';
                 },';
 			}
 
@@ -756,8 +746,8 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 			ob_start();
 			$uniqid = uniqid( rand() );
 
-			echo '<div id="ult-carousel-' . $uniqid . '" class="ult-carousel-wrapper ' . $desing_style . ' ' . $el_class . ' ult_' . $slider_type . '" data-gutter="' . $item_space . '" data-rtl="' . $site_rtl . '" >';
-			echo '<div class="ult-carousel-' . $uid . ' " ' . $wrap_data . '>';
+			echo '<div id="ult-carousel-' . esc_attr( $uniqid ) . '" class="ult-carousel-wrapper ' . esc_attr( $desing_style ) . ' ' . esc_attr($el_class) . ' ult_' . esc_attr($slider_type) . '" data-gutter="' . esc_attr($item_space) . '" data-rtl="' . esc_attr($site_rtl) . '" >';
+			echo '<div class="ult-carousel-' . esc_attr($uid) . ' " ' . $wrap_data . '>';
 			ultimate_override_shortcodes( $item_space, $item_animation );
 			echo do_shortcode( $content );
 			ultimate_restore_shortcodes();
@@ -775,7 +765,7 @@ if ( ! class_exists( "Ultimate_Carousel" ) ) {
 	}
 
 	new Ultimate_Carousel;
-	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+	if ( class_exists( 'WPBakeryShortCodesContainer' ) && !class_exists( 'WPBakeryShortCode_ultimate_carousel' ) ) {
 		class WPBakeryShortCode_ultimate_carousel extends WPBakeryShortCodesContainer {
 		}
 	}
@@ -804,7 +794,7 @@ if ( ! function_exists( 'ultimate_wrap_shortcode_in_div' ) ) {
 	function ultimate_wrap_shortcode_in_div( $attr, $content = null, $tag ) {
 		global $_shortcode_tags;
 
-		return '<div class="ult-item-wrap" data-animation="animated ' . $_shortcode_tags["item_animation"] . '">' . call_user_func( $_shortcode_tags[ $tag ], $attr, $content, $tag ) . '</div>';
+		return '<div class="ult-item-wrap" data-animation="animated ' . esc_attr($_shortcode_tags["item_animation"]) . '">' . call_user_func( $_shortcode_tags[ $tag ], $attr, $content, $tag ) . '</div>';
 	}
 }
 if ( ! function_exists( 'ultimate_restore_shortcodes' ) ) {

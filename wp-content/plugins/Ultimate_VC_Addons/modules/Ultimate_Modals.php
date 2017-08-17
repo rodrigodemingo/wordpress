@@ -9,10 +9,12 @@ if(!class_exists('Ultimate_Modals'))
 	{
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				// Initialize the modal popup component for Visual Composer
+				add_action('init', array( $this, 'ultimate_modal_init' ) );
+			}
 			// Add shortcode for modal popup
 			add_shortcode('ultimate_modal', array(&$this, 'modal_shortcode' ) );
-			// Initialize the modal popup component for Visual Composer
-			add_action('init', array( $this, 'ultimate_modal_init' ) );
 			add_action("wp_enqueue_scripts", array($this, "register_modal_assets"),1);
 		}
 		function register_modal_assets()
@@ -238,20 +240,20 @@ if(!class_exists('Ultimate_Modals'))
 				//$ico_img = wp_get_attachment_image_src( $icon_img, 'large');
 				$ico_img = apply_filters('ult_get_img_single', $icon_img, 'url');
 				$ico_alt = apply_filters('ult_get_img_single', $icon_img, 'alt');
-				$box_icon = '<div class="modal-icon"><img src="'.apply_filters('ultimate_images', $ico_img).'" class="ult-modal-inside-img" alt="'.$ico_alt.'"></div>';
+				$box_icon = '<div class="modal-icon"><img src="'.esc_url(apply_filters('ultimate_images', $ico_img)).'" class="ult-modal-inside-img" alt="'.esc_attr($ico_alt).'"></div>';
 			} elseif($icon_type == 'selector'){
 				if($icon !== '')
-					$box_icon = '<div class="modal-icon"><i class="'.$icon.'"></i></div>';
+					$box_icon = '<div class="modal-icon"><i class="'.esc_attr($icon).'"></i></div>';
 			}
 			if($modal_style != 'overlay-show-cornershape' && $modal_style != 'overlay-show-genie' && $modal_style != 'overlay-show-boxes'){
 				$modal_class = 'overlay-show';
-				$modal_data_class = 'data-overlay-class="'.$modal_style.'"';
+				$modal_data_class = 'data-overlay-class="'.esc_attr($modal_style).'"';
 			} else {
 				$modal_class = $modal_style;
 				$modal_data_class = '';
 			}
 
-				$html .= '<div id="'.$modal_trgs_id.'" class="ult-modal-input-wrapper '.$is_vc_49_plus.' '.$init_extra_class.' '.$css_modal_box.'">';
+				$html .= '<div id="'.esc_attr($modal_trgs_id).'" class="ult-modal-input-wrapper '.esc_attr($is_vc_49_plus).' '.esc_attr($init_extra_class).' '.esc_attr($css_modal_box).'">';
 
 			if($modal_on == "button"){
 				if($btn_bg_color !== ''){
@@ -265,7 +267,7 @@ if(!class_exists('Ultimate_Modals'))
 					$modal_class .= ' '.$el_class.'-button ';
 
 
-				$html .= '<button '.$button_trg_data_list.' style="'.$style.' '.$button_text_style.'" data-class-id="content-'.$uniq.'" class="btn-modal ult-responsive btn-primary btn-modal-'.$btn_size.' '.$modal_class.' ult-align-'.$modal_on_align.'" '.$modal_data_class.'>'.$btn_text.'</button>';
+				$html .= '<button '.$button_trg_data_list.' style="'.esc_attr($style).' '.esc_attr($button_text_style).'" data-class-id="content-'.esc_attr($uniq).'" class="btn-modal ult-responsive btn-primary btn-modal-'.esc_attr($btn_size).' '.esc_attr($modal_class).' ult-align-'.esc_attr($modal_on_align).'" '.$modal_data_class.'>'.$btn_text.'</button>';
 
 			} elseif($modal_on == "image"){
 				if($btn_img !==''){
@@ -274,20 +276,20 @@ if(!class_exists('Ultimate_Modals'))
 					// $img = wp_get_attachment_image_src( $btn_img, 'large');
 					$img = apply_filters('ult_get_img_single', $btn_img, 'url');
 					$btn_alt = apply_filters('ult_get_img_single', $btn_img, 'alt');
-					$html .= '<img src="'.apply_filters('ultimate_images', $img).'" alt="'.$btn_alt.'" data-class-id="content-'.$uniq.'" class="ult-modal-img '.$modal_class.' ult-align-'.$modal_on_align.' ult-modal-image-'.$el_class.'" '.$modal_data_class.'/>';
+					$html .= '<img src="'.esc_url(apply_filters('ultimate_images', $img)).'" alt="'.esc_attr($btn_alt).'" data-class-id="content-'.esc_attr($uniq).'" class="ult-modal-img '.esc_attr($modal_class).' ult-align-'.esc_attr($modal_on_align).' ult-modal-image-'.esc_attr($el_class).'" '.$modal_data_class.'/>';
 				}
 			}
 			elseif($modal_on == "onload"){
-				$html .= '<div data-class-id="content-'.$uniq.'" class="ult-onload '.$modal_class.' " '.$modal_data_class.' data-onload-delay="'.$onload_delay.'"></div>';
+				$html .= '<div data-class-id="content-'.esc_attr($uniq).'" class="ult-onload '.esc_attr($modal_class).' " '.$modal_data_class.' data-onload-delay="'.esc_attr($onload_delay).'"></div>';
 			}
 			elseif($modal_on == "custom-selector") {
 				$html .= '<script type="text/javascript">
 				(function($){
 					$(document).ready(function(){
-						var selector = "'.$modal_on_selector.'";
-						$(selector).addClass("custom-ult-modal '.$modal_class.'");
-						$(selector).attr("data-class-id", "content-'.$uniq.'");
-						$(selector).attr("data-overlay-class", "'.$modal_style.'");
+						var selector = "'.esc_attr($modal_on_selector).'";
+						$(selector).addClass("custom-ult-modal '.esc_attr($modal_class).'");
+						$(selector).attr("data-class-id", "content-'.esc_attr($uniq).'");
+						$(selector).attr("data-overlay-class", "'.esc_attr($modal_style).'");
 					});
 				})(jQuery);
 				</script>';
@@ -299,62 +301,62 @@ if(!class_exists('Ultimate_Modals'))
 				}
 				if($el_class != '')
 					$modal_class .= ' '.$el_class.'-link ';
-				$html .= '<span '.$madal_trg_data_list.' style="'.$style.' '.$trigger_text_style.'" data-class-id="content-'.$uniq.'" class="'.$modal_class.' ult-responsive mycust ult-align-'.$modal_on_align.'" '.$modal_data_class.'>'.$read_text.'</span>';
+				$html .= '<span '.$madal_trg_data_list.' style="'.esc_attr($style).' '.esc_attr($trigger_text_style).'" data-class-id="content-'.esc_attr($uniq).'" class="'.esc_attr($modal_class).' ult-responsive mycust ult-align-'.esc_attr($modal_on_align).'" '.$modal_data_class.'>'.$read_text.'</span>';
 			}
 			$html .= '</div>';
 			if($modal_style == 'overlay-show-cornershape') {
-				$html .= "\n".'<div class="ult-overlay overlay-cornershape content-'.$uniq.' '.$el_class.'" style="display:none" data-class="content-'.$uniq.'" data-path-to="m 0,0 1439.999975,0 0,805.99999 -1439.999975,0 z">';
+				$html .= "\n".'<div class="ult-overlay overlay-cornershape content-'.esc_attr($uniq).' '.esc_attr($el_class).'" style="display:none" data-class="content-'.esc_attr($uniq).'" data-path-to="m 0,0 1439.999975,0 0,805.99999 -1439.999975,0 z">';
             	$html .= "\n\t".'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 806" preserveAspectRatio="none">
-                					<path class="overlay-path" d="m 0,0 1439.999975,0 0,805.99999 0,-805.99999 z" style="'.$overlay_bg.'"/>
+                					<path class="overlay-path" d="m 0,0 1439.999975,0 0,805.99999 0,-805.99999 z" style="'.esc_attr($overlay_bg).'"/>
             					</svg>';
 			} elseif($modal_style == 'overlay-show-genie') {
-				$html .= "\n".'<div class="ult-overlay overlay-genie content-'.$uniq.' '.$el_class.'" style="display:none" data-class="content-'.$uniq.'" data-steps="m 701.56545,809.01175 35.16718,0 0,19.68384 -35.16718,0 z;m 698.9986,728.03569 41.23353,0 -3.41953,77.8735 -34.98557,0 z;m 687.08153,513.78234 53.1506,0 C 738.0505,683.9161 737.86917,503.34193 737.27015,806 l -35.90067,0 c -7.82727,-276.34892 -2.06916,-72.79261 -14.28795,-292.21766 z;m 403.87105,257.94772 566.31246,2.93091 C 923.38284,513.78233 738.73561,372.23931 737.27015,806 l -35.90067,0 C 701.32034,404.49318 455.17312,480.07689 403.87105,257.94772 z;M 51.871052,165.94772 1362.1835,168.87863 C 1171.3828,653.78233 738.73561,372.23931 737.27015,806 l -35.90067,0 C 701.32034,404.49318 31.173122,513.78234 51.871052,165.94772 z;m 52,26 1364,4 c -12.8007,666.9037 -273.2644,483.78234 -322.7299,776 l -633.90062,0 C 359.32034,432.49318 -6.6979288,733.83462 52,26 z;m 0,0 1439.999975,0 0,805.99999 -1439.999975,0 z">';
+				$html .= "\n".'<div class="ult-overlay overlay-genie content-'.esc_attr($uniq).' '.esc_attr($el_class).'" style="display:none" data-class="content-'.$uniq.'" data-steps="m 701.56545,809.01175 35.16718,0 0,19.68384 -35.16718,0 z;m 698.9986,728.03569 41.23353,0 -3.41953,77.8735 -34.98557,0 z;m 687.08153,513.78234 53.1506,0 C 738.0505,683.9161 737.86917,503.34193 737.27015,806 l -35.90067,0 c -7.82727,-276.34892 -2.06916,-72.79261 -14.28795,-292.21766 z;m 403.87105,257.94772 566.31246,2.93091 C 923.38284,513.78233 738.73561,372.23931 737.27015,806 l -35.90067,0 C 701.32034,404.49318 455.17312,480.07689 403.87105,257.94772 z;M 51.871052,165.94772 1362.1835,168.87863 C 1171.3828,653.78233 738.73561,372.23931 737.27015,806 l -35.90067,0 C 701.32034,404.49318 31.173122,513.78234 51.871052,165.94772 z;m 52,26 1364,4 c -12.8007,666.9037 -273.2644,483.78234 -322.7299,776 l -633.90062,0 C 359.32034,432.49318 -6.6979288,733.83462 52,26 z;m 0,0 1439.999975,0 0,805.99999 -1439.999975,0 z">';
 				$html .= "\n\t".'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 806" preserveAspectRatio="none">
-							<path class="overlay-path" d="m 701.56545,809.01175 35.16718,0 0,19.68384 -35.16718,0 z" style="'.$overlay_bg.'"/>
+							<path class="overlay-path" d="m 701.56545,809.01175 35.16718,0 0,19.68384 -35.16718,0 z" style="'.esc_attr($overlay_bg).'"/>
 						</svg>';
 			} elseif($modal_style == 'overlay-show-boxes') {
-				$html .= "\n".'<div class="ult-overlay overlay-boxes content-'.$uniq.' '.$el_class.'" style="display:none" data-class="content-'.$uniq.'">';
+				$html .= "\n".'<div class="ult-overlay overlay-boxes content-'.esc_attr($uniq).' '.esc_attr($el_class).'" style="display:none" data-class="content-'.esc_attr($uniq).'">';
 				$html .= "\n\t".'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="101%" viewBox="0 0 1440 806" preserveAspectRatio="none">';
-				$html .= "\n\t\t".'<path d="m0.005959,200.364029l207.551124,0l0,204.342453l-207.551124,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m0.005959,400.45401l207.551124,0l0,204.342499l-207.551124,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m0.005959,600.544067l207.551124,0l0,204.342468l-207.551124,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m205.752151,-0.36l207.551163,0l0,204.342437l-207.551163,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m204.744629,200.364029l207.551147,0l0,204.342453l-207.551147,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m204.744629,400.45401l207.551147,0l0,204.342499l-207.551147,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m204.744629,600.544067l207.551147,0l0,204.342468l-207.551147,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m410.416046,-0.36l207.551117,0l0,204.342437l-207.551117,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m410.416046,200.364029l207.551117,0l0,204.342453l-207.551117,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m410.416046,400.45401l207.551117,0l0,204.342499l-207.551117,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m410.416046,600.544067l207.551117,0l0,204.342468l-207.551117,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m616.087402,-0.36l207.551086,0l0,204.342437l-207.551086,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m616.087402,200.364029l207.551086,0l0,204.342453l-207.551086,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m616.087402,400.45401l207.551086,0l0,204.342499l-207.551086,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m616.087402,600.544067l207.551086,0l0,204.342468l-207.551086,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m821.748718,-0.36l207.550964,0l0,204.342437l-207.550964,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m821.748718,200.364029l207.550964,0l0,204.342453l-207.550964,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m821.748718,400.45401l207.550964,0l0,204.342499l-207.550964,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m821.748718,600.544067l207.550964,0l0,204.342468l-207.550964,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1027.203979,-0.36l207.550903,0l0,204.342437l-207.550903,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1027.203979,200.364029l207.550903,0l0,204.342453l-207.550903,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1027.203979,400.45401l207.550903,0l0,204.342499l-207.550903,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1027.203979,600.544067l207.550903,0l0,204.342468l-207.550903,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1232.659302,-0.36l207.551147,0l0,204.342437l-207.551147,0l0,-204.342437z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1232.659302,200.364029l207.551147,0l0,204.342453l-207.551147,0l0,-204.342453z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1232.659302,400.45401l207.551147,0l0,204.342499l-207.551147,0l0,-204.342499z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m1232.659302,600.544067l207.551147,0l0,204.342468l-207.551147,0l0,-204.342468z" style="'.$overlay_bg.'"/>';
-				$html .= "\n\t\t".'<path d="m-0.791443,-0.360001l207.551163,0l0,204.342438l-207.551163,0l0,-204.342438z" style="'.$overlay_bg.'"/>';
+				$html .= "\n\t\t".'<path d="m0.005959,200.364029l207.551124,0l0,204.342453l-207.551124,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m0.005959,400.45401l207.551124,0l0,204.342499l-207.551124,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m0.005959,600.544067l207.551124,0l0,204.342468l-207.551124,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m205.752151,-0.36l207.551163,0l0,204.342437l-207.551163,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m204.744629,200.364029l207.551147,0l0,204.342453l-207.551147,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m204.744629,400.45401l207.551147,0l0,204.342499l-207.551147,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m204.744629,600.544067l207.551147,0l0,204.342468l-207.551147,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m410.416046,-0.36l207.551117,0l0,204.342437l-207.551117,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m410.416046,200.364029l207.551117,0l0,204.342453l-207.551117,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m410.416046,400.45401l207.551117,0l0,204.342499l-207.551117,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m410.416046,600.544067l207.551117,0l0,204.342468l-207.551117,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m616.087402,-0.36l207.551086,0l0,204.342437l-207.551086,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m616.087402,200.364029l207.551086,0l0,204.342453l-207.551086,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m616.087402,400.45401l207.551086,0l0,204.342499l-207.551086,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m616.087402,600.544067l207.551086,0l0,204.342468l-207.551086,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m821.748718,-0.36l207.550964,0l0,204.342437l-207.550964,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m821.748718,200.364029l207.550964,0l0,204.342453l-207.550964,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m821.748718,400.45401l207.550964,0l0,204.342499l-207.550964,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m821.748718,600.544067l207.550964,0l0,204.342468l-207.550964,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1027.203979,-0.36l207.550903,0l0,204.342437l-207.550903,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1027.203979,200.364029l207.550903,0l0,204.342453l-207.550903,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1027.203979,400.45401l207.550903,0l0,204.342499l-207.550903,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1027.203979,600.544067l207.550903,0l0,204.342468l-207.550903,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1232.659302,-0.36l207.551147,0l0,204.342437l-207.551147,0l0,-204.342437z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1232.659302,200.364029l207.551147,0l0,204.342453l-207.551147,0l0,-204.342453z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1232.659302,400.45401l207.551147,0l0,204.342499l-207.551147,0l0,-204.342499z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m1232.659302,600.544067l207.551147,0l0,204.342468l-207.551147,0l0,-204.342468z" style="'.esc_attr($overlay_bg).'"/>';
+				$html .= "\n\t\t".'<path d="m-0.791443,-0.360001l207.551163,0l0,204.342438l-207.551163,0l0,-204.342438z" style="'.esc_attr($overlay_bg).'"/>';
 				$html .= "\n\t".'</svg>';
 			} else {
-				$html .= "\n".'<div class="ult-overlay content-'.$uniq.' '.$el_class.'" data-class="content-'.$uniq.'" id="button-click-overlay" style="'.$overlay_bg.' display:none;">';
+				$html .= "\n".'<div class="ult-overlay content-'.esc_attr($uniq).' '.esc_attr($el_class).'" data-class="content-'.esc_attr($uniq).'" id="button-click-overlay" style="'.esc_attr($overlay_bg).' display:none;">';
 			}
-			$html .= "\n\t".'<div class="ult_modal ult-fade ult-'.$modal_size.'">';
-			$html .= "\n\t\t".'<div id="'.$modal_uid.'" class="ult_modal-content ult-hide" style="'.$border_style.'">';
+			$html .= "\n\t".'<div class="ult_modal ult-fade ult-'.esc_attr($modal_size).'">';
+			$html .= "\n\t\t".'<div id="'.esc_attr($modal_uid).'" class="ult_modal-content ult-hide" style="'.esc_attr($border_style).'">';
 			if($modal_title !== ''){
-				$html .= "\n\t\t\t".'<div class="ult_modal-header" style="'.$header_style.'">';
+				$html .= "\n\t\t\t".'<div class="ult_modal-header" style="'.esc_attr($header_style).'">';
 				$html .= "\n\t\t\t\t".$box_icon.'<h3 '.$madal_heading_data_list.' class="ult_modal-title ult-responsive">'.$modal_title.'</h3>';
 				$html .= "\n\t\t\t".'</div>';
 			}
-			$html .= "\n\t\t\t".'<div '.$madal_content_data_list.' class="ult_modal-body ult-responsive '.$modal_contain.'" style="'.$content_style.'">';
+			$html .= "\n\t\t\t".'<div '.$madal_content_data_list.' class="ult_modal-body ult-responsive '.esc_attr($modal_contain).'" style="'.esc_attr($content_style).'">';
 			$html .= "\n\t\t\t".do_shortcode($content);
 			$html .= "\n\t\t\t".'</div>';
 			$html .= "\n\t".'</div>';
@@ -990,7 +992,7 @@ if(class_exists('Ultimate_Modals'))
 {
 	$Ultimate_Modals = new Ultimate_Modals;
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_modal' ) ) {
     class WPBakeryShortCode_ultimate_modal extends WPBakeryShortCode {
     }
 }

@@ -759,11 +759,11 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Posts_Ticker_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Posts_Ticker_Standalone extends WPBakeryShortCode {};
-	}
-	
-	// Initialize "TS Poststicker" Class
+	}	
+	// Initialize "TS Posts Ticker" Class
 	if (class_exists('TS_Poststicker')) {
 		$TS_Poststicker = new TS_Poststicker;
 	}

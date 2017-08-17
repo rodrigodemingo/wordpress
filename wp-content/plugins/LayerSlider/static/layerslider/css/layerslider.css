@@ -141,6 +141,7 @@
 	.ls-wrapper > .ls-bg {
 		line-height: normal;
 		white-space: nowrap;
+		word-wrap: normal;
 		margin-right: 0 !important;
 		margin-bottom: 0 !important;
 	}
@@ -637,6 +638,10 @@
 		z-index: 2;
 	}
 
+	.ls-autoplay .ls-playvideo {
+		display: none !important;
+	}
+
 
 
 /* Mobile features */
@@ -844,7 +849,26 @@
 
 	.ls-fullscreen .ls-container {
 		background-color: black;
+		margin: 0 auto !important;
+	}
+
+	.ls-fullscreen .ls-fullscreen-wrapper {
+		width: 100% !important;
+		height: 100% !important;
 		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+		background-color: black;
+		overflow: hidden !important;
+		position: relative !important;
+	}
+
+	.ls-fullscreen .ls-fullscreen-wrapper .ls-container,
+	.ls-fullscreen .ls-fullscreen-wrapper .ls-wp-container {
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		transform: translate(-50%,-50%) !important;
 	}
 
 	.ls-layer .split-item {

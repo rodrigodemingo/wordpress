@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-YouTube-Background', 'TS_VCSC_Background_Function');
-	add_shortcode('TS_VCSC_YouTube_Background', 'TS_VCSC_Background_Function');
 	function TS_VCSC_Background_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -43,8 +42,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_YouTube_Background extends WPBakeryShortCode {};
 	}
 ?>

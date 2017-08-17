@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to generate a preloader preview
 	add_shortcode('TS_VCSC_Preloaders', 'TS_VCSC_Preloaders');
 	function TS_VCSC_Preloaders ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

@@ -7,28 +7,20 @@ if(!class_exists('Ultimate_FancyText')){
 	class Ultimate_FancyText{
 
 		function __construct(){
-			add_action('init',array($this,'ultimate_fancytext_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ultimate_fancytext_init'));
+			}
 			add_shortcode('ultimate_fancytext',array($this,'ultimate_fancytext_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_fancytext_assets'),1);
 		}
 		function register_fancytext_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
+			
 			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-fancytext-style', 'fancytext' );
 
-			wp_register_script('ultimate-typed-js',plugins_url($js_path.'typed'.$ext.'.js',__FILE__),array('jquery'),ULTIMATE_VERSION);
-			wp_register_script('ultimate-vticker-js',plugins_url($js_path.'vticker'.$ext.'.js',__FILE__),array('jquery'),ULTIMATE_VERSION);
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-typed-js', 'typed', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-easy-ticker-js', 'easy-ticker', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 
 		function ultimate_fancytext_init(){
@@ -390,14 +382,17 @@ if(!class_exists('Ultimate_FancyText')){
 								"heading" => __("Markup","ultimate_vc"),
 								"param_name" => "fancytext_tag",
 								"value" => array(
-									__("div","ultimate_vc") => "div",
+									__("Default","ultimate_vc") => "div",
 									__("H1","ultimate_vc") => "h1",
 									__("H2","ultimate_vc") => "h2",
 									__("H3","ultimate_vc") => "h3",
 									__("H4","ultimate_vc") => "h4",
 									__("H5","ultimate_vc") => "h5",
 									__("H6","ultimate_vc") => "h6",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
 								),
+								"description" => __("Default is Div", "ultimate_vc"),
 								"group" => "Typography",
 							),
 							array(
@@ -559,27 +554,29 @@ if(!class_exists('Ultimate_FancyText')){
 
 			$ultimate_js = get_option('ultimate_js');
 
-			$output = '<'.$fancytext_tag.' id="'.$fancy_text_id.'" '.$data_list.' class="uvc-type-wrap '.$css_design_style.' '.$is_vc_49_plus.' ult-responsive '.$ex_class.' uvc-wrap-'.$id.'" style="'.$string_inline_style.'">';
+			$output = '<'.$fancytext_tag.' id="'.esc_attr( $fancy_text_id ).'" '.$data_list.' class="uvc-type-wrap '.esc_attr($css_design_style).' '.esc_attr($is_vc_49_plus).' ult-responsive '.esc_attr($ex_class).' uvc-wrap-'.esc_attr($id).'" style="'.esc_attr($string_inline_style).'">';
 
 				if(trim($fancytext_prefix) != '')
 				{
-					$output .= '<span '.$prefsuf_data_list.' class="ultimate-'.$fancytext_effect.'-prefix mycustfancy ult-responsive" style="'.$prefsuf_style.'">'.ltrim($fancytext_prefix).'</span>';
+					$output .= '<span '.$prefsuf_data_list.' class="ultimate-'.esc_attr($fancytext_effect).'-prefix mycustfancy ult-responsive" style="'.esc_attr($prefsuf_style).'">'.esc_html(ltrim($fancytext_prefix)).'</span>';
 				}
 				if($fancytext_effect == 'ticker' || $fancytext_effect == 'ticker-down')
 				{
 					if($ultimate_js != 'enable')
-						wp_enqueue_script('ultimate-vticker-js');
+						wp_enqueue_script('ultimate-easy-ticker-js');
 					if($strings_font_size != '')
 						$inherit_font_size = 'ultimate-fancy-text-inherit';
 					else
 						$inherit_font_size = '';
 					if($ticker_hover_pause != 'true')
-						$ticker_hover_pause = 'false';
+						$ticker_hover_pause = 0;
+					else
+						$ticker_hover_pause = 1;
 					if($fancytext_effect == 'ticker-down')
 						$direction = "down";
 					else
 						$direction = "up";
-					$output .= '<div id="vticker-'.$id.'" '.$data_list.' class="ultimate-vticker '.$fancytext_effect.' '.$valign.' '.$inherit_font_size.'" style="'.$vticker_inline.'"><ul>';
+					$output .= '<div id="vticker-'.esc_attr($id).'" '.$data_list.' class="ultimate-vticker '.esc_attr($fancytext_effect).' '.esc_attr($valign).' '.esc_attr($inherit_font_size).'" style="'.esc_attr($vticker_inline).'"><ul>';
 						foreach($lines as $key => $line)
 						{
 							if($key == 0) {
@@ -608,44 +605,51 @@ if(!class_exists('Ultimate_FancyText')){
 								$strings .= ',';
 						}
 					$strings .= ']';
-					$output .= '<span id="typed-'.$id.'" class="ultimate-typed-main '.$valign.'" style="'.$vticker_inline.'"></span>';
+					$output .= '<span id="typed-'.esc_attr($id).'" class="ultimate-typed-main '.esc_attr($valign).'" style="'.esc_attr($vticker_inline).'"></span>';
 				}
 				if(trim($fancytext_suffix) != '')
 				{
-					$output .= '<span '.$prefsuf_data_list.' class="ultimate-'.$fancytext_effect.'-suffix mycustfancy ult-responsive" style="'.$prefsuf_style.'">'.rtrim($fancytext_suffix).'</span>';
+					$output .= '<span '.$prefsuf_data_list.' class="ultimate-'.esc_attr($fancytext_effect).'-suffix mycustfancy ult-responsive" style="'.esc_attr($prefsuf_style).'">'.esc_html(rtrim($fancytext_suffix)).'</span>';
 				}
 				if($fancytext_effect == 'ticker' || $fancytext_effect == 'ticker-down')
 				{
 					$output .= '<script type="text/javascript">
 						jQuery(function($){
 							$(document).ready(function(){
-								$("#vticker-'.$id.'").find("li").css("opacity","1");
-								$("#vticker-'.$id.'")
-									.vTicker(
-									{
-										speed: '.$strings_tickerspeed.',
-										showItems: '.$ticker_show_items.',
-										pause: '.$ticker_wait_time.',
-										mousePause : '.$ticker_hover_pause.',
-										direction: "'.$direction.'",
+								$("#vticker-'.esc_attr( $id ).'").find("li").css("opacity","1");
+								
+								$("#vticker-'.esc_attr( $id ).'").easyTicker({
+									direction: "up",
+									easing: "swing",
+									speed: '. esc_attr($strings_tickerspeed) .',
+									interval: '. esc_attr($ticker_wait_time) .',
+									height: "auto",
+									visible: '. esc_attr($ticker_show_items) .',
+									mousePause: '. esc_attr($ticker_hover_pause) .',
+									controls: {
+										up: "",
+										down: "",
+										toggle: "",
+										playText: "Play",
+										stopText: "Stop"
 									}
-								);
+								});
 							});
 						});
 					</script>';
 				}
 				else
 				{
-					$output .= '<script type="text/javascript"> jQuery(function($){ $("#typed-'.$id.'").typed({
+					$output .= '<script type="text/javascript"> jQuery(function($){ $("#typed-'.esc_attr($id).'").typed({
 								strings: '.$strings.',
-								typeSpeed: '.$strings_textspeed.',
-								backSpeed: '.$strings_backspeed.',
-								startDelay: '.$strings_startdelay.',
-								backDelay: '.$strings_backdelay.',
-								loop: '.$typewriter_loop.',
+								typeSpeed: '.esc_attr($strings_textspeed).',
+								backSpeed: '.esc_attr($strings_backspeed).',
+								startDelay: '.esc_attr($strings_startdelay).',
+								backDelay: '.esc_attr($strings_backdelay).',
+								loop: '.esc_attr($typewriter_loop).',
 								loopCount: false,
-								showCursor: '.$typewriter_cursor.',
-								cursorChar: "'.$typewriter_cursor_text.'",
+								showCursor: '.esc_attr($typewriter_cursor).',
+								cursorChar: "'.esc_attr($typewriter_cursor_text).'",
 								attr: null
 							});
 						});
@@ -653,8 +657,8 @@ if(!class_exists('Ultimate_FancyText')){
 					if($typewriter_cursor_color != '')
 					{
 						$output .= '<style>
-							.uvc-wrap-'.$id.' .typed-cursor {
-								color:'.$typewriter_cursor_color.';
+							.uvc-wrap-'.esc_attr($id).' .typed-cursor {
+								color:'.esc_attr($typewriter_cursor_color).';
 							}
 						</style>';
 					}
@@ -670,7 +674,7 @@ if(!class_exists('Ultimate_FancyText')){
 		}
 	} // end class
 	new Ultimate_FancyText;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ultimate_fancytext'))
 	{
 		class WPBakeryShortCode_ultimate_fancytext extends WPBakeryShortCode {
 		}

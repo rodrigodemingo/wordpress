@@ -31,7 +31,7 @@
                 $textvariants   = isset($settings['textvariants']) ? $settings['textvariants'] : __( "Select Font Variant:", "ts_visual_composer_extend" );
                 $textfavorite   = isset($settings['textfavorite']) ? $settings['textfavorite'] : __( "Favorite Fonts", "ts_visual_composer_extend" );
                 $textdefault    = isset($settings['textdefault']) ? $settings['textdefault'] : __( "Default Font", "ts_visual_composer_extend" );
-                $textstandard   = isset($settings['textstandard']) ? $settings['textstandard'] : __( "Websave Fonts", "ts_visual_composer_extend" );
+                $textstandard   = isset($settings['textstandard']) ? $settings['textstandard'] : __( "Websafe Fonts", "ts_visual_composer_extend" );
                 $textgoogle     = isset($settings['textgoogle']) ? $settings['textgoogle'] : __( "Google Fonts", "ts_visual_composer_extend" );
                 $textpreviewer  = isset($settings['textpreviewer']) ? $settings['textpreviewer'] : __( "Autoload CSS font files for live preview while scrolling list.", "ts_visual_composer_extend" );
                 // Switch Settings

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Betheme\n"
-"POT-Creation-Date: 2017-03-15 13:58+0100\n"
-"PO-Revision-Date: 2017-03-15 13:58+0100\n"
+"POT-Creation-Date: 2017-05-24 14:35+0100\n"
+"PO-Revision-Date: 2017-05-24 14:35+0100\n"
 "Last-Translator: Celso Coslop Barbante <celsocos@yahoo.com.br>\n"
 "Language-Team: Celso - Multiproj Team <celsocos@yahoo.com>\n"
 "Language: pt_BR\n"
@@ -10,19 +10,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.1\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/betheme\n"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/404.php:10
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5463
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5525
 msgid "Ooops... Error 404"
 msgstr "Ooops… Erro 404"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/404.php:11
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5471
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5533
 msgid "We are sorry, but the page you are looking for does not exist."
 msgstr "Desculpe, mas a página que você está procurando não existe."
 
@@ -31,7 +31,7 @@ msgid "Please check entered address and try again or "
 msgstr "Por favor, verifique o endereço digitado e tente novamente ou"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/404.php:13
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5487
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5549
 msgid "go to homepage"
 msgstr "volte para homepage"
 
@@ -464,7 +464,7 @@ msgstr "no fórum"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/bbpress/loop-search.php:22
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/bbpress/loop-search.php:44
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5170
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5232
 msgid "Search Results"
 msgstr "Resultados da pesquisa"
 
@@ -557,8 +557,563 @@ msgstr "Comentários Recentes &rarr;"
 msgid "Comments are closed."
 msgstr "Os comentários estão encerrados."
 
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/class-mfn-changelog.php:25
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/changelog.php:15
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:57
+msgid "Changelog"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/class-mfn-dashboard.php:62
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:75
+msgid "Dashboard"
+msgstr "Painel de Controle"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/class-mfn-dashboard.php:63
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/tmp-options.php:11
+msgid "BeTheme Options"
+msgstr "Opções do BeTheme "
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/class-mfn-status.php:28
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:99
+msgid "System Status"
+msgstr "Estado do Sistema"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/class-mfn-support.php:25
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:56
+msgid "Manual & Support"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/changelog.php:19
+msgid "See full changelog"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:17
+msgid "Theme is registered"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:29
+msgid "Deregister Theme"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:34
+msgid "Are you sure you want to deregister the theme?"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:35
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-mega-menu.php:299
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:36
+msgid "Deregister"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:41
+msgid "Buy license"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:43
+msgid "If you need another license for new website"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:45
+msgid "Purchase new license"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:62
+msgid "Register Theme"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:107
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:72
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:73
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:335
+msgid "Install Plugins"
+msgstr "Instalar Plugins"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:108
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer.php:80
+msgid "Pre-built websites"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/dashboard.php:109
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:42
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:44
+msgid "Theme Options"
+msgstr "Opções do tema"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:7
+msgid "Welcome to BeTheme"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:11
+msgid "Your copy of theme is registered."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:12
+#, php-format
+msgid ""
+"Discover <a href=\"%s\">pre-built websites</a>, premium <a href=\"%s\">bundled plugins</a>, auto updates and much more."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:41
+msgid "Update to"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:54
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:43
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/header.php:55
+msgid "System status"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:34
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:44
+msgid "API server connection"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:40
+msgid "check again"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:54
+msgid "WP File System"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:64
+msgid "ZipArchive"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:76
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:44
+msgid "SUHOSIN Installed"
+msgstr "SUHOSIN Instalado"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:84
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:52
+msgid "PHP Memory Limit"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:108
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:76
+msgid "PHP Time Limit"
+msgstr "PHP Time Limit"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:132
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:100
+msgid "PHP Max Input Vars"
+msgstr "PHP Max Input Vars"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:143
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:138
+msgid "php.ini values are shown above. Real values may vary, please check your limits using php_info()"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/parts/mini-status.php:148
+msgid "More details"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:15
+msgid "Server Environment"
+msgstr "Ambiente do Servidor"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:20
+msgid "Server Info"
+msgstr "Informação do Servidor Web"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:25
+msgid "MySQL Version"
+msgstr "Versão do MySQL"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:30
+msgid "PHP Version"
+msgstr "Versão do PHP"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:114
+msgid "WP Max Upload Size"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:119
+msgid "fsockopen/cURL"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:129
+msgid "DOMDocument"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:146
+msgid "WordPress Environment"
+msgstr "Ambiente Wordpress"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:151
+msgid "Home URL"
+msgstr "URL Home"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:156
+msgid "Site URL"
+msgstr "URL do Site"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:161
+msgid "WP Version"
+msgstr "Versão do Wordpress"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:173
+msgid "WP Multisite"
+msgstr "WP Multisite"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:182
+msgid "WP Debug"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/status.php:191
+msgid "Language"
+msgstr "Idioma"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/support.php:15
+msgid "Video tutorials"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/support.php:65
+msgid "Support forum"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/support.php:93
+msgid "Manual table of content"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/tmp-options.php:13
+msgid "This page has been moved to <strong>BeTheme > Theme Options</strong>."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/tmp-options.php:14
+msgid "Redirecting in 3 seconds..."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/templates/tmp-options.php:15
+#, php-format
+msgid "If you are not redirected automatically, follow this <a href=\"%s\">link to theme options</a>."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:70
+msgid "If you are not sure about server's settings and limits, please activate <u>necessary plugins ONLY</u>"
+msgstr ""
+"Se você não tem certeza sobre as configurações e os limites do servidor, por favor ativar <u>plugins necessários apenas</u>"
+
+#. translators: %s: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:74
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:337
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Instalando plugin: %s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:75
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:340
+msgid "Something went wrong with the plugin API."
+msgstr "Alguma coisa está mal configurada na API do plugin."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:86
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:392
+msgid "Return to Required Plugins Installer"
+msgstr "Retornar para o Instalador de Plugins Obrigatórios"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:87
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:394
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3258
+msgid "Plugin activated successfully."
+msgstr "Plugin ativado com sucesso."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-mfn-tgmpa.php:88
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr "Todos plugins instalados e ativados com sucesso. %s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:334
+msgid "Install Required Plugins"
+msgstr "Instale os Plugins Necessários"
+
+#. translators: %s: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:339
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr "Atualizando Plugin: %s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:393
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:912
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2624
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3679
+msgid "Return to the Dashboard"
+msgstr "Retornar ao Painel"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:395
+msgid "The following plugin was activated successfully:"
+msgstr "O seguinte plugin foi ativado com sucesso:"
+
+#. translators: 1: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:397
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr "Nenhuma ação tomada. O plugin %1$s já estava ativo."
+
+#. translators: 1: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:399
+#, php-format
+msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
+msgstr "Plugin não ativado. É necessária uma versão mais nova de %s para este tema. Por favor, atualize o plugin."
+
+#. translators: 1: dashboard link.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:401
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr "Todos os plugins foram instalados e ativados com sucesso. %1$s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:402
+msgid "Dismiss this notice"
+msgstr "Ocultar este aviso"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:403
+msgid "There are one or more required or recommended plugins to install, update or activate."
+msgstr "Há um ou mais plugins necessários ou recomendados para instalar, atualizar ou ativar."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:404
+msgid "Please contact the administrator of this site for help."
+msgstr "Entre em contato com o administrador do site para obter ajuda."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:608
+msgid "Update Required"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:1019
+msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:1019
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:1022
+msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:1022
+msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
+msgstr ""
+
+#. translators: %s: version number
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2070
+#, php-format
+msgid "TGMPA v%s"
+msgstr "TGMPA v%s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2356
+msgid "Required"
+msgstr "Obrigatório"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2359
+msgid "Recommended"
+msgstr "Recomendado"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2375
+msgid "WordPress Repository"
+msgstr "Repositório Wordpress"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2378
+msgid "Bundled Premium Plugin"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2381
+msgid "Pre-Packaged"
+msgstr "Pre-empacotado"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2398
+msgid "Not Installed"
+msgstr "Não instalado"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2402
+msgid "Installed But Not Activated"
+msgstr "Instalado mas não ativado"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2404
+msgid "Active"
+msgstr "Ativo"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2410
+msgid "Required Update not Available"
+msgstr "Atualização necessária não disponível."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2413
+msgid "Requires Update"
+msgstr "Requer Atualização"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2416
+msgid "Update recommended"
+msgstr "Atualização recomendada"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2581
+msgid "Installed version:"
+msgstr "Versão instalada:"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2601
+msgid "Available version:"
+msgstr "Versão disponível:"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2624
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2638
+msgid "Plugin"
+msgstr "Plugin"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2639
+msgid "Source"
+msgstr "Fonte"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2640
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:3688
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1589
+msgid "Type"
+msgstr "Tipo"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2644
+msgid "Version"
+msgstr "Versão"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2645
+msgid "Status"
+msgstr "Status"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2702
+#, php-format
+msgid "Install %2$s"
+msgstr "Instalar %2$s"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2707
+#, php-format
+msgid "Update %2$s"
+msgstr "Atualizar %2$s"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2713
+#, php-format
+msgid "Activate %2$s"
+msgstr "Ativar %2$s"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2783
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2816
+msgid "Install"
+msgstr "Instalar"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2822
+msgid "Update"
+msgstr "Atualizar"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2825
+msgid "Activate"
+msgstr "Ativar"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2856
+msgid "No plugins were selected to be installed. No action taken."
+msgstr "Não há plugins selecionados para serem instalados. Nenhuma ação tomada."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2858
+msgid "No plugins were selected to be updated. No action taken."
+msgstr "Não há plugins selecionados para serem atualizados. Nenhuma ação tomada."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2899
+msgid "No plugins are available to be installed at this time."
+msgstr "Nenhum plugin está disponível para ser instalado no momento."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:2901
+msgid "No plugins are available to be updated at this time."
+msgstr "Nenhum plugin está disponível para ser instalado no momento."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3007
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3033
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3257
+msgid "Plugin activation failed."
+msgstr "Falha na ativação do plugin."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3597
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr "Atualizando plugin %1$s (%2$d/%3$d)"
+
+#. translators: 1: plugin name, 2: error message.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3600
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr "Ocorreu um erro ao instalar %1$s: <strong>%2$s</strong>."
+
+#. translators: 1: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3602
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr "A instalação de %1$s falhou."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3606
+msgid ""
+"The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr "O processo de instalação e ativação começou. Isto poderá demorar algum tempo, por favor seja paciente."
+
+#. translators: 1: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3608
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr "%1$s instalado e ativado com sucesso."
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3608
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3616
+msgid "Show Details"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3608
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3616
+msgid "Hide Details"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3609
+msgid "All installations and activations have been completed."
+msgstr "Todas instalações e ativações foram completadas."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3611
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr "Instalando e ativando plugin %1$s (%2$d/%3$d)"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3614
+msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr "O processo de instalação está sendo iniciado. Isto poderá demorar algum tempo, por favor seja paciente."
+
+#. translators: 1: plugin name.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3616
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3617
+msgid "All installations have been completed."
+msgstr "Todas as instalações completadas."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/admin/tgm/class-tgm-plugin-activation.php:3619
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr "Instalando o plugin: %1$s (%2$d/%3$d)"
+
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/back.php:120
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4366
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4370
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/vc_templates/vc_accordion_tab.php:5
 msgid "Section"
 msgstr "Seção"
@@ -615,9 +1170,9 @@ msgstr "Fechar"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/back.php:628
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/back.php:1118
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:927
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:3628
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:3616
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:62
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5328
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5390
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/taxonomy-portfolio-types.php:46
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/template-portfolio.php:58
 msgid "All"
@@ -660,7 +1215,7 @@ msgstr "Exportar"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/back.php:672
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/back.php:682
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:587
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:580
 msgid "Import"
 msgstr "Importar"
 
@@ -877,8 +1432,8 @@ msgstr "Saltar para Dentro à Direita"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2275
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2535
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2758
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5462
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5503
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5524
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5565
 msgid "Title"
 msgstr "Título"
 
@@ -895,13 +1450,13 @@ msgstr "Este campo é usado como um rótulo de seção no painel de administraç
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1017
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1141
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2870
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3786
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3951
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4042
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4082
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4136
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4687
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4716
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3790
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3955
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4046
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4086
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4140
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4749
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4778
 msgid "Background"
 msgstr "Fundo"
 
@@ -1191,8 +1746,8 @@ msgstr "Setas"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2557
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2901
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3357
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4731
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5032
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4793
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5094
 msgid "Advanced"
 msgstr "Avançado"
 
@@ -1885,7 +2440,8 @@ msgstr "Slogan"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:2965
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:3023
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1241
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4208
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4212
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4433
 msgid "Link"
 msgstr "Link"
 
@@ -2067,7 +2623,7 @@ msgstr "Animação de entrada"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5602
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5855
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5953
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5054
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5116
 msgid "Custom"
 msgstr "Personalizado"
 
@@ -2077,8 +2633,8 @@ msgstr "Classes"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:565
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:88
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5231
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5240
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5293
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5302
 msgid "Before After"
 msgstr "Antes e Depois"
 
@@ -2117,7 +2673,7 @@ msgstr "As imagens devem possuir o <b>mesmo</b> tamanho"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:116
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1824
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1910
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4805
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4867
 msgid "Blockquote"
 msgstr "Citação"
 
@@ -2172,9 +2728,9 @@ msgstr "Citação"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/fields/tabs/field_tabs.php:73
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:481
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2538
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4182
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4766
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4891
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4186
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4828
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4953
 msgid "Content"
 msgstr "Conteúdo"
 
@@ -2195,10 +2751,10 @@ msgstr "Link para página web"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-functions.php:165
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:664
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1811
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5302
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5311
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5366
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5384
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5364
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5373
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5428
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5446
 msgid "Blog"
 msgstr "Blog"
 
@@ -2438,9 +2994,9 @@ msgstr "Link Leia Mais"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:777
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:785
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:4567
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5188
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5197
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5206
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5250
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5259
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5268
 msgid "Pagination"
 msgstr "Paginação"
 
@@ -2534,7 +3090,6 @@ msgstr ""
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2824
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2849
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2923
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3638
 msgid "Default"
 msgstr "Padrão"
 
@@ -2648,8 +3203,8 @@ msgstr "Sem Margens"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:1213
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5059
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5222
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4263
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5486
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4267
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5548
 msgid "Button"
 msgstr "Botão"
 
@@ -2799,7 +3354,7 @@ msgid "Adds an rel=\"...\" attribute to the link"
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:1357
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:551
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:544
 msgid "Download"
 msgstr "Download"
 
@@ -2892,7 +3447,8 @@ msgstr "Espessura da linha"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:801
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3094
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3119
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3989
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3993
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4496
 msgid "optional"
 msgstr "Opcional"
 
@@ -2958,7 +3514,7 @@ msgstr "Ordenar Por"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-portfolio.php:17
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:71
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2190
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5410
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5472
 msgid "Date"
 msgstr "Data"
 
@@ -3201,10 +3757,10 @@ msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:1996
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:793
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5249
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5258
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5267
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5276
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5311
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5320
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5329
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5338
 msgid "Countdown"
 msgstr "Contagem Regressiva"
 
@@ -3509,8 +4065,8 @@ msgstr "Cor do Fundo | em Foco"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:2916
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1228
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4694
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4723
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4756
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4785
 msgid "Border color"
 msgstr "Cor da Borda"
 
@@ -3763,12 +4319,6 @@ msgstr "Zoom"
 msgid "Height"
 msgstr "Altura"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:3688
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2634
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1589
-msgid "Type"
-msgstr "Tipo"
-
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:3691
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1593
 msgid "Satellite"
@@ -3941,7 +4491,7 @@ msgstr "Nossa Equipe"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5321
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1753
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:2606
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4946
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5008
 msgid "Heading"
 msgstr "Cabeçalho"
 
@@ -3960,8 +4510,8 @@ msgstr "Foto"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1775
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1889
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:2412
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5470
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5511
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5532
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5573
 msgid "Subtitle"
 msgstr "Subtítulo"
 
@@ -3975,6 +4525,7 @@ msgstr "E-mail"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:4077
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:4263
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:300
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4456
 msgid "Social"
 msgstr "Social"
 
@@ -3983,7 +4534,6 @@ msgstr "Social"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1803
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:1924
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3400
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3643
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -4038,11 +4588,11 @@ msgstr "Caixa de Foto"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:694
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:853
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2102
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5402
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5411
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5420
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5429
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5438
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5464
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5473
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5482
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5491
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5500
 msgid "Portfolio"
 msgstr "Portfólio"
 
@@ -4166,7 +4716,6 @@ msgstr "Título da caixa de preço"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/builder/fields.php:5003
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/plugins/visual-composer.php:2381
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:35
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:87
 msgid "Price"
 msgstr "Preço"
 
@@ -4624,288 +5173,33 @@ msgstr "Tags HTML permitidas"
 msgid "Love randomized"
 msgstr "Corações aleatórios definidos!"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:334
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2109
-msgid "Install Required Plugins"
-msgstr "Instale os Plugins Necessários"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer-api.php:98
+msgid "The package could not be downloaded."
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:335
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2110
-msgid "Install Plugins"
-msgstr "Instalar Plugins"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer-api.php:121
+msgid "WordPress filesystem error."
+msgstr ""
 
-#. translators: %s: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:337
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2111
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer-api.php:128
+msgid "The package could not be unziped."
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer-api.php:132
 #, php-format
-msgid "Installing Plugin: %s"
-msgstr "Instalando plugin: %s"
+msgid "Demo data folder does not exist (%s)."
+msgstr ""
 
-#. translators: %s: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:339
-#, php-format
-msgid "Updating Plugin: %s"
-msgstr "Atualizando Plugin: %s"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer.php:79
+msgid "Install pre-built website"
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:340
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2112
-msgid "Something went wrong with the plugin API."
-msgstr "Alguma coisa está mal configurada na API do plugin."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:392
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2123
-msgid "Return to Required Plugins Installer"
-msgstr "Retornar para o Instalador de Plugins Obrigatórios"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:393
-msgid "Return to the Dashboard"
-msgstr "Retornar ao Painel"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:394
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3244
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2124
-msgid "Plugin activated successfully."
-msgstr "Plugin ativado com sucesso."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:395
-msgid "The following plugin was activated successfully:"
-msgstr "O seguinte plugin foi ativado com sucesso:"
-
-#. translators: 1: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:397
-#, php-format
-msgid "No action taken. Plugin %1$s was already active."
-msgstr "Nenhuma ação tomada. O plugin %1$s já estava ativo."
-
-#. translators: 1: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:399
-#, php-format
-msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
-msgstr "Plugin não ativado. É necessária uma versão mais nova de %s para este tema. Por favor, atualize o plugin."
-
-#. translators: 1: dashboard link.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:401
-#, php-format
-msgid "All plugins installed and activated successfully. %1$s"
-msgstr "Todos os plugins foram instalados e ativados com sucesso. %1$s"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:402
-msgid "Dismiss this notice"
-msgstr "Ocultar este aviso"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:403
-msgid "There are one or more required or recommended plugins to install, update or activate."
-msgstr "Há um ou mais plugins necessários ou recomendados para instalar, atualizar ou ativar."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:404
-msgid "Please contact the administrator of this site for help."
-msgstr "Entre em contato com o administrador do site para obter ajuda."
-
-#. translators: %s: version number
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2067
-#, php-format
-msgid "TGMPA v%s"
-msgstr "TGMPA v%s"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2358
-msgid "Required"
-msgstr "Obrigatório"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2361
-msgid "Recommended"
-msgstr "Recomendado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2377
-msgid "WordPress Repository"
-msgstr "Repositório Wordpress"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2380
-msgid "External Source"
-msgstr "Fonte Externa"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2383
-msgid "Pre-Packaged"
-msgstr "Pre-empacotado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2400
-msgid "Not Installed"
-msgstr "Não instalado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2404
-msgid "Installed But Not Activated"
-msgstr "Instalado mas não ativado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2406
-msgid "Active"
-msgstr "Ativo"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2412
-msgid "Required Update not Available"
-msgstr "Atualização necessária não disponível."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2415
-msgid "Requires Update"
-msgstr "Requer Atualização"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2418
-msgid "Update recommended"
-msgstr "Atualização recomendada"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2575
-msgid "Installed version:"
-msgstr "Versão instalada:"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2583
-msgid "Minimum required version:"
-msgstr "Versão mínima exigida:"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2595
-msgid "Available version:"
-msgstr "Versão disponível:"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2632
-msgid "Plugin"
-msgstr "Plugin"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2633
-msgid "Source"
-msgstr "Fonte"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2638
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:346
-msgid "Version"
-msgstr "Versão"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2639
-msgid "Status"
-msgstr "Status"
-
-#. translators: %2$s: plugin name in screen reader markup
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2688
-#, php-format
-msgid "Install %2$s"
-msgstr "Instalar %2$s"
-
-#. translators: %2$s: plugin name in screen reader markup
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2693
-#, php-format
-msgid "Update %2$s"
-msgstr "Atualizar %2$s"
-
-#. translators: %2$s: plugin name in screen reader markup
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2699
-#, php-format
-msgid "Activate %2$s"
-msgstr "Ativar %2$s"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2802
-msgid "Install"
-msgstr "Instalar"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2808
-msgid "Update"
-msgstr "Atualizar"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2811
-msgid "Activate"
-msgstr "Ativar"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2842
-msgid "No plugins were selected to be installed. No action taken."
-msgstr "Não há plugins selecionados para serem instalados. Nenhuma ação tomada."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2844
-msgid "No plugins were selected to be updated. No action taken."
-msgstr "Não há plugins selecionados para serem atualizados. Nenhuma ação tomada."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2885
-msgid "No plugins are available to be installed at this time."
-msgstr "Nenhum plugin está disponível para ser instalado no momento."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:2887
-msgid "No plugins are available to be updated at this time."
-msgstr "Nenhum plugin está disponível para ser instalado no momento."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3243
-msgid "Plugin activation failed."
-msgstr "Falha na ativação do plugin."
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3583
-#, php-format
-msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr "Atualizando plugin %1$s (%2$d/%3$d)"
-
-#. translators: 1: plugin name, 2: error message.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3586
-#, php-format
-msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr "Ocorreu um erro ao instalar %1$s: <strong>%2$s</strong>."
-
-#. translators: 1: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3588
-#, php-format
-msgid "The installation of %1$s failed."
-msgstr "A instalação de %1$s falhou."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3592
-msgid ""
-"The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr "O processo de instalação e ativação começou. Isto poderá demorar algum tempo, por favor seja paciente."
-
-#. translators: 1: plugin name.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3594
-#, php-format
-msgid "%1$s installed and activated successfully."
-msgstr "%1$s instalado e ativado com sucesso."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3595
-msgid "All installations and activations have been completed."
-msgstr "Todas instalações e ativações foram completadas."
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3597
-#, php-format
-msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr "Instalando e ativando plugin %1$s (%2$d/%3$d)"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3600
-msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr "O processo de instalação está sendo iniciado. Isto poderá demorar algum tempo, por favor seja paciente."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3603
-msgid "All installations have been completed."
-msgstr "Todas as instalações completadas."
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/class-tgm-plugin-activation.php:3605
-#, php-format
-msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr "Instalando o plugin: %1$s (%2$d/%3$d)"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/import.php:1172
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:61
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer.php:112
 msgid "This feature is disabled in White Label mode"
 msgstr "Este recurso está desativado no modo White Label."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/import.php:1259
-msgid ""
-"PHP function <a target=\"_blank\" href=\"http://php.net/manual/en/function.file-get-contents.php\">file_get_contents</a> "
-"error."
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/import.php:1285
-msgid "PHP function <a target=\"_blank\" href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> error."
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/import.php:1310
-msgid ""
-"WordPress function <a target=\"_blank\" href=\"https://developer.wordpress.org/reference/functions/wp_remote_get/"
-"\">wp_remote_get()</a> response error</b>."
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/import.php:1313
-msgid "Unknown error occurred"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/class-mfn-importer.php:571
+msgid "Remote API error."
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/importer/parsers.php:44
@@ -5121,7 +5415,7 @@ msgstr "Escolha um arquivo WXR (.xml) para fazer o envio, em seguida, clique em 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-portfolio.php:264
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-portfolio.php:16
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:70
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5401
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5463
 msgid "Client"
 msgstr "Cliente"
 
@@ -5188,7 +5482,7 @@ msgstr "Miniatura"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:66
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:54
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:61
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5356
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5418
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/taxonomy-portfolio-types.php:45
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/template-portfolio.php:57
 msgid "Categories"
@@ -5338,7 +5632,7 @@ msgstr "Logo Retina deve ser 2x maior do que o logo do Cabeçalho Fixo em Dispos
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:971
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3128
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3136
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3810
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3814
 msgid "Header"
 msgstr "Cabeçalho"
 
@@ -5369,17 +5663,17 @@ msgid "Colors"
 msgstr "Cores"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-layout.php:240
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3759
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3763
 msgid "Skin"
 msgstr "Skin"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-layout.php:241
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3767
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3771
 msgid "Choose one of the predefined styles or set your own colors"
 msgstr "Escolha um dos estilos ou defina suas próprias cores"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-layout.php:242
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3768
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3772
 msgid "<strong>Important:</strong> Color options can be used only with the <strong>Custom Skin</strong>"
 msgstr "<strong>Importante:</strong> As opções de cores pode ser usadas somente com o tema <strong>Personalizado</strong>."
 
@@ -5615,7 +5909,7 @@ msgid "SEO | Keywords"
 msgstr "SEO | Palavras-chave"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-page.php:233
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5553
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5615
 msgid "Custom CSS"
 msgstr "CSS Personalizado"
 
@@ -5715,13 +6009,13 @@ msgstr "Imagem do Cabeçalho"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-portfolio.php:270
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-portfolio.php:18
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:72
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5419
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5481
 msgid "Website"
 msgstr "Website"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/meta-portfolio.php:276
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:74
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5437
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5499
 msgid "Task"
 msgstr "Tarefa"
 
@@ -6253,162 +6547,18 @@ msgstr "O link aparecerá somente se este campo estiver preenchido."
 msgid "Category slug"
 msgstr "Slug de Categoria"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:26
-msgid "System Status"
-msgstr "Estado do Sistema"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:104
-msgid "WordPress Environment"
-msgstr "Ambiente Wordpress"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:111
-msgid "Home URL"
-msgstr "URL Home"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:117
-msgid "Site URL"
-msgstr "URL do Site"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:123
-msgid "WP Version"
-msgstr "Versão do Wordpress"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:129
-msgid "WP Multisite"
-msgstr "WP Multisite"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:135
-msgid "WP Memory Limit"
-msgstr "Limite de Memória WP"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:146
-#, php-format
-msgid ""
-"%s - We recommend setting memory to at least 128MB. See: <a href=\"%s\" target=\"_blank\">Increasing memory allocated to "
-"PHP</a>"
-msgstr ""
-"%s - Recomendamos configurar o limite de memória em pelo menos 128MB. Veja: <a href=\\\"%s\\\">Increasing memory allocated "
-"to PHP</a>"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:154
-msgid "WP Debug Mode"
-msgstr "Modo de Debug  WP"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:160
-msgid "Language"
-msgstr "Idioma"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:174
-msgid "Server Environment"
-msgstr "Ambiente do Servidor"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:181
-msgid "Server Info"
-msgstr "Informação do Servidor Web"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:187
-msgid "PHP Version"
-msgstr "Versão do PHP"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:195
-msgid "PHP Post Max Size"
-msgstr "PHP Post Max Size"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:201
-msgid "PHP Time Limit"
-msgstr "PHP Time Limit"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:207
-#, php-format
-msgid ""
-"%s - We recommend setting max execution time to at least 180. See: <a href=\"%s\" target=\"_blank\">Increasing max "
-"execution to PHP</a>"
-msgstr ""
-"%s - Recomendamos configurar o limite de execução em pelo menos 180. Veja: <a href=\"%s\" target=\"_blank\">Increasing max "
-"execution to PHP</a>"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:215
-msgid "PHP Max Input Vars"
-msgstr "PHP Max Input Vars"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:221
-#, php-format
-msgid "%s - Max input vars limitation will truncate POST data such as menus."
-msgstr "%s - A limitação em 'max_input_vars' irá truncar dados de POST, tais como menus."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:229
-msgid "SUHOSIN Installed"
-msgstr "SUHOSIN Instalado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:237
-msgid "MySQL Version"
-msgstr "Versão do MySQL"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:248
-msgid "Max Upload Size"
-msgstr "Tamanho máximo de upload"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:254
-msgid "Default Timezone is UTC"
-msgstr "O padrão do fuso horário é UTC"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:259
-#, php-format
-msgid "Default timezone is %s - it should be UTC"
-msgstr "Fuso horário padrão é %s - ele deve ser UTC"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:277
-msgid "Your server does not have fsockopen or cURL enabled. Contact your hosting provider."
-msgstr "Seu servidor não tem fsockopen ou cURL habilitados. Entre em contato com seu provedor de hospedagem."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:288
-#, php-format
-msgid "Your server does not have the <a href=\"%s\">DOMDocument</a> class enabled. Contact your hosting provider."
-msgstr ""
-"Seu servidor não tem a classe <a href=\"%s\">DOMDocument</a> habilitada. Entrar em contato com seu provedor de hospedagem."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:292
-msgid "Remote Get"
-msgstr "Remote Get"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:300
-msgid ""
-"WordPress function <a href=\"https://codex.wordpress.org/Function_Reference/wp_remote_get\">wp_remote_get()</a> test "
-"failed. Contact your hosting provider."
-msgstr ""
-"Falha no teste da função <a href=\"https://codex.wordpress.org/Function_Reference/wp_remote_get\">wp_remote_get()</a> do "
-"WordPress. Entre em contato com seu provedor de hospedagem."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:302
-#, php-format
-msgid "Error: %s"
-msgstr "Erro: %s"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:304
-#, php-format
-msgid "Status code: %s"
-msgstr "Código de status: '%s'"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:333
-msgid "Theme"
-msgstr "Tema"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/system-status.php:340
-msgid "Name"
-msgstr "Nome"
-
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:571
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5187
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5249
 msgid "Prev page"
 msgstr "Página anterior"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:572
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5196
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5258
 msgid "Next page"
 msgstr "Próxima página"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:573
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5205
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5267
 msgid "Load more"
 msgstr "Ver mais"
 
@@ -6418,32 +6568,22 @@ msgid "View all posts filed under %s"
 msgstr "Ver artigos dentro de %s"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:796
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/header-shop.php:158
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5178
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/header-shop.php:174
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5240
 msgid "Home"
 msgstr "Home"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1807
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1825
 msgid "comment"
 msgstr "comentário"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1808
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1826
 msgid "comments"
 msgstr "comentários"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1809
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:1827
 msgid "comments off"
 msgstr "Comentários desativados"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2107
-msgid "If you are not sure about server's settings and limits, please activate <u>necessary plugins ONLY</u>"
-msgstr ""
-"Se você não tem certeza sobre as configurações e os limites do servidor, por favor ativar <u>plugins necessários apenas</u>"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-functions.php:2125
-#, php-format
-msgid "All plugins installed and activated successfully. %s"
-msgstr "Todos plugins instalados e ativados com sucesso. %s"
 
 #. translators: %s: title of menu item which is invalid
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-mega-menu.php:136
@@ -6532,10 +6672,6 @@ msgstr "Original: %s"
 msgid "Remove"
 msgstr "Remover"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-mega-menu.php:299
-msgid "Cancel"
-msgstr "Cancelar"
-
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-menu.php:14
 msgid "Main Menu | depth 5 (Header Overlay 1)"
 msgstr "Menu Principal | Profundidade 5 (Header Overlay 1)"
@@ -6558,7 +6694,7 @@ msgstr "Menu Social Inferior | Profundidade 1"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:924
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:57
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5292
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5354
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/taxonomy-portfolio-types.php:43
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/template-portfolio.php:55
 msgid "Filter by"
@@ -6567,24 +6703,24 @@ msgstr "Filtrar por:"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:925
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:53
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:58
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5301
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5365
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5363
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5427
 msgid "Tags"
 msgstr "Tags"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:926
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:59
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5310
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5372
 msgid "Authors"
 msgstr "Autores"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:1084
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:3818
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:3806
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-portfolio.php:15
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-post.php:19
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:69
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:57
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5374
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5436
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/search.php:17
 msgid "Read more"
 msgstr "Leia mais"
@@ -6593,7 +6729,7 @@ msgstr "Leia mais"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-post.php:15
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:64
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:51
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5337
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5399
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/search.php:15
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/single-download.php:14
 msgid "Published by"
@@ -6603,28 +6739,28 @@ msgstr "Publicado por"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-post.php:16
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:65
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:52
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5346
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5408
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/search.php:16
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/single-download.php:15
 msgid "at"
 msgstr "em"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2158
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2146
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/under-construction.php:27
 msgid "days"
 msgstr "dias"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2159
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2147
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/under-construction.php:28
 msgid "hours"
 msgstr "horas"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2160
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2148
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/under-construction.php:29
 msgid "minutes"
 msgstr "minutos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2161
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/theme-shortcodes.php:2149
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/under-construction.php:30
 msgid "seconds"
 msgstr "segundos"
@@ -6673,7 +6809,7 @@ msgstr "Barra lateral personalizada criada em Opções do Tema."
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-functions.php:58
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:282
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:482
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4382
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4386
 msgid "Footer"
 msgstr "Rodapé"
 
@@ -6684,7 +6820,7 @@ msgstr "Exibir na seção de rodapé do site."
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-functions.php:72
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1309
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1316
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4443
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4505
 msgid "Sliding Top"
 msgstr "Slide de Topo"
 
@@ -6758,10 +6894,6 @@ msgstr "Exibe um formulário de login."
 msgid "Muffin Login"
 msgstr "Login - Muffin"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:43
-msgid "Welcome"
-msgstr "Bem-vindo"
-
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:55
 msgid "Please enter Username and Password"
 msgstr "Por favor entre com o Usuário e Senha"
@@ -6777,10 +6909,6 @@ msgstr "Senha incorreta"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:73
 msgid "Logged in as "
 msgstr "Conectado como: "
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:75
-msgid "Dashboard"
-msgstr "Painel de Controle"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/functions/widget-login.php:79
 msgid "Logout"
@@ -6927,25 +7055,25 @@ msgid "Order:"
 msgstr "Ordenar:"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/header.php:112
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5169
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5231
 msgid "results found for:"
 msgstr "resultados para:"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-portfolio.php:19
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:73
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5428
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5490
 msgid "View website"
 msgstr "Ver website"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-post.php:18
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5383
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5445
 msgid "Do you like it?"
 msgstr "Gostou disso?"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:67
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:55
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/index.php:60
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5319
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5381
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/taxonomy-portfolio-types.php:44
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/template-portfolio.php:56
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/content-single-product.php:82
@@ -6954,7 +7082,7 @@ msgstr "Exibir tudo"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single-portfolio.php:68
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/content-single.php:56
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5392
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5454
 msgid "Related posts"
 msgstr "Artigos Relacionados"
 
@@ -6962,7 +7090,7 @@ msgstr "Artigos Relacionados"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/header-side-slide.php:199
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/header-top-area.php:1
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/includes/include-wpml.php:55
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5214
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5276
 msgid "No translations available for this page"
 msgstr "Não há traduções para esta página"
 
@@ -7006,7 +7134,7 @@ msgid "Custom (uploaded below)"
 msgstr "Personalizado (carregado abaixo)"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/fields/font_select/field_font_select.php:42
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4822
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4884
 msgid "Google Fonts"
 msgstr "Fontes Google"
 
@@ -7058,47 +7186,34 @@ msgstr "Navegador"
 msgid "Remove Upload"
 msgstr "Remover link"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:42
-msgid "BeTheme Options"
-msgstr "Opções do BeTheme "
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:44
-msgid "BeTheme Theme Options"
-msgstr "Opções do Tema BeTheme"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:54
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:55
-msgid "Theme Options"
-msgstr "Opções do tema"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:499
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:502
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:492
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:495
 msgid "Backup & Reset"
 msgstr "Backup & Reset"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:510
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:503
 msgid "Theme Version"
 msgstr "Versão do Tema"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:516
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:509
 msgid "More Options"
 msgstr "Mais Opções"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:523
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:533
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:613
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:516
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:526
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:606
 msgid "Save Changes"
 msgstr "Salvar Alterações"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:540
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:533
 msgid "Import & Export"
 msgstr "Importar & Exportar"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:546
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:539
 msgid "Export Options"
 msgstr "Exportar opções"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:547
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:540
 msgid ""
 "Here you can copy/download your themes current option settings. Keep this safe as you can use it as a backup should "
 "anything go wrong. Or you can use it to restore your settings on this site (or any other site). You also have the handy "
@@ -7109,48 +7224,48 @@ msgstr ""
 "a opção de copiar usando um link para as configurações do site remoto. Você pode usar essa opção para duplicar em outro "
 "site."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:550
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:543
 msgid "Copy"
 msgstr "Copiar"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:552
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:545
 msgid "Copy Link"
 msgstr "Link para Copiar"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:569
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:562
 msgid "Import Options"
 msgstr "Opções de Importação"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:572
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:565
 msgid "Import from file"
 msgstr "Importar do arquivo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:573
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:566
 msgid "Import from URL"
 msgstr "Importar da URL"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:577
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:570
 msgid "Input your backup file below and hit Import to restore your sites options from a backup."
 msgstr "Insira o seu arquivo de backup abaixo e clique em Importar para restaurar opções a partir de um backup."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:582
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:575
 msgid "Input the URL to another sites options set and hit Import to load the options from that site."
 msgstr "Introduza a URL para um outro site e clique Importar para carregar as opções do site remoto."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:588
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:599
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:581
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:592
 msgid "WARNING! This will overwrite all existing options, please proceed with caution!"
 msgstr "ATENÇÃO! Isto irá substituir todas as configurações existentes, prossiga com cuidado!"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:595
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:588
 msgid "Reset Options"
 msgstr "Reiniciar opções"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:598
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:591
 msgid "Reset to Defaults"
 msgstr "Restaurar padrões"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:604
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/options.php:597
 msgid "Confirm reset ALL options"
 msgstr ""
 
@@ -7365,9 +7480,9 @@ msgstr "CSS & JS Personalizados"
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2971
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3294
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3377
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3751
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4884
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5137
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3755
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4946
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5199
 msgid "General"
 msgstr "Geral"
 
@@ -7392,7 +7507,7 @@ msgid "Style | Button"
 msgstr "Estilo | Botão"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:405
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4286
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4290
 msgid "Image Frame"
 msgstr "Moldura da Imagem"
 
@@ -7834,7 +7949,7 @@ msgstr "Escuro"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1077
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2540
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3880
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3884
 msgid "Subheader"
 msgstr "Subtítulo"
 
@@ -7859,9 +7974,15 @@ msgid "Title on the Right"
 msgstr "Título à direita"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1107
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5179
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5241
 msgid "Breadcrumbs"
 msgstr "Breadcrumbs"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1108
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4844
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4994
+msgid "Page Title"
+msgstr "Título da Página"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1109
 msgid "<b>Subheader</b>"
@@ -7890,7 +8011,7 @@ msgid "Transparency (alpha)"
 msgstr "Transparência (alpha)"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1173
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4739
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4801
 msgid "0 = transparent, 100 = solid"
 msgstr "0 = transparente, 100 = sólida"
 
@@ -7928,8 +8049,8 @@ msgstr "Deslocar até a seção (use #SectionID como Link)"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1258
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1265
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3864
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5496
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3868
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5558
 msgid "Search"
 msgstr "Busca"
 
@@ -8000,8 +8121,8 @@ msgstr "Cabeçalho Magazine (468px x 60px) ou código de Banner Criativo (250px 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2011
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2322
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3217
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3903
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3912
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3907
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3916
 msgid "Menu"
 msgstr "Menu"
 
@@ -8062,8 +8183,8 @@ msgid "Menu Arrows for Items with Submenu"
 msgstr "Setas de menu para itens com submenu"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1396
-msgid "Fold 2 Last Submenus to the Left<span>for Header Creative fold to Top</span>"
-msgstr "Dobre os dois últimos submenus para a esquerda <span>Para cabeçalho criativo, essa opção dobra para cima.</span>"
+msgid "Fold 2 Last Submenus to the Left<span>for Header Creative: fold to Top</span>"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1404
 msgid "Creative <span>for creative header only</span>"
@@ -8083,7 +8204,7 @@ msgstr "Linhas Verticais"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1441
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1447
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4066
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4070
 msgid "Action Bar"
 msgstr "Barra de Ação"
 
@@ -8260,13 +8381,13 @@ msgid "Hide on Mobile"
 msgstr "Ocultar em dispositivos móveis"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:1736
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5293
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5320
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5338
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5348
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5357
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5375
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5393
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5355
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5382
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5400
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5410
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5419
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5437
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5455
 msgid "Blog, Portfolio"
 msgstr "Blog e Portfólio"
 
@@ -8771,7 +8892,7 @@ msgid "Leave this field blank to hide cart icon"
 msgstr "Deixe este campo em branco para ocultar o ícone do carrinho"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2586
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5286
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5348
 msgid "Blog & Portfolio"
 msgstr "Blog e Portfólio"
 
@@ -8835,7 +8956,7 @@ msgid "Single Page"
 msgstr "Página única"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2715
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5455
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5517
 msgid "Error 404"
 msgstr "Erro 404"
 
@@ -8871,7 +8992,7 @@ msgid "Under Construction page will be visible for all NOT logged in users."
 msgstr "A página Em Construção será visível para todos os usuários NÃO conectados."
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:2765
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5478
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5540
 msgid "Text"
 msgstr "Texto"
 
@@ -9101,7 +9222,7 @@ msgid "Do not use centered logo with more than 2 Icons in Top Bar"
 msgstr "Não use o logotipo centralizado com mais de 2 ícones na Barra Superior."
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3194
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3826
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3830
 msgid "Top Bar"
 msgstr "Barra de topo"
 
@@ -9352,7 +9473,7 @@ msgid "Show the RSS icon"
 msgstr "Mostrar o ícone do RSS."
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3538
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3670
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3674
 msgid "Addons"
 msgstr "Adicionais"
 
@@ -9425,86 +9546,42 @@ msgid "default: 40"
 msgstr "Padrão: 40"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3618
-msgid "Pretty Photo"
-msgstr "Pretty Photo"
+msgid "Lightbox"
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3625
-msgid "Pretty Photo | Options"
-msgstr "Pretty Photo | Opções"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3629
+msgid "Lightbox | Options"
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3627
-msgid "Disable<span>Disable prettyPhoto if you use other plugin</span>"
-msgstr "Desabilitar <span>Desabilite o Pretty Photo se você deseja usar outro plugin para fotos e imagens.</span>"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3631
+msgid "Disable<span>Disable Magnific Popup if you prefer to use other plugin</span>"
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3628
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3632
 msgid "Disable on Mobile only"
 msgstr "Desabilitar apenas em dispositivos móveis"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3629
-msgid "Show image alt text above prettyPhoto frame"
-msgstr "Mostrar texto alternativo acima da moldura do Pretty Photo"
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3633
+msgid "Show image alt text as caption for lightbox image"
+msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3636
-msgid "Pretty Photo | Style"
-msgstr "Pretty Photo | Estilo"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3639
-msgid "Light Rounded"
-msgstr "Claro e arredondado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3640
-msgid "Dark Rounded"
-msgstr "Escuro e arredondado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3641
-msgid "Light Square"
-msgstr "Claro e quadrado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3642
-msgid "Dark Square"
-msgstr "Escuro e quadrado"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3650
-msgid "Pretty Photo | Width"
-msgstr "Pretty Photo | Largura"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3651
-msgid "prettyPhoto popup width for iframe video"
-msgstr "Largura do popup Pretty Photo para o vídeo iframe"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3652
-msgid "px. Leave blank to use auto width"
-msgstr "Deixe em branco para usar largura automática."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3659
-msgid "Pretty Photo | Height"
-msgstr "Pretty Photo | Altura"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3660
-msgid "prettyPhoto popup height for iframe video"
-msgstr "Altura do popup Pretty Photo para o vídeo iframe"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3661
-msgid "px. Leave blank to use auto height"
-msgstr "Deixe em branco para usar altura automática."
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3677
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3681
 msgid "Gallery Shortcode | Disable"
 msgstr "Shortcode de Galeria | Desabilitar"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3678
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3682
 msgid "Disable Theme Gallery Shortcode"
 msgstr "Desativar shortcode para Theme Gallery"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3679
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3683
 msgid "Turn it <b>on</b> if you want to use external gallery plugin or Jetpack"
 msgstr "<b>Ligue</b> se você deseja usar um plugin de galeria externo ou Jetpack."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3687
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3691
 msgid "Retina.js"
 msgstr "Retina.js"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3688
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3692
 msgid ""
 "More info: <a target=\"_blank\" href=\"http://imulus.github.io/retinajs/\">http://imulus.github.io/retinajs/</a><br /"
 ">Retina.js disables responsive images in WP 4.4+<br />"
@@ -9512,19 +9589,19 @@ msgstr ""
 "Mais informações: <a target=\"_blank\" href=\"http://imulus.github.io/retinajs/\">http://imulus.github.io/retinajs/</a><br /"
 ">Retina.js desabilita imagens responsivas no WP 4.4+<br />"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3690
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3694
 msgid "Default: only Retina Logo"
 msgstr "Padrão: Somente Logo Retina"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3691
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3695
 msgid "Enable Retina.js | please prepare @2x images"
 msgstr "Ativar Retina.js | Prepare imagens @2x"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3701
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3705
 msgid "Premium Plugins"
 msgstr "Plugins Premium"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3710
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3714
 msgid ""
 "The plugins listed below came bundled with the theme.<br />The use of these plugins is limited to this theme only.<br /"
 "><br />However, if you have <b>purchased an extra license</b> on CodeCanyon for any of these plugins you can <b>disable the "
@@ -9532,586 +9609,591 @@ msgid ""
 "<b>plugin options page</b> to get <b>Premium Support from the Plugin Author</b> and <b>Auto Updates</b>."
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3717
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3721
 msgid "Revolution Slider"
 msgstr "Revolution Slider"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3719
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3729
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3739
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3723
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3733
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3743
 msgid "Bundled with a Theme"
 msgstr "Usar plugin incluído com o tema"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3720
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3730
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3740
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3724
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3734
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3744
 msgid "I have purchased an extra licence on CodeCanyon"
 msgstr "Eu comprei uma licença extra em CodeCanyon"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3727
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3731
 msgid "Layer Slider"
 msgstr "Layer Slider"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3737
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3741
 msgid "Visual Composer"
 msgstr "Visual Composer"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3766
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3770
 msgid "Theme Skin"
 msgstr "Skin do Tema"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3776
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3780
 msgid "One Color"
 msgstr "Cor Única"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3777
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3781
 msgid "One Color Skin Generator"
 msgstr "Gerador de skin com uma cor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3778
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3782
 msgid "for <strong>One Color Skin</strong>"
 msgstr "para <strong>Uma única cor</strong>."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3793
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3797
 msgid "Body background"
 msgstr "Fundo da Página"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3794
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3798
 msgid "for <strong>Boxed Layout</strong>"
 msgstr "para <strong>Layout Caixa</strong>."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3801
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3805
 msgid "Content background"
 msgstr "Fundo do Conteúdo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3817
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3821
 msgid "Header background"
 msgstr "Fundo do Cabeçalho"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3833
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3837
 msgid "Top Bar Left background"
 msgstr "Barra de Topo Esquerda | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3834
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3838
 msgid "This is also Mobile Header & Top Bar Background for some Header Styles"
 msgstr "Esta cor é usada também para Fundo de Cabeçalho Móvel e Barra de Topo para alguns estilos de cabeçalho."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3841
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3845
 msgid "Top Bar Middle background"
 msgstr "Barra de Topo Central | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3848
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3852
 msgid "Top Bar Right | background"
 msgstr "Barra de Topo Direita | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3855
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3859
 msgid "Top Bar Right | Icon color"
 msgstr "Barra de Topo Direita | Cor do Ícone"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3871
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3875
 msgid "Search Bar background"
 msgstr "Barra de Pesquisa | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3887
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3891
 msgid "Subheader background"
 msgstr "Fundo do Subtítulo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3894
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3898
 msgid "Subheader Title color"
 msgstr "Cor do Subtítulo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3919
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3958
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4049
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3923
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3962
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4053
 msgid "Link color"
 msgstr "Cor do Link"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3926
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4057
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3930
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4061
 msgid "Active Link color"
 msgstr "Cor do Link Ativo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3927
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3931
 msgid "This is also Active Link Border"
 msgstr "Esta cor é usada também para Borda de Link Ativo."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3934
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3938
 msgid "Active Link background"
 msgstr "Fundo do Link Ativo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3935
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3939
 msgid "Header Plain & Menu Highlight"
 msgstr "Cabeçalho Plano e Menu Destacado."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3944
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3948
 msgid "Submenu"
 msgstr "Submenu"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3965
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3969
 msgid "Hover Link color"
 msgstr "Cor do Link em Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3974
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3978
 msgid "Menu Button <span>Responsive, Header Creative, Simple & Empty</span>"
 msgstr "Botão de Menu <span>Responsivo, Cabeçalho Criativo, Simples e Vazio</span>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3981
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3985
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4488
 msgid "Button color"
 msgstr "Cor do Botão"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3988
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3992
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4495
 msgid "Button background"
 msgstr "Fundo do Botão"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:3998
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4002
 msgid "Styles<span>for specific header styles</span>"
 msgstr "Estilos<span>Para estilos de cabeçalho específicos.</span>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4005
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4009
 msgid "Overlay Menu<br />Menu background"
 msgstr "Menu de Sobreposição<br />Fundo do Menu"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4012
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4016
 msgid "Overlay Menu<br />Link color"
 msgstr "Menu de Sobreposição<br />Cor do Link"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4019
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4023
 msgid "Overlay Menu<br />Active Link color"
 msgstr "Menu de Sobreposição<br />Cor do Link Ativo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4026
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4030
 msgid "Plain<br />Border color"
 msgstr "Menu Plano<br />Cor da Borda"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4035
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4039
 msgid "Side Slide<span>responsive menu style</span>"
 msgstr "Slide  Lateral<span>Estilo de Menu Responsivo</span>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4050
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4054
 msgid "Text, Link & Icon color"
 msgstr "Cor do Texto, Link e Ícone"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4075
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4079
 msgid "Desktop & Tablet<span>> 768px</span>"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4083
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4087
 msgid "For some Header Styles"
 msgstr "Para alguns Estilos de Cabeçalho."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4090
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4143
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4198
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4680
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4709
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4094
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4147
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4202
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4742
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4771
 msgid "Text color"
 msgstr "Cor do Texto"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4097
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4150
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4101
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4154
 msgid "Link | Color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4104
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4157
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4108
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4161
 msgid "Link | Hover color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4111
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4164
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4115
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4168
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4463
 msgid "Social Icon | Color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4112
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4165
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4116
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4169
 msgid "This is also Social Menu Link color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4119
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4172
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4123
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4176
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4471
 msgid "Social Icon | Hover color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4120
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4173
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4124
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4177
 msgid "This is also Social Menu Link hover color"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4129
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4133
 msgid "Mobile<span>< 768px</span>"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4189
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4193
 msgid "Theme color"
 msgstr "Cor do Tema"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4190
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4194
 msgid "Color for highlighted buttons, icons and other small elements"
 msgstr "Cor para botões, ícones e outros elementos pequenos."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4191
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4195
 msgid "You can use <strong>.themecolor</strong> and <strong>.themebg</strong> classes in your content"
 msgstr "Você pode usar as classes <strong>.themecolor</strong> e <strong>.themebg</strong> no conteúdo."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4199
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4203
 msgid "Content text color"
 msgstr "Cor do texto no conteúdo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4215
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4219
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4440
 msgid "Link | color"
 msgstr "Link | Cor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4222
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4226
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4447
 msgid "Link | hover color"
 msgstr "Link | Cor do Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4229
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4233
 msgid "Fancy Link | color"
 msgstr "Link Rico | Cor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4230
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4238
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4246
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4254
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4234
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4242
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4250
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4258
 msgid "For some link styles only"
 msgstr "Para alguns estilos de link apenas."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4237
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4241
 msgid "Fancy Link | background"
 msgstr "Link Rico | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4245
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4249
 msgid "Fancy Link | hover color"
 msgstr "Link Rico | Cor do Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4253
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4257
 msgid "Fancy Link | hover background"
 msgstr "Link Rico | Fundo do Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4270
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4274
 msgid "Button | background"
 msgstr "Botão | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4277
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4281
 msgid "Button | color"
 msgstr "Botão | Cor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4293
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4297
 msgid "Image Frame | Border color"
 msgstr "Frame de Imagem | Cor de Borda"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4300
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4304
 msgid "Image Frame | Link background"
 msgstr "Frame de Imagem | Fundo do Link"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4301
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4305
 msgid "This is also Image Frame Hover Link color"
 msgstr "Esta cor é usada também para o Frame de Imagem com Link - em Foco."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4308
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4312
 msgid "Image Frame | Link color"
 msgstr "Frame de Imagem | Cor do Link"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4309
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4313
 msgid "This is also Image Frame Hover Link background"
 msgstr "Esta cor é usada também para fundo do Frame de Imagem com Link - em Foco."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4316
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4320
 msgid "Image Frame | Mask color"
 msgstr "Frame de Imagem | Cor da Máscara"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4317
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4321
 msgid "Mask has predefined opacity 0.4"
 msgstr "A máscara tem opacidade predefinida em 0,4."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4326
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4330
 msgid "Inline Shortcodes"
 msgstr "Shortcodes Em Linha"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4333
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4337
 msgid "Dropcap & Highlight background"
 msgstr "Capitulado e Destaque de Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4340
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4344
 msgid "Hr color"
 msgstr "Cor da Linha Horizontal"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4341
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4345
 msgid "Dots, ZigZag & Theme Color"
 msgstr "Pontos, zig-zag e cor do tema."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4348
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4352
 msgid "List color"
 msgstr "Cor das Listas"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4349
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4353
 msgid "Ordered, Unordered & Bullets List"
 msgstr "Lista ordenada, desordenada e com marcadores."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4356
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4360
 msgid "Note color"
 msgstr "Cor das Notas"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4357
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4361
 msgid "eg. Blog meta, Filters, Widgets meta"
 msgstr "Ex: Blog Meta, Filtros, Widgets Meta."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4373
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4377
 msgid "Highlight Section background"
 msgstr "Fundo da Seção em Destaque"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4389
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4393
 msgid "Footer Theme color"
 msgstr "Cor do Tema no Rodapé"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4390
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4451
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4394
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4513
 msgid "Color for icons and other small elements"
 msgstr "Cor para ícones e outros elementos pequenos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4391
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4395
 msgid "You can use <strong>.themecolor</strong> and <strong>.themebg</strong> classes in your footer content"
 msgstr "Você pode usar classes <strong>.themecolor</strong> e <strong>.themebg</strong> no rodapé."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4398
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4402
 msgid "Footer background"
 msgstr "Fundo do Rodapé"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4405
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4409
 msgid "Footer Text color"
 msgstr "Cor do Texto no Rodapé"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4412
-msgid "Footer Link color"
-msgstr "Cor do Link no Rodapé"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4419
-msgid "Footer Hover Link color"
-msgstr "Cor do Link no Rodapé - em Foco"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4426
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4416
 msgid "Footer Heading color"
 msgstr "Cor do Título no Rodapé"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4433
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4423
 msgid "Footer Note color"
 msgstr "Cor da Nota de Rodapé"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4434
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4495
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4424
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4557
 msgid "eg. Widget meta"
 msgstr "Ex: Widget meta."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4450
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4464
+msgid "This is also Social Menu Bottom link color"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4472
+msgid "This is also Social Menu Bottom link hover color"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4481
+msgid "Back to Top"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4512
 msgid "Sliding Top Theme color"
 msgstr "Cor do Tema no Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4452
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4514
 msgid "You can use <strong>.themecolor</strong> and <strong>.themebg</strong> classes in your Sliding Top content"
 msgstr "Você pode usar as classes <strong>.themecolor</strong> e <strong>.themebg</strong> no Slide de Topo."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4459
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4521
 msgid "Sliding Top background"
 msgstr "Fundo do Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4466
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4528
 msgid "Sliding Top Text color"
 msgstr "Cor do Texto no Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4473
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4535
 msgid "Sliding Top Link color"
 msgstr "Cor do Link no Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4480
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4542
 msgid "Sliding Top Hover Link color"
 msgstr "Cor do Link no Slide de Topo - em Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4487
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4549
 msgid "Sliding Top Heading color"
 msgstr "Cor do Cabeçalho no Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4494
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4556
 msgid "Sliding Top Note color"
 msgstr "Cor da Nota no Slide de Topo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4504
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4566
 msgid "Headings"
 msgstr "Títulos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4511
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4573
 msgid "Heading H1 color"
 msgstr "Cor do Título H1"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4518
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4580
 msgid "Heading H2 color"
 msgstr "Cor do Título H2"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4525
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4587
 msgid "Heading H3 color"
 msgstr "Cor do Título H3"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4532
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4594
 msgid "Heading H4 color"
 msgstr "Cor do Título H4"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4539
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4601
 msgid "Heading H5 color"
 msgstr "Cor do Título H5"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4546
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4608
 msgid "Heading H6 color"
 msgstr "Cor do Título H6"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4555
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4617
 msgid "Shortcodes"
 msgstr "Shortcodes"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4562
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4624
 msgid "Accordion & Tabs Active Title color"
 msgstr "Cor Ativa no Título de Acordeons e Abas"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4569
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4631
 msgid "Blockquote color"
 msgstr "Cor da Citação"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4576
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4638
 msgid "Content Link | Icon color"
 msgstr "Link de Conteúdo | Cor do Ícone"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4577
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4639
 msgid "This is also Content Link Hover Border"
 msgstr "Esta cor é usada também para a borda do Link de Conteúdo - em Foco."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4584
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4646
 msgid "Counter Icon | color"
 msgstr "Ícone do Contador | Cor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4585
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4647
 msgid "This is also Chart Progress color"
 msgstr "Também é a cor do Gráfico de Progresso."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4592
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4654
 msgid "Get in Touch background"
 msgstr "Fundo para Entre em Contato"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4593
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4655
 msgid "This is also Infobox background"
 msgstr "Esta cor é usada também para o fundo da Caixa Informativa."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4600
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4662
 msgid "Icon Bar Hover Icon color"
 msgstr "Ícone na Barra de Ícones - em Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4607
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4669
 msgid "Icon Box Icon color"
 msgstr "Cor da Caixa de Ícone"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4614
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4676
 msgid "List & Feature List Icon color"
 msgstr "Cor da Lista e Lista Destacada"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4621
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4683
 msgid "Pricing Box | Price color"
 msgstr "Caixa de Preço | Cor do Preço"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4628
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4690
 msgid "Pricing Box | Featured background"
 msgstr "Caixa de Preço | Fundo do Destaque"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4635
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4697
 msgid "Progress Bar background"
 msgstr "Barra de Progresso | Fundo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4642
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4704
 msgid "Quick Fact Number color"
 msgstr "Cor do Número para Fato Rápido"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4649
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4711
 msgid "Sliding Box Title background"
 msgstr "Fundo do Título na Caixa de Slider"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4656
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4718
 msgid "Trailer Box Subtitle background"
 msgstr "Fundo da Legenda na Caixa de Trailer"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4665
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4727
 msgid "Forms"
 msgstr "Formulários"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4673
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4735
 msgid "Input, Select & Textarea"
 msgstr "Entrada, Seleção & Texto"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4702
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4764
 msgid "Focus"
 msgstr "Foco"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4738
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4800
 msgid "Background Transparency (alpha)"
 msgstr "Transparência do Fundo (alpha)"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4752
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4814
 msgid "Family"
 msgstr "Família"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4759
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4821
 msgid "Font Family"
 msgstr "Famílias de Fontes"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4767
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4829
 msgid "All theme texts except headings and menu"
 msgstr "Todos os textos do tema, exceto títulos e menus"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4774
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4836
 msgid "Main Menu"
 msgstr "Menu Principal"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4775
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4837
 msgid "Header menu"
 msgstr "Menu do cabeçalho"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4782
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4932
-msgid "Page Title"
-msgstr "Título da Página"
-
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4789
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4851
 msgid "Big Headings"
 msgstr "Títulos Grandes"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4790
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4852
 msgid "H1, H2, H3 & H4 headings"
 msgstr "Títulos H1, H2, H3 e H4"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4797
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4859
 msgid "Small Headings"
 msgstr "Títulos Pequenos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4798
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4860
 msgid "H5 & H6 headings"
 msgstr "Títulos H5 e H6"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4812
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4874
 msgid "Decorative"
 msgstr "Textos Decorativos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4813
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4875
 msgid "Digits in some items"
 msgstr "Dígitos em alguns itens"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4814
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4876
 msgid "eg. Chart Box, Counter, How it Works, Quick Fact, Single Product Price"
 msgstr "Ex: Caixa de Gráfico, Contador, Como Funciona, Fato Rápido, Preço do Item."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4829
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4891
 msgid "Google Fonts Weight & Style"
 msgstr "Google Fonts: Estilo e Peso"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4830
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4892
 msgid "Impact on page <b>load time</b>"
 msgstr "Impacto na página: <b>tempo de carregamento</b>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4831
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4893
 msgid ""
 "Some of the fonts in the Google Fonts Directory support multiple styles. For a complete list of available font subsets "
 "please see <a href=\"http://www.google.com/webfonts\" target=\"_blank\">Google Web Fonts</a>"
@@ -10119,87 +10201,87 @@ msgstr ""
 "Algumas das fontes disponíveis no Google Fonts suportam vários estilos. Para uma lista completa dos subconjuntos de fontes "
 "disponíveis, por favor consulte o <a href=\"http://www.google.com/webfonts\" target=\"_blank\">Google Web Fonts</a>."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4833
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4895
 msgid "100 Thin"
 msgstr "100 Fino"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4834
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4896
 msgid "100 Thin Italic"
 msgstr "100 Fino Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4835
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4897
 msgid "200 Extra-Light"
 msgstr "200 Extra-Leve"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4836
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4898
 msgid "200 Extra-Light Italic"
 msgstr "200 Extra-Leve Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4837
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4899
 msgid "300 Light"
 msgstr "300 Leve"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4838
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4900
 msgid "300 Light Italic"
 msgstr "300 Leve Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4839
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4901
 msgid "400 Regular"
 msgstr "400 Regular"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4840
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4902
 msgid "400 Regular Italic"
 msgstr "400 Regular Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4841
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4903
 msgid "500 Medium"
 msgstr "500 Médio"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4842
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4904
 msgid "500 Medium Italic"
 msgstr "500 Médio Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4843
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4905
 msgid "600 Semi-Bold"
 msgstr "600 Semi-Grosso"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4844
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4906
 msgid "600 Semi-Bold Italic"
 msgstr "600 Semi-Grosso Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4845
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4907
 msgid "700 Bold"
 msgstr "700 Grosso"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4846
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4908
 msgid "700 Bold Italic"
 msgstr "700 Grosso Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4847
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4909
 msgid "800 Extra-Bold"
 msgstr "800 Extra-Grosso"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4848
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4910
 msgid "800 Extra-Bold Italic"
 msgstr "800 Extra-Grosso Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4849
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4911
 msgid "900 Black"
 msgstr "900 Preto"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4850
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4912
 msgid "900 Black Italic"
 msgstr "900 Preto Itálico"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4866
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4928
 msgid "Google Fonts Subset"
 msgstr "Subconjuntos Google Fonts"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4867
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4929
 msgid "Specify which subsets should be downloaded. Multiple subsets should be separated with coma (,)"
 msgstr "Especificar quais os subgrupos devem ser baixados. Vários subgrupos devem ser separados com vírgula [ , ]"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4868
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4930
 msgid ""
 "Some of the fonts in the Google Fonts Directory support multiple scripts (like Latin and Cyrillic for example). For a "
 "complete list of available font subsets please see <a href=\"http://www.google.com/webfonts\" target=\"_blank\">Google Web "
@@ -10209,15 +10291,15 @@ msgstr ""
 "lista completa de subconjuntos de fontes disponíveis, por favor consulte o <a href=\"http://www.google.com/webfonts\" "
 "target=\"_blank\">Google Web Fonts</a>."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4877
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4939
 msgid "Size & Style"
 msgstr "Tamanho & Estilo"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4892
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4954
 msgid "This font size will be used for all theme texts<br/>default: 14"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4893
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4955
 msgid ""
 "Some of Google Fonts support multiple weights & styles. Include them in <b>Theme Options > Fonts > Family > Google Fonts "
 "Weight & Style</b>"
@@ -10225,111 +10307,111 @@ msgstr ""
 "Algumas das fontes Google suportam vários pesos e estilos. Incluí-los na <b>Opções de tema > fontes > família > Google "
 "fontes peso e estilo</b>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4905
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4967
 msgid "p.big"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4906
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4968
 msgid "class=\"big\"<br />default: 16"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4918
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4980
 msgid "Main menu"
 msgstr "Menu Principal"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4953
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5015
 msgid "H1"
 msgstr "Tag H1"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4966
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5028
 msgid "H2"
 msgstr "Tag H2"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4979
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5041
 msgid "H3"
 msgstr "Tag H3"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:4992
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5054
 msgid "H4"
 msgstr "Tag H4"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5005
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5067
 msgid "H5"
 msgstr "Tag H5"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5018
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5080
 msgid "H6"
 msgstr "Tag H6"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5039
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5101
 msgid "Single Post | Intro"
 msgstr "Post Único | Intro"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5060
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5122
 msgid "Font | Name"
 msgstr "Fonte | Nome"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5061
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5098
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5123
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5160
 msgid "Please use only letters or spaces, eg. Patua One"
 msgstr "Por favor, use apenas letras ou espaços. Ex: Patua One"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5062
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5124
 msgid "Name for Custom Font uploaded below. Font will show on fonts list after click the Save Changes button."
 msgstr ""
 "Nome para Fonte personalizada enviada abaixo. Fonte mostrará na lista de fontes, depois clique no botão Salvar alterações."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5069
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5131
 msgid "Font | .woff"
 msgstr "Fonte | .woff"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5076
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5138
 msgid "Font | .ttf"
 msgstr "Fonte |. ttf"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5083
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5145
 msgid "Font | .svg"
 msgstr "Fonte | .svg"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5090
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5152
 msgid "Font | .eot"
 msgstr "Fonte | .eot"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5097
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5159
 msgid "Font 2 | Name"
 msgstr "Fonte 2 | Nome"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5099
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5161
 msgid "Name for Custom Font 2 uploaded below. Font will show on fonts list after click the Save Changes button."
 msgstr ""
 "Nome para a Fonte Personalizada 2 enviada abaixo. Fonte mostrará na lista de fontes, depois clique no botão Salvar "
 "alterações."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5106
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5168
 msgid "Font 2 | .woff"
 msgstr "Fonte 2 | .woff"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5113
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5175
 msgid "Font 2 | .ttf"
 msgstr "Fonte 2 |. ttf"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5120
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5182
 msgid "Font 2 | .svg"
 msgstr "Fonte 2 | .svg"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5127
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5189
 msgid "Font 2 | .eot"
 msgstr "Fonte 2 | .eot"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5143
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5205
 msgid "Enable Translate"
 msgstr "Habilitar Tradutor"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5144
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5206
 msgid "Turn it <b>off</b> if you want to use <b>.mo .po files</b> for more complex translation"
 msgstr "<b>Desligue-o</b> se você deseja usar <b>arquivos .mo .po</b> para uma tradução mais complexa."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5153
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5215
 msgid ""
 "The fields must be filled out if you are using WPML String Translation<br /><span>If you are using the English language, "
 "you can also use this tab to change some texts</span>"
@@ -10337,111 +10419,111 @@ msgstr ""
 "Os campos devem ser preenchidos ao usar tradução WPML<br /><span>Se você usar o idioma Inglês, você pode usar este guia "
 "para mudar alguns textos</span>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5160
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5222
 msgid "Search Placeholder"
 msgstr "Digite sua busca"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5161
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5223
 msgid "Search Form"
 msgstr "Campo do  formulário de pesquisa"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5215
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5277
 msgid "WPML Languages Menu"
 msgstr "Menu de Idiomas WPML"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5223
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5285
 msgid "Items <span>Builder items and shortcodes</span>"
 msgstr "Itens <span>Builder itens e Shortcodes</span>"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5230
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/style.php:708
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5292
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/style.php:702
 msgid "Before"
 msgstr "Antes"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5239
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/style.php:709
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5301
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/style.php:703
 msgid "After"
 msgstr "Depois"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5248
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5310
 msgid "Days"
 msgstr "Dias"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5257
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5319
 msgid "Hours"
 msgstr "Horas"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5266
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5328
 msgid "Minutes"
 msgstr "Minutos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5275
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5337
 msgid "Seconds"
 msgstr "Segundos"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5329
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5391
 msgid "Blog Item, Portfolio Item"
 msgstr "Item do Blog e Item do portfólio"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5347
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5409
 msgid "Published by .. at"
 msgstr "Publicado por .. em .."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5448
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5510
 msgid "Error 404 & Search"
 msgstr "Erro 404 e Busca"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5479
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5541
 msgid "Please check entered address and try again or"
 msgstr "Por favor, verifique o endereço digitado e tente novamente ou"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5504
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5566
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/search.php:12
 msgid "Ooops..."
 msgstr "Ooops…"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5512
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5574
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/search.php:13
 msgid "No results found for:"
 msgstr "Não há resultados para:"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5521
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5535
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5583
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5597
 msgid "WPML Installer"
 msgstr "Instalador WPML"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5528
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5590
 msgid "<b>WPML</b> is an optional premium plugin and it is <b>NOT</b> included into the theme"
 msgstr "<b>WPML</b> é um plugin premium opcional e <b>não</b> é incluído no tema."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5536
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5598
 msgid ""
 "WPML makes it easy to build multilingual sites and run them. It’s powerful enough for corporate sites, yet simple for blogs."
 msgstr ""
 "WPML torna mais fácil construir e manter sites multilíngues: Poderoso o suficiente para sites corporativos, simples para "
 "blogs."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5547
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5609
 msgid "CSS"
 msgstr "CSS"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5554
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5616
 msgid "Paste your custom CSS code here"
 msgstr "Cole o código CSS personalizado aqui"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5563
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5625
 msgid "JS"
 msgstr "JS"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5569
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5631
 msgid "Custom JS"
 msgstr "JS Personalizado"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5570
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5632
 msgid "Paste your custom JS code here"
 msgstr "Cole o código personalizado JS aqui"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5571
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/muffin-options/theme-options.php:5633
 msgid "To use jQuery code wrap it into <strong>jQuery(function($){ ... });</strong>"
 msgstr "Para usar código jQuery, envolva-o em <strong>jQuery(function($) {…});</strong>"
 
@@ -10498,23 +10580,24 @@ msgid "Your cart is currently empty."
 msgstr "Seu carrinho está vazio."
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart-empty.php:39
-msgid "Return To Shop"
-msgstr "Voltar para Loja"
+msgid "Return to shop"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:34
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:66
 msgid "Product"
 msgstr "Produto"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:36
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:93
 msgid "Quantity"
 msgstr "Quantidade"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:37
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:110
 msgid "Total"
 msgstr "Total"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:82
+msgid "Available on backorder"
+msgstr "Disponível como pedido pendente"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/cart.php:121
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/cart/mini-cart.php:55
@@ -10545,9 +10628,13 @@ msgstr "Pagamento"
 msgid "No products were found matching your selection."
 msgstr "Nenhum produto encontrado na sua pesquisa."
 
-#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/single-product/product-image.php:95
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/single-product/product-image.php:92
 msgid "Placeholder"
 msgstr "Marcador"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/single-product/product-image.php:114
+msgid "Awaiting product image"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/single-product/tabs/additional-information.php:25
 msgid "Additional information"
@@ -10556,6 +10643,137 @@ msgstr ""
 #: /Applications/XAMPP/xamppfiles/htdocs/betheme/woocommerce/single-product/tabs/description.php:25
 msgid "Product Description"
 msgstr "Descrição do produto"
+
+#~ msgid "External Source"
+#~ msgstr "Fonte Externa"
+
+#~ msgid "Minimum required version:"
+#~ msgstr "Versão mínima exigida:"
+
+#~ msgid "WP Memory Limit"
+#~ msgstr "Limite de Memória WP"
+
+#~ msgid ""
+#~ "%s - We recommend setting memory to at least 128MB. See: <a href=\"%s\" target=\"_blank\">Increasing memory allocated to "
+#~ "PHP</a>"
+#~ msgstr ""
+#~ "%s - Recomendamos configurar o limite de memória em pelo menos 128MB. Veja: <a href=\\\"%s\\\">Increasing memory "
+#~ "allocated to PHP</a>"
+
+#~ msgid "WP Debug Mode"
+#~ msgstr "Modo de Debug  WP"
+
+#~ msgid "PHP Post Max Size"
+#~ msgstr "PHP Post Max Size"
+
+#~ msgid ""
+#~ "%s - We recommend setting max execution time to at least 180. See: <a href=\"%s\" target=\"_blank\">Increasing max "
+#~ "execution to PHP</a>"
+#~ msgstr ""
+#~ "%s - Recomendamos configurar o limite de execução em pelo menos 180. Veja: <a href=\"%s\" target=\"_blank\">Increasing "
+#~ "max execution to PHP</a>"
+
+#~ msgid "%s - Max input vars limitation will truncate POST data such as menus."
+#~ msgstr "%s - A limitação em 'max_input_vars' irá truncar dados de POST, tais como menus."
+
+#~ msgid "Max Upload Size"
+#~ msgstr "Tamanho máximo de upload"
+
+#~ msgid "Default Timezone is UTC"
+#~ msgstr "O padrão do fuso horário é UTC"
+
+#~ msgid "Default timezone is %s - it should be UTC"
+#~ msgstr "Fuso horário padrão é %s - ele deve ser UTC"
+
+#~ msgid "Your server does not have fsockopen or cURL enabled. Contact your hosting provider."
+#~ msgstr "Seu servidor não tem fsockopen ou cURL habilitados. Entre em contato com seu provedor de hospedagem."
+
+#~ msgid "Your server does not have the <a href=\"%s\">DOMDocument</a> class enabled. Contact your hosting provider."
+#~ msgstr ""
+#~ "Seu servidor não tem a classe <a href=\"%s\">DOMDocument</a> habilitada. Entrar em contato com seu provedor de "
+#~ "hospedagem."
+
+#~ msgid "Remote Get"
+#~ msgstr "Remote Get"
+
+#~ msgid ""
+#~ "WordPress function <a href=\"https://codex.wordpress.org/Function_Reference/wp_remote_get\">wp_remote_get()</a> test "
+#~ "failed. Contact your hosting provider."
+#~ msgstr ""
+#~ "Falha no teste da função <a href=\"https://codex.wordpress.org/Function_Reference/wp_remote_get\">wp_remote_get()</a> do "
+#~ "WordPress. Entre em contato com seu provedor de hospedagem."
+
+#~ msgid "Error: %s"
+#~ msgstr "Erro: %s"
+
+#~ msgid "Status code: %s"
+#~ msgstr "Código de status: '%s'"
+
+#~ msgid "Theme"
+#~ msgstr "Tema"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
+
+#~ msgid "BeTheme Theme Options"
+#~ msgstr "Opções do Tema BeTheme"
+
+#~ msgid "Fold 2 Last Submenus to the Left<span>for Header Creative fold to Top</span>"
+#~ msgstr "Dobre os dois últimos submenus para a esquerda <span>Para cabeçalho criativo, essa opção dobra para cima.</span>"
+
+#~ msgid "Pretty Photo"
+#~ msgstr "Pretty Photo"
+
+#~ msgid "Pretty Photo | Options"
+#~ msgstr "Pretty Photo | Opções"
+
+#~ msgid "Disable<span>Disable prettyPhoto if you use other plugin</span>"
+#~ msgstr "Desabilitar <span>Desabilite o Pretty Photo se você deseja usar outro plugin para fotos e imagens.</span>"
+
+#~ msgid "Show image alt text above prettyPhoto frame"
+#~ msgstr "Mostrar texto alternativo acima da moldura do Pretty Photo"
+
+#~ msgid "Pretty Photo | Style"
+#~ msgstr "Pretty Photo | Estilo"
+
+#~ msgid "Light Rounded"
+#~ msgstr "Claro e arredondado"
+
+#~ msgid "Dark Rounded"
+#~ msgstr "Escuro e arredondado"
+
+#~ msgid "Light Square"
+#~ msgstr "Claro e quadrado"
+
+#~ msgid "Dark Square"
+#~ msgstr "Escuro e quadrado"
+
+#~ msgid "Pretty Photo | Width"
+#~ msgstr "Pretty Photo | Largura"
+
+#~ msgid "prettyPhoto popup width for iframe video"
+#~ msgstr "Largura do popup Pretty Photo para o vídeo iframe"
+
+#~ msgid "px. Leave blank to use auto width"
+#~ msgstr "Deixe em branco para usar largura automática."
+
+#~ msgid "Pretty Photo | Height"
+#~ msgstr "Pretty Photo | Altura"
+
+#~ msgid "prettyPhoto popup height for iframe video"
+#~ msgstr "Altura do popup Pretty Photo para o vídeo iframe"
+
+#~ msgid "px. Leave blank to use auto height"
+#~ msgstr "Deixe em branco para usar altura automática."
+
+#~ msgid "Footer Link color"
+#~ msgstr "Cor do Link no Rodapé"
+
+#~ msgid "Footer Hover Link color"
+#~ msgstr "Cor do Link no Rodapé - em Foco"
+
+#~ msgid "Return To Shop"
+#~ msgstr "Voltar para Loja"
 
 #~ msgid "Use color name ( gray ) or hex ( #808080 ). Leave this field blank if you want to use transparent background"
 #~ msgstr "Use o nome da cor (gray) ou hex (#808080). Deixe este campo em branco se você quiser usar o fundo transparente."
@@ -10748,9 +10966,6 @@ msgstr "Descrição do produto"
 
 #~ msgid "Works only with <b>Category: All</b>"
 #~ msgstr "Funciona com <b>todas</b> as categorias"
-
-#~ msgid "Available on backorder"
-#~ msgstr "Disponível como pedido pendente"
 
 #~ msgid "Coupon"
 #~ msgstr "Cupom"

@@ -840,6 +840,17 @@ if( ! function_exists( 'mfn_print_image' ) )
 	}
 }
 
+if( ! function_exists( 'mfn_print_image_gallery' ) )
+{
+	/**
+	 * [image]
+	 */
+	function mfn_print_image_gallery( $item ) {
+		$item[ 'fields' ][ 'link' ] = 'file';
+		echo sc_gallery( $item['fields'] );
+	}
+}
+
 if( ! function_exists( 'mfn_print_info_box' ) )
 {
 	/**

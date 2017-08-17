@@ -547,9 +547,6 @@
 				if (!wp_script_is('jquery')) {
 					wp_enqueue_script('jquery');
 				}
-				wp_enqueue_style('ts-extend-uitotop');
-				wp_enqueue_script('ts-extend-uitotop');
-				wp_enqueue_script('jquery-easing');
 				wp_enqueue_style('ts-font-teammates');
 				wp_enqueue_style('ts-extend-select2');
 				wp_enqueue_script('ts-extend-select2');

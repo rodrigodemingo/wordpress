@@ -135,19 +135,21 @@ if(!class_exists("WooComposer")){
 						$output .= '<option '.$selected.' value="'.get_the_ID().'">'.__(get_the_title(),'ultimate_vc').'</option>';
 					endwhile;
 			$output .= '</select>';
-			$output .= '<script type="text/javascript">
-							jQuery(document).ready(function(){
-								if ( jQuery(".wpb_el_type_product_search #products").data("select2") ) {
-									jQuery(".wpb_el_type_product_search #products").select2("destroy");
-								}
 
-								// WooComposer is depracated.
-								// jQuery(".wpb_el_type_product_search #products").select2({
-								// 	placeholder: "Select a Product",
-								// 	allowClear: true
-								// });
-							});
-						</script>';
+			// Disable WooComposer select2 js to break incompatibility with WooCommerce 3.0.0 +
+			// $output .= '<script type="text/javascript">
+			// 				jQuery(document).ready(function(){
+			// 					if ( jQuery(".wpb_el_type_product_search #products").data("select2") ) {
+			// 						jQuery(".wpb_el_type_product_search #products").select2("destroy");
+			// 					}
+
+			// 					// WooComposer is depracated.
+			// 					// jQuery(".wpb_el_type_product_search #products").select2({
+			// 					// 	placeholder: "Select a Product",
+			// 					// 	allowClear: true
+			// 					// });
+			// 				});
+			// 			</script>';
 			return $output;
 		} /* end woo_product_search */
 		function woo_product_categories($settings, $value){
@@ -174,15 +176,17 @@ if(!class_exists("WooComposer")){
 			$output .= '</select>';
 
 			$output .= "<input type='hidden' name='".$param_name."' value='".$value."' class='wpb_vc_param_value ".$param_name." ".$type." ".$class."' id='sel_cat'>";
-			$output .= '<script type="text/javascript">
-							jQuery("#sel2_cat").select2({
-								placeholder: "Select Categories",
-								allowClear: true
-							});
-							jQuery("#sel2_cat").on("change",function(){
-								jQuery("#sel_cat").val(jQuery(this).val());
-							});
-						</script>';
+
+			// Disable WooComposer select2 js to break incompatibility with WooCommerce 3.0.0 +
+			// $output .= '<script type="text/javascript">
+			// 				jQuery("#sel2_cat").select2({
+			// 					placeholder: "Select Categories",
+			// 					allowClear: true
+			// 				});
+			// 				jQuery("#sel2_cat").on("change",function(){
+			// 					jQuery("#sel_cat").val(jQuery(this).val());
+			// 				});
+			// 			</script>';
 			return $output;
 
 		} /* end woo_product_categories*/
@@ -195,27 +199,22 @@ if(!class_exists("WooComposer")){
 						wp_register_style("woocomposer-admin",plugins_url("admin/css/admin.css",__FILE__));
 						wp_register_style("woocomposer-select2-bootstrap",plugins_url("admin/css/select2-bootstrap.css",__FILE__));
 						wp_register_style("woocomposer-select2",plugins_url("admin/css/select2.css",__FILE__));
-
 						wp_enqueue_style("woocomposer-admin");
-						wp_enqueue_style("woocomposer-select2-bootstrap");
-						wp_enqueue_style("woocomposer-select2");
 
-						//wp_register_script("woocomposer-unveil",plugins_url("assets/js/unveil.js",__FILE__),array('jquery'),'',true);
-						wp_register_script("woocomposer-select2-js",plugins_url("admin/js/select2.js",__FILE__),array('jquery'),'',true);
-						//wp_enqueue_script("woocomposer-slick",plugins_url("assets/js/slick.js",__FILE__),array('jquery'),'',true);
-						//wp_enqueue_script("woocomposer-js",plugins_url("assets/js/custom.js",__FILE__),array('jquery'),'',true);
-
-						//wp_enqueue_script("woocomposer-unveil");
-						wp_enqueue_script("woocomposer-select2-js");
-						//wp_enqueue_script("woocomposer-slick");
-						//wp_enqueue_script("woocomposer-js");
+						// Disable WooComposer select2 js to break incompatibility with WooCommerce 3.0.0 +
+						// wp_enqueue_style("woocomposer-select2-bootstrap");
+						// wp_enqueue_style("woocomposer-select2");						
+						// wp_register_script("woocomposer-select2-js",plugins_url("admin/js/select2.js",__FILE__),array('jquery'),'',true);
+						// wp_enqueue_script("woocomposer-select2-js");
 					}
 					else {
-						wp_register_style("woocomposer-admin-style",plugins_url("admin/css/ultimate-woocomposer-backend.min.css",__FILE__));
-						wp_enqueue_style("woocomposer-admin-style");
 
-						wp_enqueue_script("woocomposer-admin-script",plugins_url("admin/js/ultimate-woocomposer-backend.min.js",__FILE__),array('jquery'),'',true);
-						wp_enqueue_style("woocomposer-admin-script");
+						// Disable WooComposer select2 js to break incompatibility with WooCommerce 3.0.0 +
+						// wp_register_style("woocomposer-admin-style",plugins_url("admin/css/ultimate-woocomposer-backend.min.css",__FILE__));
+						// wp_enqueue_style("woocomposer-admin-style");
+
+						// wp_enqueue_script("woocomposer-admin-script",plugins_url("admin/js/ultimate-woocomposer-backend.min.js",__FILE__),array('jquery'),'',true);
+						// wp_enqueue_style("woocomposer-admin-script");
 					}
 				}
 			}

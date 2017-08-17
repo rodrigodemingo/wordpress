@@ -1,6 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-	
+    global $VISUAL_COMPOSER_EXTENSIONS;	
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                          => __( "TS Image Adipoli", "ts_visual_composer_extend" ),
 		"base"                          => "TS-VCSC-Image-Adipoli",
@@ -224,11 +223,30 @@
 				"group" 				=> "Tooltip Settings",
 			),
 			array(
+				"type"              	=> "switch_button",
+				"heading"           	=> __( "Use HTML Tooltip", "ts_visual_composer_extend" ),
+				"param_name"        	=> "tooltip_tinymce",
+				"value"             	=> "false",
+				"description"		    => __( "Switch the toggle if you want to apply a tooltip with HTML code to the element.", "ts_visual_composer_extend" ),
+				"group" 				=> "Tooltip Settings",
+			),
+			array(
 				"type"                  => "textarea",
 				"heading"               => __( "Tooltip Content", "ts_visual_composer_extend" ),
 				"param_name"            => "tooltip_content",
 				"value"                 => "",
 				"description"           => __( "Enter the tooltip content here (do NOT use quotation marks or HTML).", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "tooltip_tinymce", 'value' => "false" ),
+				"group" 				=> "Tooltip Settings",
+			),
+			array(
+				"type"              	=> ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_EditorBase64TinyMCE == "true" ? "wysiwyg_base64" : "textarea_raw_html"),
+				"heading"           	=> __( "Tooltip Content", "ts_visual_composer_extend" ),
+				"param_name"        	=> "tooltip_encoded",
+				"minimal"				=> "true",
+				"value"             	=> base64_encode(""),
+				"description"      	 	=> __( "Enter the tooltip content here (HTML code can be used).", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "tooltip_tinymce", 'value' => "true" ),
 				"group" 				=> "Tooltip Settings",
 			),
 			array(
@@ -328,10 +346,9 @@
 			),
 		)
 	);
-
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_GoogleMapMarkersCompliant = array(
     $this->TS_VCSC_GoogleMapMarkersCompliant = array(
         "Map Image Marker Font" => array(
             array("ts-mapmarker-2hand"		                => "2hand"),

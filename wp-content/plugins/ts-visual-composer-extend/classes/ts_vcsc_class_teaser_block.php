@@ -44,7 +44,11 @@
 			
 				extract( shortcode_atts( array(
 					'height_type'					=> 'auto', // auto, minmessage, fixmessage, minteaser
-					'height_custom'					=> 300,
+					'height_custom'					=> 300,					
+					'scroll_nice'					=> 'true',
+					'scroll_color'					=> '#cacaca',
+					'scroll_background'				=> '#ededed',
+					'styling_border'				=> '',
 					'teaser_graphic'				=> 'true',
 					'image'							=> '',
 					'image_responsive'				=> 'true',
@@ -91,17 +95,30 @@
 					'css'							=> '',
 				), $atts ));
 				
+				// Load NiceScroll Files
+				if (($scroll_nice == "true") && ($height_type == "fixmessage")) {
+					wp_enqueue_style('ts-extend-perfectscrollbar');
+					wp_enqueue_script('ts-extend-perfectscrollbar');
+				} else {
+					$scroll_nice					= 'false';
+				}
+				
+				// Public Variables
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
 				$style_height						= "";
 				$style_padding						= "";
-				
+				$output 							= "";
+				$styling							= "";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 		
+				// Load Button Files
 				if (($button_type != '') && ($button_type != 'flat')) {
 					wp_enqueue_style('ts-extend-buttons');
 				} else if (($button_type != '') && ($button_type == 'flat')) {
 					wp_enqueue_style('ts-extend-buttonsdual');
 				}
 		
+				// Determine Teaser ID
 				if (!empty($el_id)) {
 					$image_teaser_id				= $el_id;
 				} else {
@@ -113,7 +130,11 @@
 				$a_href								= $link['url'];
 				$a_title 							= $link['title'];
 				$a_target 							= $link['target'];
-				
+				$a_rel								= $link['rel'];
+				if (!empty($a_rel)) {
+					$a_rel 							= 'rel="' . esc_attr(trim($a_rel)) . '"';
+				}
+
 				// Height Settings
 				if (($height_type == "minmessage") || ($height_type == "minteaser")) {
 					$style_height					= "min-height: " . $height_custom . 'px;';
@@ -159,76 +180,123 @@
 				
 				// Teaser Button Type
 				if ($button_type == "square") {
-					$button_style				= 'ts-button ' . $button_square;
-					$button_font				= '';
-					$button_padding				= '';
+					$button_style					= 'ts-button ' . $button_square;
+					$button_font					= '';
+					$button_padding					= '';
 				} else if ($button_type == "rounded") {
-					$button_style				= 'ts-button ' . $button_rounded;
-					$button_font				= '';
-					$button_padding				= '';
+					$button_style					= 'ts-button ' . $button_rounded;
+					$button_font					= '';
+					$button_padding					= '';
 				} else if ($button_type == "pill"){
-					$button_style				= 'ts-button ' . $button_pill;
-					$button_font				= '';
-					$button_padding				= '';
+					$button_style					= 'ts-button ' . $button_pill;
+					$button_font					= '';
+					$button_padding					= '';
 				} else if ($button_type == "circle") {
-					$button_style				= 'ts-button ' . $button_circle;
-					$button_font				= 'font-size: ' . $button_font . 'px;';
-					$button_padding				= '';
+					$button_style					= 'ts-button ' . $button_circle;
+					$button_font					= 'font-size: ' . $button_font . 'px;';
+					$button_padding					= '';
 				} else if ($button_type == "flat"){
-					$button_flat				= str_replace("ts-color-button", "ts-dual-buttons", $button_flat);
-					$button_style				= $button_flat . ' ' . $button_hover;
-					$button_font				= 'font-size: ' . $button_font . 'px;';
-					$button_padding				= 'padding: 10px 5px;';
+					$button_flat					= str_replace("ts-color-button", "ts-dual-buttons", $button_flat);
+					$button_style					= $button_flat . ' ' . $button_hover;
+					$button_font					= 'font-size: ' . $button_font . 'px;';
+					$button_padding					= 'padding: 10px 5px;';
 				} else {
-					$button_style				= '';
-					$button_font				= '';
-					$button_padding				= '';
+					$button_style					= '';
+					$button_font					= '';
+					$button_padding					= '';
 				}
 				
 				// Teaser Icon Settings
 				if ((!empty($icon)) && ($icon != "transparent") && ($icon_position != "")) {
-					$icon_style                 = 'color: ' . $icon_color . '; width:' . $icon_size . 'px; height:' . $icon_size . 'px; font-size:' . $icon_size . 'px; line-height:' . $icon_size . 'px;';
+					$icon_style                 	= 'color: ' . $icon_color . '; width:' . $icon_size . 'px; height:' . $icon_size . 'px; font-size:' . $icon_size . 'px; line-height:' . $icon_size . 'px;';
 				} else {
-					$icon_style					= '';
+					$icon_style						= '';
 				}
 				
 				// Custom Font Settings		
 				if (strpos($font_title_family, 'Default') === false) {
-					$google_font_title			= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-teaser-title", $font_title_family, $font_title_type, false, true, false);
+					$google_font_title				= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-teaser-title", $font_title_family, $font_title_type, false, true, false);
 				} else {
-					$google_font_title			= '';
+					$google_font_title				= '';
 				}
 				if (strpos($font_content_family, 'Default') === false) {
-					$google_font_content		= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-teaser-text", $font_content_family, $font_content_type, false, true, false);
+					$google_font_content			= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-teaser-text", $font_content_family, $font_content_type, false, true, false);
 				} else {
-					$google_font_content		= '';
+					$google_font_content			= '';
 				}
 				if (strpos($font_button_family, 'Default') === false) {
-					$google_font_button			= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-readmore", $font_button_family, $font_button_type, false, true, false);
+					$google_font_button				= TS_VCSC_GetFontFamily($image_teaser_id . " .ts-readmore", $font_button_family, $font_button_type, false, true, false);
 				} else {
-					$google_font_button			= '';
+					$google_font_button				= '';
 				}
 				
-				$output 						= '';
+				// Create Styling Output
+				if ($inline == "false") {
+					$styling .= '<style id="' . $image_teaser_id . '-style" type="text/css">';
+				}
+					// Border Settings
+					$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item {';
+						$styling .= str_replace('|', '', $styling_border);
+						$styling .= 'background: ' . $color_background . ';';
+					$styling .= '}';
+					// Various Settings
+					$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-padding {';
+						$styling .= $style_padding;
+						if ($height_type == "minteaser") {
+							$styling .= $style_height;
+						}
+					$styling .= '}';
+					// Custom Scrollbar Styling
+					if (($scroll_nice == "true") && ($height_type == "fixmessage")) {
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-x-rail:hover,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-y-rail:hover,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text.ps--in-scrolling .ps__scrollbar-x-rail,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text.ps--in-scrolling .ps__scrollbar-y-rail {';
+							$styling .= 'background-color: ' . $scroll_background . ';';
+						$styling .= '}';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-x-rail .ps__scrollbar-x,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-y-rail .ps__scrollbar-y {';
+							$styling .= 'background-color: ' . $scroll_color . ';';
+						$styling .= '}';
+					}
+				if ($inline == "false") {
+					$styling .= '</style>';
+				}
+				if (($styling != "") && ($inline == "true")) {
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styling));
+				}
 				
+				// Visual Composer Class Override
 				if (function_exists('vc_shortcode_custom_css_class')) {
-					$css_class 					= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-teaser ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Teaser_Block_Standalone', $atts);
+					$css_class 					= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Teaser_Block_Standalone', $atts);
 				} else {
-					$css_class					= 'ts-teaser ' . $el_class;
+					$css_class					= $el_class;
+				}				
+				
+				// Custom Style Rules
+				if (($styling != "") && ($inline == "false")) {
+					$output .= TS_VCSC_MinifyCSS($styling);
 				}
 				
-				$output .= '<div id="' . $image_teaser_id . '" class="' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-					$output .= '<div class="ts-teaser-item" style="background: ' . $color_background . ';">';
-						$output .= '<div class="ts-teaser-padding" style="' . (($height_type == "minteaser") ? $style_height : "") . ' ' . $style_padding . '">';
+				// Create Final Output
+				$output .= '<div id="' . $image_teaser_id . '" class="ts-teaser ts-teaser-container' . $css_class . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;" data-height-type="' . $height_type . '">';
+					$output .= '<div class="ts-teaser-item">';
+						$output .= '<div class="ts-teaser-padding">';
 							if ($info_position == "top") {
 								$output .= '<div class="ts-teaser-head">';
-									$output .= '<h2 class="ts-teaser-title" style="' . ($teaser_graphic == 'false' ? 'padding-top: 20px;' : '') . ' border-top: none; margin-top: 0; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
+									$output .= '<h2 class="ts-teaser-title" style="' . ($teaser_graphic == 'false' ? 'padding-top: 20px;' : '') . ' color: ' . $color_title . '; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "top")) {
 											$output .= '<span style="display: block; width: 100%; text-align: center; margin-top: 0px; margin-bottom: 10px;"><i style="' . $icon_style . '" class="' . $icon . '"></i></span>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "left")) {
 											$output .= '<i style="margin-right: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										}
-										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" style=" color: ' . $color_title . ';">' . $title . '</a>';
+										if ($a_href != "") {
+											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+										}
+											$output .= $title;
+										if ($a_href != "") {
+											$output .= '</a>';
+										}
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "right")) {
 											$output .= '<i style="margin-left: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "bottom")) {
@@ -237,7 +305,7 @@
 									$output .= '</h2>';
 								$output .= '</div>';
 								$output .= '<div class="ts-teaser-seperator" style="background: ' . $color_separator . ';"></div>';
-								$output .= '<div class="ts-teaser-text" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
+								$output .= '<div class="ts-teaser-text" data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-background="' . $scroll_background . '" data-scroll-init="false" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
 									if ($content_html == "true") {
 										if (function_exists('wpb_js_remove_wpautop')){
 											$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -250,31 +318,35 @@
 								$output .= '</div>';
 							}
 							if ($teaser_graphic == 'true') {
-								if ($info_position == "top") {
-									$output .= '<div class="ts-teaser-image-container" style="border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd">';
-								} else {
-									$output .= '<div class="ts-teaser-image-container">';
-								}
-									$output .= '<a href="' . $a_href . '" target="' . $a_target . '">';
-										if ($info_position == "bottom") {
-											$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image" style="">';
-										} else {
-											$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image" style="margin-bottom: -7px;">';
+								$output .= '<div class="ts-teaser-image-container">';
+									if ($a_href != '') {
+										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+									}
+										$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image">';
+										if ($a_href != '') {
+											$output .= '<span class="ts-teaser-hovercontent" style="background-color: ' . $overlay . ';"></span>';
+											$output .= '<span class="ts-teaser-hoverimage"></span>';
 										}
-										$output .= '<span class="ts-teaser-hovercontent" style="background-color: ' . $overlay . ';"></span>';
-										$output .= '<span class="ts-teaser-hoverimage"></span>';
-									$output .= '</a>';
+									if ($a_href != '') {
+										$output .= '</a>';
+									}
 								$output .= '</div>';
 							}
 							if ($info_position == "bottom") {
 								$output .= '<div class="ts-teaser-head">';
-									$output .= '<h2 class="ts-teaser-title" style="font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
+									$output .= '<h2 class="ts-teaser-title" style="color: ' . $color_title . '; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "top")) {
 											$output .= '<span style="display: block; width: 100%; text-align: center; margin-top: 0px; margin-bottom: 10px;"><i style="' . $icon_style . '" class="' . $icon . '"></i></span>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "left")) {
 											$output .= '<i style="margin-right: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										}
-										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" style=" color: ' . $color_title . ';">' . $title . '</a>';
+										if ($a_href != "") {
+											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+										}
+											$output .= $title;
+										if ($a_href != "") {
+											$output .= '</a>';
+										}
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "right")) {
 											$output .= '<i style="margin-left: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "bottom")) {
@@ -283,7 +355,7 @@
 									$output .= '</h2>';
 								$output .= '</div>';
 								$output .= '<div class="ts-teaser-seperator" style="background: ' . $color_separator . ';"></div>';
-								$output .= '<div class="ts-teaser-text" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
+								$output .= '<div class="ts-teaser-text" data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-background="' . $scroll_background . '" data-scroll-init="false" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
 									if ($content_html == "true") {
 										if (function_exists('wpb_js_remove_wpautop')){
 											$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -295,9 +367,9 @@
 									}
 								$output .= '</div>';
 							}
-							if ($button_type != "") {
+							if (($button_type != "") && ($a_href != "")) {
 								$output .= '<div class="ts-teaser-button-wrap ts-teaser-button-' . $button_type . '">';
-									$output .= '<a href="' . $a_href . '" target="' . trim($a_target) . '" class="ts-readmore ' . $button_style . '" style="' . $button_font . ' ' . $button_padding . ' ' . $google_font_button . '"><span>' . $button_text . '</span></a>';
+									$output .= '<a href="' . $a_href . '" target="' . trim($a_target) . '" ' . $a_rel . ' class="ts-readmore ' . $button_style . '" style="' . $button_font . ' ' . $button_padding . ' ' . $google_font_button . '"><span>' . $button_text . '</span></a>';
 								$output .= '</div>';
 							}
 						$output .= '</div>';
@@ -314,15 +386,14 @@
 			function TS_VCSC_Teaser_Block_Single ($atts, $content = null) {
 				global $VISUAL_COMPOSER_EXTENSIONS;
 				ob_start();
-
-				wp_enqueue_style('ts-extend-animations');
-				wp_enqueue_style('ts-extend-buttons');
-				wp_enqueue_style('ts-visual-composer-extend-front');
-				wp_enqueue_script('ts-visual-composer-extend-front');
 			
 				extract( shortcode_atts( array(
 					'height_type'					=> 'auto', // auto, minmessage, fixmessage, minteaser
 					'height_custom'					=> 300,
+					'scroll_nice'					=> 'true',
+					'scroll_color'					=> '#cacaca',
+					'scroll_background'				=> '#ededed',
+					'styling_border'				=> '',
 					'teaser_graphic'				=> 'true',
 					'image'							=> '',
 					'image_responsive'				=> 'true',
@@ -362,15 +433,31 @@
 					'font_button_family'			=> 'Default',
 					'font_button_type'				=> '',
 					'content_wpautop'				=> 'false',
+					'border_width'					=> 1,
+					'border_color'					=> '#dddddd',
+					'border_radius'					=> 20,
 					'el_id' 						=> '',
 					'el_class'                  	=> '',
 					'css'							=> '',
 				), $atts ));
 				
+				// Load NiceScroll Files
+				if (($scroll_nice == "true") && ($height_type == "fixmessage")) {
+					wp_enqueue_style('ts-extend-perfectscrollbar');
+					wp_enqueue_script('ts-extend-perfectscrollbar');
+				} else {
+					$scroll_nice					= 'false';
+				}
+				
+				// Public Variables
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
+				$output								= "";
 				$style_height						= "";
 				$style_padding						= "";
+				$styling							= "";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
+				// Create Teaser ID
 				$image_teaser_id					= 'ts-vcsc-image-teaser-' . mt_rand(999999, 9999999);
 				
 				// Teaser Link
@@ -378,6 +465,16 @@
 				$a_href								= $link['url'];
 				$a_title 							= $link['title'];
 				$a_target 							= $link['target'];
+				$a_rel								= $link['rel'];
+				if (!empty($a_rel)) {
+					$a_rel 							= 'rel="' . esc_attr(trim($a_rel)) . '"';
+				}
+				
+				// Border Settings
+				$style_border						= 'border: ' . $border_width . 'px solid ' . $border_color . ';';
+				if ($border_radius > 0) {
+					$style_border					.= '-webkit-border-radius: ' . $border_radius . 'px; -moz-border-radius: ' . $border_radius . 'px; border-radius: ' . $border_radius . 'px;';
+				}		
 				
 				// Height Settings
 				if (($height_type == "minmessage") || ($height_type == "minteaser")) {
@@ -404,8 +501,7 @@
 					$frontend_edit					= 'true';
 				} else {
 					$frontend_edit					= 'false';
-				}
-		
+				}		
 				
 				// Teaser Image
 				if ($teaser_graphic == 'false') {
@@ -482,26 +578,73 @@
 					$google_font_button			= '';
 				}
 				
-				$output = '';
-				
-				if (function_exists('vc_shortcode_custom_css_class')) {
-					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-teaser ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Teaser_Block_Single', $atts);
-				} else {
-					$css_class						= 'ts-teaser ' . $el_class;
+				// Create Styling Output
+				if ($inline == "false") {
+					$styling .= '<style id="' . $image_teaser_id . '-style" type="text/css">';
+				}
+					// Border Settings
+					$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item {';
+						$styling .= str_replace('|', '', $styling_border);
+						$styling .= 'background: ' . $color_background . ';';
+					$styling .= '}';
+					// Various Settings
+					$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-padding {';
+						$styling .= $style_padding;
+						if ($height_type == "minteaser") {
+							$styling .= $style_height;
+						}
+					$styling .= '}';
+					// Custom Scrollbar Styling
+					if (($scroll_nice == "true") && ($height_type == "fixmessage")) {
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-x-rail:hover,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-y-rail:hover,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text.ps--in-scrolling .ps__scrollbar-x-rail,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text.ps--in-scrolling .ps__scrollbar-y-rail {';
+							$styling .= 'background-color: ' . $scroll_background . ';';
+						$styling .= '}';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-x-rail .ps__scrollbar-x,';
+						$styling .= 'body #' . $image_teaser_id . ' .ts-teaser-item .ts-teaser-text .ps__scrollbar-y-rail .ps__scrollbar-y {';
+							$styling .= 'background-color: ' . $scroll_color . ';';
+						$styling .= '}';
+					}
+				if ($inline == "false") {
+					$styling .= '</style>';
+				}
+				if (($styling != "") && ($inline == "true")) {
+					wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styling));
 				}
 				
-				$output .= '<div id="' . $image_teaser_id . '" class="' . $css_class . '" style="width: 100%; margin: 0px auto; padding: 0px;">';
-					$output .= '<div class="ts-teaser-item" style="background: ' . $color_background . ';">';
-						$output .= '<div class="ts-teaser-padding" style="' . (($height_type == "minteaser") ? $style_height : "") . ' ' . $style_padding . '">';
+				// Visual Composer Class Override
+				if (function_exists('vc_shortcode_custom_css_class')) {
+					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Teaser_Block_Single', $atts);
+				} else {
+					$css_class						= $el_class;
+				}
+				
+				// Custom Style Rules
+				if (($styling != "") && ($inline == "false")) {
+					$output .= TS_VCSC_MinifyCSS($styling);
+				}
+				
+				// Create Final Output
+				$output .= '<div id="' . $image_teaser_id . '" class="ts-teaser ts-teaser-container ' . $css_class . '" style="width: 100%; margin: 0px auto; padding: 0px;" data-height-type="' . $height_type . '">';
+					$output .= '<div class="ts-teaser-item">';
+						$output .= '<div class="ts-teaser-padding">';
 							if ($info_position == "top") {
 								$output .= '<div class="ts-teaser-head">';
-									$output .= '<h2 class="ts-teaser-title" style="' . ($teaser_graphic == 'false' ? 'padding-top: 20px;' : '') . ' border-top: none; margin-top: 0; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
+									$output .= '<h2 class="ts-teaser-title" style="' . ($teaser_graphic == 'false' ? 'padding-top: 20px;' : '') . ' color: ' . $color_title . '; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "top")) {
 											$output .= '<span style="display: block; width: 100%; text-align: center; margin-top: 0px; margin-bottom: 10px;"><i style="' . $icon_style . '" class="' . $icon . '"></i></span>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "left")) {
 											$output .= '<i style="margin-right: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										}
-										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" style=" color: ' . $color_title . ';">' . $title . '</a>';
+										if ($a_href != "") {
+											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+										}
+											$output .= $title;
+										if ($a_href != "") {
+											$output .= '</a>';
+										}
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "right")) {
 											$output .= '<i style="margin-left: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "bottom")) {
@@ -510,7 +653,7 @@
 									$output .= '</h2>';
 								$output .= '</div>';
 								$output .= '<div class="ts-teaser-seperator" style="background: ' . $color_separator . ';"></div>';
-								$output .= '<div class="ts-teaser-text" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
+								$output .= '<div class="ts-teaser-text" data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-background="' . $scroll_background . '" data-scroll-init="false" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
 									if ($content_html == "true") {
 										if (function_exists('wpb_js_remove_wpautop')){
 											$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -523,31 +666,35 @@
 								$output .= '</div>';
 							}
 							if ($teaser_graphic == 'true') {
-								if ($info_position == "top") {
-									$output .= '<div class="ts-teaser-image-container" style="border-top: 1px solid #dddddd;">';
-								} else {
-									$output .= '<div class="ts-teaser-image-container">';
-								}
-									$output .= '<a href="' . $a_href . '" target="' . $a_target . '">';
-										if ($info_position == "bottom") {
-											$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image" style="">';
-										} else {
-											$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image" style="margin-bottom: -7px;">';
+								$output .= '<div class="ts-teaser-image-container">';
+									if ($a_href != '') {
+										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+									}
+										$output .= '<img src="' . $teaser_image . '" alt="' . $alt_attribute . '" class="ts-teaser-image">';
+										if ($a_href != '') {
+											$output .= '<span class="ts-teaser-hovercontent" style="background-color: ' . $overlay . '"></span>';
+											$output .= '<span class="ts-teaser-hoverimage"></span>';
 										}
-										$output .= '<span class="ts-teaser-hovercontent" style="background-color: ' . $overlay . '"></span>';
-										$output .= '<span class="ts-teaser-hoverimage"></span>';
-									$output .= '</a>';
+									if ($a_href != '') {
+										$output .= '</a>';
+									}
 								$output .= '</div>';
 							}
 							if ($info_position == "bottom") {
 								$output .= '<div class="ts-teaser-head">';
-									$output .= '<h2 class="ts-teaser-title" style="font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
+									$output .= '<h2 class="ts-teaser-title" style="color: ' . $color_title . '; font-size: ' . $font_title_size . 'px; background: ' . $color_background . '; ' . $google_font_title . '">';
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "top")) {
 											$output .= '<span style="display: block; width: 100%; text-align: center; margin-top: 0px; margin-bottom: 10px;"><i style="' . $icon_style . '" class="' . $icon . '"></i></span>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "left")) {
 											$output .= '<i style="margin-right: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										}
-										$output .= '<a href="' . $a_href . '" target="' . $a_target . '" style=" color: ' . $color_title . ';">' . $title . '</a>';
+										if ($a_href != "") {
+											$output .= '<a href="' . $a_href . '" target="' . $a_target . '" ' . $a_rel . '>';
+										}
+											$output .= $title;
+										if ($a_href != "") {
+											$output .= '</a>';
+										}
 										if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "right")) {
 											$output .= '<i style="margin-left: 5px; ' . $icon_style . '" class="' . $icon . '"></i>';
 										} else if ((!empty($icon)) && ($icon != "transparent") && ($icon_position == "bottom")) {
@@ -556,7 +703,7 @@
 									$output .= '</h2>';
 								$output .= '</div>';
 								$output .= '<div class="ts-teaser-seperator" style="background: ' . $color_separator . ';"></div>';
-								$output .= '<div class="ts-teaser-text" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
+								$output .= '<div class="ts-teaser-text" data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-background="' . $scroll_background . '" data-scroll-init="false" style="font-size: ' . $font_content_size . 'px; color: ' . $color_subtitle . '; ' . $google_font_content . ' ' . ((($height_type == "minmessage") || ($height_type == "fixmessage")) ? $style_height : "") . '">';
 									if ($content_html == "true") {
 										if (function_exists('wpb_js_remove_wpautop')){
 											$output .= wpb_js_remove_wpautop(do_shortcode($content), $wpautop);
@@ -568,9 +715,9 @@
 									}
 								$output .= '</div>';
 							}
-							if ($button_type != "") {
+							if (($button_type != "") && ($a_href != "")) {
 								$output .= '<div class="ts-teaser-button-wrap ts-teaser-button-' . $button_type . '"">';
-									$output .= '<a href="' . $a_href . '" target="' . trim($a_target) . '" class="ts-readmore ' . $button_style . '" style="' . $button_font . ' ' . $button_padding . ' ' . $google_font_button . '"><span>' . $button_text . '</span></a>';
+									$output .= '<a href="' . $a_href . '" target="' . trim($a_target) . '" ' . $a_rel . ' class="ts-readmore ' . $button_style . '" style="' . $button_font . ' ' . $button_padding . ' ' . $google_font_button . '"><span>' . $button_text . '</span></a>';
 								$output .= '</div>';
 							}
 						$output .= '</div>';
@@ -588,6 +735,7 @@
 				global $VISUAL_COMPOSER_EXTENSIONS;
 				ob_start();
 		
+				wp_enqueue_style('ts-extend-animations');
 				wp_enqueue_style('ts-extend-owlcarousel2');
 				wp_enqueue_script('ts-extend-owlcarousel2');
 				wp_enqueue_style('ts-font-ecommerce');
@@ -788,10 +936,72 @@
 							"description"       	=> __( "Define the desired minimum or fixed height, based on your selection above.", "ts_visual_composer_extend" ),
 							"dependency"		    => array( 'element' => "height_type", 'value' => array('minmessage', 'fixmessage', 'minteaser') ),
 						),						
+						// Scrollbar Settings
+                        array(
+                            "type"					=> "seperator",
+                            "param_name"			=> "seperator_4",
+                            "seperator"				=> "Scrollbar Settings",							
+							"dependency"			=> array( 'element' => "height_type", 'value' => 'fixmessage' ),
+                        ),
+						array(
+							"type"                  => "switch_button",
+							"heading"			    => __( "Scrollbar: Custom", "ts_visual_composer_extend" ),
+							"param_name"		    => "scroll_nice",
+							"value"                 => "true",
+							"description"		    => __( "Switch the toggle if you want to apply a custom scrollbar to the content section.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "height_type", 'value' => 'fixmessage' ),
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Scrollbar: Main Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "scroll_color",
+							"value"             	=> "#cacaca",
+							"description"       	=> __( "Define the main color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Scrollbar: Background Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "scroll_background",
+							"value"             	=> "#ededed",
+							"description"       	=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						// Teaser Border
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_5",
+							"seperator"				=> "Teaser Border",
+						),
+						array(
+							"type" 					=> "advanced_styling",
+							"heading" 				=> __("Border Settings", "ts_visual_composer_extend"),
+							"param_name" 			=> "styling_border",
+							"style_type"			=> "border",
+							"show_main"				=> "false",
+							"show_preview"			=> "true",
+							"show_width"			=> "true",
+							"show_style"			=> "true",
+							"show_radius" 			=> "true",					
+							"show_color"			=> "true",
+							"show_unit_width"		=> "true",
+							"show_unit_radius"		=> "true",
+							"override_all"			=> "true",
+							"default_positions"		=> array(
+								"All"						=> array("string" => __("All", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Top"						=> array("string" => __("Top", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Right"						=> array("string" => __("Right", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Bottom"					=> array("string" => __("Bottom", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Left"						=> array("string" => __("Left", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+							),
+							"description"       	=> __( "Define the border settings for each side and corner of the element.", "ts_visual_composer_extend" ),
+						),
 						// Teaser Header
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_4",
+							"param_name"        	=> "seperator_6",
 							"seperator"				=> "Teaser Header",
 							"group"					=> "Header"
 						),
@@ -858,7 +1068,7 @@
 						// Teaser Message
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_5",
+							"param_name"        	=> "seperator_7",
 							"seperator"				=> "Teaser Message",
 							"group"					=> "Message"
 						),
@@ -929,7 +1139,7 @@
 						// Icon Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_6",
+							"param_name"        	=> "seperator_8",
 							"seperator"				=> "Icon Settings",
 							"group" 				=> "Icon Settings",
 						),
@@ -988,7 +1198,7 @@
 						// Button Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_7",
+							"param_name"        	=> "seperator_9",
 							"seperator"				=> "Button Settings",
 							"group" 				=> "Link Button",
 						),
@@ -1112,7 +1322,7 @@
 						// Other Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_8",
+							"param_name"        	=> "seperator_10",
 							"seperator"				=> "Other Settings",
 							"group" 				=> "Other Settings",
 						),
@@ -1240,6 +1450,7 @@
 							"param_name" 			=> "link",
 							"description" 			=> __("Provide a link to another site/page for the Image Teaser.", "ts_visual_composer_extend")
 						),
+						// Height Settings
 						array(
 							"type"              	=> "seperator",
 							"param_name"        	=> "seperator_3",
@@ -1270,11 +1481,73 @@
 							"unit"                  => 'px',
 							"description"       	=> __( "Define the desired minimum or fixed height, based on your selection above.", "ts_visual_composer_extend" ),
 							"dependency"		    => array( 'element' => "height_type", 'value' => array('minmessage', 'fixmessage', 'minteaser') ),
-						),	
+						),
+						// Scrollbar Settings
+                        array(
+                            "type"					=> "seperator",
+                            "param_name"			=> "seperator_4",
+                            "seperator"				=> "Scrollbar Settings",							
+							"dependency"			=> array( 'element' => "height_type", 'value' => 'fixmessage' ),
+                        ),
+						array(
+							"type"                  => "switch_button",
+							"heading"			    => __( "Scrollbar: Custom", "ts_visual_composer_extend" ),
+							"param_name"		    => "scroll_nice",
+							"value"                 => "true",
+							"description"		    => __( "Switch the toggle if you want to apply a custom scrollbar to the content section.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "height_type", 'value' => 'fixmessage' ),
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Scrollbar: Main Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "scroll_color",
+							"value"             	=> "#cacaca",
+							"description"       	=> __( "Define the main color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						array(
+							"type"              	=> "colorpicker",
+							"heading"           	=> __( "Scrollbar: Background Color", "ts_visual_composer_extend" ),
+							"param_name"        	=> "scroll_background",
+							"value"             	=> "#ededed",
+							"description"       	=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        	=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"		=> "vc_col-sm-6 vc_column",
+						),
+						// Teaser Border
+						array(
+							"type"              	=> "seperator",
+							"param_name"        	=> "seperator_5",
+							"seperator"				=> "Teaser Border",
+						),
+						array(
+							"type" 					=> "advanced_styling",
+							"heading" 				=> __("Border Settings", "ts_visual_composer_extend"),
+							"param_name" 			=> "styling_border",
+							"style_type"			=> "border",
+							"show_main"				=> "false",
+							"show_preview"			=> "true",
+							"show_width"			=> "true",
+							"show_style"			=> "true",
+							"show_radius" 			=> "true",					
+							"show_color"			=> "true",
+							"show_unit_width"		=> "true",
+							"show_unit_radius"		=> "true",
+							"override_all"			=> "true",
+							"default_positions"		=> array(
+								"All"						=> array("string" => __("All", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Top"						=> array("string" => __("Top", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Right"						=> array("string" => __("Right", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Bottom"					=> array("string" => __("Bottom", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+								"Left"						=> array("string" => __("Left", "ts_visual_composer_extend"),	"width" => "1", "unitwidth" => "px", "style" => "solid", "color" => "#dddddd", "radius" => "0", "unitradius" => "px"),
+							),
+							"description"       	=> __( "Define the border settings for each side and corner of the element.", "ts_visual_composer_extend" ),
+						),
 						// Teaser Header
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_4",
+							"param_name"        	=> "seperator_6",
 							"seperator"				=> "Teaser Header",
 							"group"					=> "Header"
 						),
@@ -1341,7 +1614,7 @@
 						// Teaser Message
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_5",
+							"param_name"        	=> "seperator_7",
 							"seperator"				=> "Teaser Message",
 							"group"					=> "Message"
 						),
@@ -1412,7 +1685,7 @@
 						// Icon Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_6",
+							"param_name"        	=> "seperator_8",
 							"seperator"				=> "Icon Settings",
 							"group" 				=> "Icon Settings",
 						),
@@ -1471,7 +1744,7 @@
 						// Button Settings
 						array(
 							"type"              	=> "seperator",
-							"param_name"        	=> "seperator_7",
+							"param_name"        	=> "seperator_9",
 							"seperator"				=> "Button Settings",
 							"group" 				=> "Link Button",
 						),
@@ -1818,11 +2091,13 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Teaser_Block_Slider_Custom'))) {
 		class WPBakeryShortCode_TS_VCSC_Teaser_Block_Slider_Custom extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Teaser_Block_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Teaser_Block_Standalone extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Teaser_Block_Single'))) {
 		class WPBakeryShortCode_TS_VCSC_Teaser_Block_Single extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Teaser Blocks" Class

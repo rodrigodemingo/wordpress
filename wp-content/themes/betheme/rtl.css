@@ -5,8 +5,9 @@ Description: Adds support for languages written in a Right To Left (RTL) directi
 
 body{direction:rtl;unicode-bidi:embed}
 .mcb-wrap,.column,.columns{float:right}
-.the_content_wrapper{float:right;width:98%;}
-.vc_row[data-vc-full-width="true"]{float: left;}
+
+.the_content_wrapper{float:right;width:98%;direction:ltr}
+.vc_row{direction:rtl}
 
 /* Base ------------------------------------------------------------------------------ */
 a.button,a.tp-button,button,input[type="submit"],input[type="reset"],input[type="button"]{margin-left:7px;margin-right:0}
@@ -25,8 +26,10 @@ a.button,a.tp-button,button,input[type="submit"],input[type="reset"],input[type=
 .fixed-nav .desc i{margin-left:2px;margin-right:0}
 .fixed-nav .desc i:before{margin-right:0;margin-left:.2em}
 
-.fixed-nav-prev .arrow i:before{content:'\e916'}
-.fixed-nav-next .arrow i:before{content:'\e8b8'}
+.fixed-nav-prev .arrow i:before,
+.fixed-nav-prev.style-arrows .photo::before{content:'\e916'}
+.fixed-nav-next .arrow i:before,
+.fixed-nav-next.style-arrows .photo::before{content:'\e8b8'}
 
 .image_frame .image_wrapper .image_links.double a{float:right}
 .image_frame .image_wrapper .image_links.double a:first-child{box-shadow:inset 1px 0 0 0 rgba(255,255,255,.2);-webkit-box-shadow:inset 1px 0 0 0 rgba(255,255,255,.2)}
@@ -92,6 +95,9 @@ a.button,a.tp-button,button,input[type="submit"],input[type="reset"],input[type=
 
 /* Header | Simple */
 .header-simple #Top_bar #menu ul li.submenu .menu-toggle{left:0;right:auto;border-right:1px solid rgba(0,0,0,0.03);border-left:none}
+
+/* Header | Split */
+.header-split #Top_bar .top_bar_right{left:-28px;right:auto}
 
 /* Header | Stack */
 .header-stack #Top_bar .top_bar_right{left:0;right:auto}
@@ -333,6 +339,10 @@ ul.clients li{float:right}
 .get_in_touch ul li .icon{left:auto;right:0}
 .get_in_touch ul li:after{left:auto;right:-30px}
 
+/* Helper */
+.helper .helper_header{padding:15px 20px 15px 150px}
+.helper .helper_header .links{left:15px;right:auto}
+
 /* Icon box */
 .icon_box.icon_position_left{padding-left:0;padding-right:145px}
 .icon_box.icon_position_left .desc_wrapper{text-align:right}
@@ -430,9 +440,11 @@ form.wpcf7-form .column,form.wpcf7-form .columns{float:right}
 
 .woocommerce .product div.entry-summary .accordion p.stars a{margin-left:10px;margin-right:0}
 .woocommerce .product div.entry-summary .price{float:right;margin:0 0 0 10px}
+.woocommerce .product .product_wrapper .product_image_wrapper .images{direction:ltr}
 .woocommerce .product div.entry-summary h1.product_title:after{right:0;left:auto}
 .woocommerce .woocommerce-product-rating .star-rating{float:left}
 .woocommerce .product div.entry-summary .woocommerce-product-rating{float:left}
+.woocommerce .product div.entry-summary .woocommerce-product-details__short-description{float:left}
 .woocommerce div.product form.cart .variations select{margin-left:1em;margin-right:0;}
 
 .woocommerce #content div.product form.cart .button,.woocommerce div.product form.cart .button,.woocommerce-page #content div.product form.cart .button,.woocommerce-page div.product form.cart .button{float:right}

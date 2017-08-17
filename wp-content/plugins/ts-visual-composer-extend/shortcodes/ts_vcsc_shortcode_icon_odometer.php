@@ -1,6 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-
 	add_shortcode('TS_VCSC_Counter_Odometer', 'TS_VCSC_Counter_Odometer');
 	function TS_VCSC_Counter_Odometer ($atts, $content = null) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

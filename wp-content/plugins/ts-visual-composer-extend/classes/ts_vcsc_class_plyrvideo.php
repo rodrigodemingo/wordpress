@@ -170,7 +170,7 @@
 				$output 							= '';
 				$styles								= '';
 				$randomizer							= mt_rand(999999, 9999999);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 			
 				// Create Player ID
 				if (!empty($el_id)) {
@@ -356,7 +356,7 @@
 						$styles .= '</style>';
 					}
 					if (($styles != "") && ($inline == "true")) {
-						wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+						wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 					}
 				}
 				
@@ -1627,7 +1627,7 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Plyr_Player'))) {
 		class WPBakeryShortCode_TS_VCSC_Plyr_Player extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Plyr Video Player" Class

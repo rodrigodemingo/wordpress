@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_Entypo = array(
     $this->TS_VCSC_Icons_Compliant_VC_Entypo = array(
         "Entypo Font (VC)" => array(
             array("entypo-icon entypo-icon-note" => "Note"),

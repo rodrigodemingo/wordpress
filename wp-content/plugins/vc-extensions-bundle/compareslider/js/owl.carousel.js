@@ -24,9 +24,8 @@ if (typeof Object.create !== "function") {
     var Carousel = {
         init : function (options, el) {
             var base = this;
-
             base.$elem = $(el);
-            base.options = $.extend({}, $.fn.owlCarousel.options, base.$elem.data(), options);
+            base.options = $.extend({}, $.fn.owlCarouselOld.options, base.$elem.data(), options);
 
             base.userOptions = options;
             base.loadContent();
@@ -1444,7 +1443,7 @@ if (typeof Object.create !== "function") {
 
     };
 
-    $.fn.owlCarousel = function (options) {
+    $.fn.owlCarouselOld = function (options) {
         return this.each(function () {
             if ($(this).data("owl-init") === true) {
                 return false;
@@ -1452,11 +1451,11 @@ if (typeof Object.create !== "function") {
             $(this).data("owl-init", true);
             var carousel = Object.create(Carousel);
             carousel.init(options, this);
-            $.data(this, "owlCarousel", carousel);
+            $.data(this, "owlCarouselOld", carousel);
         });
     };
 
-    $.fn.owlCarousel.options = {
+    $.fn.owlCarouselOld.options = {
 
         items : 5,
         itemsCustom : false,

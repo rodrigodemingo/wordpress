@@ -565,10 +565,10 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Element_Focus'))) {
 		class WPBakeryShortCode_TS_VCSC_Element_Focus extends WPBakeryShortCodesContainer {};
-	}
-	
+	}	
 	// Initialize "TS Element Spotlight" Class
 	if (class_exists('TS_Element_Focus')) {
 		$TS_Element_Focus = new TS_Element_Focus;

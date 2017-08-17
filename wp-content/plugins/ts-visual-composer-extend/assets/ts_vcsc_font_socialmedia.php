@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_SocialMedia = array(
     $this->TS_VCSC_Icons_Compliant_SocialMedia = array(
         "Social Media Icons Font" => array(
             array("ts-socialmedia-aim" => "social aim"),

@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Ionicons = array(
     $this->TS_VCSC_Icons_Compliant_Ionicons = array(
         "Ionicons Font" => array(
             array("ts-ionicons-alert-circled" => "f100"),

@@ -43,7 +43,7 @@
 				<table>
 					<tr>
 						<td><input type="checkbox" name="ls-revisions-enabled" class="hero" data-warning="<?php _e('Disabling Slider Revisions will also remove all revisions saved so far. Are you sure you want to continue?', 'LayerSlider') ?>" <?php echo LS_Revisions::$enabled ? 'checked' : '' ?>></td>
-						<td><?php _e('Enable Revisions') ?></td>
+						<td><?php _e('Enable Revisions', 'LayerSlider') ?></td>
 					</tr>
 				</table>
 

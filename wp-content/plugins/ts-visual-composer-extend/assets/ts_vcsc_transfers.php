@@ -129,10 +129,6 @@
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowThemeBuilder'] = ($ts_vcsc_extend_settings_allowThemeBuilder);
 	$ts_vcsc_extend_settings_allowAutoUpdate					= get_option('ts_vcsc_extend_settings_allowAutoUpdate', 			1);
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowAutoUpdate'] = ($ts_vcsc_extend_settings_allowAutoUpdate);
-	$ts_vcsc_extend_settings_allowNotification					= get_option('ts_vcsc_extend_settings_allowNotification', 			1);	
-	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowNotification'] = ($ts_vcsc_extend_settings_allowNotification);
-	$ts_vcsc_extend_settings_allowMenuBarNotice					= get_option('ts_vcsc_extend_settings_allowMenuBarNotice', 			0);	
-	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowMenuBarNotice'] = ($ts_vcsc_extend_settings_allowMenuBarNotice);	
 	$ts_vcsc_extend_settings_allowDowntimeManager				= get_option('ts_vcsc_extend_settings_allowDowntimeManager', 		0);
 	$TS_VCSC_Export_Options['ts_vcsc_extend_settings_allowDowntimeManager'] = ($ts_vcsc_extend_settings_allowDowntimeManager);	
 	$ts_vcsc_extend_settings_downTimeMode						= get_option('ts_vcsc_extend_settings_downTimeMode', 				array());
@@ -441,7 +437,6 @@
 	update_option('ts_vcsc_extend_settings_exportSettings', str_replace('<br/>', PHP_EOL, $TS_VCSC_Export_Options));
 	//var_dump($TS_VCSC_Export_Options);
 ?>
-
 <div id="ts-settings-transfers" class="tab-content">
 	<form id="ts_vcsc_settings_upload_json_form" enctype="multipart/form-data" action="" method="POST">
 		<div class="ts-vcsc-settings-group-header">

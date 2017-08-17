@@ -4,7 +4,7 @@ Plugin Name: Ultimate Addons for Visual Composer
 Plugin URI: https://brainstormforce.com/demos/ultimate/
 Author: Brainstorm Force
 Author URI: https://www.brainstormforce.com
-Version: 3.16.10
+Version: 3.16.15
 Description: Includes Visual Composer premium addon elements like Icon, Info Box, Interactive Banner, Flip Box, Info List & Counter. Best of all - provides A Font Icon Manager allowing users to upload / delete custom icon fonts.
 Text Domain: ultimate_vc
 */
@@ -14,7 +14,7 @@ if ( ! defined( '__ULTIMATE_ROOT__' ) ) {
 }
 
 if ( ! defined( 'ULTIMATE_VERSION' ) ) {
-	define( 'ULTIMATE_VERSION', '3.16.10' );
+	define( 'ULTIMATE_VERSION', '3.16.15' );
 }
 
 if ( ! defined( 'ULTIMATE_URL' ) ) {
@@ -38,6 +38,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 		var $vc_template_dir;
 		var $vc_dest_dir;
 
+		static public $uavc_editor_enable = false;
+		static public $uavc_dev_mode = false;
+		static public $js_path_data = NULL;
+		static public $css_path_data = NULL;
+		static public $css_rtl = NULL;
+
+
 		function __construct() {
 
 			if ( ! defined( 'WPB_VC_VERSION' ) ) {
@@ -49,20 +56,35 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			register_activation_hook( __FILE__, array( $this, 'uvc_plugin_activate' ) );
 
 			$plugin = plugin_basename( __FILE__ );
+
+			define( 'UAVC_DIR', plugin_dir_path( __FILE__ ) );
+			define( 'UAVC_URL', plugins_url('/', __FILE__ ) );
+			
+			/* Set if vc editor is enable or not */
+			self::$uavc_editor_enable = is_admin() || ( isset( $_GET['vc_action'] ) && 'vc_inline' == $_GET['vc_action'] ) || ( isset( $_GET['vc_editable'] ) && $_GET['vc_editable'] );
+			
+			/* Include Helper File */
+			require_once( UAVC_DIR . 'classes/ultimate_helper.php' );
+
+			/* Set dev mode */
+			self::$uavc_dev_mode = bsf_get_option('dev_mode');
+
 			add_filter( 'plugin_action_links_' . $plugin, array( $this, 'ultimate_plugins_page_link' ) );
 
 			add_action( 'init', array( $this, 'load_vc_translation' ) );
 
-			add_action( 'vc_after_init', array( $this, 'load_ulitmate_presets' ) );
+			if ( self::$uavc_editor_enable ) {
+				add_action( 'vc_after_init', array( $this, 'load_ulitmate_presets' ) );
+			}
 
-			$this->vc_template_dir = plugin_dir_path( __FILE__ ) . 'vc_templates/';
+			$this->vc_template_dir = UAVC_DIR . 'vc_templates/';
 			$this->vc_dest_dir     = get_template_directory() . '/vc_templates/';
-			$this->module_dir      = plugin_dir_path( __FILE__ ) . 'modules/';
-			$this->params_dir      = plugin_dir_path( __FILE__ ) . 'params/';
-			$this->assets_js       = plugins_url( 'assets/js/', __FILE__ );
-			$this->assets_css      = plugins_url( 'assets/css/', __FILE__ );
-			$this->admin_js        = plugins_url( 'admin/js/', __FILE__ );
-			$this->admin_css       = plugins_url( 'admin/css/', __FILE__ );
+			$this->module_dir      = UAVC_DIR . 'modules/';
+			$this->params_dir      = UAVC_DIR . 'params/';
+			$this->assets_js       = UAVC_URL . 'assets/js/';
+			$this->assets_css      = UAVC_URL . 'assets/css/';
+			$this->admin_js        = UAVC_URL . 'admin/js/';
+			$this->admin_css       = UAVC_URL . 'admin/css/';
 			$this->paths           = wp_upload_dir();
 			$this->paths['fonts']  = 'smile_fonts';
 
@@ -240,21 +262,21 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 		}
 
 		function ultimate_init_vars() {
-			$ultimate_smooth_scroll_compatible = get_option('ultimate_smooth_scroll_compatible');
+			$ultimate_smooth_scroll_compatible = esc_html( get_option('ultimate_smooth_scroll_compatible') );
 			if($ultimate_smooth_scroll_compatible === 'enable')
 				return false;
 
-			$ultimate_smooth_scroll = get_option('ultimate_smooth_scroll');
+			$ultimate_smooth_scroll = esc_html( get_option('ultimate_smooth_scroll') );
 			if($ultimate_smooth_scroll !== 'enable')
 				return false;
 
 			$ultimate_smooth_scroll_options = get_option('ultimate_smooth_scroll_options');
-			$step = (isset($ultimate_smooth_scroll_options['step']) && $ultimate_smooth_scroll_options['step'] != '') ? $ultimate_smooth_scroll_options['step'] : 80;
-			$speed = (isset($ultimate_smooth_scroll_options['speed']) && $ultimate_smooth_scroll_options['speed'] != '') ? $ultimate_smooth_scroll_options['speed'] : 480;
+			$step = (isset($ultimate_smooth_scroll_options['step']) && $ultimate_smooth_scroll_options['step'] != '') ? ( int ) $ultimate_smooth_scroll_options['step'] : 80;
+			$speed = (isset($ultimate_smooth_scroll_options['speed']) && $ultimate_smooth_scroll_options['speed'] != '') ? ( int ) $ultimate_smooth_scroll_options['speed'] : 480;
 			echo "<script type='text/javascript'>
 				jQuery(document).ready(function($) {
-				var ult_smooth_speed = ".$speed.";
-				var ult_smooth_step = ".$step.";
+				var ult_smooth_speed = ". $speed .";
+				var ult_smooth_step = ". $step .";
 				$('html').attr('data-ult_smooth_speed',ult_smooth_speed).attr('data-ult_smooth_step',ult_smooth_step);
 				});
 			</script>";
@@ -272,10 +294,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 				return;
 			}
 
-			//	activate - params
-			foreach(glob($this->params_dir."/*.php") as $param)
-			{
-				require_once($param);
+			if ( self::$uavc_editor_enable ) {
+				
+				//	activate - params
+				foreach(glob($this->params_dir."/*.php") as $param) {
+					require_once($param);
+				}
 			}
 
 			// activate addons one by one from modules directory
@@ -287,23 +311,19 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 
 			if(get_option('ultimate_row') == "enable")
 				$ultimate_modules[] = 'ultimate_parallax';
-			foreach(glob($this->module_dir."/*.php") as $module)
-			{
-				$ultimate_file = basename($module);
-				$ultimate_fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', $ultimate_file);
 
-				if(is_array($ultimate_modules) && !empty($ultimate_modules)){
-					if(in_array(strtolower($ultimate_fileName),$ultimate_modules) ){
-						require_once($module);
-					}
+			foreach ( $ultimate_modules as $module_file ) {
+				$module_file_path = $this->module_dir."/".$module_file.".php";
+				if ( file_exists( $module_file_path ) ) {
+					require_once($module_file_path);
 				}
 			}
-
+			
 			if(in_array("woocomposer",$ultimate_modules) ){
 				if(defined('WOOCOMMERCE_VERSION'))
 				{
 					if(version_compare( '2.1.0', WOOCOMMERCE_VERSION, '<' )) {
-						foreach(glob(plugin_dir_path( __FILE__ ).'woocomposer/modules/*.php') as $module)
+						foreach(glob(UAVC_DIR.'woocomposer/modules/*.php') as $module)
 						{
 							require_once($module);
 						}
@@ -409,31 +429,101 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			}
 		}
 
-		public static function ultimate_register_style( $handle, $slug, $full_path = false, $deps = array(), $ver = ULTIMATE_VERSION ) {
+		public static function get_css_path_data() {
+			
+			if( self::$css_path_data != NULL ) {
+				return self::$css_path_data;
+			}
+
+			$css_path = array(
+				'css_path'	=> 'assets/min-css/',
+				'css_ext'	=> '.min'
+			);
+
+			if( self::$uavc_dev_mode === 'enable' ) {
+				$css_path = array(
+					'css_path'	=> 'assets/css/',
+					'css_ext'	=> ''
+				);
+			}
+
+			self::$css_path_data = $css_path;
+
+			return self::$css_path_data;
+		}
+		
+		public static function get_css_rtl() {
+
+			if( self::$css_rtl !== NULL ) {
+				return self::$css_rtl;
+			}
+
+			$rtl_ext = '';
 
 			if ( is_rtl() ) {
-				$cssext = '-rtl';
-			} else {
-				$cssext = '';
+				$rtl_ext = '-rtl';
 			}
+			
+			self::$css_rtl = $rtl_ext;
+			
+			return self::$css_rtl;
+		}
 
-			$bsf_dev_mode = bsf_get_option('dev_mode');
+		public static function ultimate_register_style( $handle, $slug, $full_path = false, $deps = array(), $ver = ULTIMATE_VERSION ) {
 
-			if( $bsf_dev_mode === 'enable' ) {
-				$css_path = 'assets/css/';
-				$ext = '';
-			} else {
-				$css_path = 'assets/min-css/';
-				$ext = '.min';
-			}
+			$cssrtl = self::get_css_rtl();
+			
+			$css_path_data = self::get_css_path_data();
 
+			$css_path = $css_path_data['css_path'];
+			$ext = $css_path_data['css_ext'];
+
+			$file_path = ULTIMATE_URL . $css_path . $slug . $cssrtl . $ext . '.css';
+			
 			if ( $full_path == true ) {
 				$file_path = $slug;
-			} else {
-				$file_path = ULTIMATE_URL . $css_path . $slug . $cssext . $ext . '.css';
 			}
 
 			wp_register_style( $handle, $file_path, $deps, $ver );
+		}
+
+		public static function get_js_path_data() {
+			
+			if( self::$js_path_data != NULL ) {
+				return self::$js_path_data;
+			}
+
+			$js_path = array(
+				'js_path'	=> 'assets/min-js/',
+				'js_ext'	=> '.min'
+			);
+
+			if( self::$uavc_dev_mode === 'enable' ) {
+				$js_path = array(
+					'js_path'	=> 'assets/js/',
+					'js_ext'	=> ''
+				);
+			}
+
+			self::$js_path_data = $js_path;
+
+			return self::$js_path_data;
+		}
+		
+		public static function ultimate_register_script( $handle, $slug, $full_path = false, $deps = array(), $ver = ULTIMATE_VERSION, $footer = true ) {
+
+			$js_path_data = self::get_js_path_data();
+
+			$js_path = $js_path_data['js_path'];
+			$ext = $js_path_data['js_ext'];
+
+			$file_path = ULTIMATE_URL . $js_path . $slug . $ext . '.js';
+			
+			if ( $full_path == true ) {
+				$file_path = $slug;
+			}
+
+			wp_register_script( $handle, $file_path, $deps, $ver, $footer);
 		}
 
 		function aio_front_scripts()
@@ -482,6 +572,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			}
 
 			self::ultimate_register_style( 'ultimate-animate', 'animate' );
+			self::ultimate_register_style( 'ult_hotspot_rtl_css', plugins_url( 'assets/min-css/rtl-common' . $ext . '.css' , __FILE__ ), true );
 			self::ultimate_register_style( 'ultimate-style', 'style' );
 			self::ultimate_register_style( 'ultimate-style-min', plugins_url( 'assets/min-css/ultimate.min' . $cssext . '.css' , __FILE__ ), true );
 			self::ultimate_register_style( 'ultimate-tooltip', 'tooltip' );
@@ -776,6 +867,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 
 				if($ultimate_css == "enable"){
 					wp_enqueue_style('ultimate-style-min');
+					if( is_rtl() ) {
+						wp_enqueue_style( 'ult_hotspot_rtl_css' );
+					}
 					if( stripos( $post_content, '[ultimate_carousel') ) {
 						wp_enqueue_style("ult-icons");
 					}
@@ -826,6 +920,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					if( stripos( $post_content, '[ult_hotspot') ) {
 						wp_enqueue_style( 'ult_hotspot_css' );
 						wp_enqueue_style( 'ult_hotspot_tooltipster_css' );
+						if( is_rtl() ) {
+							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+						}
 					}
 					if( stripos( $post_content, '[ult_content_box') ) {
 						wp_enqueue_style('ult_content_box_css');
@@ -877,6 +974,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 
 					if( stripos( $post_content, '[info_list') ) {
 						wp_enqueue_style('ultimate-animate');
+						if( is_rtl() ) {
+							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+						}
 					}
 					if( stripos( $post_content, '[ultimate_modal') ) {
 						wp_enqueue_style('ultimate-animate');
@@ -1028,12 +1128,17 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
         new Ultimate_VC_Addons;
 
         if ( defined( 'WPB_VC_VERSION' ) ) {
-            // load admin area
-            require_once(__ULTIMATE_ROOT__.'/admin/admin.php');
-            $ultimate_modules = get_option('ultimate_modules');
-            if($ultimate_modules &&  in_array("woocomposer",$ultimate_modules) ){
-                require_once(__ULTIMATE_ROOT__.'/woocomposer/woocomposer.php');
-            }
+
+			if ( is_admin() ) {
+				
+				// load admin area
+				require_once(__ULTIMATE_ROOT__.'/admin/admin.php');
+				$ultimate_modules = get_option('ultimate_modules');
+				
+				if( $ultimate_modules && in_array("woocomposer",$ultimate_modules) ){
+					require_once(__ULTIMATE_ROOT__.'/woocomposer/woocomposer.php');
+				}
+			}
 
             // bsf core
 			$bsf_core_version_file = realpath(dirname(__FILE__).'/admin/bsf-core/version.yml');
@@ -1046,7 +1151,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					$bsf_core_path = $bsf_core_dir;
 				}
 			}
-			add_action('init', 'bsf_core_load', 999);
 			if(!function_exists('bsf_core_load')) {
 				function bsf_core_load() {
 					global $bsf_core_version, $bsf_core_path;
@@ -1055,7 +1159,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					}
 				}
 			}
-
+			
+			add_action( 'init', 'bsf_core_load', 999 );
         } else {
 			// disable 6892199 activation ntices in admin panel
 			define( 'BSF_6892199_NOTICES', false );
@@ -1063,30 +1168,3 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
     }
 
 }// end class check
-/*
-* Generate RGB colors from given HEX color
-*
-* @function: ultimate_hex2rgb()
-* @Package: Ultimate Addons for Visual Compoer
-* @Since: 2.1.0
-* @param: $hex - HEX color value
-* 		  $opecaty - Opacity in float value
-* @returns: value with rgba(r,g,b,opacity);
-*/
-if(!function_exists('ultimate_hex2rgb')){
-	function ultimate_hex2rgb($hex,$opacity=1) {
-	   $hex = str_replace("#", "", $hex);
-	   if(strlen($hex) == 3) {
-		  $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-		  $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-		  $b = hexdec(substr($hex,2,1).substr($hex,2,1));
-	   } else {
-		  $r = hexdec(substr($hex,0,2));
-		  $g = hexdec(substr($hex,2,2));
-		  $b = hexdec(substr($hex,4,2));
-	   }
-	   $rgba = 'rgba('.$r.','.$g.','.$b.','.$opacity.')';
-	   //return implode(",", $rgb); // returns the rgb values separated by commas
-	   return $rgba; // returns an array with the rgb values
-	}
-}

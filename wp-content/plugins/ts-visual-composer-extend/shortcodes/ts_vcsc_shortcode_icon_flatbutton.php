@@ -70,7 +70,7 @@
 		
 		$output 						= '';
 		$style_body						= '';
-		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline							= TS_VCSC_FrontendAppendCustomRules('style');
 
 		// ID
 		if (!empty($el_id)) {
@@ -157,7 +157,7 @@
 			}
 		}
 		if (($style_body != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($style_body));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($style_body));
 		}
 		
 		$iconstyle						= "margin: " . (($button_height - $font_size - 10 - 2) / 2) . "px auto 0px auto";

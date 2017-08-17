@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Divider', 'TS_VCSC_Divider_Function');
-	add_shortcode('TS_VCSC_Divider', 'TS_VCSC_Divider_Function');
 	function TS_VCSC_Divider_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -157,8 +156,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Divider extends WPBakeryShortCode {};
 	}
 ?>

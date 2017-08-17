@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_VC_Awesome = array(
 	$this->TS_VCSC_Icons_Compliant_VC_Awesome = array(
         "Font Awesome (VC)" => array(
 			array( 'fa fa-500px' => '500px' ),

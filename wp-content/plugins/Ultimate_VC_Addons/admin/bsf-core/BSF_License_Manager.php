@@ -7,6 +7,16 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 
 	class BSF_License_Manager {
 
+		private static $_instance = null;
+
+		public static function instance() {
+			if ( ! isset( self::$_instance ) ) {
+				self::$_instance = new self;
+			}
+
+			return self::$_instance;
+		}
+
 		public function __construct() {
 
 			add_action( 'admin_init', array( $this, 'bsf_activate_license' ) );
@@ -72,19 +82,19 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 
 				if ( isset( $result['success'] ) && $result['success'] == true ) {
 					// update license saus to the product
-					$_POST['bsf_license_activation']['success'] = $result['success'];
-					$_POST['bsf_license_activation']['message'] = $result['message'];
+					$_POST['bsf_license_deactivation']['success'] = $result['success'];
+					$_POST['bsf_license_deactivation']['message'] = $result['message'];
 					unset( $result['success'] );
 					unset( $result['message'] );
 
 					$this->bsf_update_product_info( $product_id, $result );
 				} else {
-					$_POST['bsf_license_activation']['success'] = $result['success'];
-					$_POST['bsf_license_activation']['message'] = $result['message'];
+					$_POST['bsf_license_deactivation']['success'] = $result['success'];
+					$_POST['bsf_license_deactivation']['message'] = $result['message'];
 				}
 			} else {
-				$_POST['bsf_license_activation']['success'] = $result['success'];
-				$_POST['bsf_license_activation']['message'] = $result['message'];
+				$_POST['bsf_license_deactivation']['success'] = $result['success'];
+				$_POST['bsf_license_deactivation']['message'] = $result['message'];
 			}
 		}
 
@@ -201,6 +211,12 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 
 			$all_products = $brainstorm_plugins + $brainstorm_themes;
 
+			// If a product is marked as free, it is considered as active.
+			$is_free 	= self::is_product_free( $product_id );
+			if ( 'true' == $is_free ) {
+				return true;
+			}
+
 			$is_bundled = BSF_Update_Manager::bsf_is_product_bundled( $product_id );
 
 			if ( empty( $is_bundled ) ) {
@@ -229,6 +245,13 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 
 			// Return false by default
 			return false;
+		}
+
+		public static function is_product_free( $product_id ) {
+			$license_manager 	= BSF_License_Manager::instance();
+			$is_free 			= $license_manager->bsf_get_product_info( $product_id, 'is_product_free' );
+
+			return $is_free;
 		}
 
 		public function bsf_get_product_info( $product_id, $key ) {
@@ -269,29 +292,36 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 			$placeholder            = ( isset( $args['placeholder'] ) && ! is_null( $args['placeholder'] ) ) ? $args['placeholder'] : 'Enter your license key..';
 			$placeholder_name       = ( isset( $args['placeholder_name'] ) && ! is_null( $args['placeholder_name'] ) ) ? $args['placeholder_name'] : 'Your Name..';
 			$placeholder_email      = ( isset( $args['placeholder_email'] ) && ! is_null( $args['placeholder_email'] ) ) ? $args['placeholder_email'] : 'Your Email..';
+			$bsf_license_allow_email = ( isset( $args['bsf_license_allow_email'] ) && ! is_null( $args['bsf_license_allow_email'] ) ) ? $args['bsf_license_allow_email'] : true;
 
-			$bsf_license_allow_email  = apply_filters( "bsf_license_allow_email_{$product_id}", true );
+			// Forcefully disable the subscribe options for uabb.
+			// This should be disabled from uabb and removed from graupi.
+			if ( 'uabb' == $product_id ) {
+				$bsf_license_allow_email = false;
+			}
 
 			$purchase_url = $this->bsf_get_product_info( $product_id, 'purchase_url' );
 
 			// License activation messages
-			$current_status = $current_message = '';	
+			$current_status = $current_message = '';
+
+			$is_active   = self::bsf_is_active_license( $product_id );
+			$license_key = $this->bsf_get_product_info( $product_id, 'purchase_key' );
 
 			if ( isset( $_POST['bsf_license_activation']['success'] ) ) {
 				$current_status = esc_attr( $_POST['bsf_license_activation']['success'] );
 				if ( true == $current_status ) {
 					$current_status = "bsf-current-license-success-" . $product_id;
+					$is_active 		= true;
 				} else {
 					$current_status = "bsf-current-license-error-" . $product_id;
+					$is_active 		= false;
 				}
 			}
 
 			if ( isset( $_POST['bsf_license_activation']['message'] ) ) {
 				$current_message = wp_kses_post( $_POST['bsf_license_activation']['message'] );
 			}
-
-			$is_active   = self::bsf_is_active_license( $product_id );
-			$license_key = $this->bsf_get_product_info( $product_id, 'purchase_key' );
 
 			$license_status       = 'Active!';
 			$license_status_class = "bsf-license-active-" . $product_id;
@@ -395,7 +425,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 
 
 function bsf_license_activation_form( $args ) {
-	$license_manager = new BSF_License_Manager();
+	$license_manager = BSF_License_Manager::instance();
 
 	return $license_manager->license_activation_form( $args );
 }

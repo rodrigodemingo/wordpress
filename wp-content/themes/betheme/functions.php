@@ -12,7 +12,7 @@ define( 'THEME_DIR', get_template_directory() );
 define( 'THEME_URI', get_template_directory_uri() );
 
 define( 'THEME_NAME', 'betheme' );
-define( 'THEME_VERSION', '17.7.1' );
+define( 'THEME_VERSION', '20.4.3.1' );
 
 define( 'LIBS_DIR', THEME_DIR. '/functions' );
 define( 'LIBS_URI', THEME_URI. '/functions' );
@@ -24,23 +24,23 @@ add_filter( 'the_excerpt', 'shortcode_unautop' );
 add_filter( 'the_excerpt', 'do_shortcode' );
 
 
-/* ---------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * White Label
  * IMPORTANT: We recommend the use of Child Theme to change this
- * --------------------------------------------------------------------------- */
+ * ---------------------------------------------------------------------------- */
 defined( 'WHITE_LABEL' ) or define( 'WHITE_LABEL', false );
 
 
-/* ---------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * Loads Theme Textdomain
- * --------------------------------------------------------------------------- */
-load_theme_textdomain( 'betheme',  LANG_DIR );
-load_theme_textdomain( 'mfn-opts', LANG_DIR );
+ * ---------------------------------------------------------------------------- */
+load_theme_textdomain( 'betheme',  LANG_DIR );	// frontend
+load_theme_textdomain( 'mfn-opts', LANG_DIR );	// backend
 
 
-/* ---------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * Loads the Options Panel
- * --------------------------------------------------------------------------- */
+ * ---------------------------------------------------------------------------- */
 if( ! function_exists( 'mfn_admin_scripts' ) )
 {
 	function mfn_admin_scripts() {
@@ -52,12 +52,12 @@ add_action( 'admin_enqueue_scripts', 'mfn_admin_scripts' );
 	
 require( THEME_DIR .'/muffin-options/theme-options.php' );
 
-$theme_disable = mfn_opts_get( 'theme-disable' );
 
-
-/* ---------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * Loads Theme Functions
- * --------------------------------------------------------------------------- */
+ * ---------------------------------------------------------------------------- */
+
+$theme_disable = mfn_opts_get( 'theme-disable' );
 
 // Functions ------------------------------------------------------------------
 require_once( LIBS_DIR .'/theme-functions.php' );
@@ -105,17 +105,17 @@ if( ! isset( $post_types_disable['template'] ) ){
 require_once( LIBS_DIR .'/meta-page.php' );
 require_once( LIBS_DIR .'/meta-post.php' );
 
-// Content ----------------------------------------------------------------------
+// Content --------------------------------------------------------------------
 require_once( THEME_DIR .'/includes/content-post.php' );
 require_once( THEME_DIR .'/includes/content-portfolio.php' );
 
-// Shortcodes -------------------------------------------------------------------
+// Shortcodes -----------------------------------------------------------------
 require_once( LIBS_DIR .'/theme-shortcodes.php' );
 
-// Hooks ------------------------------------------------------------------------
+// Hooks ----------------------------------------------------------------------
 require_once( LIBS_DIR .'/theme-hooks.php' );
 
-// Widgets ----------------------------------------------------------------------
+// Widgets --------------------------------------------------------------------
 require_once( LIBS_DIR .'/widget-functions.php' );
 
 require_once( LIBS_DIR .'/widget-flickr.php' );
@@ -125,19 +125,11 @@ require_once( LIBS_DIR .'/widget-recent-comments.php' );
 require_once( LIBS_DIR .'/widget-recent-posts.php' );
 require_once( LIBS_DIR .'/widget-tag-cloud.php' );
 
-// TinyMCE ----------------------------------------------------------------------
+// TinyMCE --------------------------------------------------------------------
 require_once( LIBS_DIR .'/tinymce/tinymce.php' );
 
-// Plugins ---------------------------------------------------------------------- 
-if( ! isset( $theme_disable['demo-data'] ) ){
-	require_once( LIBS_DIR .'/importer/import.php' );
-}
-
-require_once( LIBS_DIR .'/system-status.php' );
-
+// Plugins --------------------------------------------------------------------
 require_once( LIBS_DIR .'/class-love.php' );
-require_once( LIBS_DIR .'/class-tgm-plugin-activation.php' );
-
 require_once( LIBS_DIR .'/plugins/visual-composer.php' );
 
 // WooCommerce specified functions
@@ -150,7 +142,7 @@ if( mfn_opts_get( 'retina-js' ) ){
 	add_filter( 'wp_calculate_image_srcset', '__return_false' );
 }
 
-// Hide activation and update specific parts ------------------------------------
+// Hide activation and update specific parts ----------------------------------
 
 // Slider Revolution
 if( ! mfn_opts_get( 'plugin-rev' ) ){
@@ -161,7 +153,7 @@ if( ! mfn_opts_get( 'plugin-rev' ) ){
 
 // LayerSlider
 if( ! mfn_opts_get( 'plugin-layer' ) ){
-	add_action('layerslider_ready', 'mfn_layerslider_overrides');
+	add_action( 'layerslider_ready', 'mfn_layerslider_overrides' );
 	function mfn_layerslider_overrides() {
 		// Disable auto-updates
 		$GLOBALS['lsAutoUpdateBox'] = false;
@@ -174,4 +166,28 @@ if( ! mfn_opts_get( 'plugin-visual' ) ){
 	function mfn_vcSetAsTheme() {
 		vc_set_as_theme();
 	}
+}
+
+// Dashboard ------------------------------------------------------------------
+if( is_admin() ){
+	
+	require_once LIBS_DIR .'/admin/class-mfn-api.php';
+	require_once LIBS_DIR .'/admin/class-mfn-helper.php';
+	require_once LIBS_DIR .'/admin/class-mfn-update.php';
+	
+	require_once LIBS_DIR .'/admin/class-mfn-dashboard.php';
+	$mfn_dashboard = new Mfn_Dashboard();
+	
+	if( ! isset( $theme_disable['demo-data'] ) ){
+		require_once LIBS_DIR .'/importer/class-mfn-importer.php';
+	}
+
+	require_once LIBS_DIR .'/admin/tgm/class-mfn-tgmpa.php';
+	
+	if( ! mfn_is_hosted() ){
+		require_once LIBS_DIR .'/admin/class-mfn-status.php';
+	}
+	
+	require_once LIBS_DIR .'/admin/class-mfn-support.php';
+	require_once LIBS_DIR .'/admin/class-mfn-changelog.php';
 }

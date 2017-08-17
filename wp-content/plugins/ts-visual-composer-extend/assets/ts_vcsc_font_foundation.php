@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Foundation = array(
     $this->TS_VCSC_Icons_Compliant_Foundation = array(
         "Foundation Icons Font" => array(
             array("ts-foundation-address-book"            => "addressbook"),

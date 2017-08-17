@@ -562,7 +562,7 @@
 
 		} else {
 
-			jQuery( '.ifb-flip-box' ).on('hover', function(event) {
+			jQuery( document ).on('mouseenter mouseleave hover', '.ifb-flip-box', function(event) {
 				var flipBox = jQuery(this);
 
 				if ( flipBox.hasClass('ifb-hover') ) {

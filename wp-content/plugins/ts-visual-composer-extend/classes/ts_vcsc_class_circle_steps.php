@@ -80,12 +80,15 @@
 					'automatic_interval'			=> 5000,
 					'automatic_controls'			=> 'true',
 					'automatic_color'				=> '#636363',
-					'automatic_hover'				=> 'true',		
+					'automatic_hover'				=> 'true',
+					// Content Height Settings
+					'height_type'					=> 'auto', // auto, fixed, maximum
+					'height_fixed'					=> 400,
+					'height_maximum'				=> 400,
 					// NiceScroll Settings
 					'scroll_nice'					=> 'false',
-					'scroll_color'					=> '#EDEDED',
-					'scroll_border'					=> '#CACACA',
-					'scroll_offset'					=> 0,
+					'scroll_color'					=> '#cacaca',
+					'scroll_border'					=> '#ededed',
 					// Tooltip Settings
 					'tooltipster_allow'				=> 'true',
 					'tooltipster_position'			=> 'top',
@@ -101,10 +104,12 @@
 					'css'							=> '',
 				),$atts));
 				
+				// Load Required Files
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "false") {
 					wp_enqueue_style('dashicons');
 					if ($scroll_nice == "true") {
-						wp_enqueue_script('ts-extend-nicescroll');
+						wp_enqueue_style('ts-extend-perfectscrollbar');
+						wp_enqueue_script('ts-extend-perfectscrollbar');
 					}
 					if ($tooltipster_allow == "true") {
 						wp_enqueue_style('ts-extend-tooltipster');
@@ -118,7 +123,9 @@
 					wp_enqueue_style('ts-extend-circlesteps');
 				}
 				
+				// Define Required Variables
 				$randomizer							= mt_rand(999999, 9999999);
+				$output 							= '';
 				
 				// Circle Background
 				if (($circle_decoration == "color") || ($circle_decoration == "transparent")) {
@@ -162,25 +169,27 @@
 					$margin_top						= $margin_top;
 				}
 				
-				$output 							= '';
-				
+				// Create Data Attributes
 				$data_circle						= 'data-circle-position="' . $circle_position . '" data-circle-initial="' . ($circle_initial - 1) . '" data-circle-rtl="' . $circle_rtl . '"  data-circle-deeplink="' . $circle_deeplinking . '" data-circle-speed="' . $circle_speed . '" data-circle-direction="' . $circle_direction . '" data-circle-strength="' . $circle_strength . '" data-circle-color="' . $circle_color . '" data-circle-radius="' . $circle_radius . '" data-circle-indicator="' . $circle_indicator . '"';
 				$data_background					= 'data-circle-decoration="' . $circle_decoration . '" data-circle-background="' . $circle_back . '" data-circle-gradient="' . $circle_gradient . '" data-circle-image="' . $circle_image . '" data-circle-repeat="' . $circle_repeat . '" data-circle-sizing="' . $circle_sizing . '"';
 				$data_mobile						= 'data-mobile-large="' . $mobile_large . '" data-mobile-small="' . $mobile_small . '"';
 				$data_sizes							= 'data-size-border="' . $size_border . '" data-size-normal="' . $size_normal . '" data-size-selected="' . $size_selected . '" data-size-icon="' . $size_icon . '"';
 				$data_offsets						= 'data-offset-padding="' . $circle_padding . '" data-offset-margin="' . $circle_margin . '"';
 				$data_automatic						= 'data-automatic-allow="' . $automatic_rotation . '" data-automatic-controls="' . $automatic_controls . '" data-automatic-color="' . $automatic_color . '" data-automatic-interval="' . $automatic_interval . '" data-automatic-hover="' . $automatic_hover . '"';
-				$data_scroll						= 'data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-border="' . $scroll_border . '" data-scroll-offset="' . $scroll_offset . '"';
+				$data_height						= 'data-height-type="' . $height_type . '" data-height-fixed="' . $height_fixed . '" data-height-maximum="' . $height_maximum . '"';
+				$data_scroll						= 'data-scroll-nice="' . $scroll_nice . '" data-scroll-color="' . $scroll_color . '" data-scroll-border="' . $scroll_border . '"';
 				$data_tooltip						= 'data-tooltipster-enable="' . $tooltipster_allow . '" data-tooltipster-animation="' . $tooltipster_effect . '" data-tooltipster-position="' . $tooltipster_position . '" data-tooltipster-style="' . $tooltipster_style . '" data-tooltipster-offsetx="' . $tooltipster_offsetx . '" data-tooltipster-offsety="' . $tooltipster_offsety . '"';
 				$data_icons_active					= 'data-active-color="' . $icon_color_active . '" data-active-border="' . $icon_border_active . '" data-active-background="' . $icon_back_active . '" data-active-shadow="' . $icon_shadow_active . '"';
 				$data_icons_hover					= 'data-hover-color="' . $icon_color_hover . '" data-hover-border="' . $icon_border_hover . '" data-hover-background="' . $icon_back_hover . '" data-hover-shadow="' . $icon_shadow_hover . '"';
-				
+
+				// Visual Composer Class Override
 				if (function_exists('vc_shortcode_custom_css_class')) {
 					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-process-circle-steps-main-wrapper ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Circle_Steps_Container', $atts);
 				} else {
 					$css_class 						= 'ts-process-circle-steps-main-wrapper ' . $el_class;
 				}
 				
+				// Create Final Output
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$output .= '<div id="ts-process-circle-fronteditor-wrapper-' . $randomizer . '" class="ts-process-circle-fronteditor-wrapper" data-random="' . $randomizer . '">';
 						$output .= '<div id="ts-process-circle-fronteditor-dataset-' . $randomizer . '" class="ts-process-circle-fronteditor-dataset" data-random="' . $randomizer . '">';
@@ -188,7 +197,7 @@
 						$output .= '</div>';
 					$output .= '</div>';
 				} else {
-					$output .= '<div id="' . $steps_id . '" class="' . $css_class . '" data-random="' . $randomizer . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;" ' . $data_circle . ' ' . $data_background . ' ' . $data_mobile . ' ' . $data_sizes . ' ' . $data_offsets . ' ' . $data_automatic . ' ' . $data_scroll . ' ' . $data_tooltip . ' ' . $data_icons_active . ' ' . $data_icons_hover . ' data-frontend="' . $frontend . '">';
+					$output .= '<div id="' . $steps_id . '" class="' . $css_class . '" data-random="' . $randomizer . '" style="margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;" ' . $data_circle . ' ' . $data_background . ' ' . $data_mobile . ' ' . $data_sizes . ' ' . $data_offsets . ' ' . $data_automatic . ' ' . $data_height . ' ' . $data_scroll . ' ' . $data_tooltip . ' ' . $data_icons_active . ' ' . $data_icons_hover . ' data-frontend="' . $frontend . '">';
 						$output .= '<div id="ts-process-circle-preloader-wrapper-' . $randomizer . '" class="ts-process-circle-preloader-wrapper" data-random="' . $randomizer . '" style="display: block;"></div>';
 						$output .= '<div id="ts-process-circle-dataset-wrapper-' . $randomizer . '" class="ts-process-circle-dataset-wrapper" data-random="' . $randomizer . '" style="display: none;">';
 							$output .= do_shortcode($content);
@@ -274,12 +283,14 @@
 					$Tooltip_Content				= '';
 				}
 				
+				// Visual Composer Class Override
 				if (function_exists('vc_shortcode_custom_css_class')) {
 					$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'ts-circle-loop-steps-item ' . $el_class . ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Circle_Steps_Item', $atts);
 				} else {
 					$css_class 						= 'ts-circle-loop-steps-item ' . $el_class;
 				}
 				
+				// Data Attributes
 				$data_icon							= 'data-icon="' . $step_icon . '" data-image="' . $step_image_path . '" data-icon-color="' . $icon_color_default . '" data-icon-background="' . $icon_back_default . '" data-icon-border="' . $icon_border_default . '" data-icon-shadow="' . $icon_shadow_default . '"';
 				$data_title							= 'data-title="' . $step_title . '" data-title-size="' . $title_size . '" data-title-color="' . $title_color . '" data-title-align="' . $title_align . '" data-title-weight="' . $title_weight . '"';
 				$data_content						= 'data-content-size="' . $content_size . '" data-content-color="' . $content_color . '" data-content-align="' . $content_align . '"';
@@ -421,10 +432,59 @@
 							),
 							'description' 				=> __( 'Select what type of deeplinking should be applied to the steps.', 'ts_visual_composer_extend' ),
 						),
-						// Circle Mobile
+						// Content Height Settings
 						array(
 							"type"                      => "seperator",
 							"param_name"                => "seperator_2",
+							"seperator"					=> "Content Height Settings",
+						),
+						array(
+							"type"              		=> "messenger",
+							"param_name"        		=> "messenger",
+							"color"						=> "#006BB7",
+							"size"						=> "13",
+							"layout"					=> "notice",
+							"message"            		=> __( "The height settings below will only apply to content that is shown either above or below the circle, but not to content that is shown to the left or right of the circle.", "ts_visual_composer_extend" ),
+						),
+						array(
+							'type' 						=> 'dropdown',
+							'heading' 					=> __( 'Content Height: Type', 'ts_visual_composer_extend' ),
+							'param_name' 				=> 'height_type',
+							'value' => array(
+								__('Adjust Holder Automatically', 'ts_visual_composer_extend')		=> 'auto',
+								__('Use Fixed Height for Holder', 'ts_visual_composer_extend')		=> 'fixed',
+								__('Use Maximum Height for Holder', 'ts_visual_composer_extend')	=> 'maximum',
+							),
+							'description' 				=> __( 'Select if and how the height for the step content holder shall be set.', 'ts_visual_composer_extend' ),
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Content Height: Fixed", "ts_visual_composer_extend" ),
+							"param_name"        		=> "height_fixed",
+							"value"             		=> "400",
+							"min"               		=> "240",
+							"max"               		=> "960",
+							"step"              		=> "1",
+							"unit"              		=> "px",
+							"dependency"        		=> array( 'element' => "height_type", 'value' => 'fixed' ),
+							"description"       		=> __( "Define the fixed height for the content holder, no matter the actual height of the content within.", "ts_visual_composer_extend" ),
+						),
+						array(
+							"type"              		=> "nouislider",
+							"heading"           		=> __( "Content Height: Maximum", "ts_visual_composer_extend" ),
+							"param_name"        		=> "height_maximum",
+							"value"             		=> "400",
+							"min"               		=> "240",
+							"max"               		=> "960",
+							"step"              		=> "1",
+							"unit"              		=> "px",
+							"dependency"        		=> array( 'element' => "height_type", 'value' => 'maximum' ),
+							"description"       		=> __( "Define the maximum height for the content holder; if content height exceeds the maximum, a scrollbar will be provided.", "ts_visual_composer_extend" ),
+						),
+						// Mobile (Column) Settings
+						array(
+							"type"                      => "seperator",
+							"param_name"                => "seperator_3",
 							"seperator"					=> "Mobile Settings",
 						),
 						array(
@@ -452,7 +512,7 @@
 						// AutoPlay Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_3",
+							"param_name"                => "seperator_4",
 							"seperator"					=> "AutoPlay Settings",
 						),
 						array(
@@ -502,7 +562,7 @@
 						// Circle Styling
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_4",
+							"param_name"                => "seperator_5",
 							"seperator"					=> "Circle Styling",
 							"group"						=> "Circle Styling",
 						),
@@ -646,7 +706,7 @@
 						// Global Step Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_5",
+							"param_name"                => "seperator_6",
 							"seperator"					=> "Step Styling",
 							"group"						=> "Circle Styling",
 						),
@@ -701,7 +761,7 @@
 						// Active Icon Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_6",
+							"param_name"                => "seperator_7",
 							"seperator"					=> "Active Icon Styling",
 							"group"						=> "Circle Styling",
 						),
@@ -744,7 +804,7 @@
 						// Hover Icon Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_7",
+							"param_name"                => "seperator_8",
 							"seperator"					=> "Hover Icon Styling",
 							"group"						=> "Circle Styling",
 						),
@@ -787,7 +847,7 @@
 						// Tooltip Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_8",
+							"param_name"                => "seperator_9",
 							"seperator"					=> "Tooltip Settings",
 							"group"						=> "Additional Effects",
 						),
@@ -855,55 +915,42 @@
 						// NiceScroll Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_9",
+							"param_name"                => "seperator_10",
 							"seperator"					=> "NiceScroll Settings",
 							"group"						=> "Additional Effects",
 						),
 						array(
 							"type"                  	=> "switch_button",
-							"heading"			    	=> __( "Use NiceScroll", "ts_visual_composer_extend" ),
+							"heading"			    	=> __( "Scrollbar: Custom", "ts_visual_composer_extend" ),
 							"param_name"		    	=> "scroll_nice",
 							"value"                 	=> "false",
-							"description"		    	=> __( "Switch the toggle if you want to apply a niceScrollBar to the step content if taller than circle.", "ts_visual_composer_extend" ),
+							"description"		    	=> __( "Switch the toggle if you want to apply a custom scrollbar to the step content if taller than circle.", "ts_visual_composer_extend" ),
+							"group" 					=> "Additional Effects",
+						),
+						array(
+							"type"              		=> "colorpicker",
+							"heading"           		=> __( "Scrollbar: Main Color", "ts_visual_composer_extend" ),
+							"param_name"        		=> "scroll_border",
+							"value"             		=> "#cacaca",
+							"description"       		=> __( "Define the main color for the scrollbar.", "ts_visual_composer_extend" ),
+							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
+							"edit_field_class"			=> "vc_col-sm-6 vc_column",
 							"group" 					=> "Additional Effects",
 						),
 						array(
 							"type"              		=> "colorpicker",
 							"heading"           		=> __( "Scrollbar: Background Color", "ts_visual_composer_extend" ),
 							"param_name"        		=> "scroll_color",
-							"value"             		=> "#EDEDED",
-							"description"       		=> __( "Define the background color for the niceScroll scrollbar.", "ts_visual_composer_extend" ),
+							"value"             		=> "#ededed",
+							"description"       		=> __( "Define the background color for the scrollbar.", "ts_visual_composer_extend" ),
 							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
 							"edit_field_class"			=> "vc_col-sm-6 vc_column",
 							"group" 					=> "Additional Effects",
 						),
-						array(
-							"type"              		=> "colorpicker",
-							"heading"           		=> __( "Scrollbar: Border Color", "ts_visual_composer_extend" ),
-							"param_name"        		=> "scroll_border",
-							"value"             		=> "#CACACA",
-							"description"       		=> __( "Define the border color for the niceScroll scrollbar.", "ts_visual_composer_extend" ),
-							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
-							"edit_field_class"			=> "vc_col-sm-6 vc_column",
-							"group" 					=> "Additional Effects",
-						),
-						array(
-							"type"              		=> "nouislider",
-							"heading"           		=> __( "Scrollbar: Offset", "ts_visual_composer_extend" ),
-							"param_name"        		=> "scroll_offset",
-							"value"             		=> "0",
-							"min"               		=> "-100",
-							"max"               		=> "100",
-							"step"              		=> "1",
-							"unit"              		=> 'px',
-							"description"       		=> __( "Define an optional offset (top) for the scrollbar.", "ts_visual_composer_extend" ),
-							"dependency"        		=> array( 'element' => "scroll_nice", 'value' => 'true' ),
-							"group" 					=> "Additional Effects",
-						),		
 						// Other Settings
 						array(
 							"type"                      => "seperator",
-							"param_name"                => "seperator_10",
+							"param_name"                => "seperator_11",
 							"seperator"					=> "Other Settings",
 							"group" 			        => "Other Settings",
 						),
@@ -1242,10 +1289,11 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Circle_Steps_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Circle_Steps_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Circle_Steps_Item'))) {
 		class WPBakeryShortCode_TS_VCSC_Circle_Steps_Item extends WPBakeryShortCode {};
 	}	
 	// Initialize "TS Circle Steps" Class

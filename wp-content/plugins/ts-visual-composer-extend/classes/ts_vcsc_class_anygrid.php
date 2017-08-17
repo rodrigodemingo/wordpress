@@ -273,7 +273,7 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Anything_Grid'))) {
 		class WPBakeryShortCode_TS_VCSC_Anything_Grid extends WPBakeryShortCodesContainer {};
 	}
 	// Initialize "TS Anything Grid" Class

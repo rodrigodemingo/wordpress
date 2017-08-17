@@ -74,9 +74,9 @@ if(!function_exists('ult_price_generate_design02')) {
 		if($package_link !== ""){
 			$href 			= vc_build_link($package_link);
 			$link 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+			$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+			$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+			$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 		} else {
 			$link = "#";
 		}
@@ -334,28 +334,28 @@ if(!function_exists('ult_price_generate_design02')) {
 
 		/* End Typography */
 
-		$output .= '<div class="ult_pricing_table_wrap ult_design_2 '.$featured.' ult-cs-'.$color_scheme.' '.$el_class.' '.$css_price_box.'">
-					<div class="ult_pricing_table '.$ult_price_table_ht.' " style="'.$normal_style.'">';
-			$output .= '<div id="'.$price_table_id.'" class="ult_pricing_heading" style="'.$featured_style.'">
-							<h3 '.$price_table_data_list.' class="ult-responsive cust-headformat" style="'.$package_name_inline.'">'.$package_heading.'</h3>';
+		$output .= '<div class="ult_pricing_table_wrap ult_design_2 '.esc_attr($featured).' ult-cs-'.esc_attr($color_scheme).' '.esc_attr($el_class).' '.esc_attr($css_price_box).'">
+					<div class="ult_pricing_table '.esc_attr($ult_price_table_ht).' " style="'.esc_attr($normal_style).'">';
+			$output .= '<div id="'.esc_attr($price_table_id).'" class="ult_pricing_heading" style="'.esc_attr($featured_style).'">
+							<h3 '.$price_table_data_list.' class="ult-responsive cust-headformat" style="'.esc_attr($package_name_inline).'">'.$package_heading.'</h3>';
 						if($package_sub_heading !== ''){
-							$output .= '<h5 '.$price_table_subhead_data_list.' class="ult-responsive cust-subhead" style="'.$sub_heading_inline.'">'.$package_sub_heading.'</h5>';
+							$output .= '<h5 '.$price_table_subhead_data_list.' class="ult-responsive cust-subhead" style="'.esc_attr($sub_heading_inline).'">'.$package_sub_heading.'</h5>';
 						}
 			$output .= '</div><!--ult_pricing_heading-->';
 			$output .= '<div class="ult_price_body_block">
 							<div class="ult_price_body">
-								<div id="'.$price_table_price_id.'" class="ult_price">
-									<span '.$price_table_price_data_list.' class="ult_price_figure ult-responsive" style="'.$price_inline.'">'.$package_price.'</span>
-									<span '.$price_table_price_unit_data_list.' class="ult_price_term ult-responsive" style="'.$price_unit_inline.'">'.$package_unit.'</span>
+								<div id="'.esc_attr($price_table_price_id).'" class="ult_price">
+									<span '.$price_table_price_data_list.' class="ult_price_figure ult-responsive" style="'.esc_attr($price_inline).'">'.esc_html($package_price).'</span>
+									<span '.$price_table_price_unit_data_list.' class="ult_price_term ult-responsive" style="'.esc_attr($price_unit_inline).'">'.esc_html($package_unit).'</span>
 								</div>
 							</div>
 						</div><!--ult_price_body_block-->';
 			if($package_btn_text !== ""){
-				$output .= '<div id="'.$price_table_button_id.'" class="ult_price_link">
-							<a '.$price_table_button_data_list.' href="'.$link.'" '.$target.' '. $link_title .' '. $rel .' class="ult_price_action_button ult-responsive" style="'.$featured_style.' '.$button_inline.'">'.$package_btn_text.'</a>
+				$output .= '<div id="'.esc_attr($price_table_button_id).'" class="ult_price_link">
+							<a '.$price_table_button_data_list.' href="'.esc_url($link).'" '.$target.' '. $link_title .' '. $rel .' class="ult_price_action_button ult-responsive" style="'.esc_attr($featured_style).' '.esc_attr($button_inline).'">'.$package_btn_text.'</a>
 						</div><!--ult_price_link-->';
 			}
-			$output .= '<div id="'.$price_table_features_id.'" class="ult_price_features ult-responsive" '.$price_table_features_data_list.' style="'.$features_inline.'">
+			$output .= '<div id="'.esc_attr($price_table_features_id).'" class="ult_price_features ult-responsive" '.$price_table_features_data_list.' style="'.esc_attr($features_inline).'">
 							'.wpb_js_remove_wpautop(do_shortcode($content), true).'
 						</div><!--ult_price_features-->';
 			$output .= '<div class="ult_clr"></div>

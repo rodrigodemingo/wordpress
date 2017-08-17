@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Google-Trends', 'TS_VCSC_Google_Trends_Function');
-	add_shortcode('TS_VCSC_Google_Trends', 'TS_VCSC_Google_Trends_Function');
 	function TS_VCSC_Google_Trends_Function ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -49,8 +48,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Google_Trends extends WPBakeryShortCode {};
 	}
 ?>

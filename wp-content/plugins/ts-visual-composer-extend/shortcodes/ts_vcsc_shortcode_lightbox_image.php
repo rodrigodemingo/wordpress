@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Lightbox-Image', 'TS_VCSC_Lightbox_Image_Function');
-	//add_shortcode('TS_VCSC_Lightbox_Image', 'TS_VCSC_Lightbox_Image_Function');
 	function TS_VCSC_Lightbox_Image_Function ($atts, $content = null) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -327,8 +326,5 @@
 	
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Lightbox_Image extends WPBakeryShortCode {};
 	}
 ?>

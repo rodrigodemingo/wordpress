@@ -12,8 +12,10 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action( 'init', array( $this, 'sticky_shortcode_mapper') );
+			}
 			add_shortcode( 'ult_sticky_section', array( $this, 'sticky_shortcode') );
-			add_action( 'init', array( $this, 'sticky_shortcode_mapper') );
 			add_action( 'wp_enqueue_scripts', array( $this, 'ult_sticky_section_scripts' ), 1 );
 			//add_action( 'wp_enqueue_scripts', array( $this , 'enqueue_style' ) );
 
@@ -130,9 +132,9 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 
 				if ( $sticky_custom_width != '' ) {
 					if ( strpos( $sticky_custom_width, 'px' ) !== false  || strpos( $sticky_custom_width, 'em' ) !== false  || strpos( $sticky_custom_width, '%' ) !== false ) {
-						$sticky_custom_width .= " data-sticky_customwidth= '".$sticky_custom_width;
+						$sticky_custom_width .= " data-sticky_customwidth= '".esc_attr($sticky_custom_width);
 					} else {
-						$sticky_custom_width .= " data-sticky_customwidth= '".$sticky_custom_width."px";
+						$sticky_custom_width .= " data-sticky_customwidth= '".esc_attr($sticky_custom_width)."px";
 					}
 				} else {
 					$sticky_custom_width .= " data-sticky_customwidth= '60%";
@@ -143,17 +145,17 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 			}
 
 			//sticky bahviour
-			$stick_behaviour_data = $stick_behaviour != '' ? " data-stick_behaviour= '".$stick_behaviour."'" : " data-stick_behaviour= 'stick_with_scroll_row'" ;
+			$stick_behaviour_data = $stick_behaviour != '' ? " data-stick_behaviour= '".esc_attr($stick_behaviour)."'" : " data-stick_behaviour= 'stick_with_scroll_row'" ;
 
 			//permanent data
 			if ( $stick_behaviour == 'stick_permanent') {
-				$left_right_postion = " data-lr_position= '".$sticky_position_lr."' ";
+				$left_right_postion = " data-lr_position= '".esc_attr($sticky_position_lr)."' ";
 				//$left_right_postion .=
 				if ( $permanent_lr != "" ) {
 					if ( strpos( $permanent_lr, 'px' ) !== false  || strpos( $permanent_lr, 'em' ) !== false  || strpos( $permanent_lr, '%' ) !== false ) {
-						$left_right_postion .= " data-lr_value= '".$permanent_lr;
+						$left_right_postion .= " data-lr_value= '".esc_attr($permanent_lr);
 					} else {
-						$left_right_postion .= " data-lr_value= '".$permanent_lr."px";
+						$left_right_postion .= " data-lr_value= '".esc_attr($permanent_lr)."px";
 					}
 				} else {
 					$left_right_postion .= "data-lr_value= '0";
@@ -164,20 +166,20 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 			}
 
 
-			$custom_data = $sticky_gutter != '' ? " data-gutter= '".$sticky_gutter."'": '' ;
+			$custom_data = $sticky_gutter != '' ? " data-gutter= '".esc_attr($sticky_gutter)."'": '' ;
 			$custom_data .= $stick_behaviour_data ;
 			$custom_data .= $left_right_postion ;
 			$custom_data .= $sticky_gutter_class." ".$sticky_gutter_id;
-			$custom_data .= $sticky_width != '' ? " data-sticky_width= '".$sticky_width."'": '' ;
+			$custom_data .= $sticky_width != '' ? " data-sticky_width= '".esc_attr($sticky_width)."'": '' ;
 			$custom_data .= $sticky_custom_width ;
-			$custom_data .= $sticky_position != '' ? " data-sticky_position= '".$sticky_position."'": " data-sticky_position= 'top'" ;
+			$custom_data .= $sticky_position != '' ? " data-sticky_position= '".esc_attr($sticky_position)."'": " data-sticky_position= 'top'" ;
 			$custom_data .= $data_mobile;
 			$custom_data .= $data_support;
 
 
 			$output = '<div class="ult_row_spacer">';
 			$output .= '<div class="ult-sticky-anchor">';
-			$output .= '<div class="ult-sticky-section ult-sticky '.$el_class.'" '.$custom_data.'>';
+			$output .= '<div class="ult-sticky-section ult-sticky '.esc_attr($el_class).'" '.$custom_data.'>';
 			$output .= do_shortcode( $content );
 			$output .= '</div>';
 			$output .= '<div class="ult-space"></div>';
@@ -402,25 +404,11 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 
 		//Add Script
 		function ult_sticky_section_scripts() {
-			$script_path = '../assets/js/';
-			$bsf_dev_mode = bsf_get_option('dev_mode');
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_sticky_js', 'fixto', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 
-
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
-		  	wp_register_script( 'ult_sticky_js', plugins_url( $script_path.'fixto.js',__FILE__ ) , array('jquery'), ULTIMATE_VERSION, true);
-		  	wp_register_script( 'ult_sticky_section_js', plugins_url( $js_path.'sticky-section'.$ext.'.js',__FILE__ ) , array('ult_sticky_js'), ULTIMATE_VERSION, true);
-
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_sticky_section_js', 'sticky-section', false, array('ult_sticky_js'), ULTIMATE_VERSION, true );
+			
 		  	Ultimate_VC_Addons::ultimate_register_style( 'ult_sticky_section_css', 'sticky-section' );
 
 		}//ult_sticky_section_class
@@ -432,7 +420,7 @@ if( !class_exists( 'Ultimate_Sticky_Section' ) ) {
 	// Instantiate the class
 	new Ultimate_Sticky_Section;
 
-	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+	if ( class_exists( 'WPBakeryShortCodesContainer' ) && !class_exists( 'WPBakeryShortCode_ult_sticky_section' ) ) {
 		class WPBakeryShortCode_ult_sticky_section extends WPBakeryShortCodesContainer {
 		}
 	}

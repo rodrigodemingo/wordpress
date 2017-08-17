@@ -148,10 +148,11 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_RowCenter_Frame'))) {
 		class WPBakeryShortCode_TS_VCSC_RowCenter_Frame extends WPBakeryShortCodesContainer {};
 	}	
-	// Initialize "TS Animations" Class
+	// Initialize "TS Row Center" Class
 	if (class_exists('TS_RowCenter_Block')) {
 		$TS_RowCenter_Block = new TS_RowCenter_Block;
 	}

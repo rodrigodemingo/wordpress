@@ -1,6 +1,8 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Content_Export'))) {
+		class WPBakeryShortCode_TS_VCSC_Content_Export extends WPBakeryShortCode {};
+	};
 	$TS_VCSC_Export_Pages 				= array();
 	$TS_VCSC_Export_Posts 				= array();
 	$TS_VCSC_WordPress_Pages			= get_pages(array('post_type' => 'page'));	
@@ -13,8 +15,6 @@
 		$TS_VCSC_Export_Posts[$post->post_title . ' (' . $post->ID . ')'] = $post->ID;
 	}
 	unset($TS_VCSC_WordPress_Posts);
-	
-	// Page or Post Content Output
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      	=> __( "TS Page Content Export", "ts_visual_composer_extend" ),
 		"base"                      	=> "TS_VCSC_Content_Export",
@@ -126,11 +126,10 @@
 				"dependency"        	=> array( 'element' => "clipboard", 'value' => 'true' )
 			),	
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {	
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

@@ -162,15 +162,16 @@
 				$team_array							= array();
 				$category_fields 	                = array();
 				$args = array(
+					'p'								=> $team_member,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_team',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
 					'order' 						=> 'ASC',
 				);
-				$team_query = new WP_Query($args);
+				$team_query 						= new WP_Query($args);
 				if ($team_query->have_posts()) {
 					foreach($team_query->posts as $p) {
 						if ($p->ID == $team_member) {
@@ -1243,7 +1244,8 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Team_Page_Elements'))) {
 		class WPBakeryShortCode_TS_VCSC_Team_Page_Elements extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Teampage Section" Class

@@ -2,7 +2,7 @@
 /*
 Plugin Name:    Composium - Visual Composer Extensions Addon
 Plugin URI:     http://codecanyon.net/item/visual-composer-extensions-addon/7190695
-Version:        5.1.7
+Version:        5.2.2
 Description:    A plugin to add new premium content elements, custom post types, a premium built-in lightbox solution, icon fonts, Google fonts, and much more to Visual Composer
 Author:         Tekanewa Scripts by Kraut Coding
 Author URI:     http://www.composium.krautcoding.com
@@ -43,7 +43,7 @@ if (!defined('COMPOSIUM_EXTENSIONS')){
 	define('COMPOSIUM_EXTENSIONS', 			dirname(__FILE__));
 }
 if (!defined('COMPOSIUM_VERSION')){
-	define('COMPOSIUM_VERSION', 			'5.1.7');
+	define('COMPOSIUM_VERSION', 			'5.2.2');
 }
 if (!defined('COMPOSIUM_SLUG')){
 	define('COMPOSIUM_SLUG', 				plugin_basename(__FILE__));
@@ -101,6 +101,11 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				$memory_required						= 5 * 1024 * 1024;
 			}
 			$memory_provided							= ini_get('memory_limit');
+			if (($memory_provided === "-1") || ($memory_provided === -1)) {
+				$memory_unlimited						= true;
+			} else {
+				$memory_unlimited						= false;
+			}
 			if (preg_match('/^(\d+)(.)$/', $memory_provided, $matches)) {
 				if (($matches[2] == 'T') || ($matches[2] == 't')) {
 					$memory_provided 					= $matches[1] * 1024 * 1024 * 1024 * 1024;
@@ -115,7 +120,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				}
 			}
 			$memory_peakusage 							= memory_get_peak_usage(true);
-			if (($memory_provided - $memory_peakusage) <= $memory_required) {
+			if ((($memory_provided - $memory_peakusage) <= $memory_required) && ($memory_unlimited == false)) {
 				$part1 									= __("Unfortunately, and to prevent a potential system crash, the plugin 'Composium - Visual Composer Extensions' could not be activated. It seems your available PHP memory is already close to exhaustion and so there is not enough left for this plugin.", "ts_visual_composer_extend") . '<br/>';
 				$part2 									= __('Available Memory:', 'ts_visual_composer_extend') . '' . ($memory_provided / 1024 / 1024) . 'MB / ' . __('Already Utilized Memory:', 'ts_visual_composer_extend') . '' . ($memory_peakusage / 1024 / 1024) . 'MB / ' . __('Required Memory:', 'ts_visual_composer_extend') . '' . ($memory_required / 1024 / 1024) . 'MB<br/>';
 				$part3 									= __('Please contact our', 'ts_visual_composer_extend');
@@ -294,17 +299,13 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 			
 			// Load and Initialize the Auto-Update Class
 			// -----------------------------------------
-			if ($this->TS_VCSC_UseUpdateNotification == "true") {
-				require_once($this->assets_dir . 'ts_vcsc_notification.php');
-			}
 			if (($this->TS_VCSC_PluginUsage == "true") && ($this->TS_VCSC_PluginExtended == "false") && ($this->TS_VCSC_PluginValid == "true") && (strlen($this->TS_VCSC_PluginLicense) != 0) && (is_admin()) && (function_exists('get_plugin_data'))) {
 				if ($this->TS_VCSC_UseUpdateAutomatic == "true") {
-					if (!class_exists('TS_VCSC_AutoUpdate')) {
+					if (!class_exists('PluginUpdateChecker_2_0')) {
 						require_once ('assets/ts_vcsc_autoupdate.php');
 					}
-					if (class_exists('TS_VCSC_AutoUpdate')) {
-						new TS_VCSC_AutoUpdate(COMPOSIUM_VERSION, '', $this->TS_VCSC_PluginSlug, 'Tekanewa', $this->TS_VCSC_PluginLicense, $this->TS_VCSC_PluginIsMultiSiteActive, $this->TS_VCSC_PluginValid, $this->TS_VCSC_PluginEnvato);
-					}
+					$this->TS_VCSC_PluginKernl					= new PluginUpdateChecker_2_0 ('https://kernl.us/api/v1/updates/566724710a25612471e649ef/', __FILE__, 'ts-visual-composer-extend', 1);
+					$this->TS_VCSC_PluginKernl->purchaseCode	= $this->TS_VCSC_PluginLicense;
 				}
 			}
 			
@@ -867,7 +868,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					$this->TS_VCSC_List_Icons_Compliant											= $this->TS_VCSC_List_Icons_Compliant + $this->TS_VCSC_Icons_Compliant_Custom;
 					$this->TS_VCSC_IconSelectorComposer 										= 'true';
 				} else if ($font_files_style == false) {					
-					TS_VCSC_ResetCustomFont();
+					TS_VCSC_ResetCustomFont(); 
 				}
 			} else {
 				$this->TS_VCSC_DeleteCustomPack_Ajax();
@@ -1066,7 +1067,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					echo 'var $TS_VCSC_Lightbox_Activated = false;';
 				}
 				// Hammer Version Setting
-				echo 'var $TS_VCSC_Hammer_ReleaseNew = ' . 						$this->TS_VCSC_LoadFrontEndHammerNew . ';';
+				echo 'var $TS_VCSC_Hammer_ReleaseNew = ' . $this->TS_VCSC_LoadFrontEndHammerNew . ';';
 				// Language Settings for Countdown
 				if ($this->TS_VCSC_Visual_Composer_Elements['TS Countdown']['active'] == 'true') {
 					echo 'var $TS_VCSC_Countdown_DaysLabel = "' . 				((array_key_exists('DayPlural', $TS_VCSC_Countdown_Language)) ? 			$TS_VCSC_Countdown_Language['DayPlural'] : 				$this->TS_VCSC_Countdown_Language_Defaults['DayPlural']) . '";';
@@ -1355,9 +1356,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				wp_enqueue_style('ts-font-teammates');
 				wp_enqueue_style('ts-extend-sweetalert');
 				wp_enqueue_script('ts-extend-sweetalert');
-				wp_enqueue_style('ts-extend-uitotop');
-				wp_enqueue_script('ts-extend-uitotop');
-				wp_enqueue_script('jquery-easing');
 				if ($ts_vcsc_enlighterjs_page != $hook_suffix) {
 					wp_enqueue_style('ts-vcsc-extend');
 					if ($ts_vcsc_downtime_page != $hook_suffix) {
@@ -1374,9 +1372,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 				wp_enqueue_style('ts-vcsc-extend');
 				wp_enqueue_script('ts-vcsc-extend');
 				wp_enqueue_style('ts-visual-composer-extend-admin');
-				wp_enqueue_style('ts-extend-uitotop');
-				wp_enqueue_script('ts-extend-uitotop');
-				wp_enqueue_script('jquery-easing');
 				wp_enqueue_style('ts-extend-nouislider');
 				wp_enqueue_script('ts-extend-nouislider');
 				wp_enqueue_script('ts-extend-toggles');
@@ -1653,10 +1648,6 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 						'queryvars' 	=> json_encode($wp_query->query)
 					));
 				}*/
-				/*if (($this->TS_VCSC_UseSmoothScroll == "true") && ($this->TS_VCSC_VCFrontEditMode == "false")) {
-					wp_enqueue_script('ts-extend-mousewheel');
-					wp_enqueue_script('ts-visual-composer-extend-front');
-				}*/
 				if ((($this->TS_VCSC_LoadFrontEndLightbox == "true") || ($this->TS_VCSC_UseLightboxPrettyPhoto == "true") || ($this->TS_VCSC_UseLightboxAutoMedia == "true")) && ($TS_VCSC_StandardFrontendPage == "true") && ($this->TS_VCSC_UseInternalLightbox == "true") && ($this->TS_VCSC_VCFrontEditMode == "false")) {
 					wp_enqueue_script('ts-extend-hammer');
 					wp_enqueue_script('ts-extend-nacho');
@@ -1670,15 +1661,11 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 					// Add CSS for each enabled Font to WordPress Frontend
 					$this->TS_VCSC_IconFontsEnqueue(true);
 				}
-				/* Force Load of Core Files */
-				if (($this->TS_VCSC_LoadFrontEndForcable == "true") && ($TS_VCSC_StandardFrontendPage == "true")) {
+				/* Force Load of Core Files */				
+				if (($this->TS_VCSC_LoadFrontEndForcable == "true") && ($TS_VCSC_StandardFrontendPage == "true")) {					
 					// Load jQuery (if not already loaded)
 					if (($this->TS_VCSC_LoadFrontEndJQuery == "true") && (!wp_script_is('jquery'))) {
 						wp_enqueue_script('jquery');
-					}
-					// Load Google Charts API
-					if ((TS_VCSC_CheckShortcode('TS-VCSC-Google-Charts') == "true") || (TS_VCSC_CheckShortcode('TS-VCSC-Google-Tables') == "true")) {
-						wp_enqueue_script('ts-extend-google-charts');
 					}
 					if ($this->TS_VCSC_VCFrontEditMode == "false") {
 						// Load Modernizr
@@ -1705,7 +1692,7 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 						wp_enqueue_script('ts-visual-composer-extend-forms');
 						wp_enqueue_script('ts-visual-composer-extend-galleries');
 						wp_enqueue_script('ts-visual-composer-extend-backgrounds');
-						wp_enqueue_script('ts-visual-composer-extend-front');
+						wp_enqueue_script('ts-visual-composer-extend-front');						
 					}
 				}
 				/* Files if Shortcode Detected or Widgets Activated */
@@ -1890,7 +1877,15 @@ if (!class_exists('VISUAL_COMPOSER_EXTENSIONS')) {
 		// -------------------------------------------------------------
 		function TS_VCSC_DetermineLoadingStatus() {
 			// Retrieve Current Browser URL
-			$TS_VCSC_Extension_Browser 							= 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$TS_VCSC_Extension_Browser							= 'http://';
+			if (isset($_SERVER['SERVER_NAME'])) {
+				$TS_VCSC_Extension_Browser						.= $_SERVER['SERVER_NAME'];
+			} else if (isset($_SERVER['HTTP_HOST'])) {
+				$TS_VCSC_Extension_Browser						.= $_SERVER['HTTP_HOST'];
+			}			
+			if (isset($_SERVER['REQUEST_URI'])) {
+				$TS_VCSC_Extension_Browser 						.= $_SERVER['REQUEST_URI'];
+			}
 			// Check for Plugin Specific Pages
 			$this->TS_VCSC_PluginFontSummary					= "false";
 			if (strpos($TS_VCSC_Extension_Browser, '?page=TS_VCSC_Extender') !== false) {

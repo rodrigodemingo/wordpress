@@ -337,10 +337,10 @@
 			}
 		}
 	}
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Animation_Frame'))) {
 		class WPBakeryShortCode_TS_VCSC_Animation_Frame extends WPBakeryShortCodesContainer {};
-	}
-	
+	}	
 	// Initialize "TS Animations" Class
 	if (class_exists('TS_Animations')) {
 		$TS_Animations = new TS_Animations;

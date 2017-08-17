@@ -42,12 +42,12 @@
 	<div class="container ultimate-content">
         <div class="col-md-12">
 		    <?php
-			$ultimate_smooth_scroll = get_option('ultimate_smooth_scroll');
+			$ultimate_smooth_scroll = esc_html( get_option( 'ultimate_smooth_scroll' ) );
 			$ultimate_smooth_scroll_options = get_option('ultimate_smooth_scroll_options');
 
 			$checked = '';
 
-			if($ultimate_smooth_scroll == "enable"){
+			if( $ultimate_smooth_scroll == "enable" ){
 				$ultimate_smooth_scroll_attr = 'checked="checked"';
 			} else {
 				$ultimate_smooth_scroll_attr = '';
@@ -56,6 +56,7 @@
 			?>
 		    <div id="ultimate-settings" class="ult-tabs active-tab">
 		    <form method="post" id="ultimate_settings">
+		    	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'smooth-scroll-setting' ); ?>" />
 		    	<input type="hidden" name="action" value="update_ultimate_options" />
 		    	<table class="form-table">
 		        	<tbody>
@@ -82,7 +83,7 @@
 		                	<td>
 		                        <div id="ult-smooth-options" >
 		                        	<div>
-		                        		<input type="text" name="ultimate_smooth_scroll_options[step]" value="<?php echo (isset($ultimate_smooth_scroll_options['step'])) ? $ultimate_smooth_scroll_options['step'] : '' ?>" placeholder="80" />
+		                        		<input type="number" name="ultimate_smooth_scroll_options[step]" value="<?php echo ( isset($ultimate_smooth_scroll_options['step'] ) ) ? esc_html( $ultimate_smooth_scroll_options['step'] ) : '' ?>" placeholder="80" />
 		                        		<span class="dashicons dashicons-editor-help bsf-has-tip" title="The speed of the scrolling effect with a mouse wheel." data-position="right"></span>
 		                        	</div>
 		                        </div>
@@ -93,7 +94,7 @@
 		                	<td>
 		                		<div id="ult-smooth-options">
 		                        	<div>
-		                        		<input type="text" name="ultimate_smooth_scroll_options[speed]" value="<?php echo (isset($ultimate_smooth_scroll_options['speed'])) ? $ultimate_smooth_scroll_options['speed'] : '' ?>" placeholder="480" />
+		                        		<input type="number" name="ultimate_smooth_scroll_options[speed]" value="<?php echo ( isset( $ultimate_smooth_scroll_options['speed'] ) ) ? esc_html( $ultimate_smooth_scroll_options['speed'] ) : '' ?>" placeholder="480" />
 		                        		<span class="dashicons dashicons-editor-help bsf-has-tip" title="The speed of the scrolling effect." data-position="right"></span>
 		                        	</div>
 		                        </div>

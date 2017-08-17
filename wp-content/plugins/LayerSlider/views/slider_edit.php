@@ -101,6 +101,9 @@ include LS_ROOT_PATH . '/templates/tmpl-layer-item.php';
 include LS_ROOT_PATH . '/templates/tmpl-static-layer-item.php';
 include LS_ROOT_PATH . '/templates/tmpl-layer.php';
 include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
+include LS_ROOT_PATH . '/templates/tmpl-popup-presets-window.php';
+include LS_ROOT_PATH . '/templates/tmpl-popup-example-slider.php';
+include LS_ROOT_PATH . '/templates/tmpl-post-chooser.php';
 
 ?>
 
@@ -283,6 +286,17 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				$layerVal['innerAttributes'] = !empty($layerVal['innerAttributes']) ?  (object) $layerVal['innerAttributes'] : new stdClass;
 				$layerVal['outerAttributes'] = !empty($layerVal['outerAttributes']) ?  (object) $layerVal['outerAttributes'] : new stdClass;
 
+
+				// v6.5.6: Convert old checkbox media settings to the new
+				// select based options.
+				if( isset( $layerVal['transition']->controls ) ) {
+					if( true === $layerVal['transition']->controls ) {
+						$layerVal['transition']->controls = 'auto';
+					} elseif( false === $layerVal['transition']->controls ) {
+						$layerVal['transition']->controls = 'disabled';
+					}
+				}
+
 				$slider['layers'][$slideKey]['sublayers'][$layerKey] = $layerVal;
 			}
 		} else {
@@ -342,7 +356,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 
 		<!-- Main menu bar -->
 		<div id="ls-main-nav-bar">
-			<a href="#" class="settings <?php echo $settingsTabClass ?>">
+			<a href="#slider-settings" data-deeplink="slider-settings" class="settings <?php echo $settingsTabClass ?>">
 				<i class="dashicons dashicons-admin-tools"></i>
 				<?php _e('Slider Settings', 'LayerSlider') ?>
 			</a>
@@ -350,7 +364,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				<i class="dashicons dashicons-images-alt"></i>
 				<?php _e('Slides', 'LayerSlider') ?>
 			</a>
-			<a href="#" class="callbacks">
+			<a href="#callbacks" data-deeplink="callbacks" class="callbacks">
 				<i class="dashicons dashicons-redo"></i>
 				<?php _e('Event Callbacks', 'LayerSlider') ?>
 			</a>
@@ -362,7 +376,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				<i class="dashicons dashicons-editor-help"></i>
 				<?php _e('Documentation', 'LayerSlider') ?>
 			</a>
-			<span class="right help"><?php _e('Need help? Try these: ', 'LayerSlider') ?></span>
+			<span class="right help"><?php _e('Need help? Try these:', 'LayerSlider') ?></span>
 			<a href="#" class="clear unselectable"></a>
 		</div>
 
@@ -387,12 +401,12 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				<?php
 					foreach($slider['layers'] as $key => $layer) :
 					$active = empty($key) ? 'active' : '';
-					$name = !empty($layer['properties']['title']) ? $layer['properties']['title'] : 'Slide #'.($key+1);
+					$name = !empty($layer['properties']['title']) ? $layer['properties']['title'] : sprintf(__('Slide #%d', 'LayerSlider'), ($key+1));
 					$bgImage = !empty($layer['properties']['background']) ? $layer['properties']['background'] : null;
 					$bgImageId = !empty($layer['properties']['backgroundId']) ? $layer['properties']['backgroundId'] : null;
 					$image = apply_filters('ls_get_image', $bgImageId, $bgImage, true);
 				?>
-				<a href="#" class="<?php echo $active ?>" data-help="<div style='background-image: url(<?php echo $image?>);'></div>" data-help-class="ls-slide-preview-tooltip popover-light ls-popup" data-help-delay="1" data-help-transition="false">
+				<a href="#" class="<?php echo $active ?>" data-help="<div style='background-image: url(<?php echo $image?>);'></div>" data-help-class="ls-slide-preview-tooltip popover-light km-ui-popup" data-help-delay="1" data-help-transition="false">
 					<span><?php echo $name ?></span>
 					<span class="dashicons dashicons-dismiss"></span>
 				</a>
@@ -412,11 +426,11 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 
 			<div class="ls-notification-info">
 				<i class="dashicons dashicons-info"> </i>
-				<?php _e('Please read our <a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#layerslider-api" target="_blank">online documentation</a> before start using the API. LayerSlider 6 introduced an entirely new API model with different events and methods.', 'LayerSlider') ?>
+				<?php echo sprintf(__('Please read our %sonline documentation%s before start using the API. LayerSlider 6 introduced an entirely new API model with different events and methods.', 'LayerSlider'), '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#layerslider-api" target="_blank">', '</a>') ?>
 			</div>
 
 
-			<div class="ls-callback-separator">Init Events</div>
+			<div class="ls-callback-separator"><?php _e('Init Events', 'LayerSlider') ?></div>
 
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
@@ -442,7 +456,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				</div>
 			</div>
 
-			<div class="ls-callback-separator">Resize Events</div>
+			<div class="ls-callback-separator"><?php _e('Resize Events', 'LayerSlider') ?></div>
 
 
 			<div class="ls-box ls-callback-box side">
@@ -469,7 +483,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				</div>
 			</div>
 
-			<div class="ls-callback-separator">Slideshow Events</div>
+			<div class="ls-callback-separator"><?php _e('Slideshow Events', 'LayerSlider') ?></div>
 
 
 			<div class="ls-box ls-callback-box">
@@ -509,7 +523,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			</div>
 
 
-			<div class="ls-callback-separator">Slide Change Event</div>
+			<div class="ls-callback-separator"><?php _e('Slide Change Events', 'LayerSlider') ?></div>
 
 
 			<div class="ls-box ls-callback-box">
@@ -561,12 +575,12 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			</div>
 
 
-			<div class="ls-callback-separator">Slide Timeline Events</div>
+			<div class="ls-callback-separator"><?php _e('Slide Timeline Events', 'LayerSlider') ?></div>
 
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					slideTimelineDidCreate
-					<figure><span>|</span> <?php _e("Fires when the current slide's animation timeline (e.g. your layers) becomes accessible for interfacing.", 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fires when the current slide’s animation timeline (e.g. your layers) becomes accessible for interfacing.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
 					<textarea name="slideTimelineDidCreate" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
@@ -579,7 +593,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					slideTimelineDidUpdate
-					<figure><span>|</span> <?php _e("Fires rapidly (at each frame) throughout the entire slide while playing, including reverse playback.", 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fires rapidly (at each frame) throughout the entire slide while playing, including reverse playback.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
 					<textarea name="slideTimelineDidUpdate" cols="20" rows="5" class="ls-codemirror">function( event, timeline ) {
@@ -592,7 +606,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					slideTimelineDidStart
-					<figure><span>|</span> <?php _e("Fires when the current slide's animation timeline (e.g. your layers) has started playing.", 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fires when the current slide’s animation timeline (e.g. your layers) has started playing.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
 					<textarea name="slideTimelineDidStart" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
@@ -604,7 +618,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					slideTimelineDidComplete
-					<figure><span>|</span> <?php _e("Fires when the current slide's animation timeline (e.g. layer transitions) has completed.", 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fires when the current slide’s animation timeline (e.g. layer transitions) has completed.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
 					<textarea name="slideTimelineDidComplete" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
@@ -625,8 +639,58 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 				</div>
 			</div>
 
+			<div class="ls-callback-separator"><?php _e('Popup Events', 'LayerSlider') ?></div>
 
-			<div class="ls-callback-separator">Destroy Events</div>
+			<div class="ls-box ls-callback-box">
+				<h3 class="header">
+					popupWillOpen
+					<figure><span>|</span> <?php _e('Fires when the Popup starts its opening transition and becomes visible.', 'LayerSlider') ?></figure>
+				</h3>
+				<div>
+					<textarea name="popupWillOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+
+}</textarea>
+				</div>
+			</div>
+
+			<div class="ls-box ls-callback-box">
+				<h3 class="header">
+					popupDidOpen
+					<figure><span>|</span> <?php _e('Fires when the Popup completed its opening transition.', 'LayerSlider') ?></figure>
+				</h3>
+				<div>
+					<textarea name="popupDidOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+
+}</textarea>
+				</div>
+			</div>
+
+			<div class="ls-box ls-callback-box">
+				<h3 class="header">
+					popupWillClose
+					<figure><span>|</span> <?php _e('Fires when the Popup stars its closing transition.', 'LayerSlider') ?></figure>
+				</h3>
+				<div>
+					<textarea name="popupWillClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+
+}</textarea>
+				</div>
+			</div>
+
+			<div class="ls-box ls-callback-box">
+				<h3 class="header">
+					popupDidClose
+					<figure><span>|</span> <?php _e('Fires when the Popup completed its closing transition and became hidden.', 'LayerSlider') ?></figure>
+				</h3>
+				<div>
+					<textarea name="popupDidClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+
+}</textarea>
+				</div>
+			</div>
+
+
+			<div class="ls-callback-separator"><?php _e('Destroy Events', 'LayerSlider') ?></div>
 
 
 			<div class="ls-box ls-callback-box">
@@ -654,7 +718,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			</div>
 
 
-			<div class="ls-callback-separator">Old API Events</div>
+			<div class="ls-callback-separator"><?php _e('Old API Events', 'LayerSlider') ?></div>
 			<div class="ls-notification-info">
 				<i class="dashicons dashicons-info"> </i>
 				<?php _e('The events below were used in version 5 and earlier. These events are no longer in use, they cannot be edited. They are shown only to offer you a way of viewing and porting them to the new API.', 'LayerSlider') ?>
@@ -693,7 +757,7 @@ include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
 			<div class="ls-box ls-callback-box">
 				<h3 class="header">
 					cbPause
-					<figure><span>|</span> <?php _e('Fireing when the slideshow is temporary on hold (e.g.: "Pause on hover" feature).', 'LayerSlider') ?></figure>
+					<figure><span>|</span> <?php _e('Fireing when the slideshow is temporary on hold (e.g.: “Pause on hover” feature).', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
 					<textarea readonly name="cbpause" cols="20" rows="5" class="ls-codemirror"><?php echo $slider['properties']['cbpause'] ?></textarea>

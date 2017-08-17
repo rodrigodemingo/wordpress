@@ -693,7 +693,7 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Anything_Slider'))) {
 		class WPBakeryShortCode_TS_VCSC_Anything_Slider extends WPBakeryShortCodesContainer {};
 	}
 	// Initialize "TS Anything Slider" Class

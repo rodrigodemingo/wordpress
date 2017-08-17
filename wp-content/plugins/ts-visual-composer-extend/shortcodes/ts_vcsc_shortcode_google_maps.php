@@ -1,19 +1,5 @@
 <?php
-	//add_action('wp_enqueue_scripts', 		'TS_VCSC_Google_Maps_Front');
-	function TS_VCSC_Google_Maps_Front(){
-		if ((get_option('ts_vcsc_extend_settings_loadHeader', 0) == 0)) {
-			$FOOTER = true;
-		} else {
-			$FOOTER = false;
-		}
-		global $post;
-		$postdata = get_post($post->ID);
-		$shortcode_exist = preg_match( '#\[ *TS-VCSC-Google-Maps([^\]])*\]#i', $postdata->post_content );
-		if ($shortcode_exist){}
-	}
-	
 	add_shortcode('TS-VCSC-Google-Maps', 	'TS_VCSC_Google_Maps_Function');
-	add_shortcode('TS_VCSC_Google_Maps', 	'TS_VCSC_Google_Maps_Function');
 	function TS_VCSC_Google_Maps_Function ($atts, $content = null) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -170,8 +156,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Google_Maps extends WPBakeryShortCode {};
 	}
 ?>

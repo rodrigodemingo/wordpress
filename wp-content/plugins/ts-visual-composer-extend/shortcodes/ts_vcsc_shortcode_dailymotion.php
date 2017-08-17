@@ -1,6 +1,5 @@
 <?php
 	add_shortcode('TS-VCSC-Motion', 'TS_VCSC_Motion_Function');
-	add_shortcode('TS_VCSC_Motion', 'TS_VCSC_Motion_Function');
 	function TS_VCSC_Motion_Function ($atts, $content = null) {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		ob_start();
@@ -331,8 +330,5 @@
 	
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Motion extends WPBakeryShortCode {};
 	}
 ?>

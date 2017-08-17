@@ -176,10 +176,10 @@ if(!class_exists('VC_Ultimate_Parallax')){
 
 				$is_vc_4_4 = (version_compare($vc_version, '4.4', '<')) ? true : false;
 
-				$commom_data_attributes .= ' data-custom-vc-row="'.$ultimate_custom_vc_row.'" ';
-				$commom_data_attributes .= ' data-vc="'.$vc_version.'" ';
-				$commom_data_attributes .= ' data-is_old_vc="'.$is_vc_4_4.'" ';
-				$commom_data_attributes .= ' data-theme-support="'.$ultimate_theme_support.'" ';
+				$commom_data_attributes .= ' data-custom-vc-row="'.esc_attr($ultimate_custom_vc_row).'" ';
+				$commom_data_attributes .= ' data-vc="'.esc_attr($vc_version).'" ';
+				$commom_data_attributes .= ' data-is_old_vc="'.esc_attr($is_vc_4_4).'" ';
+				$commom_data_attributes .= ' data-theme-support="'.esc_attr($ultimate_theme_support).'" ';
 
 				//if($disable_on_mobile != '')
 				//{
@@ -211,12 +211,12 @@ if(!class_exists('VC_Ultimate_Parallax')){
 					if(strpos( $overlay_pattern_opacity, '.' ) === false)
 						$overlay_pattern_opacity = $overlay_pattern_opacity/100;
 
-					$overlay = ' data-overlay="true" data-overlay-color="'.$overlay_color.'" data-overlay-pattern="'.$pattern_url.'" data-overlay-pattern-opacity="'.$overlay_pattern_opacity.'" data-overlay-pattern-size="'.$overlay_pattern_size.'" data-overlay-pattern-attachment="'.$overlay_pattern_attachment.'" ';
+					$overlay = ' data-overlay="true" data-overlay-color="'.esc_attr($overlay_color).'" data-overlay-pattern="'.esc_attr($pattern_url).'" data-overlay-pattern-opacity="'.esc_attr($overlay_pattern_opacity).'" data-overlay-pattern-size="'.esc_attr($overlay_pattern_size).'" data-overlay-pattern-attachment="'.esc_attr($overlay_pattern_attachment).'" ';
 
 					if($multi_color_overlay == 'uvc-multi-color-bg')
 					{
 						$multi_color_overlay_opacity = $multi_color_overlay_opacity/100;
-						$overlay .= ' data-multi-color-overlay="'.$multi_color_overlay.'" data-multi-color-overlay-opacity="'.$multi_color_overlay_opacity.'" ';
+						$overlay .= ' data-multi-color-overlay="'.esc_attr($multi_color_overlay).'" data-multi-color-overlay-opacity="'.esc_attr($multi_color_overlay_opacity).'" ';
 					}
 				}
 				else
@@ -228,11 +228,11 @@ if(!class_exists('VC_Ultimate_Parallax')){
 				if($seperator_enable == 'seperator_enable_value')
 				{
 					$seperator_bottom_html = ' data-seperator="true" ';
-					$seperator_bottom_html .= ' data-seperator-type="'.$seperator_type.'" ';
-					$seperator_bottom_html .= ' data-seperator-shape-size="'.$seperator_shape_size.'" ';
-					$seperator_bottom_html .= ' data-seperator-svg-height="'.$seperator_svg_height.'" ';
+					$seperator_bottom_html .= ' data-seperator-type="'.esc_attr($seperator_type).'" ';
+					$seperator_bottom_html .= ' data-seperator-shape-size="'.esc_attr($seperator_shape_size).'" ';
+					$seperator_bottom_html .= ' data-seperator-svg-height="'.esc_attr($seperator_svg_height).'" ';
 					$seperator_bottom_html .= ' data-seperator-full-width="true"';
-					$seperator_bottom_html .= ' data-seperator-position="'.$seperator_position.'" ';
+					$seperator_bottom_html .= ' data-seperator-position="'.esc_attr($seperator_position).'" ';
 
 					if($seperator_shape_background != '') {
 						if($seperator_type == 'multi_triangle_seperator') {
@@ -242,21 +242,21 @@ if(!class_exists('VC_Ultimate_Parallax')){
 								$seperator_shape_background = rgbaToHexUltimate($rgba[0],$rgba[1],$rgba[2]);
 							}
 						}
-						$seperator_bottom_html .= ' data-seperator-background-color="'.$seperator_shape_background.'" ';
+						$seperator_bottom_html .= ' data-seperator-background-color="'.esc_attr($seperator_shape_background).'" ';
 					}
 					if($seperator_shape_border != 'none')
 					{
-						$seperator_bottom_html .= ' data-seperator-border="'.$seperator_shape_border.'" ';
+						$seperator_bottom_html .= ' data-seperator-border="'.esc_attr($seperator_shape_border).'" ';
 						$bwidth = ($seperator_shape_border_width == '') ? '1' : $seperator_shape_border_width;
-						$seperator_bottom_html .= ' data-seperator-border-width="'.$bwidth.'" ';
-						$seperator_bottom_html .= ' data-seperator-border-color="'.$seperator_shape_border_color.'" ';
+						$seperator_bottom_html .= ' data-seperator-border-width="'.esc_attr($bwidth).'" ';
+						$seperator_bottom_html .= ' data-seperator-border-color="'.esc_attr($seperator_shape_border_color).'" ';
 					}
 
 					if($icon_type != 'no_icon')
 					{
 						$icon_animation = '';
 						$alignment = 'center';
-						$icon_inline = do_shortcode('[just_icon icon_align="'.$alignment.'" icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_animation="'.$icon_animation.'"]');
+						$icon_inline = do_shortcode('[just_icon icon_align="'.esc_attr($alignment).'" icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_animation="'.esc_attr($icon_animation).'"]');
 					}
 					$seperator_bottom_html .= ' data-icon="'.htmlentities($icon_inline).'" ';
 				}
@@ -281,7 +281,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 						$ult_hide_row_data .= ' uvc_hidden-xsl ';
 
 					if($ult_hide_row_data != '')
-						$ult_hide_row_data = ' data-hide-row="'.$ult_hide_row_data.'" ';
+						$ult_hide_row_data = ' data-hide-row="'.esc_attr($ult_hide_row_data).'" ';
 				}
 
 				// RTL
@@ -320,7 +320,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 					}
 				}
 				if($bg_type== "no_bg"){
-					/*$html .= '<div class="upb_no_bg" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';*/
+					/*$html .= '<div class="upb_no_bg" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';*/
 				}
 				elseif($bg_type == "image"){
 					if($bg_image_size=='cstm'){
@@ -342,7 +342,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 						foreach ($layer_image as $key=>$value) {
 							$bg_imgs[]=$layer_image[$key][0];
 						}
-						$html .= '<div class="upb_bg_img" data-ultimate-bg="'.implode(',', $bg_imgs).'" data-ultimate-bg-style="'.$parallax_style.'" data-bg-img-repeat="'.$bg_image_repeat.'" data-bg-img-size="'.$bg_image_size.'" data-bg-img-position="'.$bg_image_posiiton.'" data-parallx_sense="'.$parallax_sense.'" data-bg-override="'.$bg_override.'" data-bg_img_attach="'.$bg_img_attach.'" data-upb-overlay-color="'.$overlay_color.'" data-upb-bg-animation="'.$bg_fade.'" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
+						$html .= '<div class="upb_bg_img" data-ultimate-bg="'.esc_attr(implode(',', $bg_imgs)).'" data-ultimate-bg-style="'.esc_attr($parallax_style).'" data-bg-img-repeat="'.esc_attr($bg_image_repeat).'" data-bg-img-size="'.esc_attr($bg_image_size).'" data-bg-img-position="'.esc_attr($bg_image_posiiton).'" data-parallx_sense="'.esc_attr($parallax_sense).'" data-bg-override="'.esc_attr($bg_override).'" data-bg_img_attach="'.esc_attr($bg_img_attach).'" data-upb-overlay-color="'.esc_attr($overlay_color).'" data-upb-bg-animation="'.esc_attr($bg_fade).'" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'" data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" data-rtl="'.esc_attr($rtl).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
 					}
 					else{
 						if($parallax_style == 'vcpb-vz-jquery' || $parallax_style=="vcpb-hz-jquery")
@@ -368,7 +368,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 							}
 
 							$bg_img = apply_filters('ult_get_img_single', $bg_img_id, 'url');
-							$html .= '<div class="upb_bg_img" data-ultimate-bg="url('.$bg_img.')" data-image-id="'.$bg_img_id.'" data-ultimate-bg-style="'.$parallax_style.'" data-bg-img-repeat="'.$bg_image_repeat.'" data-bg-img-size="'.$bg_image_size.'" data-bg-img-position="'.$bg_image_posiiton.'" data-parallx_sense="'.$parallax_sense.'" data-bg-override="'.$bg_override.'" data-bg_img_attach="'.$bg_img_attach.'" data-upb-overlay-color="'.$overlay_color.'" data-upb-bg-animation="'.$bg_fade.'" data-fadeout="'.$fadeout_row.'" data-bg-animation="'.$animation.'" data-bg-animation-type="'.$animation_type.'" data-animation-repeat="'.$animation_repeat.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
+							$html .= '<div class="upb_bg_img" data-ultimate-bg="url('.esc_url($bg_img).')" data-image-id="'.esc_attr($bg_img_id).'" data-ultimate-bg-style="'.esc_attr($parallax_style).'" data-bg-img-repeat="'.esc_attr($bg_image_repeat).'" data-bg-img-size="'.esc_attr($bg_image_size).'" data-bg-img-position="'.esc_attr($bg_image_posiiton).'" data-parallx_sense="'.esc_attr($parallax_sense).'" data-bg-override="'.esc_attr($bg_override).'" data-bg_img_attach="'.esc_attr($bg_img_attach).'" data-upb-overlay-color="'.esc_attr($overlay_color).'" data-upb-bg-animation="'.esc_attr($bg_fade).'" data-fadeout="'.esc_attr($fadeout_row).'" data-bg-animation="'.esc_attr($animation).'" data-bg-animation-type="'.esc_attr($animation_type).'" data-animation-repeat="'.esc_attr($animation_repeat).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'" data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" data-rtl="'.esc_attr($rtl).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
 						}
 					}
 				} elseif($bg_type == "video"){
@@ -395,7 +395,7 @@ if(!class_exists('VC_Ultimate_Parallax')){
 					$u_stop_time = ($u_stop_time!='')?$u_stop_time:0;
 					$u_start_time = ($u_stop_time!='')?$u_start_time:0;
 					$v_img = apply_filters('ult_get_img_single', $video_poster, 'url');
-					$html .= '<div class="upb_content_video" data-controls-color="'.$controls_color.'" data-controls="'.$enable_controls.'" data-viewport-video="'.$enable_viewport_vdo.'" data-ultimate-video="'.$video_url.'" data-ultimate-video2="'.$video_url_2.'" data-ultimate-video-muted="'.$muted.'" data-ultimate-video-loop="'.$loop.'" data-ultimate-video-poster="'.$v_img.'" data-ultimate-video-autoplay="autoplay" data-bg-override="'.$bg_override.'" data-upb-overlay-color="'.$overlay_color.'" data-upb-bg-animation="'.$bg_fade.'" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-rtl="'.$rtl.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.' data-video_fixer="'.$video_fixer.'"></div>';
+					$html .= '<div class="upb_content_video" data-controls-color="'.esc_attr($controls_color).'" data-controls="'.esc_attr($enable_controls).'" data-viewport-video="'.esc_attr($enable_viewport_vdo).'" data-ultimate-video="'.esc_attr($video_url).'" data-ultimate-video2="'.esc_attr($video_url_2).'" data-ultimate-video-muted="'.esc_attr($muted).'" data-ultimate-video-loop="'.esc_attr($loop).'" data-ultimate-video-poster="'.esc_attr($v_img).'" data-ultimate-video-autoplay="autoplay" data-bg-override="'.esc_attr($bg_override).'" data-upb-overlay-color="'.esc_attr($overlay_color).'" data-upb-bg-animation="'.esc_attr($bg_fade).'" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'" data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-rtl="'.esc_attr($rtl).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.' data-video_fixer="'.esc_attr($video_fixer).'"></div>';
 
 					if($enable_controls == 'display_control')
 						wp_enqueue_style('ultimate-vidcons',plugins_url('../assets/fonts/vidcons.css',__FILE__));
@@ -424,13 +424,13 @@ if(!class_exists('VC_Ultimate_Parallax')){
 							$video_fixer = 'false';
 					}
 
-					$html .= '<div class="upb_content_iframe" data-controls="'.$enable_controls.'" data-viewport-video="'.$enable_viewport_vdo.'" data-ultimate-video="'.$u_video_url.'" data-bg-override="'.$bg_override.'" data-start-time="'.$u_start_time.'" data-stop-time="'.$u_stop_time.'" data-ultimate-video-muted="'.$muted.'" data-ultimate-video-loop="'.$loop.'" data-ultimate-video-poster="'.$v_img.'" data-upb-overlay-color="'.$overlay_color.'" data-upb-bg-animation="'.$bg_fade.'" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'"  data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.' data-video_fixer="'.$video_fixer.'"></div>';
+					$html .= '<div class="upb_content_iframe" data-controls="'.esc_attr($enable_controls).'" data-viewport-video="'.esc_attr($enable_viewport_vdo).'" data-ultimate-video="'.esc_attr($u_video_url).'" data-bg-override="'.esc_attr($bg_override).'" data-start-time="'.esc_attr($u_start_time).'" data-stop-time="'.esc_attr($u_stop_time).'" data-ultimate-video-muted="'.esc_attr($muted).'" data-ultimate-video-loop="'.esc_attr($loop).'" data-ultimate-video-poster="'.esc_attr($v_img).'" data-upb-overlay-color="'.esc_attr($overlay_color).'" data-upb-bg-animation="'.esc_attr($bg_fade).'" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'"  data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" data-rtl="'.esc_attr($rtl).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.' data-video_fixer="'.esc_attr($video_fixer).'"></div>';
 				}
 				elseif ($bg_type == 'grad') {
-					$html .= '<div class="upb_grad" data-grad="'.$bg_grad.'" data-bg-override="'.$bg_override.'" data-upb-overlay-color="'.$overlay_color.'" data-upb-bg-animation="'.$bg_fade.'" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
+					$html .= '<div class="upb_grad" data-grad="'.esc_attr($bg_grad).'" data-bg-override="'.esc_attr($bg_override).'" data-upb-overlay-color="'.esc_attr($overlay_color).'" data-upb-bg-animation="'.esc_attr($bg_fade).'" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'" data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" data-rtl="'.esc_attr($rtl).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
 				}
 				elseif($bg_type == 'bg_color'){
-					$html .= '<div class="upb_color" data-bg-override="'.$bg_override.'" data-bg-color="'.$bg_color_value.'" data-fadeout="'.$fadeout_row.'" data-fadeout-percentage="'.$fadeout_start_effect.'" data-parallax-content="'.$parallax_content.'" data-parallax-content-sense="'.$parallax_content_sense.'" data-row-effect-mobile-disable="'.$disable_on_mobile.'" data-img-parallax-mobile-disable="'.$disable_on_mobile_img_parallax.'" data-rtl="'.$rtl.'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
+					$html .= '<div class="upb_color" data-bg-override="'.esc_attr($bg_override).'" data-bg-color="'.esc_attr($bg_color_value).'" data-fadeout="'.esc_attr($fadeout_row).'" data-fadeout-percentage="'.esc_attr($fadeout_start_effect).'" data-parallax-content="'.esc_attr($parallax_content).'" data-parallax-content-sense="'.esc_attr($parallax_content_sense).'" data-row-effect-mobile-disable="'.esc_attr($disable_on_mobile).'" data-img-parallax-mobile-disable="'.esc_attr($disable_on_mobile_img_parallax).'" data-rtl="'.esc_attr($rtl).'" '.$commom_data_attributes.' '.$overlay.' '.$seperator_html.' '.$ult_hide_row_data.'></div>';
 				}
 				$output .= $html;
 				if($bg_type=='no_bg'){

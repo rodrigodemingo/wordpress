@@ -1,9 +1,6 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-	
-	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
-		//class WPBakeryShortCode_TS_VCSC_Image_Full extends WPBakeryShortCode {};
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Image_Full'))) {
 		class WPBakeryShortCode_TS_VCSC_Image_Full extends WPBakeryShortCode {		
 			public function singleParamHtmlHolder($param, $value, $settings = Array(), $atts = Array()) {
 				$output 							= '';
@@ -11,7 +8,6 @@
 				$heading 							= isset($param['heading']) ? $param['heading'] : '';
 				$type 								= isset($param['type']) ? $param['type'] : '';
 				$class 								= isset($param['class']) ? $param['class'] : '';
-
 				if (isset($param['holder']) === true && in_array($param['holder'], array('div', 'span', 'p', 'pre', 'code'))) {
 					$output .= '<'.$param['holder'].' class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . '" name="' . $param_name . '">'.$value.'</'.$param['holder'].'>';
 				} else if (isset($param['holder']) === true && $param['holder'] == 'input') {
@@ -27,21 +23,17 @@
 							$output .= ( $img ? '<li>'.$img['thumbnail'].'</li>' : '<li><img width="150" height="150" test="'.$image.'" src="' . WPBakeryVisualComposer::getInstance()->assetURL('vc/blank.gif') . '" class="attachment-thumbnail" alt="" title="" /></li>');
 						}
 					$output .= '</ul>';
-				}
-				
+				}				
 				if (isset($param['admin_label']) && $param['admin_label'] === true) {
 					$output .= '<span style="max-width: 100%; display: block;" class="vc_admin_label admin_label_'.$param['param_name'].(empty($value) ? ' hidden-label' : '').'"><label>'. $param['heading'] . '</label>: '.$value.'</span>';
-				}
-				
+				}				
 				if ('dropdown' === $param['type'] && 'type' === $param_name) {
 					$output .= '<a style="max-width: 100%; display: block;" href="#" class="column_edit_trigger" style="margin-bottom: 10px;">' . __( 'Add, Change or Remove Image(s)', "ts_visual_composer_extend" ) . '</a>';
-				}
-	
+				}	
 				return $output;
 			}
 		}
-	}
-	
+	};
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                          		=> __( "TS Image(s) Full", "ts_visual_composer_extend" ),
 		"base"                          		=> "TS_VCSC_Image_Full",
@@ -765,11 +757,10 @@
 				"group" 						=> "Other Settings",
 			),
 		)
-	);
-		
+	);		
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

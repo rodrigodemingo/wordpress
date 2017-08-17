@@ -1,7 +1,4 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-    
-	// Shortcode to generate Custom Parameter Showcase
 	add_shortcode('TS_VCSC_Parameter_Showcase', 'TS_VCSC_Parameter_Showcase');
 	function TS_VCSC_Parameter_Showcase ($atts) {
 		global $VISUAL_COMPOSER_EXTENSIONS;

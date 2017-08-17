@@ -19,6 +19,7 @@ if(!function_exists('bsf_update_option')) {
 add_action( 'wp_ajax_bsf_dismiss_notice', 'bsf_dismiss_notice');
 if(!function_exists('bsf_dismiss_notice')) {
 	function bsf_dismiss_notice() {
+		check_ajax_referer( 'bsf-dismiss-notice-nonce', 'security' );
 		$notice = $_POST['notice'];
 		$x = bsf_update_option($notice, true);
 		echo ($x) ? true : false;
@@ -49,6 +50,7 @@ if(!function_exists('bsf_core_admin_notice')) {
 				        method: 'POST',
 				        data: {
 				            action: "bsf_dismiss_notice",
+				            security: "<?php echo wp_create_nonce( 'bsf-dismiss-notice-nonce' ); ?>",
 				            notice: bsf_notice_name
 				        },
 				        success: function(response) {
@@ -80,13 +82,13 @@ if(!class_exists('Ultimate_Admin_Area')){
 			add_action( 'admin_menu', array($this,'register_brainstorm_menu'),99);
 			add_action( 'network_admin_menu', array( $this, 'register_brainstorm_network_menu' ) );
 
-			add_action('admin_enqueue_scripts', array($this, 'bsf_admin_scripts_updater'), 1);
+			add_action( 'admin_enqueue_scripts', array($this, 'bsf_admin_scripts_updater'), 1);
 			add_action( 'wp_ajax_update_ultimate_options', array($this,'update_settings'));
 			add_action( 'wp_ajax_update_ultimate_debug_options', array($this,'update_debug_settings'));
 			add_action( 'wp_ajax_update_ultimate_modules', array($this,'update_modules'));
 			add_action( 'wp_ajax_update_css_options', array($this,'update_css_options'));
 			add_action( 'wp_ajax_update_dev_notes', array($this,'update_dev_notes'));
-			add_filter('update_footer', array($this, 'debug_link'),999);
+			add_filter( 'update_footer', array($this, 'debug_link'),999);
 		}
 
 		function debug_link($text) {
@@ -212,6 +214,13 @@ if(!class_exists('Ultimate_Admin_Area')){
 					wp_enqueue_style('ultimate-vc-backend-style');
 				}
 			}
+
+			wp_localize_script( 'jquery', 'uavc', array(
+				'add_zipped_font'        => wp_create_nonce( 'smile-add-zipped-fonts-nonce' ),
+				'remove_zipped_font'     => wp_create_nonce( 'smile-remove-zipped-fonts-nonce' ),
+				'get_font_variants'      => wp_create_nonce( 'uavc-get-font-variants-nonce' ),
+				'ult_get_attachment_url' => wp_create_nonce( 'uavc-get-attachment-url-nonce' ),
+			) );
 		}/* end admin_scripts */
 
 		function register_brainstorm_network_menu() {
@@ -425,18 +434,21 @@ if(!class_exists('Ultimate_Admin_Area')){
 		}
 
 		function update_modules(){
+
+			check_ajax_referer( 'ultimate-modules-setting', 'security' );
+
 			if(isset($_POST['ultimate_row'])){
-				$ultimate_row = $_POST['ultimate_row'];
+				$ultimate_row = sanitize_text_field( $_POST['ultimate_row'] );
 			} else {
 				$ultimate_row = 'disable';
 			}
-			$result1 = update_option('ultimate_row',$ultimate_row);
+			$result1 = update_option( 'ultimate_row', $ultimate_row );
 
 			$ultimate_modules = array();
 			if(isset($_POST['ultimate_modules'])){
-				$ultimate_modules = $_POST['ultimate_modules'];
+				$ultimate_modules = array_map( 'sanitize_text_field', $_POST['ultimate_modules'] );
 			}
-			$result2 = update_option('ultimate_modules',$ultimate_modules);
+			$result2 = update_option( 'ultimate_modules', $ultimate_modules );
 
 			if($result1 || $result2 ){
 				echo 'success';
@@ -464,82 +476,92 @@ if(!class_exists('Ultimate_Admin_Area')){
 			return false;
 		}
 
-		function update_debug_settings(){
-			if(isset($_POST['ultimate_video_fixer'])){
-				$ultimate_video_fixer = $_POST['ultimate_video_fixer'];
+		function update_debug_settings() {
+			
+			check_ajax_referer( 'ultimate-debug-settings', 'security' );
+
+			if( isset( $_POST['ultimate_video_fixer'] ) ){
+				$ultimate_video_fixer = sanitize_text_field( $_POST['ultimate_video_fixer'] );
 			} else {
 				$ultimate_video_fixer = 'disable';
 			}
 			$result1 = update_option('ultimate_video_fixer',$ultimate_video_fixer);
 
 			if(isset($_POST['ultimate_ajax_theme'])){
-				$ultimate_ajax_theme = $_POST['ultimate_ajax_theme'];
+				$ultimate_ajax_theme = sanitize_text_field( $_POST['ultimate_ajax_theme'] );
 			} else {
 				$ultimate_ajax_theme = 'disable';
 			}
 			$result2 = update_option('ultimate_ajax_theme',$ultimate_ajax_theme);
 
 			if(isset($_POST['ultimate_custom_vc_row'])){
-				$ultimate_custom_vc_row = $_POST['ultimate_custom_vc_row'];
+				$ultimate_custom_vc_row = sanitize_text_field( $_POST['ultimate_custom_vc_row'] );
 			} else {
-				$ultimate_custom_vc_row = 'disable';
+				$ultimate_custom_vc_row = '';
 			}
 			$result3 = update_option('ultimate_custom_vc_row',$ultimate_custom_vc_row);
 
 			if(isset($_POST['ultimate_theme_support'])){
-				$ultimate_theme_support = $_POST['ultimate_theme_support'];
+				$ultimate_theme_support = sanitize_text_field( $_POST['ultimate_theme_support'] );
 			} else {
 				$ultimate_theme_support = 'disable';
 			}
 			$result4 = update_option('ultimate_theme_support',$ultimate_theme_support);
 
 			if(isset($_POST['ultimate_rtl_support'])){
-				$ultimate_rtl_support = $_POST['ultimate_rtl_support'];
+				$ultimate_rtl_support = sanitize_text_field( $_POST['ultimate_rtl_support'] );
 			} else {
 				$ultimate_rtl_support = 'disable';
 			}
 			$result5 = update_option('ultimate_rtl_support',$ultimate_rtl_support);
 
 			if(isset($_POST['ultimate_modal_fixer'])){
-				$ultimate_modal_fixer = $_POST['ultimate_modal_fixer'];
+				$ultimate_modal_fixer = sanitize_text_field( $_POST['ultimate_modal_fixer'] );
 			} else {
 				$ultimate_modal_fixer = 'disable';
 			}
-			$result6 = update_option('ultimate_modal_fixer',$ultimate_modal_fixer);
+			$result6 = update_option( 'ultimate_modal_fixer', $ultimate_modal_fixer );
 
 			$result7 = $result8 = false;
 
-			$bsf_options_array = array('dev_mode', 'ultimate_global_scripts', 'ultimate_roles');
+			$bsf_options_array = array( 'dev_mode', 'ultimate_global_scripts', 'ultimate_roles' );
 			$check_update_option_7 = $check_update_option_8 = false;
 
 			if(isset($_POST['bsf_options'])){
 				$bsf_options_keys = array_keys($_POST['bsf_options']);
 
 				$bsf_options_array = array_diff($bsf_options_array, $bsf_options_keys);
+				foreach ( $_POST['bsf_options'] as $key => $value ) {
+					$key = sanitize_text_field( $key );
+					if( is_array($value) ) {
+						$value = array_map( 'sanitize_text_field', $value );
+					} else {
+						$value = sanitize_text_field( $value );
+					}
 
-				foreach ($_POST['bsf_options'] as $key => $value) {
-					$result7 = bsf_update_option($key, $value);
-					if($result7)
+					$result7 = bsf_update_option( $key, $value );
+					if( $result7 )
 						$check_update_option_7 = true;
 				}
 			}
 
-			foreach ($bsf_options_array as $key => $key_value) {
-				$result8 = bsf_update_option($key_value, '');
-				if($result8)
+			foreach ( $bsf_options_array as $key => $key_value ) {
+				$key_value = sanitize_text_field( $key_value );
+				$result8 = bsf_update_option( $key_value, '' );
+				if( $result8 )
 					$check_update_option_8 = true;
 				$result8 = true;
 			}
 
 			if(isset($_POST['ultimate_smooth_scroll_compatible'])){
-				$ultimate_smooth_scroll_compatible = $_POST['ultimate_smooth_scroll_compatible'];
+				$ultimate_smooth_scroll_compatible = sanitize_text_field( $_POST['ultimate_smooth_scroll_compatible'] );
 			} else {
 				$ultimate_smooth_scroll_compatible = 'disable';
 			}
 			$result9 = update_option('ultimate_smooth_scroll_compatible',$ultimate_smooth_scroll_compatible);
 
 			if(isset($_POST['ultimate_animation'])){
-				$ultimate_animation = $_POST['ultimate_animation'];
+				$ultimate_animation = sanitize_text_field( $_POST['ultimate_animation'] );
 			} else {
 				$ultimate_animation = 'disable';
 			}
@@ -558,15 +580,18 @@ if(!class_exists('Ultimate_Admin_Area')){
 
 		function update_settings(){
 
-			if(isset($_POST['ultimate_smooth_scroll'])){
-				$ultimate_smooth_scroll = $_POST['ultimate_smooth_scroll'];
+			check_ajax_referer( 'smooth-scroll-setting', 'security' );
+
+			if( isset( $_POST['ultimate_smooth_scroll'] ) ) {
+				$ultimate_smooth_scroll = sanitize_text_field( $_POST['ultimate_smooth_scroll'] );
 			} else {
 				$ultimate_smooth_scroll = 'disable';
 			}
 			$result1 = update_option('ultimate_smooth_scroll',$ultimate_smooth_scroll);
 
 			if(isset($_POST['ultimate_smooth_scroll_options'])){
-				$ultimate_smooth_scroll_options = $_POST['ultimate_smooth_scroll_options'];
+				$ultimate_smooth_scroll_options['step']  = ( '' != $_POST['ultimate_smooth_scroll_options']['step'] ) ? ( int ) $_POST['ultimate_smooth_scroll_options']['step'] : '';
+				$ultimate_smooth_scroll_options['speed'] = ( '' != $_POST['ultimate_smooth_scroll_options']['speed'] ) ? ( int ) $_POST['ultimate_smooth_scroll_options']['speed'] : '';
 			} else {
 				$ultimate_smooth_scroll_options = '';
 			}
@@ -581,14 +606,17 @@ if(!class_exists('Ultimate_Admin_Area')){
 		}
 
 		function update_css_options(){
+
+			check_ajax_referer( 'css-settings-setting', 'security' );
+
 			if(isset($_POST['ultimate_css'])){
-				$ultimate_css = $_POST['ultimate_css'];
+				$ultimate_css = sanitize_text_field( $_POST['ultimate_css'] );
 			} else {
 				$ultimate_css = 'disable';
 			}
 			$result1 = update_option('ultimate_css',$ultimate_css);
 			if(isset($_POST['ultimate_js'])){
-				$ultimate_js = $_POST['ultimate_js'];
+				$ultimate_js = sanitize_text_field( $_POST['ultimate_js'] );
 			} else {
 				$ultimate_js = 'disable';
 			}
@@ -624,6 +652,7 @@ if(!class_exists('Ultimate_Admin_Area')){
 						'status' => $activation_check_temp->status,
 						'code' => $activation_check_temp->code
 					);
+					$val = array_map( 'sanitize_text_field', $val );
 					update_option('ultimate_license_activation', $val);
 					delete_transient( 'ultimate_license_activation' );
 					set_transient( "ultimate_license_activation", true, 60*60*12);

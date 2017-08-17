@@ -1764,10 +1764,10 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_Container extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_Single'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_Single extends WPBakeryShortCode {
 			public function singleParamHtmlHolder($param, $value, $settings = Array(), $atts = Array()) {
 				$output 		= '';
@@ -1806,6 +1806,8 @@
 				return $output;
 			}
 		};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Timeline_Break'))) {
 		class WPBakeryShortCode_TS_VCSC_Timeline_Break extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Isotope Timeline" Class

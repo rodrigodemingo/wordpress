@@ -133,9 +133,9 @@ a.ultb3-btn:hover i {
 a.ultb3-btn:hover {
     padding-left: 45px
 }
-a.ultb3-btn:hover;
-a.ultb3-btn:focus;
-a.ultb3-btn:active;
+a.ultb3-btn:hover,
+a.ultb3-btn:focus,
+a.ultb3-btn:active,
 a.ultb3-btn:visited {
     text-decoration: none;
     color: inherit;

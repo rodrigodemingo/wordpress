@@ -489,5 +489,5 @@ class TS_VCSC_PHPColors {
 
         return $color;
     }
-
 }
+?>

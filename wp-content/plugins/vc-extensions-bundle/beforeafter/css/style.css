@@ -12,6 +12,23 @@
   /*overflow: hidden;*/
 }
 
+.cq-beforeafter .cq-beforeafter-caption{
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  min-width: 240px;
+  display: block;
+  /*position: absolute;*/
+  position: relative;
+  padding: 8px;
+  background: #FFF;
+  color: #333;
+  left: 0;
+  bottom: 0;
+}
+.cq-beforeafter-caption.cq-beforeafter-captionright{
+  /*text-align: right;*/
+}
 /*.cq-beforeafter img {*/
 .cq-beforeafter img.cq-beforeafter-img {
   display: block;

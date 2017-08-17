@@ -204,29 +204,33 @@ $mfn_post_meta_box = array(
 			'id' 		=> 'mfn-meta-info-seo',
 			'type' 		=> 'info',
 			'title' 	=> '',
-			'desc' 		=> __('SEO', 'mfn-opts'),
+			'desc' 		=> __( 'SEO <span>below settings overriddes theme options</span>', 'mfn-opts' ),
 			'class' 	=> 'mfn-info',
 		),
 		
 		array(
 			'id' 		=> 'mfn-meta-seo-title',
 			'type' 		=> 'text',
-			'title' 	=> __('SEO | Title', 'mfn-opts'),
-			'desc' 		=> __('These settings overriddes theme options settings', 'mfn-opts'),
+			'title' 	=> __( 'SEO | Title', 'mfn-opts' ),
 		),
 		
 		array(
 			'id' 		=> 'mfn-meta-seo-description',
 			'type' 		=> 'text',
-			'title' 	=> __('SEO | Description', 'mfn-opts'),
-			'desc' 		=> __('These settings overriddes theme options settings', 'mfn-opts'),
+			'title' 	=> __( 'SEO | Description', 'mfn-opts' ),
 		),
 		
 		array(
 			'id' 		=> 'mfn-meta-seo-keywords',
 			'type' 		=> 'text',
-			'title' 	=> __('SEO | Keywords', 'mfn-opts'),
-			'desc' 		=> __('These settings overriddes theme options settings', 'mfn-opts'),
+			'title' 	=> __( 'SEO | Keywords', 'mfn-opts' ),
+		),
+			
+		array(
+			'id' 		=> 'mfn-meta-seo-og-image',
+			'type' 		=> 'upload',
+			'title' 	=> __( 'Open Graph | Image', 'mfn-opts' ),
+			'sub_desc' 	=> __( 'Facebook share image', 'mfn-opts' ),
 		),
 
 	),

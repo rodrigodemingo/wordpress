@@ -1,6 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-	
+    global $VISUAL_COMPOSER_EXTENSIONS;	
 	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name" 							=> __("Recent Topic Index", "ts_visual_composer_extend"),
 		"base" 							=> "bbp-topic-index",
@@ -22,11 +21,10 @@
 				"message"            	=> __( "This element will display the most recent 15 topics across all your forums with pagination.", "ts_visual_composer_extend" )
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

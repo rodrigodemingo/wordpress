@@ -6,27 +6,18 @@ if(!class_exists('Ultimate_Info_Banner'))
 {
 	class Ultimate_Info_Banner{
 		function __construct(){
-			add_action('init',array($this,'banner_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'banner_init'));
+			}
 			add_shortcode('ultimate_info_banner',array($this,'banner_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_info_banner_assets'),1);
 		}
 		function register_info_banner_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-
-			Ultimate_VC_Addons::ultimate_register_style( 'utl-info-banner-script', 'info-banner' );
-
-			wp_register_style('utl-info-banner-style',plugins_url($css_path.'info-banner'.$ext.'.css',__FILE__),array(), ULTIMATE_VERSION);
+			
+			Ultimate_VC_Addons::ultimate_register_style( 'utl-info-banner-style', 'info-banner' );
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'utl-info-banner-script', 'info-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		function banner_init(){
 			if(function_exists('vc_map'))
@@ -710,32 +701,32 @@ if(!class_exists('Ultimate_Info_Banner'))
 			{
 				$button_link_temp = vc_build_link($button_link);				
 				$button_link_main = $button_link_temp['url'];
-				$title 	= ( isset( $button_link_temp['title'] ) && $button_link_temp['title'] !== '' ) ? "title='" . $button_link_temp['title'] . "'" : '';
+				$title 	= ( isset( $button_link_temp['title'] ) && $button_link_temp['title'] !== '' ) ? "title='" . esc_attr($button_link_temp['title']) . "'" : '';
 				$target = $button_link_temp['target'];
-				$rel 	= ( isset( $button_link_temp['rel'] ) && $button_link_temp['rel'] !== '' ) ? "rel='".$button_link_temp['rel']."'" : '';
+				$rel 	= ( isset( $button_link_temp['rel'] ) && $button_link_temp['rel'] !== '' ) ? "rel='".esc_attr($button_link_temp['rel'])."'" : '';
 			}
 			if($button_link_main == '') {
 				$button_link_main = 'javascript:void(0);';
 			}
 
-			$output .= '<div id="ultib3-'.$id.'" class="'.$infobnr_design.' ultb3-box '.$is_vc_49_plus.' '.$el_class.' '.$ib3_effect.'" style="'.$style.'">';
+			$output .= '<div id="ultib3-'.esc_attr($id).'" class="'.esc_attr($infobnr_design).' ultb3-box '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' '.esc_attr($ib3_effect).'" style="'.esc_attr($style).'">';
 				if($overlay_color != '')
-					$output .= '<div class="ultb3-box-overlay" style="background:'.$overlay_color.';"></div>';
+					$output .= '<div class="ultb3-box-overlay" style="background:'.esc_attr($overlay_color).';"></div>';
 
 				if(isset($banner_src) && $banner_src != '')
-					$output .= '<img src="'.apply_filters('ultimate_images', $banner_src).'" style="'.$img_style.'" class="ultb3-img '.$ib3_alignment.'" alt="'.$alt.'"/>';
+					$output .= '<img src="'.esc_url(apply_filters('ultimate_images', $banner_src)).'" style="'.esc_attr($img_style).'" class="ultb3-img '.esc_attr($ib3_alignment).'" alt="'.esc_attr($alt).'"/>';
 
-				$output .= '<div id="'.$info_banner_id.'" class="ultb3-info '.$info_alignment.'" data-animation="'.$info_effect.'" data-animation-delay="03">';
+				$output .= '<div id="'.esc_attr($info_banner_id).'" class="ultb3-info '.esc_attr($info_alignment).'" data-animation="'.esc_attr($info_effect).'" data-animation-delay="03">';
 
 				if($banner_title != '')
-					$output .= '<div class="ultb3-title ult-responsive" '.$info_banner_data_list.' style="'.$title_style_inline.'">'.$banner_title.'</div>';
+					$output .= '<div class="ultb3-title ult-responsive" '.$info_banner_data_list.' style="'.esc_attr($title_style_inline).'">'.$banner_title.'</div>';
 				if($banner_desc != '')
-					$output .= '<div class="ultb3-desc ult-responsive" '.$info_banner_desc_data_list.' style="'.$desc_style_inline.'">'.$banner_desc.'</div>';
+					$output .= '<div class="ultb3-desc ult-responsive" '.$info_banner_desc_data_list.' style="'.esc_attr($desc_style_inline).'">'.$banner_desc.'</div>';
 				if($button_text != '')
 				{
 					if($target != '')
-						$target = 'target="'.$target.'"';
-					$output .= '<a href="'.$button_link_main.'" '.$target.' '. $rel .' '. $title .' class="ultb3-btn ult-responsive" '.$info_banner_btn_data_list.' style="'.$button_style_inline.'">'.$button_text.'<i class="Defaults-angle-right"></i></a>';
+						$target = 'target="'.esc_attr($target).'"';
+					$output .= '<a href="'.esc_attr($button_link_main).'" '.$target.' '. $rel .' '. $title .' class="ultb3-btn ult-responsive" '.$info_banner_btn_data_list.' style="'.esc_attr($button_style_inline).'">'.$button_text.'<i class="Defaults-angle-right"></i></a>';
 				}
 				$output .= '</div>';
 			$output .= '</div>';
@@ -771,25 +762,25 @@ if(!class_exists('Ultimate_Info_Banner'))
 			if($is_css)
 			{
 				$output .= '<style>
-					#ultib3-'.$id.' {
-						min-height:'.$banner_size.'px;
+					#ultib3-'.esc_attr($id).' {
+						min-height:'.esc_attr($banner_size).'px;
 					}
-					#ultib3-'.$id.' img.ultb3-img {
-						height: '.$banner_img_height.'px;
+					#ultib3-'.esc_attr($id).' img.ultb3-img {
+						height: '.esc_attr($banner_img_height).'px;
 					}
-					#ultib3-'.$id.' .ultb3-btn {
-						'.$global_button_style.'
+					#ultib3-'.esc_attr($id).' .ultb3-btn {
+						'.esc_attr($global_button_style).'
 					}
 					#ultib3-'.$id.' .ultb3-btn:hover {
-						'.$global_button_hover_style.'
+						'.esc_attr($global_button_hover_style).'
 					}
 				</style>';
 				if($banner_img_height_large_screen != '')
 				{
 					$output .= '<style>
 						@media (min-width: 1824px) {
-							 #ultib3-'.$id.' img.ultb3-img {
-								height:'.$banner_img_height_large_screen.'px;
+							 #ultib3-'.esc_attr($id).' img.ultb3-img {
+								height:'.esc_attr($banner_img_height_large_screen).'px;
 							}
 						}
 					</style>';
@@ -798,8 +789,8 @@ if(!class_exists('Ultimate_Info_Banner'))
 				{
 					$output .= '<style>
 						@media (max-width: 1199px) {
-							 #ultib3-'.$id.' img.ultb3-img {
-								height:'.$banner_img_height_tablet.'px;
+							 #ultib3-'.esc_attr($id).' img.ultb3-img {
+								height:'.esc_attr($banner_img_height_tablet).'px;
 							}
 						}
 					</style>';
@@ -808,8 +799,8 @@ if(!class_exists('Ultimate_Info_Banner'))
 				{
 					$output .= '<style>
 						@media (max-width: 991px) {
-							 #ultib3-'.$id.' img.ultb3-img {
-								height:'.$banner_img_height_tablet_portrait.'px;
+							 #ultib3-'.esc_attr($id).' img.ultb3-img {
+								height:'.esc_attr($banner_img_height_tablet_portrait).'px;
 							}
 						}
 					</style>';
@@ -818,8 +809,8 @@ if(!class_exists('Ultimate_Info_Banner'))
 				{
 					$output .= '<style>
 						@media (max-width: 767px) {
-							 #ultib3-'.$id.' img.ultb3-img {
-								height:'.$banner_img_height_mobile_landscape.'px;
+							 #ultib3-'.esc_attr($id).' img.ultb3-img {
+								height:'.esc_attr($banner_img_height_mobile_landscape).'px;
 							}
 						}
 					</style>';
@@ -828,8 +819,8 @@ if(!class_exists('Ultimate_Info_Banner'))
 				{
 					$output .= '<style>
 						@media (max-width: 479px) {
-							 #ultib3-'.$id.' img.ultb3-img {
-								height:'.$banner_img_height_mobile.'px;
+							 #ultib3-'.esc_attr($id).' img.ultb3-img {
+								height:'.esc_attr($banner_img_height_mobile).'px;
 							}
 						}
 					</style>';
@@ -845,7 +836,7 @@ if(class_exists('Ultimate_Info_Banner'))
 	$Ultimate_Info_Banner = new Ultimate_Info_Banner;
 }
 
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_info_banner' ) ) {
     class WPBakeryShortCode_ultimate_info_banner extends WPBakeryShortCode {
     }
 }

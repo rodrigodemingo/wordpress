@@ -117,7 +117,7 @@
 				
 				$output = $styles = '';
 				$wpautop 							= ($content_wpautop == "true" ? true : false);
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				// Check for Front End Editor
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
@@ -185,7 +185,7 @@
 						$styles .= '#ts-fancy-tabs-main-wrapper-' . $tab_contid . '.ts-fancy-tabs-main-wrapper .pws_tabs_container ul.pws_tabs_controlls li a i {';
 							$styles .= 'font-size: ' . $tabs_iconsize . 'px;';
 							$styles .= 'height: ' . $tabs_iconsize . 'px;';
-							$styles .= 'width: ' . $tabs_iconsize . 'px;';
+							$styles .= 'width: auto;';
 							$styles .= 'line-height: ' . max($tabs_fontsize, $tabs_iconsize) . 'px;';
 						$styles .= '}';
 						$styles .= '#ts-fancy-tabs-main-wrapper-' . $tab_contid . '.ts-fancy-tabs-main-wrapper .pws_tabs_container.pws_tabs_responsive.pws_tabs_responsive_small ul.pws_tabs_controlls.pws_tabs_menu_popup li a i,';
@@ -229,7 +229,7 @@
 							$styles .= '#ts-fancy-tabs-main-wrapper-' . $tab_contid . '.ts-fancy-tabs-main-wrapper .pws_tabs_container ul.pws_tabs_controlls li a.pws_tab_active i {';
 								$styles .= 'color: ' . $tabs_active_icon . ' !important;';
 							$styles .= '}';
-							$styles .= '#ts-fancy-tabs-main-wrapper-' . $tab_contid . '.ts-fancy-tabs-main-wrapper .ts-fancy-tabs-container.pws_tabs_list {';
+							$styles .= '#ts-fancy-tabs-main-wrapper-' . $tab_contid . '.ts-fancy-tabs-main-wrapper .ts-fancy-tabs-container .pws_tabs_list {';
 								$styles .= 'background: ' . $tabs_background . ';';
 							$styles .= '}';
 							// Mobile Menu Styling
@@ -266,7 +266,7 @@
 						$styles .= '</style>';
 					}
 					if (($styles != "") && ($inline == "true")) {
-						wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styles));
+						wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styles));
 					}
 					
 					// Create Main Tabs Navigation
@@ -302,30 +302,30 @@
 							} else {
 								$tab_class			= "";
 							}
-							if ($tabs_effect_shadow) {
+							if ($tabs_effect_shadow == "true") {
 								$tab_class			.= ' pws_tabs_shadowed';
 							}
-							if ($tabs_effect_grow) {
+							if ($tabs_effect_grow == "true") {
 								$tab_class 			.= ' pws_tabs_growing';
 							}
 							if ((isset($tab_atts['icon'])) && ($tab_atts['icon'] != '')) {
 								if ((isset($tab_atts['animation_class'])) && ($tab_atts['animation_class'] != '')) {
-									$tab_icon		= 'pws_tab_icon ' . $tab_atts['icon'] . ' ' . $tab_atts['animation_class'];
-									$tab_class		.= ' ts-fancy-tab-icon-' . $tab_atts['animation_type'];
+									$tab_icon		= 'pws_tab_icon ' . $tab_atts['icon'] . ' ts-' . (isset($tab_atts['animation_type']) ? $tab_atts['animation_type'] : 'hover') . '-css-' . $tab_atts['animation_class'];
+									$tab_class		.= ' ts-fancy-tab-icon-' . (isset($tab_atts['animation_type']) ? $tab_atts['animation_type'] : 'hover');
 								} else {
 									$tab_icon		= 'pws_tab_icon ' . $tab_atts['icon'];
 								}
 							} else {
 								$tab_icon			= 'pws_tab_icon pws_tab_noicon dashicons dashicons-index-card';
 							}
-							$navigation .= '<li class="pws_tabs_controlls_item" data-tooltipset="false" data-tab-tooltip="' . $tab_atts['title'] . '">';
+							$navigation .= '<li class="pws_tabs_controlls_item" data-tooltipset="false" data-tab-tooltip="' . (isset($tab_atts['title']) ? $tab_atts['title'] : '') . '">';
 								$navigation .= '<a id="trigger-tab-' . $tab_atts['tab_id'] . '" class="pws_tabs_controlls_link ' . $tab_class . '" href="#tab-' . $tab_atts['tab_id'] . '" data-tab-id="tab-' . $tab_atts['tab_id'] . '" title="" data-tab-counter="' . $tab_count . '" style="z-index: ' . ($tab_zindex--) . '; ' . $tab_margin . '">';
 									if ((isset($tab_atts['icon'])) && ($tab_atts['icon'] != '')) {
 										$navigation .= '<i class="' . $tab_icon . '" style="display: inline-block;"></i>';
 									} else {
 										$navigation .= '<i class="' . $tab_icon . '" style="display: none;"></i>';
 									}
-									$navigation .= '<span class="pws_tab_text">' . $tab_atts['title'] . '</span>';
+									$navigation .= '<span class="pws_tab_text">' . (isset($tab_atts['title']) ? $tab_atts['title'] : '') . '</span>';
 									$navigation .= '<span class="pws_tab_counter" style="display: none;">' . $tab_indicator . '</span>';
 								$navigation .= '</a>';
 							$navigation .= '</li>';
@@ -347,7 +347,7 @@
 									} else {
 										$hamburger .= '<i class="pws_tab_icon pws_tab_noicon dashicons dashicons-index-card" style="display: none;"></i>';
 									}
-									$hamburger .= '<span class="pws_tab_text">' . $tab_atts['title'] . '</span>';
+									$hamburger .= '<span class="pws_tab_text">' . (isset($tab_atts['title']) ? $tab_atts['title'] : '') . '</span>';
 									$hamburger .= '<span class="pws_tab_counter" style="display: none;">' . $tab_count . '</span>';
 								}
 							}
@@ -378,6 +378,16 @@
 					} else {
 						$class_effect				= '';
 					}
+					if ($tabs_effect_shadow == "true") {
+						$class_shadow				= 'pws_tabs_shadow';
+					} else {
+						$class_shadow				= '';
+					}
+					if ($tabs_effect_grow == "true") {
+						$class_growing				= 'pws_tabs_growing';
+					} else {
+						$class_growing				= '';
+					}
 					if ($tabs_theme != "") {
 						$class_theme				= $tabs_theme;
 					} else {
@@ -395,7 +405,7 @@
 						if (($styles != "") && ($inline == "false")) {
 							$output .= TS_VCSC_MinifyCSS($styles);
 						}
-						$output .= '<div id="ts-fancy-tabs-container-' . $tab_contid . '" class="ts-fancy-tabs-container pws_tabs_container pws_tabs_responsive_large ' . $class_align . ' ' . $class_rtl . ' ' . $class_effect . ' ' . $class_theme . ' ' . $class_rotate . '" data-align="' . $tabs_align . '" data-position="' . ($tabs_align == "vertical" ? $tabs_vertical : $tabs_horizontal) . '" style="width: ' . $tabs_fullwidth . '%;">';
+						$output .= '<div id="ts-fancy-tabs-container-' . $tab_contid . '" class="ts-fancy-tabs-container pws_tabs_container pws_tabs_responsive_large ' . $class_align . ' ' . $class_rtl . ' ' . $class_shadow . ' ' . $class_growing . ' ' . $class_effect . ' ' . $class_theme . ' ' . $class_rotate . '" data-align="' . $tabs_align . '" data-position="' . ($tabs_align == "vertical" ? $tabs_vertical : $tabs_horizontal) . '" style="width: ' . $tabs_fullwidth . '%;">';
 							// Auto-Rotate Controls
 							if (($tabs_autorotate == "true") && (($tabs_playpause == "true") || ($tabs_navigation == "true"))) {
 								$output .= '<div class="pws_autorotate_buttons ts-fancy-tabs-hidden clearFixMe">';
@@ -513,6 +523,7 @@
 					'hover_text'					=> '#ffffff',
 					'color_icon'					=> '#ffffff',
 					'hover_icon'					=> '#ffffff',
+					'color_back'					=> '#f7f7f7',
 					// WPAutoP Callback
 					'content_wpautop'				=> 'false',
 					// Other Settings
@@ -1417,10 +1428,13 @@
 							"group" 					=> "Other Settings",
 						),
 						array (
-							'type' 						=> 'tab_id',
+							'type' 						=> 'el_id',
 							'heading' 					=> __( 'Tab ID', 'ts_visual_composer_extend' ),
 							'param_name' 				=> "tab_id",
-							'description' 				=> __( 'This is the automatic ID for the element; it can not be changed.', 'ts_visual_composer_extend' ),
+							'settings' 					=> array(
+								'auto_generate' 		=> true,
+							),
+							'description' 				=> __( 'This is the automatic ID for the element; if changed, ensure that it remains an unique ID.', 'ts_visual_composer_extend' ),
 							"group" 					=> "Other Settings",
 						),
 						array(
@@ -1440,9 +1454,9 @@
 				};
 			}
 		}
-	}
-	
-	if (class_exists( "WPBakeryShortCode")) {
+	}	
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Fancy_Tabs_Container'))) {
 		class WPBakeryShortCode_TS_VCSC_Fancy_Tabs_Container extends WPBakeryShortCode {
 			static $filter_added 				= false;
 			protected $controls_css_settings 	= 'out-tc vc_controls-content-widget';
@@ -1534,7 +1548,7 @@
 			require_once vc_path_dir('SHORTCODES_DIR', 'vc-column.php');
 		}
 	}
-	if (class_exists('WPBakeryShortCode_VC_Column')){
+	if ((class_exists('WPBakeryShortCode_VC_Column')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Fancy_Tabs_Single'))) {
 		class WPBakeryShortCode_TS_VCSC_Fancy_Tabs_Single extends WPBakeryShortCode_VC_Column {
 			protected $controls_css_settings 	= 'tc vc_control-container';
 			//protected $controls_list 			= array('add', 'edit', 'clone', 'delete');
@@ -1570,8 +1584,7 @@
 				$controls_end = '</div>';*/
 			}
 		}
-	}
-	
+	}	
 	// Initialize "TS Fancy Tabs" Class
 	if (class_exists('TS_Fancy_Tabs')) {
 		$TS_Fancy_Tabs = new TS_Fancy_Tabs;

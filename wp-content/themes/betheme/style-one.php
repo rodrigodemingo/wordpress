@@ -92,7 +92,7 @@ if( $_GET && key_exists( 'mfn-o', $_GET ) && $_GET['mfn-o'] ){
 		background-color: <?php echo $color_one; ?>;
 	}
 	
-	.Latest_news ul li .photo, .style-simple .opening_hours .opening_hours_wrapper li label,
+	.Latest_news ul li .photo, .Recent_posts.blog_news ul li .photo, .style-simple .opening_hours .opening_hours_wrapper li label,
 	.style-simple .timeline_items li:hover h3, .style-simple .timeline_items li:nth-child(even):hover h3, 
 	.style-simple .timeline_items li:hover .desc, .style-simple .timeline_items li:nth-child(even):hover,
 	.style-simple .offer_thumb .slider_pagination a.selected {

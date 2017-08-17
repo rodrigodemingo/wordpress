@@ -47,7 +47,13 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 
 			//add_action('admin_menu',array($this,'icon_manager_menu'));
 			$defaults = get_option( 'smile_fonts' );
+			
 			if ( ! $defaults ) {
+				add_action( 'admin_init', array( $this, 'AIO_move_fonts' ) );
+			
+			} else if ( ( isset($defaults['Defaults'] ) && $defaults['Defaults'] == 'Array' ) ) {
+				
+				delete_option( 'smile_fonts' );
 				add_action( 'admin_init', array( $this, 'AIO_move_fonts' ) );
 			}
 		}
@@ -56,21 +62,21 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 		public function get_icon_manager( $input_name, $icon ) {
 			$font_manager = self::get_font_manager( $id );
 			$output       = '<div class="my_param_block">';
-			$output .= '<input name="' . $input_name . '" class="textinput ' . $input_name . ' text_field" type="text" value="' . $icon . '"/>';
+			$output .= '<input name="' . esc_attr( $input_name ) . '" class="textinput ' . esc_attr($input_name) . ' text_field" type="text" value="' . esc_attr($icon) . '"/>';
 			$output .= '</div>';
 			$output .= '<script type="text/javascript">
 				jQuery(document).ready(function(){
 
 					//debugger;
-					//alert("' . $id . '");
-					jQuery(".preview-icon-' . $id . '").html("<i class=\'' . $icon . '\'></i>");
-					jQuery(".icons-list-' . $id . ' li[data-icons=\'' . $icon . '\']").addClass("selected");
+					//alert("' . esc_attr($id) . '");
+					jQuery(".preview-icon-' . esc_attr($id) . '").html("<i class=\'' . esc_attr($icon) . '\'></i>");
+					jQuery(".icons-list-' . esc_attr($id) . ' li[data-icons=\'' . esc_attr($icon) . '\']").addClass("selected");
 				});
-				jQuery(".icons-list-' . $id . ' li").click(function() {
+				jQuery(".icons-list-' . esc_attr($id) . ' li").click(function() {
 					jQuery(this).attr("class","selected").siblings().removeAttr("class");
 					var icon = jQuery(this).attr("data-icons");
-					jQuery("input[name=\'' . $input_name . '\']").val(icon);
-					jQuery(".preview-icon-' . $id . '").html("<i class=\'"+icon+"\'></i>");
+					jQuery("input[name=\'' . esc_attr($input_name) . '\']").val(icon);
+					jQuery(".preview-icon-' . esc_attr($id) . '").html("<i class=\'"+icon+"\'></i>");
 				});
 				</script>';
 			$output .= $font_manager;
@@ -91,8 +97,10 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 		}
 
 		function admin_scripts() {
+			
 			// enqueue js files on backend
 			wp_enqueue_script( 'aio-admin-media', $this->admin_js . 'admin-media.js', array( 'jquery' ) );
+			
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_media();
 			wp_enqueue_style( 'aio-icon-manager-admin', $this->admin_css . 'icon-manager-admin.css' );
@@ -148,9 +156,9 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 
 			$fonts  = get_option( 'smile_fonts' );
 			$fonts  = get_option( 'smile_fonts' );
-			$output = '<p><div class="preview-icon preview-icon-' . $id . '"><i class=""></i></div><input class="search-icon" type="text" placeholder="Search for a suitable icon.." /></p>';
+			$output = '<p><div class="preview-icon preview-icon-' . esc_attr($id) . '"><i class=""></i></div><input class="search-icon" type="text" placeholder="Search for a suitable icon.." /></p>';
 			$output .= '<div id="smile_icon_search">';
-			$output .= '<ul class="icons-list smile_icon icon-list-' . $id . '">';
+			$output .= '<ul class="icons-list smile_icon icon-list-' . esc_attr($id) . '">';
 			foreach ( $fonts as $font => $info ) {
 				$icon_set   = array();
 				$icons      = array();
@@ -167,12 +175,12 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 					$set_name = ucfirst( $font );
 				}
 				if ( ! empty( $icon_set ) ) {
-					$output .= '<p><strong>' . $set_name . '</strong></p>';
-					$output .= '<li title="no-icon" data-icons="none" data-icons-tag="none,blank" style="cursor: pointer;" id="' . $id . '"></li>';
+					$output .= '<p><strong>' . esc_html($set_name) . '</strong></p>';
+					$output .= '<li title="no-icon" data-icons="none" data-icons-tag="none,blank" style="cursor: pointer;" id="' . esc_attr($id) . '"></li>';
 					foreach ( $icon_set as $icons ) {
 						foreach ( $icons as $icon ) {
-							$output .= '<li title="' . $icon['class'] . '" data-icons="' . $font . '-' . $icon['class'] . '" data-icons-tag="' . $icon['tags'] . '" id="' . $id . '">';
-							$output .= '<i class="icon ' . $font . '-' . $icon['class'] . '"></i><label class="icon">' . $icon['class'] . '</label></li>';
+							$output .= '<li title="' . esc_attr($icon['class']) . '" data-icons="' . esc_attr($font) . '-' . esc_attr($icon['class']) . '" data-icons-tag="' . esc_attr($icon['tags']) . '" id="' . esc_attr($id) . '">';
+							$output .= '<i class="icon ' . esc_attr($font) . '-' . esc_attr($icon['class']) . '"></i><label class="icon">' . esc_html($icon['class']) . '</label></li>';
 						}
 					}
 				}
@@ -211,7 +219,7 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 				$upload_dir = wp_upload_dir();
 				$path       = trailingslashit( $upload_dir['basedir'] );
 				$file       = $path . $info['include'] . '/' . $info['config'];
-				$output     = '<div class="icon_set-' . $font . ' metabox-holder">';
+				$output     = '<div class="icon_set-' . esc_attr($font) . ' metabox-holder">';
 				$output .= '<div class="postbox">';
 				include( $file );
 				if ( ! empty( $icons ) ) {
@@ -224,11 +232,11 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 					if ( $font == 'smt' || $font == 'Defaults' ) {
 						$output .= '<h3 class="icon_font_name"><strong>' . __( "Default Icons", "smile" ) . '</strong>';
 					} else {
-						$output .= '<h3 class="icon_font_name"><strong>' . ucfirst( $font ) . '</strong>';
+						$output .= '<h3 class="icon_font_name"><strong>' . esc_html(ucfirst( $font )) . '</strong>';
 					}
-					$output .= '<span class="fonts-count count-' . $font . '">' . $count . '</span>';
+					$output .= '<span class="fonts-count count-' . esc_attr($font) . '">' . $count . '</span>';
 					if ( $n != 1 ) {
-						$output .= '<button class="button button-secondary button-small smile_del_icon" data-delete=' . $font . ' data-title="Delete This Icon Set">Delete Icon Set</button>';
+						$output .= '<button class="button button-secondary button-small smile_del_icon" data-delete=' . esc_attr($font) . ' data-title="Delete This Icon Set">Delete Icon Set</button>';
 					}
 					$output .= '</h3>';
 					$output .= '<div class="inside"><div class="icon_actions">';
@@ -236,15 +244,15 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 					$output .= '<div class="icon_search"><ul class="icons-list fi_icon">';
 					foreach ( $icon_set as $icons ) {
 						foreach ( $icons as $icon ) {
-							$output .= '<li title="' . $icon['class'] . '" data-icons="' . $icon['class'] . '" data-icons-tag="' . $icon['tags'] . '">';
-							$output .= '<i class="' . $font . '-' . $icon['class'] . '"></i><label class="icon">' . $icon['class'] . '</label></li>';
+							$output .= '<li title="' . esc_attr($icon['class']) . '" data-icons="' . esc_attr($icon['class']) . '" data-icons-tag="' . esc_attr($icon['tags']) . '">';
+							$output .= '<i class="' . esc_attr($font) . '-' . esc_attr($icon['class']) . '"></i><label class="icon">' . esc_html($icon['class']) . '</label></li>';
 						}
 					}
 					$output . '</ul>';
 					$output .= '</div><!-- .icon_search-->';
 					$output .= '</div><!-- .inside-->';
 					$output .= '</div><!-- .postbox-->';
-					$output .= '</div><!-- .icon_set-' . $font . ' -->';
+					$output .= '</div><!-- .icon_set-' . esc_html($font) . ' -->';
 					echo $output;
 				}
 			}
@@ -278,7 +286,8 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 
 		public function add_zipped_font() {
 			//check if referer is ok
-			//if(function_exists('check_ajax_referer')) { check_ajax_referer('smile_nonce_save_backend'); }
+			check_ajax_referer( 'smile-add-zipped-fonts-nonce', 'security' );
+			
 			//check if capability is ok
 			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins' );
 			if ( ! current_user_can( $cap ) ) {
@@ -301,8 +310,11 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 		}
 
 		public function remove_zipped_font() {
+
+			check_ajax_referer( 'smile-remove-zipped-fonts-nonce', 'security' );
+
 			//get the file path of the zip file
-			$font   = $_POST['del_font'];
+			$font   = sanitize_text_field( $_POST['del_font'] );
 			$list   = self::load_iconfont_list();
 			$delete = isset( $list[ $font ] ) ? $list[ $font ] : false;
 			if ( $delete ) {
@@ -336,7 +348,7 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 							$delete  = true;
 							$matches = array();
 							foreach ( $filter as $regex ) {
-								preg_match( "!" . $regex . "!", $entry, $matches );
+								preg_match( "!" . $regex . "$!", $entry, $matches );
 								if ( ! empty( $matches ) ) {
 									$delete = false;
 									break;
@@ -610,10 +622,10 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 				@copy( $file, $this->vc_fonts . '/' . $new_file );
 			}
 			$fonts['Defaults'] = array(
-				'include' => trailingslashit( $this->paths['fonts'] ) . 'Defaults',
-				'folder'  => trailingslashit( $this->paths['fonts'] ) . 'Defaults',
+				'include' => sanitize_text_field( trailingslashit( $this->paths['fonts'] ) ) . 'Defaults',
+				'folder'  => sanitize_text_field( trailingslashit( $this->paths['fonts'] ) ) . 'Defaults',
 				'style'   => 'Defaults' . '/' . 'Defaults' . '.css',
-				'config'  => $this->paths['config']
+				'config'  => sanitize_text_field( $this->paths['config'] )
 			);
 			$defaults          = get_option( 'smile_fonts' );
 			if ( ! $defaults ) {

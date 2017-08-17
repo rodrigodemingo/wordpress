@@ -323,7 +323,4 @@
 		$myvariable = ob_get_clean();
 		return $myvariable;
 	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Content_Flip extends WPBakeryShortCode {};
-	}
 ?>

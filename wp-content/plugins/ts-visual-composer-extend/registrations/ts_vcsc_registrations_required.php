@@ -68,11 +68,19 @@
 	// ----------------------------------------
 	if (!function_exists('TS_VCSC_CheckFrontEndEditor')){
 		function TS_VCSC_CheckFrontEndEditor() {
-			$request 		= 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+			$request						= 'http://';
+			if (isset($_SERVER['SERVER_NAME'])) {
+				$request					.= $_SERVER['SERVER_NAME'];
+			} else if (isset($_SERVER['HTTP_HOST'])) {
+				$request					.= $_SERVER['HTTP_HOST'];
+			}
+			if (isset($_SERVER['REQUEST_URI'])) {
+				$request 					.= $_SERVER['REQUEST_URI'];
+			}
 			if (strpos($request, "admin-ajax.php") !== false) {
-				$finalurl	= $_SERVER["HTTP_REFERER"];
+				$finalurl					= $_SERVER["HTTP_REFERER"];
 			} else {
-				$finalurl	= $request;
+				$finalurl					= $request;
 			}
 			if ((strpos($finalurl, "vc_editable=true") !== false) || (strpos($finalurl, "vc_action=vc_inline") !== false)) {
 				return true;

@@ -6,7 +6,9 @@
 if(!class_exists("Ultimate_Pricing_Table")){
 	class Ultimate_Pricing_Table{
 		function __construct(){
-			add_action("init",array($this,"ultimate_pricing_init"));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action("init",array($this,"ultimate_pricing_init"));
+			}
 			add_shortcode("ultimate_pricing",array($this,"ultimate_pricing_shortcode"));
 			add_action( 'wp_enqueue_scripts', array( $this, 'price_table_assets' ), 1 );
 		}
@@ -681,7 +683,7 @@ if(!class_exists("Ultimate_Pricing_Table")){
 		}
 	} // class Ultimate_Pricing_Table
 	new Ultimate_Pricing_Table;
-	if ( class_exists( 'WPBakeryShortCode' ) ) {
+	if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_ultimate_pricing' ) ) {
 	    class WPBakeryShortCode_ultimate_pricing extends WPBakeryShortCode {
 	    }
 	}

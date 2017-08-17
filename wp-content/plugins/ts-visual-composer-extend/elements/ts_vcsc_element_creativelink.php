@@ -1,6 +1,8 @@
 <?php
 	global $VISUAL_COMPOSER_EXTENSIONS;
-	
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Creative_Link'))) {
+		class WPBakeryShortCode_TS_VCSC_Creative_Link extends WPBakeryShortCode {};
+	};
 	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      	=> __( "TS Creative Link", "ts_visual_composer_extend" ),
 		"base"                      	=> "TS_VCSC_Creative_Link",
@@ -436,14 +438,12 @@
 				"group" 				=> "Other Settings",
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
-	
+	};
 	// Add Element to Native Grid Builder
 	/*add_filter('vc_grid_item_shortcodes', 'TS_VCSC_AddElementGridBuilder_CreativeLink');
 	function TS_VCSC_AddElementGridBuilder_CreativeLink($shortcodes) {

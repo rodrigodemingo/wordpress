@@ -57,6 +57,8 @@
     // Internal Files
     // --------------
     // Front-End Files
+    wp_register_style('ts-visual-composer-extend-custom',						false, null, COMPOSIUM_VERSION, 'all');
+    wp_register_script('ts-visual-composer-extend-custom',						false, array('jquery'), COMPOSIUM_VERSION, true);
     wp_register_style('ts-visual-composer-extend-front',						$url . 'css/ts-visual-composer-extend-front.min.css', null, COMPOSIUM_VERSION, 'all');
     wp_register_script('ts-visual-composer-extend-front',						$url . 'js/ts-visual-composer-extend-front.min.js', array('jquery'), COMPOSIUM_VERSION, $FOOTER);
     wp_register_script('ts-visual-composer-extend-galleries',					$url . 'js/ts-visual-composer-extend-galleries.min.js', array('jquery'), COMPOSIUM_VERSION, $FOOTER);
@@ -282,8 +284,6 @@
     wp_register_script('ts-extend-raphael',			            				$url . 'js/jquery.vcsc.raphael.min.js', array('jquery'), false, $FOOTER);
     // Mousewheel
     wp_register_script('ts-extend-mousewheel',			            			$url . 'js/jquery.vcsc.mousewheel.min.js', array('jquery'), false, $FOOTER);
-    // NiceScroll
-    wp_register_script('ts-extend-nicescroll',			            			$url . 'js/jquery.vcsc.nicescroll.min.js', array('jquery'), false, $FOOTER);
     // Snap SVG
     wp_register_script('ts-extend-snapsvg',			            				$url . 'js/jquery.vcsc.snap.svg.min.js', array('jquery'), false, $FOOTER);
     // iPresenter Script
@@ -317,6 +317,8 @@
     // Fancy Tabs Script
     wp_register_style('ts-extend-fancytabs', 									$url . 'css/jquery.vcsc.pwstabs.min.css', null, false, 'all');
     wp_register_script('ts-extend-fancytabs', 									$url . 'js/jquery.vcsc.pwstabs.min.js', array('jquery'), false, false);
+    // Sly Scroll Script
+    wp_register_script('ts-extend-slyscroll', 									$url . 'js/jquery.vcsc.slyscroll.min.js', array('jquery'), false, false);
     // Single Page Navigator Script
     wp_register_style('ts-extend-singlepage', 									$url . 'css/jquery.vcsc.singlepage.min.css', null, false, 'all');
     wp_register_script('ts-extend-singlepage', 									$url . 'js/jquery.vcsc.singlepage.min.js', array('jquery'), false, true);
@@ -387,6 +389,14 @@
     // Plyr Video Player
     wp_register_style('ts-extend-plyrvideo',						            $url . 'css/jquery.vcsc.plyrvideo.min.css', null, false, 'all');
     wp_register_script('ts-extend-plyrvideo',                                   $url . 'js/jquery.vcsc.plyrvideo.min.js', array('jquery'), false, $FOOTER);
+    // Perfect Scrollbar
+    wp_register_style('ts-extend-perfectscrollbar',                             $url . 'css/jquery.vcsc.perfectscrollbar.min.css', null, false, 'all');
+    wp_register_script('ts-extend-perfectscrollbar',                            $url . 'js/jquery.vcsc.perfectscrollbar.min.js', array('jquery'), false, $FOOTER);
+    // Loan Calculator
+    wp_register_style('ts-extend-loancalculator',                               $url . 'css/jquery.vcsc.loancalculator.min.css', null, false, 'all');
+    wp_register_script('ts-extend-loancalculator',                              $url . 'js/jquery.vcsc.loancalculator.min.js', array('jquery'), false, $FOOTER);
+    // ChartJS
+    wp_register_script('ts-extend-chartjs',                                     $url . 'js/jquery.vcsc.chartjs.min.js', array('jquery'), false, $FOOTER);
     
     
     // Google Fonts
@@ -396,7 +406,13 @@
     wp_register_style('ts-extend-font-wallpoet',								'https://fonts.googleapis.com/css?family=Wallpoet', null, false, 'all');
     wp_register_style('ts-extend-font-arimo',								    'https://fonts.googleapis.com/css?family=Arimo', null, false, 'all');
     wp_register_style('ts-extend-font-rye',								        'https://fonts.googleapis.com/css?family=Rye', null, false, 'all');
-    wp_register_style('ts-extend-font-economica',                               'https://fonts.googleapis.com/css?family=Economica', null, false, 'all'); 
+    wp_register_style('ts-extend-font-economica',                               'https://fonts.googleapis.com/css?family=Economica', null, false, 'all');
+    
+    
+    // TableSaw Files
+    // --------------
+    wp_register_script('ts-extend-tablesaw',					                $url . 'tablesaw/tablesaw.jquery.min.js', array('jquery'), false, true);
+    wp_register_style('ts-extend-tablesaw',                                     $url . 'tablesaw/tablesaw.jquery.min.css', null, false, 'all');
     
     
     // DataTables Files
@@ -453,6 +469,9 @@
     // NoUiSlider
     wp_register_style('ts-extend-nouislider',									$url . 'css/jquery.vcsc.nouislider.min.css', null, false, 'all');
     wp_register_script('ts-extend-nouislider',									$url . 'js/jquery.vcsc.nouislider.min.js', array('jquery'), false, true);
+    // jRange Slider
+    wp_register_style('ts-extend-jrange',									    $url . 'css/jquery.vcsc.jrange.min.css', null, false, 'all');
+    wp_register_script('ts-extend-jrange',									    $url . 'js/jquery.vcsc.jrange.min.js', array('jquery'), false, true);
     // MultiSelect
     wp_register_style('ts-extend-multiselect',									$url . 'css/jquery.vcsc.multi.select.min.css', null, false, 'all');
     wp_register_script('ts-extend-multiselect',									$url . 'js/jquery.vcsc.multi.select.min.js', array('jquery'), false, $FOOTER);
@@ -479,9 +498,6 @@
     wp_register_script('ts-extend-messi',                            			$url . 'js/jquery.vcsc.messi.min.js', array('jquery'), false, true);
     // DragSort
     wp_register_script('ts-extend-dragsort',									$url . 'js/jquery.vcsc.dragsort.min.js', array('jquery'), false, true);
-    // ToTop Scroller
-    wp_register_style('ts-extend-uitotop', 										$url . 'css/jquery.vcsc.ui.totop.min.css', null, false, 'all');
-    wp_register_script('ts-extend-uitotop', 									$url . 'js/jquery.vcsc.ui.totop.min.js', array('jquery'), false, true);
     // jQuery Easing
     wp_register_script('jquery-easing', 										$url . 'js/jquery.vcsc.easing.min.js', array('jquery'), false, true);
     // Select 2

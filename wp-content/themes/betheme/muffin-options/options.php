@@ -39,23 +39,15 @@ if ( ! class_exists('MFN_Options') ){
 			$defaults['opt_name'] 		= 'betheme';
 			
 			$defaults['menu_icon'] 		= MFN_OPTIONS_URI.'/img/menu_icon.png';
-			$defaults['menu_title'] 	= __('BeTheme Options', 'mfn-opts');
+			$defaults['menu_title'] 	= __( 'Theme Options', 'mfn-opts' );
 			$defaults['page_icon'] 		= 'icon-themes';
-			$defaults['page_title'] 	= __('BeTheme Theme Options', 'mfn-opts');
-			$defaults['page_slug'] 		= 'muffin_options';
-			$defaults['page_cap'] 		= 'manage_options';
+			$defaults['page_title'] 	= __( 'Theme Options', 'mfn-opts' );
+			$defaults['page_slug'] 		= 'be-options';
+			$defaults['page_cap'] 		= 'edit_theme_options';
 			$defaults['page_type'] 		= 'menu';
 			$defaults['page_parent'] 	= '';
 			$defaults['page_position'] 	= 100;
-			
-			
-			// White Label ----------------------------------------------------
-			if( WHITE_LABEL ){
-				$defaults['menu_title'] 	= __('Theme Options', 'mfn-opts');
-				$defaults['page_title'] 	= __('Theme Options', 'mfn-opts');
-			}
-			
-			
+
 			//get args
 			$this->args = $defaults;
 			$this->args = apply_filters('mfn-opts-args', $this->args);
@@ -69,7 +61,7 @@ if ( ! class_exists('MFN_Options') ){
 			add_action('init', array(&$this, '_set_default_options'));
 			
 			//options page
-			add_action('admin_menu', array(&$this, '_options_page'));
+			add_action( 'admin_menu', array( &$this, '_options_page' ), 13 );
 			
 			//register setting
 			add_action('admin_init', array(&$this, '_register_setting'));
@@ -164,9 +156,10 @@ if ( ! class_exists('MFN_Options') ){
 		*/
 		function _options_page(){
 			
-			$this->page = add_theme_page(
-				$this->args['page_title'], 
-				$this->args['menu_title'], 
+			$this->page = add_submenu_page(
+				'betheme',
+				$this->args['page_title'],
+				$this->args['page_title'],
 				$this->args['page_cap'], 
 				$this->args['page_slug'], 
 				array( &$this, '_options_page_html' )

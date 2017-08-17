@@ -53,6 +53,16 @@ if( empty($slides['properties']['attrs']['sliderVersion']) && empty($slides['pro
 	}
 }
 
+
+// Override firstSlide if it is specified in embed params
+if( ! empty( $embed['firstslide'] ) ) {
+	$slides['properties']['attrs']['firstSlide'] = '[firstSlide]';
+}
+
+// Make sure that width & height are set correctly
+if( empty( $slides['properties']['props']['width'] ) ) { $slides['properties']['props']['width'] = 1280; }
+if( empty( $slides['properties']['props']['height'] ) ) { $slides['properties']['props']['height'] = 720; }
+
 // Slides and layers
 if(isset($slides['layers']) && is_array($slides['layers'])) {
 	foreach($slides['layers'] as $slidekey => $slide) {
@@ -71,6 +81,7 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 					$layer = array_merge($layer, json_decode(stripslashes($layer['transition']), true));
 				}
 
+
 				if( ! empty( $layer['styles'] ) ) {
 					$layerStyles = json_decode($layer['styles'], true);
 					if( $layerStyles === null) { $layerStyles = json_decode(stripslashes($layer['styles']), true);  }
@@ -83,6 +94,16 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 
 				if( ! empty( $layer['left'] ) ) {
 					$layer['styles']['left']  = $layer['left'];
+				}
+
+				// v6.5.6: Compatibility mode for media layers that used the
+				// old checkbox based media settings.
+				if( isset( $layer['controls'] ) ) {
+					if( true === $layer['controls'] ) {
+						$layer['controls'] = 'auto';
+					} elseif( false === $layer['controls'] ) {
+						$layer['controls'] = 'disabled';
+					}
 				}
 
 				$slider['slides'][$slidekey]['layers'][$layerkey] = apply_filters('ls_parse_defaults', $lsDefaults['layers'], $layer);

@@ -266,9 +266,9 @@
 		}
 	
 		if ($hoverchanges == "true") {
-			$output .= '<i id="' . $icon_id . '" class="ts-font-icon ts-font-icon-generator ' . $icon_icon . " " . $icon_borderradius . $icon_animation . $icon_class . $icon_viewportclass . '" data-viewport="' . $icon_viewport . '" data-delay="' . $delay . '" data-hover="true" data-opacity="' . $icon_opacity . '" data-hoveropacity="' . $icon_hoveropacity . '" data-color="' . $color . '" data-hovercolor="' . $icon_hovercolor . '" data-background="' . $background . '" data-hoverbackground="' . $icon_hoverbackground . '" style="' . $icon_size . $icon_color . $icon_background . $icon_border . $icon_padding . $icon_margin . '"><span class="ts-font-icon-inner">' . $icon_icon . '</span></i>';
+			$output .= '<i id="' . $icon_id . '" class="ts-font-icon ts-font-icon-generator ' . $icon_icon . " " . $icon_borderradius . $icon_animation . $icon_class . $icon_viewportclass . '" data-viewport="' . $icon_viewport . '" data-delay="' . $delay . '" data-hover="true" data-opacity="' . $icon_opacity . '" data-hoveropacity="' . $icon_hoveropacity . '" data-color="' . $color . '" data-hovercolor="' . $icon_hovercolor . '" data-background="' . $background . '" data-hoverbackground="' . $icon_hoverbackground . '" style="' . $icon_size . $icon_color . $icon_background . $icon_border . $icon_padding . $icon_margin . '"></i>';
 		} else {
-			$output .= '<i id="' . $icon_id . '" class="ts-font-icon ts-font-icon-generator ' . $icon_icon . " " . $icon_borderradius . $icon_animation . $icon_class . $icon_viewportclass . '" data-viewport="' . $icon_viewport . '" data-delay="' . $delay . '" data-hover="false" data-opacity="' . $icon_opacity . '" style="' . $icon_size . $icon_color . $icon_background . $icon_border . $icon_padding . $icon_margin . '"><span class="ts-font-icon-inner">' . $icon_icon . '</span></i>';
+			$output .= '<i id="' . $icon_id . '" class="ts-font-icon ts-font-icon-generator ' . $icon_icon . " " . $icon_borderradius . $icon_animation . $icon_class . $icon_viewportclass . '" data-viewport="' . $icon_viewport . '" data-delay="' . $delay . '" data-hover="false" data-opacity="' . $icon_opacity . '" style="' . $icon_size . $icon_color . $icon_background . $icon_border . $icon_padding . $icon_margin . '"></i>';
 		}
 		
 		if (strlen($link) > 0) {

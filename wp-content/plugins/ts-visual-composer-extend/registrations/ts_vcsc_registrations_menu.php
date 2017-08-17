@@ -29,14 +29,11 @@
             $ts_vcsc_main_page = 		        add_options_page(   "VC Extensions",        "VC Extensions",    	'manage_options', 	    'TS_VCSC_Extender', 	'TS_VCSC_PageExtend');
         }
         $ts_vcsc_settings_page = 				add_submenu_page( 	'TS_VCSC_Extender', 	"Settings",             "Settings",         	'manage_options', 	'TS_VCSC_Extender', 	'TS_VCSC_PageExtend');
-        if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_ShowNotificationPage == "true") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_UseUpdateNotification == "true")) {
-            $ts_vcsc_update_page =              add_submenu_page(   'TS_VCSC_Extender', 	"Update Available",     "Update Available" . ' <span class="update-plugins count-1"><span class="update-count">New Version!</span></span>',		'administrator', 	'TS_VCSC_Notification', 'TS_VCSC_XML_UpdateNotifierPageContent');
-        }
         if ((($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "true") && (get_option('ts_vcsc_extend_settings_fontimport', 1) == 1)) || (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginExtended == "false"))) {
             $ts_vcsc_upload_page = 				add_submenu_page( 	'TS_VCSC_Extender', 	"Import Font",          "Import Icon Font",     'manage_options', 	'TS_VCSC_Uploader', 	'TS_VCSC_PageUpload');
         }
         $ts_vcsc_preview_page = 				add_submenu_page( 	'TS_VCSC_Extender', 	"Icon Previews",        "Icon Previews",    	'manage_options', 	'TS_VCSC_Previews', 	'TS_VCSC_PagePreview');
-        if (($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") && ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginValid == "true")) {
+        if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_IconicumStandard == "false") {
             if (get_option('ts_vcsc_extend_settings_useMenuGenerator', 0) == 1) {
                 $ts_vcsc_generator_page =		add_submenu_page( 	'TS_VCSC_Extender', 	"Icon Generator",       "Icon Generator",		'manage_options', 	'TS_VCSC_Generator', 	'TS_VCSC_PageGenerator');
             }

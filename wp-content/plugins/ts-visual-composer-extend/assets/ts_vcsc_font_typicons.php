@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Typicons = array(
     $this->TS_VCSC_Icons_Compliant_Typicons = array(
         "Typicons Font" => array(
             array("ts-typicons-times" => "times"),

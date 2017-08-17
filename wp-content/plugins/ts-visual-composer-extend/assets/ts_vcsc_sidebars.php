@@ -93,9 +93,6 @@
             $Sidebars_Names		= array();
         }
 	}
-?>
-
-<?php
 	echo '<div class="ts-vcsc-settings-group-header">';
 		echo '<div class="display_header">';
 			echo '<h2><span class="dashicons dashicons-welcome-widgets-menus"></span>Composium - Visual Composer Extensions v' . TS_VCSC_GetPluginVersion() . ' ... Sidebars Manager</h2>';

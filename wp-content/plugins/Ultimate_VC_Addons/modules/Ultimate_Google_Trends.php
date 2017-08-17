@@ -6,7 +6,9 @@
 if(!class_exists("Ultimate_Google_Trends")){
 	class Ultimate_Google_Trends{
 		function __construct(){
-			add_action("init",array($this,"google_trends_init"));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action("init",array($this,"google_trends_init"));
+			}
 			add_shortcode("ultimate_google_trends",array($this,"display_ultimate_trends"));
 		}
 		function google_trends_init(){
@@ -237,14 +239,14 @@ if(!class_exists("Ultimate_Google_Trends")){
 				$height = '&amp;h='.$height;
 			}
 			$id = uniqid('vc-trends-');
-			$output = '<div id="'.$id.'" class="ultimate-google-trends '.$is_vc_49_plus.' '.$el_class.' '.$css_design_style.'">
-				<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&amp;q='.$gtrend_query_new.'&cmpt='.$search_by.'&amp;geo='.$location_by.'&amp;content=1&amp;cid='.$graph_type_new.'&amp;export=5'.$width.$height.'"></script>
+			$output = '<div id="'.esc_attr($id).'" class="ultimate-google-trends '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' '.esc_attr($css_design_style).'">
+				<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&amp;q='.esc_attr($gtrend_query_new).'&cmpt='.esc_attr($search_by).'&amp;geo='.esc_attr($location_by).'&amp;content=1&amp;cid='.esc_attr($graph_type_new).'&amp;export=5'.esc_attr($width).esc_attr($height).'"></script>
 			</div>';
 			return $output;
 		}
 	}
 	new Ultimate_Google_Trends;
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ultimate_google_trends'))
 	{
 		class WPBakeryShortCode_ultimate_google_trends extends WPBakeryShortCode {
 		}

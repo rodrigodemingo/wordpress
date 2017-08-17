@@ -12,8 +12,7 @@
 			add_action('vc_backend_editor_render', 				array($this, 'TS_VCSC_EditorRenderAction'));
 			add_action('vc_frontend_editor_render_template', 	array($this, 'TS_VCSC_EditorRenderAction'));
 			add_filter('vc_add_element_box_buttons', 			array($this, 'TS_VCSC_AddElementBoxButtons'), 10, 1);
-		}
-		
+		}		
 		function TS_VCSC_GetSubCategories(){
 			global $VISUAL_COMPOSER_EXTENSIONS;
 			$TS_VCSC_Visual_Composer_Categories					= array();
@@ -22,7 +21,6 @@
 			}			
 			return apply_filters('composium_vc_subcategories', $TS_VCSC_Visual_Composer_Categories);
 		}
-		
 		// Assign Each Shortcode Element Matching Filter Classes
 		function TS_VCSC_AssignSubCategories(){
 			global $VISUAL_COMPOSER_EXTENSIONS;
@@ -58,8 +56,7 @@
 				}
 			}
 			return apply_filters('rhc_vc_shortcode_subcategories', $TS_VCSC_Visual_Composer_Categories);
-		}		
-		
+		}
 		// Add JavaScript Variable to Visual Composer
 		function TS_VCSC_EditorRenderAction() {
 			?>
@@ -77,8 +74,7 @@
 					}
 				</script>
 			<?php
-		}		
-		
+		}
 		// Create Individual Filter Buttons
 		function TS_VCSC_FilterButtons() {
 			$output = '';
@@ -87,8 +83,7 @@
 				$output .= sprintf('<button class="ts-composium-filter-button vc_ui-button widefat" data-composium-subcategory="%s">%s</button>', '.' . $value, __($label, 'ts_visual_composer_extend'));
 			}
 			return $output;
-		}
-		
+		}		
 		// Add Container + Buttons to Visual Composer
 		function TS_VCSC_AddElementBoxButtons($output) {	
 			$output = sprintf('<div class="ts-composium-filter-container"><div class="ts-composium-filter-selectors" style="display: none;"><div class="ts-composium-filter-controls">%s</div></div><div class="ts-composium-filter-elements" style="min-height: 106px;">%s</div></div>', $this->TS_VCSC_FilterButtons(), $output);

@@ -10,7 +10,7 @@
 
 <?php
     $ultimate_row = get_option('ultimate_row');
-    if($ultimate_row == "enable"){
+    if( $ultimate_row == "enable" ){
 		$checked_row = 'checked="checked"';
 	} else {
 		$checked_row = '';
@@ -18,44 +18,44 @@
 
 	$ultimate_modules = get_option('ultimate_modules');
 	$modules = array(
-		'Ultimate_Animation' => 'Animation Block',
-		'Ultimate_Buttons' => 'Advanced Buttons',
-		'Ultimate_CountDown' => 'Count Down Timer',
-		'Ultimate_Flip_Box' => 'Flip Boxes',
-		'Ultimate_Google_Maps' => 'Google Maps',
-		'Ultimate_Google_Trends' => 'Google Trends',
-		'Ultimate_Headings' => 'Headings',
-		'Ultimate_Icon_Timeline' => 'Timeline',
-		'Ultimate_Info_Box' => 'Info Boxes',
-		'Ultimate_Info_Circle' => 'Info Circle',
-		'Ultimate_Info_List' => 'Info List',
-		'Ultimate_Info_Tables' => 'Info Tables',
-		'Ultimate_Interactive_Banners' => 'Interactive Banners',
-		'Ultimate_Interactive_Banner_2' => 'Interactive Banners - 2',
-		'Ultimate_Modals' => 'Modal Popups',
-		'Ultimate_Pricing_Tables' => 'Price Box',
-		'Ultimate_Spacer' => 'Spacer / Gap',
-		'Ultimate_Stats_Counter' => 'Stats Counter',
-		'Ultimate_Swatch_Book' => 'Swatch Book',
-		'Ultimate_Icons' => 'Icons',
-		'Ultimate_List_Icon' => 'List Icons',
-		'Ultimate_Carousel'  => 'Advanced Carousel',
-		'Ultimate_Fancy_Text'  => 'Fancy Text',
-		'Ultimate_Hightlight_Box'  => 'Highlight Box',
-		'Ultimate_Info_Banner' => 'Info Banner',
-		'Ultimate_iHover'  => 'iHover',
-		'Ultimate_Hotspot'  => 'Hotspot',
-		'Ultimate_Video_Banner'  => 'Video Banner',
-		'WooComposer' => 'WooComposer',
-		'Ultimate_Dual_Button' => 'Dual Button',
-		'Ultimate_link' => 'Creative Link',
-		'Ultimate_Image_Separator' => 'Image Separator',
-		'Ultimate_Content_Box' => 'Content Box',
-		'Ultimate_Expandable_section' => 'Expandable Section',
-		'Ultimate_Tab' =>'Advanced Tabs',
-		'Ultimate_Team' =>'Ultimate Teams',
-		'Ultimate_Sticky_Section' => 'Sticky Section',
-		'Ultimate_Range_Slider' => 'Range Slider',
+		'Ultimate_Animation'            => __( 'Animation Block', 'ultimate_vc'),
+		'Ultimate_Buttons'              => __( 'Advanced Buttons', 'ultimate_vc'),
+		'Ultimate_CountDown'            => __( 'Count Down Timer', 'ultimate_vc'),
+		'Ultimate_Flip_Box'             => __( 'Flip Boxes', 'ultimate_vc'),
+		'Ultimate_Google_Maps'          => __( 'Google Maps', 'ultimate_vc'),
+		'Ultimate_Google_Trends'        => __( 'Google Trends', 'ultimate_vc'),
+		'Ultimate_Headings'             => __( 'Headings', 'ultimate_vc'),
+		'Ultimate_Icon_Timeline'        => __( 'Timeline', 'ultimate_vc'),
+		'Ultimate_Info_Box'             => __( 'Info Boxes', 'ultimate_vc'),
+		'Ultimate_Info_Circle'          => __( 'Info Circle', 'ultimate_vc'),
+		'Ultimate_Info_List'            => __( 'Info List', 'ultimate_vc'),
+		'Ultimate_Info_Tables'          => __( 'Info Tables', 'ultimate_vc'),
+		'Ultimate_Interactive_Banners'  => __( 'Interactive Banners', 'ultimate_vc'),
+		'Ultimate_Interactive_Banner_2' => __( 'Interactive Banners - 2', 'ultimate_vc'),
+		'Ultimate_Modals'               => __( 'Modal Popups', 'ultimate_vc'),
+		'Ultimate_Pricing_Tables'       => __( 'Price Box', 'ultimate_vc'),
+		'Ultimate_Spacer'               => __( 'Spacer / Gap', 'ultimate_vc'),
+		'Ultimate_Stats_Counter'        => __( 'Stats Counter', 'ultimate_vc'),
+		'Ultimate_Swatch_Book'          => __( 'Swatch Book', 'ultimate_vc'),
+		'Ultimate_Icons'                => __( 'Icons', 'ultimate_vc'),
+		'Ultimate_List_Icon'            => __( 'List Icons', 'ultimate_vc'),
+		'Ultimate_Carousel'             => __( 'Advanced Carousel', 'ultimate_vc'),
+		'Ultimate_Fancy_Text'           => __( 'Fancy Text', 'ultimate_vc'),
+		'Ultimate_Hightlight_Box'       => __( 'Highlight Box', 'ultimate_vc'),
+		'Ultimate_Info_Banner'          => __( 'Info Banner', 'ultimate_vc'),
+		'Ultimate_iHover'               => __( 'iHover', 'ultimate_vc'),
+		'Ultimate_Hotspot'              => __( 'Hotspot', 'ultimate_vc'),
+		'Ultimate_Video_Banner'         => __( 'Video Banner', 'ultimate_vc'),
+		'WooComposer'                   => __( 'WooComposer', 'ultimate_vc'),
+		'Ultimate_Dual_Button'          => __( 'Dual Button', 'ultimate_vc'),
+		'Ultimate_link'                 => __( 'Creative Link', 'ultimate_vc'),
+		'Ultimate_Image_Separator'      => __( 'Image Separator', 'ultimate_vc'),
+		'Ultimate_Content_Box'          => __( 'Content Box', 'ultimate_vc'),
+		'Ultimate_Expandable_section'   => __( 'Expandable Section', 'ultimate_vc'),
+		'Ultimate_Tab'                  => __( 'Advanced Tabs', 'ultimate_vc'),
+		'Ultimate_Team'                 => __( 'Ultimate Teams', 'ultimate_vc'),
+		'Ultimate_Sticky_Section'       => __( 'Sticky Section', 'ultimate_vc'),
+		'Ultimate_Range_Slider'         => __( 'Range Slider', 'ultimate_vc'),
 	);
 ?>
 
@@ -98,6 +98,7 @@
 				    <input type="checkbox" id="ult-all-modules-toggle" data-all="<?php echo count($modules) ?>" value="checkall" /> <label for="ult-all-modules-toggle"><?php echo __('Enable/Disable All', 'ultimate_vc') ?></label>
 				</div>
 			    <form method="post" id="ultimate_modules">
+			    	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'ultimate-modules-setting' ); ?>" />
 			    	<input type="hidden" name="action" value="update_ultimate_modules" />
 			    	<table class="form-table">
 			        	<tbody>

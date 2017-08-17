@@ -219,7 +219,7 @@
 		
 		// Visual Composer Style Override
 		if (function_exists('vc_shortcode_custom_css_class')) {
-			$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS-VCSC-Motion', $atts);
+			$css_class 						= apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, ' ' . vc_shortcode_custom_css_class($css, ' '), 'TS_VCSC_Facebook_Video', $atts);
 		} else {
 			$css_class						= '';
 		}
@@ -318,13 +318,13 @@
 					$output .= '<div class="ts-lightbox-button-1 clearFixMe">';
 						$output .= '<div class="top">' . $content_title . '</div>';
 						$output .= '<div class="bottom">' . $content_subtitle . '</div>';
-						$output .= '<a href="' . $facebook_video . '" class="nch-lightbox-media no-ajaxy icon" target="_blank" data-title="' . $content_title . '" data-videoplay="' . $facebook_autoplay . '" data-appid="' . $facebook_appid . '" data-showtext="' . $facebook_showtext . '" data-showcaptions="' . $facebook_showcaptions . '" data-allowfullscreen="' . $facebook_fullscreen . '" data-type="facebook" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $lightbox_color . '><span class="motion">' . $content_buttontext . '</span></a>';
+						$output .= '<a href="' . $facebook_video . '" class="nch-lightbox-media no-ajaxy icon" target="_blank" data-title="' . $content_title . '" data-videoplay="' . $facebook_autoplay . '" data-appid="' . $facebook_appid . '" data-showtext="' . $facebook_showtext . '" data-showcaptions="' . $facebook_showcaptions . '" data-allowfullscreen="' . $facebook_fullscreen . '" data-type="facebook" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $lightbox_color . '><span class="facebookvideo">' . $content_buttontext . '</span></a>';
 					$output .= '</div>';
 				$output .= '</div>';
 			}
 			if ($content_trigger == "simple") {
 				$output .= '<div id="' . $player_id . '-trigger" class="' . $css_class . ' ' . $player_id . '-parent nch-holder' . $el_class . ' ' . $tooltip_class . '" ' . $tooltip_content . ' style="display: block; width: 100%; margin-top: ' . $margin_top . 'px; margin-bottom: ' . $margin_bottom . 'px;">';
-					$output .= '<a href="' . $facebook_video . '" class="ts-lightbox-button-2 icon nch-lightbox-media no-ajaxy" target="_blank" data-title="' . $content_title . '" data-videoplay="' . $facebook_autoplay . '" data-appid="' . $facebook_appid . '" data-showtext="' . $facebook_showtext . '" data-showcaptions="' . $facebook_showcaptions . '" data-allowfullscreen="' . $facebook_fullscreen . '" data-type="facebook" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $lightbox_color . '><span class="motion">' . $content_buttontext . '</span></a>';
+					$output .= '<a href="' . $facebook_video . '" class="ts-lightbox-button-2 icon nch-lightbox-media no-ajaxy" target="_blank" data-title="' . $content_title . '" data-videoplay="' . $facebook_autoplay . '" data-appid="' . $facebook_appid . '" data-showtext="' . $facebook_showtext . '" data-showcaptions="' . $facebook_showcaptions . '" data-allowfullscreen="' . $facebook_fullscreen . '" data-type="facebook" rel="' . $lightbox_group_name . '" data-effect="' . $lightbox_effect . '" data-share="0" data-duration="' . $lightbox_speed . '" ' . $lightbox_color . '><span class="facebookvideo">' . $content_buttontext . '</span></a>';
 				$output .= '</div>';
 			}
 			if ($content_trigger == "text") {
@@ -353,8 +353,5 @@
 	
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_facebook_video extends WPBakeryShortCode {};
 	}
 ?>

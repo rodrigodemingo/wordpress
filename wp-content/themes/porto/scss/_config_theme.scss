@@ -1,7 +1,7 @@
 // Porto Config Scss Theme File
 
 
-// Created at 2017-04-13 10:38:08
+// Created at 2017-08-15 13:13:58
 
 
 
@@ -20,10 +20,10 @@ $grid-gutter-width:         30px !default;
 // Large screen / wide screen
 
 
-$container-large-desktop: (1170px) !default;
+$container-large-desktop: (1140px) !default;
 
 
-$screen-large: "(max-width: 1199px)";
+$screen-large: "(max-width: 1169px)";
 
 
 
@@ -33,40 +33,40 @@ $screen-large: "(max-width: 1199px)";
 
 
 
-    $border-xs:     0;
+     $border-xs:     1px;
 
 
-    $border-small:  0;
+    $border-small:  2px;
 
 
-    $border-thin:   0;
+    $border-thin:   3px;
 
 
-    $border-base:   0;
+    $border-base:   4px;
 
 
-    $border-normal: 0;
+    $border-normal: 5px;
 
 
-    $border-medium: 0;
+    $border-medium: 6px;
 
 
-    $border-thick:  0;
+    $border-thick:  7px;
 
 
-    $border-strong: 0;
+    $border-strong: 8px;
 
 
-    $border-large:  0;
+    $border-large:  16px;
 
 
-    $progress-border: 0;
+    $progress-border: 25px;
 
 
-    $feature-icon-border: 0;
+    $feature-icon-border: 35px;
 
 
-    $thumb-link-border: 0;
+    $thumb-link-border: 25px;
 
 
 
@@ -102,31 +102,31 @@ $screen-large: "(max-width: 1199px)";
     //** Padding around the thumbnail image
 
 
-    $thumbnail-padding:      0 !default;
+    $thumbnail-padding:      4px !default;
 
 
     //** Thumbnail border color
 
 
-    $thumbnail-border:       transparent !default;
+    $thumbnail-border:       #ddd !default;
 
 
-    $thumbnail-border-width: 0;
+    $thumbnail-border-width: 1px;
 
 
-    $thumbnail-slide-width:  100%;
+    $thumbnail-slide-width:  99.5%;
 
 
-    $product-image-padding:  0;
+    $product-image-padding:  0.2381em;
 
 
-    $product-image-border-width: 0;
+    $product-image-border-width: 1px;
 
 
-    $widget-product-image-padding: 0;
+    $widget-product-image-padding: 3px;
 
 
-    $image-slider-padding: 0;
+    $image-slider-padding: 3px;
 
 
 

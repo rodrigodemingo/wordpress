@@ -170,37 +170,80 @@ if( ! function_exists( 'mfn_slug' ) )
 
 
 /* ---------------------------------------------------------------------------
+ * Blog Page | Order
+ * --------------------------------------------------------------------------- */
+if( ! function_exists( 'mfn_blog_order' ) )
+{
+	function mfn_blog_order( $query ){
+
+		if( is_home() && $query->is_main_query() ){
+			
+			$orderby = mfn_opts_get( 'blog-orderby', 'date' );
+			$order = mfn_opts_get( 'blog-order', 'DESC' );
+			
+			if( $orderby == 'date' && $order == 'DESC' ){
+				return $order;
+			}
+			
+			$query->set( 'orderby', $orderby );
+			$query->set( 'order', $order );
+			
+		}
+	
+		return $query;
+	}
+}
+add_action( 'pre_get_posts', 'mfn_blog_order' );
+
+
+/* ---------------------------------------------------------------------------
  * Blog Page | Exclude category
  * --------------------------------------------------------------------------- */
+if( ! function_exists( 'mfn_get_excluded_categories' ) )
+{
+	function mfn_get_excluded_categories(){
+		
+		$categories = array();
+		
+		if( $exclude = mfn_opts_get( 'exclude-category' ) ){
+			
+			$exclude = str_replace( ' ', '', $exclude );
+			$exclude = explode( ',', $exclude );
+
+			if( is_array( $exclude ) ){
+				$categories = $exclude;
+			}
+			
+		}
+		
+		return $categories;
+	}
+}
+
 if( ! function_exists( 'mfn_exclude_category' ) )
 {
-	function mfn_exclude_category($query) {
+	function mfn_exclude_category( $query ) {
 		
-		if( $exclude = trim( mfn_opts_get( 'exclude-category' ) ) ){
-			if( is_home() ){
+		if( is_home() && $query->is_main_query() ){
 
-				$exclude = str_replace( ' ', '', $exclude );
-				$exclude = explode( ',', $exclude );
-				
-				$exclude_ids = array();
-				
-				if( is_array( $exclude ) ){
-					foreach( $exclude as $slug ){
-						$category = get_category_by_slug( $slug );
-						$exclude_ids[] = $category->term_id * -1;
-					}
+			$exclude_ids = array();
+			
+			if( $exclude = mfn_get_excluded_categories() ){
+				foreach( $exclude as $slug ){
+					$category = get_category_by_slug( $slug );
+					$exclude_ids[] = $category->term_id * -1;
 				}
-
-				$exclude_ids = implode( ',', $exclude_ids );
-				
-				$query->set( 'cat', $exclude_ids );
 			}
+
+			$exclude_ids = implode( ',', $exclude_ids );
+			
+			$query->set( 'cat', $exclude_ids );
 		}
 		
 		return $query;
 	}
 }
-add_filter('pre_get_posts', 'mfn_exclude_category');
+add_filter( 'pre_get_posts', 'mfn_exclude_category' );
 
 
 /* ---------------------------------------------------------------------------
@@ -209,11 +252,17 @@ add_filter('pre_get_posts', 'mfn_exclude_category');
 if( ! function_exists( 'mfn_ssl' ) )
 {
 	function mfn_ssl( $echo = false ){
+		
 		$ssl = '';
-		if( is_ssl() ) $ssl = 's';
+		
+		if( is_ssl() ){
+			$ssl = 's';
+		}
+		
 		if( $echo ){
 			echo $ssl;
 		}
+		
 		return $ssl;
 	}
 }
@@ -1381,9 +1430,17 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 			
 			// External Link to Project Page
 			if( $image_links = ( get_post_meta( get_the_ID(), 'mfn-post-link', true ) ) ){
+				
 				$image_links_class = 'triple';
-			} else {
+				
+			} elseif( ! in_array( $external, array( '_self', '_blank' ) ) ){
+				
 				$image_links_class = 'double';
+				
+			} else {
+				
+				$image_links_class = 'single';
+				
 			}
 			
 			// Image Link
@@ -1423,16 +1480,26 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 				
 				// Hover | Title
 				$link_after .= '<div class="image_links hover-title">';
+				
 					$link_after .= $link_title . get_the_title() .'</a>';
+					
 				$link_after .= '</div>';
 				
 			} elseif( $external != 'disable' ) {
 				
 				// Hover | Icons
 				$link_after .= '<div class="image_links '. $image_links_class .'">';
-					if( ! in_array( $external, array('_self','_blank') ) ) $link_after .= '<a href="'. $large_image_url[0] .'" class="zoom" rel="prettyphoto"><i class="icon-search"></i></a>';
-					if( $image_links ) $link_after .= '<a target="_blank" href="'. $image_links .'" class="external"><i class="icon-forward"></i></a>';
+				
+					if( ! in_array( $external, array( '_self', '_blank' ) ) ){
+						$link_after .= '<a href="'. $large_image_url[0] .'" class="zoom" rel="prettyphoto"><i class="icon-search"></i></a>';
+					}
+					
+					if( $image_links ){
+						$link_after .= '<a target="_blank" href="'. $image_links .'" class="external"><i class="icon-forward"></i></a>';
+					}
+					
 					$link_after .= '<a href="'. get_permalink() .'" class="link"><i class="icon-link"></i></a>';
+				
 				$link_after .= '</div>';
 				
 			}
@@ -2029,107 +2096,64 @@ if( ! function_exists( 'mfn_tag_schema' ) )
 
 
 /* ---------------------------------------------------------------------------
- *	TGM Plugin Activation
+ *	Registration | Is hosted
  * --------------------------------------------------------------------------- */
-add_action( 'tgmpa_register', 'mfn_register_required_plugins' );
-if( ! function_exists( 'mfn_register_required_plugins' ) )
-{
-	function mfn_register_required_plugins() {
-	
-		$plugins = array(
-				
-			// required -----------------------------	
-			
-			array(	
-				'name'               	=> 'Slider Revolution', // The plugin name.
-				'slug'               	=> 'revslider', // The plugin slug (typically the folder name).
-				'source'             	=> THEME_DIR .'/plugins/revslider.zip', // The plugin source.
-				'required'           	=> true, // If false, the plugin is only 'recommended' instead of required.
-				'version'            	=> '5.4.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
-// 				'force_activation'   	=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-// 				'force_deactivation' 	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-// 				'external_url'       	=> '', // If set, overrides default API URL and points to an external URL.
-// 				'is_callable'        	=> '', // If set, this callable will be be checked for availability to determine if a plugin is active.
-			),
-	
-			array(
-				'name'     				=> 'Contact Form 7',
-				'slug'     				=> 'contact-form-7',	
-				'required' 				=> true,
-				'external_url'			=> 'https://wordpress.org/plugins/contact-form-7/',
-			),
-				
-			// recommended -----------------------------
+function mfn_is_hosted(){
+	return defined( 'ENVATO_HOSTED_KEY' ) ? true : false;
+}
 
-			array(
-				'name'     				=> 'Duplicate Post',
-				'slug'     				=> 'duplicate-post',
-				'required' 				=> false,
-				'external_url'			=> 'https://wordpress.org/plugins/duplicate-post/',
-			),
-				
-			array(
-				'name'     				=> 'Force Regenerate Thumbnails',
-				'slug'     				=> 'force-regenerate-thumbnails',
-				'required' 				=> false,
-				'external_url'			=> 'https://wordpress.org/plugins/force-regenerate-thumbnails/',
-			),
-				
-			array(
-				'name'     				=> 'Layer Slider',
-				'slug'     				=> 'LayerSlider',
-				'source'   				=> THEME_DIR .'/plugins/layerslider.zip',
-				'required' 				=> false,
-				'version' 				=> '6.3.0',
-			),
-	
-			array(
-				'name'     				=> 'Visual Composer',
-				'slug'     				=> 'js_composer',
-				'source'   				=> THEME_DIR .'/plugins/js_composer.zip',
-				'required' 				=> false,
-				'version' 				=> '5.1.1',
-			),
-	
-		);
-	
-		$config = array(
 
-			'id'           	=> 'mfn-be',        		// Unique ID for hashing notices for multiple instances of TGMPA.
-			'default_path' 	=> '',                      // Default absolute path to bundled plugins.
-			'menu'         	=> 'tgmpa-install-plugins', // Menu slug.
-			'parent_slug'  	=> 'themes.php',            // Parent menu slug.
-			'capability'   	=> 'edit_theme_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-			'has_notices'  	=> true,                    // Show admin notices or not.
-			'dismissable'  	=> true,                    // If false, a user cannot dismiss the nag message.
-			'dismiss_msg'  	=> '',                      // If 'dismissable' is false, this message will be output at top of nag.
-			'is_automatic'	=> false,                   // Automatically activate plugins after installation or not.
-			'message' 		=> '<div class="mfn-tgm-message">'. __( 'If you are not sure about server\'s settings and limits, please activate <u>necessary plugins ONLY</u>', 'tgmpa' ) .'</div>',	// Message to output right before the plugins table
-			'strings'      	=> array(
-				'page_title'                      	=> __( 'Install Required Plugins', 'tgmpa' ),
-				'menu_title'                     	=> __( 'Install Plugins', 'tgmpa' ),
-				'installing'                      	=> __( 'Installing Plugin: %s', 'tgmpa' ), // %s = plugin name.
-				'oops'                            	=> __( 'Something went wrong with the plugin API.', 'tgmpa' ),
-				'notice_can_install_required'     	=> _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'tgmpa' ),
-				'notice_can_install_recommended'  	=> _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'tgmpa' ),
-				'notice_cannot_install'           	=> _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'tgmpa' ),
-				'notice_can_activate_required'    	=> _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'tgmpa' ),
-				'notice_can_activate_recommended' 	=> _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'tgmpa' ),
-				'notice_cannot_activate'          	=> _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'tgmpa' ),
-				'notice_ask_to_update'            	=> _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'tgmpa' ),
-				'notice_cannot_update'            	=> _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'tgmpa' ),
-				'install_link'                    	=> _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'tgmpa' ),
-				'activate_link'                   	=> _n_noop( 'Begin activating plugin', 'Begin activating plugins', 'tgmpa' ),
-				'return'                          	=> __( 'Return to Required Plugins Installer', 'tgmpa' ),
-				'plugin_activated'                	=> __( 'Plugin activated successfully.', 'tgmpa' ),
-				'complete'                        	=> __( 'All plugins installed and activated successfully. %s', 'tgmpa' ), // %s = dashboard link.
-				'nag_type'                        	=> 'updated' // Determines admin notice type - can only be 'updated', 'update-nag' or 'error'.
-			),
-				
-		);
+/* ---------------------------------------------------------------------------
+ *	Registration | Is registered
+ * --------------------------------------------------------------------------- */
+function mfn_is_registered(){
 	
-		tgmpa( $plugins, $config );
+	if( mfn_is_hosted() ){
+		return mfn_is_hosted();
 	}
+	
+	return get_site_option( 'betheme_registered' );
+}
+
+
+/* ---------------------------------------------------------------------------
+ *	Registration | Get purchase code
+ * --------------------------------------------------------------------------- */
+function mfn_get_purchase_code(){
+	
+	if( mfn_is_hosted() ){
+		return SUBSCRIPTION_CODE;
+	}
+		
+	return get_site_option( 'betheme_purchase_code' );
+}
+
+
+/* ---------------------------------------------------------------------------
+ *	Registration | Get purchase code with asterisk
+ * --------------------------------------------------------------------------- */
+function mfn_get_purchase_code_hidden(){
+	$code = mfn_get_purchase_code();
+	
+	if( $code ){
+		$code = substr( $code, 0, 13 );
+		$code = $code .'-****-****-************';
+	}
+	
+	return $code;
+}
+
+
+/* ---------------------------------------------------------------------------
+ *	Registration | Get ish
+ * --------------------------------------------------------------------------- */
+function mfn_get_ish(){
+	
+	if( ! defined( 'ENVATO_HOSTED_KEY' ) ){
+		return false;
+	}
+	
+	return substr( ENVATO_HOSTED_KEY, 0, 16 );
 }
 
 

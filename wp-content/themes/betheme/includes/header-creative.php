@@ -31,7 +31,7 @@
 		<div class="header_placeholder"></div>
 	
 		<div id="Top_bar">
-			<div class="one">
+			<div class="one clearfix">
 		
 				<div class="top_bar_left">
 				

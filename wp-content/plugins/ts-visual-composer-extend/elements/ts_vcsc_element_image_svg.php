@@ -1,6 +1,8 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-	
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Image_SVG'))) {
+		class WPBakeryShortCode_TS_VCSC_Image_SVG extends WPBakeryShortCode {};
+	};
     $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"                      	=> __( "TS Image SVG", "ts_visual_composer_extend" ),
 		"base"                      	=> "TS_VCSC_Image_SVG",
@@ -81,6 +83,7 @@
 				"value"                 => array(
 					__( 'Open Image in Lightbox', "ts_visual_composer_extend" )			=> "image",
 					__( 'Open Other Page', "ts_visual_composer_extend" )				=> "link",
+					__( 'Scroll to Page Section', "ts_visual_composer_extend" )			=> "scroll",
 				),
 				"admin_label"           => true,
 				"description"           => __( "Select the action that should be triggered when clicking on the button.", "ts_visual_composer_extend" ),
@@ -112,7 +115,62 @@
 				"description"           => __( "Select which image size based on WordPress settings should be used for the lightbox image.", "ts_visual_composer_extend" ),
 				"dependency"			=> array( 'element' => "trigger", 'value' => 'image' )
 			),
-			// Link Settings
+			// Scroll Settings
+			array(
+				"type"                  => "textfield",
+				"heading"               => __( "Page Scroll Target", "ts_visual_composer_extend" ),
+				"param_name"            => "scroll_target",
+				"value"                 => "",
+				"description"           => __( "Enter the unique ID for the page section you want to scroll to.", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "trigger", 'value' => 'scroll' ),
+			),
+			array(
+				"type" 					=> "devicetype_selectors",
+				"heading"           	=> __( "Device Type Scroll Offset", "ts_visual_composer_extend" ),
+				"param_name"        	=> "scroll_offset",
+				"unit"  				=> "px",
+				"collapsed"				=> "true",
+				"devices" 				=> array(
+					"Desktop"           		=> array("default" => 0, "min" => 0, "max" => 250, "step" => 1),
+					"Tablet"            		=> array("default" => 0, "min" => 0, "max" => 250, "step" => 1),
+					"Mobile"            		=> array("default" => 0, "min" => 0, "max" => 250, "step" => 1),
+				),
+				"value"					=> "desktop:0px;tablet:0px;mobile:0px",
+				"description"			=> __( "Define an additional scroll offset to account for menu bars and other top fixed elements.", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "trigger", 'value' => 'scroll' ),
+			),
+			array(
+				"type"					=> "nouislider",
+				"heading"				=> __( "Page Scroll Speed", "ts_visual_composer_extend" ),
+				"param_name"			=> "scroll_speed",
+				"value"					=> "2000",
+				"min"					=> "1000",
+				"max"					=> "10000",
+				"step"					=> "100",
+				"unit"					=> 'ms',
+				"description"			=> __( "Define the speed that should be used to scroll to the section.", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "trigger", 'value' => 'scroll' ),
+			),							
+			array(
+				"type"                 	=> "dropdown",
+				"heading"               => __( "Page Scroll Easing", "ts_visual_composer_extend" ),
+				"param_name"            => "scroll_effect",
+				"edit_field_class"		=> "vc_col-sm-6 vc_column",
+				"width"                 => 150,
+				"value" 				=> $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_CSS_Easings_Array,
+				"description"           => __( "Select the easing animation that should be applied to the page scroll.", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "trigger", 'value' => 'scroll' ),
+			),
+			array(
+				"type"                  => "switch_button",
+				"heading"			    => __( 'Add Target as Hashtag', "ts_visual_composer_extend" ),
+				"param_name"		    => "scroll_hashtag",
+				"edit_field_class"		=> "vc_col-sm-6 vc_column",
+				"value"                 => "false",
+				"description"		    => __( "Switch the toggle if you want to add the scroll target to the browser URL via hashtag.", "ts_visual_composer_extend" ),
+				"dependency"            => array( 'element' => "trigger", 'value' => 'scroll' ),
+			),		
+			// Speed Settings
 			array(
 				"type"              	=> "seperator",
 				"param_name"        	=> "seperator_3",
@@ -393,11 +451,10 @@
 				"group" 				=> "Other Settings",
 			),
 		)
-	);
-		
+	);		
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

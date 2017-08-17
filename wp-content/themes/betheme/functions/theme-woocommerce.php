@@ -9,80 +9,50 @@
 
 
 /* ---------------------------------------------------------------------------
- * WooCommerce - Theme support & actions
+ * WooCommerce | Theme support & actions
  * --------------------------------------------------------------------------- */
+
 add_theme_support( 'woocommerce' );
 
 // WooCommerce 2.7+ single product gallery
+
 add_theme_support( 'wc-product-gallery-zoom' );
 add_theme_support( 'wc-product-gallery-lightbox' );
 add_theme_support( 'wc-product-gallery-slider' );
 
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);					// breadcrumbs
-remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10);								// sidebar
 
-remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);		// content wrapper begin
-remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);		// content wrapper end
+/* ---------------------------------------------------------------------------
+ * WooCommerce | Actions | Remove
+ * --------------------------------------------------------------------------- */
+
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+
+remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message', 10 );
 
 if( mfn_opts_get( 'shop-catalogue' ) ){
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);	// add to cart button
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 }
-
-add_action( 'woocommerce_before_main_content', 'mfn_woocommerce_output_content_wrapper', 10);		// content wrapper begin
-add_action( 'woocommerce_after_main_content', 'mfn_woocommerce_output_content_wrapper_end', 10);	// content wrapper end
 
 
 /* ---------------------------------------------------------------------------
- * WooCommerce - Styles
+ * WooCommerce | Actions | Add
  * --------------------------------------------------------------------------- */
-if( ! function_exists( 'mfn_woo_styles' ) )
-{
-	function mfn_woo_styles()
-	{
-		wp_enqueue_style( 'mfn-woo', THEME_URI .'/css/woocommerce.css', 'woocommerce-general-css', THEME_VERSION, 'all' );
-	}
-	add_action( 'wp_enqueue_scripts', 'mfn_woo_styles', 100 );
-}
+
+add_action( 'woocommerce_before_main_content', 'mfn_woocommerce_output_content_wrapper', 10 );
+add_action( 'woocommerce_after_main_content', 'mfn_woocommerce_output_content_wrapper_end', 10 );
+
+add_action( 'woocommerce_cart_is_empty', 'mfn_wc_empty_cart_message', 10 );
 
 
 /* ---------------------------------------------------------------------------
- * WooCommerce - Define image sizes
-* --------------------------------------------------------------------------- */
-global $pagenow;
-if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' ) add_action( 'init', 'mfn_woocommerce_image_dimensions', 1 );
-
-if( ! function_exists( 'mfn_woocommerce_image_dimensions' ) )
-{
-	function mfn_woocommerce_image_dimensions() {
-		$catalog = array(
-			'width' 	=> '500',	// px
-			'height'	=> '500',	// px
-			'crop'		=> 1 		// true
-		);
-	
-		$single = array(
-			'width' 	=> '500',	// px
-			'height'	=> '500',	// px
-			'crop'		=> 1 		// true
-		);
-	
-		$thumbnail = array(
-			'width' 	=> '200',	// px
-			'height'	=> '200',	// px
-			'crop'		=> 1 		// true
-		);
-	
-		// Image sizes
-		update_option( 'shop_catalog_image_size', $catalog );		// Product category thumbs
-		update_option( 'shop_single_image_size', $single ); 		// Single product image
-		update_option( 'shop_thumbnail_image_size', $thumbnail ); 	// Image gallery thumbs
-	}
-}
-
-
-/* ---------------------------------------------------------------------------
- * WooCommerce - Before Main Content
+ * Action | Output content wrapper BEGIN
  * --------------------------------------------------------------------------- */
+
 if( ! function_exists( 'mfn_woocommerce_output_content_wrapper' ) )
 {
 	function mfn_woocommerce_output_content_wrapper()
@@ -104,8 +74,9 @@ if( ! function_exists( 'mfn_woocommerce_output_content_wrapper' ) )
 
 
 /* ---------------------------------------------------------------------------
- * WooCommerce - After Main Content
+ * Action | Output content wrapper END
  * --------------------------------------------------------------------------- */
+
 if( ! function_exists( 'mfn_woocommerce_output_content_wrapper_end' ) )
 {
 	function mfn_woocommerce_output_content_wrapper_end()
@@ -153,8 +124,77 @@ if( ! function_exists( 'mfn_woocommerce_output_content_wrapper_end' ) )
 
 
 /* ---------------------------------------------------------------------------
- *	WooCommerce - Products per line/page
+ * Action | Empty cart message
  * --------------------------------------------------------------------------- */
+
+if( ! function_exists( 'mfn_wc_empty_cart_message' ) )
+{
+	function mfn_wc_empty_cart_message(){
+		?>
+			<div class="cart-empty alert alert_warning">
+				<div class="alert_icon"><i class="icon-lamp"></i></div>
+				<div class="alert_wrapper"><?php _e( 'Your cart is currently empty.', 'woocommerce' ) ?></div>
+				<a class="close" href="#"><i class="icon-cancel"></i></a>
+			</div>
+		<?php
+	}
+}
+
+
+/* ---------------------------------------------------------------------------
+ * WooCommerce | Styles
+ * --------------------------------------------------------------------------- */
+
+if( ! function_exists( 'mfn_woo_styles' ) )
+{
+	function mfn_woo_styles()
+	{
+		wp_enqueue_style( 'mfn-woo', THEME_URI .'/css/woocommerce.css', 'woocommerce-general-css', THEME_VERSION, 'all' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'mfn_woo_styles', 100 );
+
+
+/* ---------------------------------------------------------------------------
+ * WooCommerce | Define image sizes
+ * --------------------------------------------------------------------------- */
+
+global $pagenow;
+if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' ) add_action( 'init', 'mfn_woocommerce_image_dimensions', 1 );
+
+if( ! function_exists( 'mfn_woocommerce_image_dimensions' ) )
+{
+	function mfn_woocommerce_image_dimensions() {
+		$catalog = array(
+				'width' 	=> '500',	// px
+				'height'	=> '500',	// px
+				'crop'		=> 1 		// true
+		);
+
+		$single = array(
+				'width' 	=> '500',	// px
+				'height'	=> '500',	// px
+				'crop'		=> 1 		// true
+		);
+
+		$thumbnail = array(
+				'width' 	=> '200',	// px
+				'height'	=> '200',	// px
+				'crop'		=> 1 		// true
+		);
+
+		// Image sizes
+		update_option( 'shop_catalog_image_size', $catalog );		// Product category thumbs
+		update_option( 'shop_single_image_size', $single ); 		// Single product image
+		update_option( 'shop_thumbnail_image_size', $thumbnail ); 	// Image gallery thumbs
+	}
+}
+
+
+/* ---------------------------------------------------------------------------
+ *	WooCommerce | Products per line/page
+ * --------------------------------------------------------------------------- */
+
 add_filter( 'loop_shop_columns', create_function( false, 'return 3;' ) );
 
 if( ! function_exists( 'mfn_woo_per_page' ) )
@@ -167,8 +207,9 @@ add_filter( 'loop_shop_per_page', 'mfn_woo_per_page', 20 );
 
 
 /* ---------------------------------------------------------------------------
- *	WooCommerce - Change number of related products on product page
+ *	WooCommerce | Change number of related products on product page
  * --------------------------------------------------------------------------- */
+
 if( ! function_exists( 'mfn_woo_related_products_args' ) )
 {
 	function mfn_woo_related_products_args( $args ) {
@@ -180,15 +221,21 @@ add_filter( 'woocommerce_output_related_products_args', 'mfn_woo_related_product
 
 
 /* ---------------------------------------------------------------------------
- *	WooCommerce - Ensure cart contents update when products are added to the cart via AJAX
+ *	WooCommerce | Ensure cart contents update when products are added to the cart via AJAX
  * --------------------------------------------------------------------------- */
+
 global $woocommerce;
+
 if( version_compare( $woocommerce->version, '2.3', '<' ) ){
+	
 	// WooCommerce 2.2 -
 	add_filter( 'add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+	
 } else {
+	
 	// WooCommerce 2.3 +
 	add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+	
 }
 
 if( ! function_exists( 'woocommerce_header_add_to_cart_fragment' ) )

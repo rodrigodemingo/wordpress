@@ -5,7 +5,9 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 	{
 		function __construct()
 		{
-			add_action('init', array($this, 'add_icon_timeline'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init', array($this, 'add_icon_timeline'));
+			}
 			add_shortcode( 'icon_timeline', array($this, 'icon_timeline' ) );
 			add_shortcode( 'icon_timeline_item', array($this, 'icon_timeline_item' ) );
 			add_shortcode( 'icon_timeline_sep', array($this, 'icon_timeline_sep' ) );
@@ -156,7 +158,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 						),
 						"js_view" => 'VcColumnView'
 					));
-				// Add list item
+				// Add list item.
 				vc_map(
 					array(
 					   "name" => __("Items Separator","ultimate_vc"),
@@ -274,7 +276,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
                                 ),
                                 "group" => "Typography",
                             ),
-							// Customize everything
+							// Customize everything.
 							array(
 								"type" => "textfield",
 								"class" => "",
@@ -1085,7 +1087,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 									__("Bottom","ultimate_vc") => "bottom"
 								)
 							),
-							// Customize everything
+							// Customize everything.
 							array(
 								"type" => "textfield",
 								"class" => "",
@@ -1120,16 +1122,16 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			$data = $cw = $line_style = $output = $timeline_design_css = '';
  			$timeline_design_css = $timeline_margin;
 			if($timeline_layout=='timeline-custom-width'){
-				$cw ='data-timeline-cutom-width="'.$custom_width.'"';
+				$cw ='data-timeline-cutom-width="'.esc_attr($custom_width).'"';
 			}
 			if($time_sep_color!=''){
-				$time_sep_color='data-time_sep_color="'.$time_sep_color.'"';
+				$time_sep_color='data-time_sep_color="'.esc_attr($time_sep_color).'"';
 			}
 			if($time_sep_bg_color!=''){
-				$time_sep_bg_color='data-time_sep_bg_color="'.$time_sep_bg_color.'"';
+				$time_sep_bg_color='data-time_sep_bg_color="'.esc_attr($time_sep_bg_color).'"';
 			}
 			if($time_block_bg_color!=''){
-				$time_block_bg_color='data-time_block_bg_color="'.$time_block_bg_color.'"';
+				$time_block_bg_color='data-time_block_bg_color="'.esc_attr($time_block_bg_color).'"';
 			}
 			if($timeline_line_color!=''){
 				$line_style ='border-right-style:'.$timeline_line_style.';';
@@ -1138,13 +1140,13 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 				$line_style .='border-right-color:'.$timeline_line_color.';';
 			}
 			if($timeline_style=='jstime'){
-				$output .= '<div class="'.$timeline_style.' timeline_preloader" style="opacity:0;width:35px;margin:auto;margin-top:30px;"><img style="box-shadow:none;" alt="timeline_pre_loader" src="'.plugin_dir_url( __FILE__ ).'../assets/img/timeline_pre-loader.gif" /></div>';
-				$output .= '<div class="smile-icon-timeline-wrap '.$timeline_style.' '.$el_class.' '.$timeline_layout.' '.$tl_animation.'" '.$cw.' '.$time_sep_bg_color.' '.$time_block_bg_color.' '.$time_sep_color.' style="opacity:0; '.$timeline_design_css.'">';
+				$output .= '<div class="'.esc_attr($timeline_style).' timeline_preloader" style="opacity:0;width:35px;margin:auto;margin-top:30px;"><img style="box-shadow:none;" alt="timeline_pre_loader" src="'.plugin_dir_url( __FILE__ ).'../assets/img/timeline_pre-loader.gif" /></div>';
+				$output .= '<div class="smile-icon-timeline-wrap '.esc_attr($timeline_style).' '.esc_attr($el_class).' '.esc_attr($timeline_layout).' '.esc_attr($tl_animation).'" '.$cw.' '.$time_sep_bg_color.' '.$time_block_bg_color.' '.$time_sep_color.' style="opacity:0; '.esc_attr($timeline_design_css).'">';
 			}
 			else{
-				$output .= '<div class="smile-icon-timeline-wrap '.$timeline_style.' '.$el_class.' '.$timeline_layout.' '.$tl_animation.'" '.$cw.' '.$time_sep_bg_color.' '.$time_block_bg_color.' '.$time_sep_color.' style="'.$timeline_design_css.'">';
+				$output .= '<div class="smile-icon-timeline-wrap '.esc_attr($timeline_style).' '.esc_attr($el_class).' '.esc_attr($timeline_layout).' '.esc_attr($tl_animation).'" '.$cw.' '.$time_sep_bg_color.' '.$time_block_bg_color.' '.$time_sep_color.' style="'.esc_attr($timeline_design_css).'">';
 			}
-			$output .= '<div class="timeline-line " style="'.$line_style.'"><z></z></div>';
+			$output .= '<div class="timeline-line " style="'.esc_attr($line_style).'"><z></z></div>';
 			$output .='<div class="timeline-wrapper">';
 			$output .= do_shortcode($content);
 			$output .= '</div>';
@@ -1168,8 +1170,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 				'seperator_title_font' => '',
 				'seperator_title_font_style' => ''
 			), $atts));
-			//$li_prefix = '<div class="timeline-block separator'.$el_class.'">';
-			//$li_suffix = '</div>';
+
 			if($time_sep_color != '')
 				$seperator_style .= 'color:'.$time_sep_color.';';
 			if($line_style != '')
@@ -1180,10 +1181,6 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 				$seperator_style .= 'border-width:'.$line_width.'px;';
 			if($line_radius != '')
 				$seperator_style .= 'border-radius:'.$line_radius.'px;';
-			// if($font_size != '')
-			// 	$seperator_style .= 'font-size:'.$font_size.'px;';
-			// if($seperator_line_ht != '')
-			// 	$seperator_style .= 'line-height:'.$seperator_line_ht.'px;';
 
 			if(is_numeric($font_size)){
 				$font_size = 'desktop:'.$font_size.'px;';
@@ -1204,10 +1201,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			{
 				$font_family = get_ultimate_font_family($seperator_title_font);
 				$seperator_style .= 'font-family:\''.$font_family.'\';';
-				/*	$args = array(
-					$seperator_title_font
-				);
-				enquque_ultimate_google_fonts($args);*/
+				
 				if($seperator_title_font_style != '')
 				{
 					$font_style = get_ultimate_font_style($seperator_title_font_style);
@@ -1216,19 +1210,14 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			}
 			$output ='</div>';
 			$output .= '
-				<div id="'.$timeline_seperator_id.'" class="timeline-separator-text '.$el_class.'" data-sep-col="'.$time_sep_color.'" data-sep-bg-col="'.$time_sep_bg_color.'"><span class="sep-text ult-responsive" '.$seperator_data_list.' style="'.$seperator_style.'">'.$time_sep_title.'</span></div><div class="timeline-wrapper ">';
-			//$li_prefix = '<div class="timeline-block separator '.$el_class.'">';
-			//$li_suffix = '</div>';
+				<div id="'.esc_attr($timeline_seperator_id).'" class="timeline-separator-text '.esc_attr($el_class).'" data-sep-col="'.esc_attr($time_sep_color).'" data-sep-bg-col="'.esc_attr($time_sep_bg_color).'"><span class="sep-text ult-responsive" '.$seperator_data_list.' style="'.esc_attr($seperator_style).'">'.$time_sep_title.'</span></div><div class="timeline-wrapper ">';
 			$style ='';
-			//	$style .= $time_sep_bg_color!='' ?  'background:'.$time_sep_bg_color.';' : '';
-			//	$style .= $time_sep_color!='' ?  'color:'.$time_sep_color.';' : '';
-				//$output .='<div class="ult-timeline-title '.$el_class.' " style="'.$style.'">'.$time_sep_title.'</div>';
 			return $output;
 		}
 		function icon_timeline_feat($atts,$content = null){
 			$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $time_title = $time_link = $time_link_apply = $time_read_text = $time_icon = $time_icon_color =  $time_icon_bg_color =  $time_position  = $font_size = $line_color = $animation = $icon_border_style = $icon_border_size = $border_color = $title_style = $desc_style = '' ;
 			$title_line_ht = $desc_line_ht = $title_font_size = $target = $link_title  = $rel = '';
-			//$font_args = array();
+			
 			extract(shortcode_atts(array(
 				'icon_type' => 'noicon',
 				'icon' => '',
@@ -1274,7 +1263,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 				),$atts));
 			$html = '';
 			$line_style = $custom_style = $bg_cls = '';
-			$box_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_link="'.$icon_link.'" icon_animation="'.$icon_animation.'"]');
+			$box_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_link="'.esc_attr($icon_link).'" icon_animation="'.esc_attr($icon_animation).'"]');
 			if($icon_color_bg == "")
 				$bg_cls .= 'tl-icon-no-bg';
 			if($line_color!='')
@@ -1287,13 +1276,9 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			{
 				$font_family = get_ultimate_font_family($title_font);
 				$title_style .= 'font-family:\''.$font_family.'\';';
-				//array_push($font_args, $title_font);
 			}
 			if($title_font_style != '')
 				$title_style .= get_ultimate_font_style($title_font_style);
-			// if($title_font_size != '')
-			// 	$title_style .= 'font-size:'.$title_font_size.'px;';
-			//responsive param
 
 			if(is_numeric($title_font_size)){
 				$title_font_size = 'desktop:'.$title_font_size.'px;';
@@ -1318,12 +1303,9 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			{
 				$font_family = get_ultimate_font_family($desc_font);
 				$desc_style .= 'font-family:\''.$font_family.'\';';
-				//array_push($font_args, $desc_font);
 			}
 			if($desc_font_style != '')
 				$desc_style .= get_ultimate_font_style($desc_font_style);
-			// if($desc_font_size != '')
-			// 	$desc_style .= 'font-size:'.$desc_font_size.'px;';
 			if(is_numeric($desc_font_size)){
 				$desc_font_size = 'desktop:'.$desc_font_size.'px;';
 			}
@@ -1340,50 +1322,45 @@ if(!class_exists('Ultimate_Icon_Timeline'))
             $data_list_desc = get_ultimate_vc_responsive_media_css($timeline_featured_title_args);
 			if($desc_font_color != '')
 				$desc_style .= 'color:'.$desc_font_color.';';
-			//enquque_ultimate_google_fonts($font_args);
-			$li_prefix = '<div class="timeline-block '.$el_class.'"><div class="timeline-dot"></div><div class="ult-timeline-arrow"><s></s><l></l></div>';
+			$li_prefix = '<div class="timeline-block '.esc_attr($el_class).'"><div class="timeline-dot"></div><div class="ult-timeline-arrow"><s></s><l></l></div>';
 			$li_suffix ='</div>';
 			$style = ($time_icon_color !== '') ? ' color:'.$time_icon_color.';' : ' ';
 			$style .= ($time_icon_bg_color !== '') ? ' background:'.$time_icon_bg_color.';' : ' ';
 			$style .= ($font_size !== '') ? ' font-size:'.$font_size.'px;' : ' ';
 			$icon_pad = '';
 			$header_block_style ='';
-			$icon = '<div class="timeline-icon-block"'.$icon_pad.'><div class="ult-timeline-icon '.$bg_cls.'" style="'.$style.'">';
+			$icon = '<div class="timeline-icon-block"'.$icon_pad.'><div class="ult-timeline-icon '.esc_attr($bg_cls).'" style="'.esc_attr($style).'">';
 			if($icon_type!='noicon')
-				$icon .= $box_icon;//'<i  style="'.$icon_style.'" class="'.$time_icon.'" ></i>';
+				$icon .= $box_icon;
 			$icon .= '</div> <!-- icon --></div>';
 			$link_sufix = $link_prefix = '';
-			// if($time_link !=''){
-			// 	$href = vc_build_link($time_link);
-			// 	$link_prefix = '<a href = '.$href['url'].'>';$link_sufix = '</a>';
-			// }
+			
 			$vv_link ='';
 			if($time_link !=''){
 				$href 			= vc_build_link($time_link);
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-				$link_prefix = '<a class="tl-desc-a" href="' . $url .'" '. $target .' '. $link_title .' '. $rel .'>';
+				$link_prefix = '<a class="tl-desc-a" href="' . esc_url($url) .'" '. $target .' '. $link_title .' '. $rel .'>';
 				$link_sufix = '</a>';
 			}
 			$header = '';
 			$header .= '<div class="timeline-header-block" '.$header_block_style.'>
-							<div class="timeline-header" id="'.$timeline_featured_id.'"  style="">';
-			$header .= '<h3 class="ult-timeline-title ult-responsive"  '.$data_list.' style="'.$title_style.'">'.$time_title.'</h3>';
+							<div class="timeline-header" id="'.esc_attr($timeline_featured_id).'"  style="">';
+			$header .= '<h3 class="ult-timeline-title ult-responsive"  '.$data_list.' style="'.esc_attr($title_style).'">'.$time_title.'</h3>';
 			if ($time_link_apply!='' && $time_link_apply == 'title') {
 				$header = $link_prefix.$header.$link_sufix;
-				//$header.='<a href="'.$vv_link.'" class="link-title"></a>';
 			}
-			$header .= '<div class="ult-responsive custom-lht" '.$data_list_desc.' style="'.$desc_style.'">'.do_shortcode($content).'</div>';
+			$header .= '<div class="ult-responsive custom-lht" '.$data_list_desc.' style="'.esc_attr($desc_style).'">'.do_shortcode($content).'</div>';
 			if ($time_link_apply!='' && $time_link_apply == 'more') {
 				$header = $header.'<p>'.$link_prefix.$time_read_text.$link_sufix.'</p>';
 			}
 			$header .= '</div> <!-- header --></div>';
 			$contt='';
 			if($time_link_apply!='' && $time_link_apply == 'box'){
-				$contt.='<a class="link-box ult-link-box" href = "' . $url .'" '. $target .' '. $link_title .' '. $rel .'></a>';
+				$contt.='<a class="link-box ult-link-box" href = "' . esc_url($url) .'" '. $target .' '. $link_title .' '. $rel .'></a>';
 			}
 			$icon_wrap_preffix='<div class="timeline-icon-block">';
 			$icon_wrap_suffix='</div>';
@@ -1391,12 +1368,12 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			$heading_suffix='</div>';
 			$html =  $icon . $header ;
 			$feat_spl ='</div>';
-			if($arrow_position == 'bottom') // featured item at top
+			if($arrow_position == 'bottom') // featured item at top.
 				$ext_class = 'feat-top';
 			else
 				$ext_class = '';
-			$feat_spl .= '<div class="timeline-feature-item feat-item '.$ext_class.' '.$el_class.'">';
-			$contt.='<div class="feat-dot '.$ext_class.'"><div class="timeline-dot"></div></div><div class="ult-timeline-arrow '.$ext_class.'"><s></s><l></l></div>'.$html;
+			$feat_spl .= '<div class="timeline-feature-item feat-item '.esc_attr($ext_class).' '.esc_attr($el_class).'">';
+			$contt.='<div class="feat-dot '.esc_attr($ext_class).'"><div class="timeline-dot"></div></div><div class="ult-timeline-arrow '.esc_attr($ext_class).'"><s></s><l></l></div>'.$html;
 			$contt .='</div><div class="timeline-wrapper ">';
 			$feat_spl .=$contt;
 			return $feat_spl ;
@@ -1404,7 +1381,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 		function icon_timeline_item($atts,$content = null){
 			$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $time_title = $time_link = $time_link_apply = $time_read_text = $time_icon = $time_icon_color =  $time_icon_bg_color =  $time_position  = $font_size = $line_color = $animation = $icon_border_style = $icon_border_size = $border_color = $title_style = $desc_style = '' ;
 			$title_line_height = $desc_line_height = $target = $link_title  = $rel = '';
-			//$font_args = array();
+			
 			extract(shortcode_atts(array(
 				'icon_type' => 'noicon',
 				'icon' => '',
@@ -1443,7 +1420,7 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 				),$atts));
 			$html = '';
 			$line_style = $custom_style = $bg_cls = '';
-			$box_icon = do_shortcode('[just_icon icon_type="'.$icon_type.'" icon="'.$icon.'" icon_img="'.$icon_img.'" img_width="'.$img_width.'" icon_size="'.$icon_size.'" icon_color="'.$icon_color.'" icon_style="'.$icon_style.'" icon_color_bg="'.$icon_color_bg.'" icon_color_border="'.$icon_color_border.'"  icon_border_style="'.$icon_border_style.'" icon_border_size="'.$icon_border_size.'" icon_border_radius="'.$icon_border_radius.'" icon_border_spacing="'.$icon_border_spacing.'" icon_link="'.$icon_link.'" icon_animation="'.$icon_animation.'"]');
+			$box_icon = do_shortcode('[just_icon icon_type="'.esc_attr($icon_type).'" icon="'.esc_attr($icon).'" icon_img="'.esc_attr($icon_img).'" img_width="'.esc_attr($img_width).'" icon_size="'.esc_attr($icon_size).'" icon_color="'.esc_attr($icon_color).'" icon_style="'.esc_attr($icon_style).'" icon_color_bg="'.esc_attr($icon_color_bg).'" icon_color_border="'.esc_attr($icon_color_border).'"  icon_border_style="'.esc_attr($icon_border_style).'" icon_border_size="'.esc_attr($icon_border_size).'" icon_border_radius="'.esc_attr($icon_border_radius).'" icon_border_spacing="'.esc_attr($icon_border_spacing).'" icon_link="'.esc_attr($icon_link).'" icon_animation="'.esc_attr($icon_animation).'"]');
 			if($icon_color_bg == "")
 				$bg_cls .= 'tl-icon-no-bg';
 			if($line_color!='')
@@ -1456,12 +1433,9 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			{
 				$font_family = get_ultimate_font_family($title_font);
 				$title_style .= 'font-family:\''.$font_family.'\';';
-				//array_push($font_args, $title_font);
 			}
 			if($title_font_style != '')
 				$title_style .= get_ultimate_font_style($title_font_style);
-			// if($title_font_size != '')
-			// 	$title_style .= 'font-size:'.$title_font_size.'px;';
 
 			if(is_numeric($title_font_size)){
 				$title_font_size = 'desktop:'.$title_font_size.'px;';
@@ -1485,12 +1459,9 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 			{
 				$font_family = get_ultimate_font_family($desc_font);
 				$desc_style .= 'font-family:\''.$font_family.'\';';
-				//array_push($font_args, $desc_font);
 			}
 			if($desc_font_style != '')
 				$desc_style .= get_ultimate_font_style($desc_font_style);
-			// if($desc_font_size != '')
-			// 	$desc_style .= 'font-size:'.$desc_font_size.'px;';
 
 			if(is_numeric($desc_font_size)){
 				$desc_font_size = 'desktop:'.$desc_font_size.'px;';
@@ -1508,48 +1479,44 @@ if(!class_exists('Ultimate_Icon_Timeline'))
             $Item_desc_data_list = get_ultimate_vc_responsive_media_css($timeline_item_args_desc);
 			if($desc_font_color != '')
 				$desc_style .= 'color:'.$desc_font_color.';';
-			//enquque_ultimate_google_fonts($font_args);
-			$li_prefix = '<div class="timeline-block '.$el_class.'"><div class="timeline-dot"></div><div class="ult-timeline-arrow"><s></s><l></l></div>';
+			$li_prefix = '<div class="timeline-block '.esc_attr($el_class).'"><div class="timeline-dot"></div><div class="ult-timeline-arrow"><s></s><l></l></div>';
 			$li_suffix ='</div>';
 			$style = ($time_icon_color !== '') ? ' color:'.$time_icon_color.';' : ' ';
 			$style .= ($time_icon_bg_color !== '') ? ' background:'.$time_icon_bg_color.';' : ' ';
 			$style .= ($font_size !== '') ? ' font-size:'.$font_size.'px;' : ' ';
 			$icon_pad = '';
 			$header_block_style ='';
-			$icon = '<div class="timeline-icon-block"><div class="ult-timeline-icon '.$bg_cls.'" style="'.$style.'">';
+			$icon = '<div class="timeline-icon-block"><div class="ult-timeline-icon '.esc_attr($bg_cls).'" style="'.esc_attr($style).'">';
 			if($icon_type!='noicon')
-				$icon .= $box_icon;//'<i  style="'.$icon_style.'" class="'.$time_icon.'" ></i>';
+				$icon .= $box_icon;
 			$icon .= '</div> <!-- icon --></div>';
 			$link_sufix = $link_prefix = '';
 			$vv_link ='';
 			if($time_link !=''){
 				$href 			= vc_build_link($time_link);
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
-				$link_prefix = '<a class="tl-desc-a" href="' . $url .'" '. $target .' '. $link_title .' '. $rel .'>';
+				$link_prefix = '<a class="tl-desc-a" href="' . esc_attr($url) .'" '. $target .' '. $link_title .' '. $rel .'>';
 				$link_sufix = '</a>';
 			}
 			$header = $header_link_prefix = $header_link_suffix = '';
 			$header .= '<div class="timeline-header-block" '.$header_block_style.'>
-							<div id="'.$timeline_item_id.'" class="timeline-header" style="">';
+							<div id="'.esc_attr($timeline_item_id).'" class="timeline-header" style="">';
 			if ($time_link_apply!='' && $time_link_apply == 'title') {
-				//$header = $link_prefix.$header.$link_sufix;
-				$header_link_prefix ='<a href="'.$url.'" '. $link_title .' '. $rel .' '. $target .' class="link-title">';
+				$header_link_prefix ='<a href="'.esc_url($url).'" '. $link_title .' '. $rel .' '. $target .' class="link-title">';
 				$header_link_suffix = '</a>';
 			}
-			$header .= '<h3 class="ult-timeline-title ult-responsive" '.$Item_data_list.' style="'.$title_style.'">'.$header_link_prefix.$time_title.$header_link_suffix.'</h3>';
-			$header .= '<div class="ult-responsive timeline-item-spt" '.$Item_desc_data_list.' style="'.$desc_style.'">'.do_shortcode($content).'</div>';
+			$header .= '<h3 class="ult-timeline-title ult-responsive" '.$Item_data_list.' style="'.esc_attr($title_style).'">'.$header_link_prefix.$time_title.$header_link_suffix.'</h3>';
+			$header .= '<div class="ult-responsive timeline-item-spt" '.$Item_desc_data_list.' style="'.esc_attr($desc_style).'">'.do_shortcode($content).'</div>';
 			if ($time_link_apply!='' && $time_link_apply == 'more') {
 				$header = $header.'<p>'.$link_prefix.$time_read_text.$link_sufix.'</p>';
 			}
 			$header .= '</div> <!-- header --></div>';
 			if($time_link_apply!='' && $time_link_apply == 'box'){
-				$header.='<a url="'.$url.'" '. $link_title .' '. $rel .' '. $target .' class="link-box ult-link-box"></a>';
-				//$li_prefix = $link_prefix.$li_prefix;
-				//$li_suffix = $link_sufix.$li_suffix;
+				$header.='<a href="'.esc_url($url).'" '. $link_title .' '. $rel .' '. $target .' class="link-box ult-link-box"></a>';
 			}
 			$icon_wrap_preffix='<div class="timeline-icon-block">';
 			$icon_wrap_suffix='</div>';
@@ -1560,10 +1527,13 @@ if(!class_exists('Ultimate_Icon_Timeline'))
 		}
 	}
 }
-if(class_exists('WPBakeryShortCodesContainer'))
+if(class_exists('WPBakeryShortCodesContainer') && !class_exists('WPBakeryShortCode_icon_timeline'))
 {
 	class WPBakeryShortCode_icon_timeline extends WPBakeryShortCodesContainer {
 	}
+}
+if(class_exists('WPBakeryShortCodesContainer') && !class_exists('WPBakeryShortCode_icon_timeline_item'))
+{
 	class WPBakeryShortCode_icon_timeline_item extends WPBakeryShortCode {
 	}
 }

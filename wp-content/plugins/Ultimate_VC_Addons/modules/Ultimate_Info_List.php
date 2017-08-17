@@ -22,7 +22,9 @@ if(!class_exists('AIO_Info_list'))
 			$this->connect_color = '';
 			$this->icon_style = '';
 			$this->icon_style = '';
-			add_action('init', array($this, 'add_info_list'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init', array($this, 'add_info_list'));
+			}
 			if(function_exists('vc_is_inline')){
 				if(!vc_is_inline()){
 					add_shortcode( 'info_list', array($this, 'info_list' ) );
@@ -93,8 +95,8 @@ if(!class_exists('AIO_Info_list'))
 				$this->connector_animate = "fadeInLeft";
 			else
 				$this->connector_animate = $connector_animation;
-			$output = '<div class="smile_icon_list_wrap '.$is_vc_49_plus.' '.$el_class.' '.$css_info_list.'">';
-			$output .= '<ul class="smile_icon_list '.$position.' '.$style.'">';
+			$output = '<div class="smile_icon_list_wrap ult_info_list_container '.esc_attr($is_vc_49_plus).' '.esc_attr($el_class).' '.esc_attr($css_info_list).'">';
+			$output .= '<ul class="smile_icon_list '.esc_attr($position).' '.esc_attr($style).'">';
 			$output .= do_shortcode($content);
 			$output .= '</ul>';
 			$output .= '</div>';
@@ -134,13 +136,13 @@ if(!class_exists('AIO_Info_list'))
 			{
 				$href 			= vc_build_link($info_list_link);
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 
 				if($url != '')
 				{
-					$info_list_link_html = '<a href="'.$url.'" class="ulimate-info-list-link" '.$target.' '. $link_title .' '. $rel .'></a>';
+					$info_list_link_html = '<a href="'.esc_url($url).'" class="ulimate-info-list-link" '.$target.' '. $link_title .' '. $rel .'></a>';
 				}
 				$is_link = true;
 			}
@@ -237,35 +239,35 @@ if(!class_exists('AIO_Info_list'))
 					$alt = 'icon';
 				//if(!empty($img)){
 
-				$icon_html .= '<div class="icon_list_icon" '.$css_trans.' style="'.$this->icon_style.'">';
-				$icon_html .= '<img class="list-img-icon" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'"/>';
+				$icon_html .= '<div class="icon_list_icon" '.$css_trans.' style="'.esc_attr($this->icon_style).'">';
+				$icon_html .= '<img class="list-img-icon" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'"/>';
 				if($is_link && $info_list_link_apply == 'icon')
 					$icon_html .= $info_list_link_html;
 				$icon_html .= '</div>';
 			 // }
 			}
 			else {
-				$icon_html .= '<div class="icon_list_icon" '.$css_trans.' style="'.$this->icon_style.'">';
-				$icon_html .= '<i class="'.$list_icon.'" '.$ico_col.'></i>';
+				$icon_html .= '<div class="icon_list_icon" '.$css_trans.' style="'.esc_attr($this->icon_style).'">';
+				$icon_html .= '<i class="'.esc_attr($list_icon).'" '.$ico_col.'></i>';
 				if($is_link && $info_list_link_apply == 'icon')
 					$icon_html .= $info_list_link_html;
 				$icon_html .= '</div>';
 			}
-			$output = '<li class="icon_list_item" style=" '.$this->icon_font.'">';
+			$output = '<li class="icon_list_item" style=" '.esc_attr($this->icon_font).'">';
 			$output .= $icon_html;
-			$output .= '<div class="icon_description" id="'.$info_list_id.'" style="font-size:'.$this->icon_size.'px;">';
+			$output .= '<div class="icon_description" id="'.esc_attr($info_list_id).'" style="font-size:'.esc_attr($this->icon_size).'px;">';
 			if($list_title != '')
 			{
-				$output .= '<h3 class="ult-responsive" '.$info_list_data_list.' style="'.$title_style.'">';
+				$output .= '<h3 class="ult-responsive" '.$info_list_data_list.' style="'.esc_attr($title_style).'">';
 				if($is_link && $info_list_link_apply == 'title')
-					$output .= '<a href="'.$url.'" target="'.$target.'">'.$list_title.'</a>';
+					$output .= '<a href="'.esc_url($url).'" target="'.esc_attr($target).'">'.$list_title.'</a>';
 				else
 					$output .= $list_title;
 				$output .= '</h3>';
 			}
-			$output .= '<div class="icon_description_text ult-responsive" '.$info_list_desc_data_list.' style="'.$desc_style.'">'.wpb_js_remove_wpautop($content, true).'</div>';
+			$output .= '<div class="icon_description_text ult-responsive" '.$info_list_desc_data_list.' style="'.esc_attr($desc_style).'">'.wpb_js_remove_wpautop($content, true).'</div>';
 			$output .= '</div>';
-			$output .= '<div class="icon_list_connector" '.$connector_trans.' style="border-color:'.$this->connect_color.';"></div>';
+			$output .= '<div class="icon_list_connector" '.$connector_trans.' style="border-color:'.esc_attr($this->connect_color).';"></div>';
 			if($is_link && $info_list_link_apply == 'container')
 				$output .= $info_list_link_html;
 			$output .= '</li>';
@@ -319,8 +321,8 @@ if(!class_exists('AIO_Info_list'))
 				$this->connector_animate = "fadeInLeft";
 			else
 				$this->connector_animate = $connector_animation;
-			$output = '<div class="smile_icon_list_wrap '.$el_class.''.$css_info_list.'">';
-			$output .= '<ul class="smile_icon_list '.$position.' '.$style.'" data-style="'.$this->icon_style.'" data-fonts="'.$this->icon_font.'" data-connector="'.$connector_color.'">';
+			$output = '<div class="smile_icon_list_wrap '.esc_attr($el_class).''.esc_attr($css_info_list).'">';
+			$output .= '<ul class="smile_icon_list '.esc_attr($position).' '.esc_attr($style).'" data-style="'.esc_attr($this->icon_style).'" data-fonts="'.esc_attr($this->icon_font).'" data-connector="'.esc_attr($connector_color).'">';
 			$output .= do_shortcode($content);
 			$output .= '</ul>';
 			$output .= '</div>';
@@ -341,11 +343,11 @@ if(!class_exists('AIO_Info_list'))
 			$css_trans = $style = $ico_col = $connector_trans = $icon_html = '';
 			if($animation !== 'none')
 			{
-				$css_trans = 'data-animation="'.$animation.'" data-animation-delay="03"';
+				$css_trans = 'data-animation="'.esc_attr($animation).'" data-animation-delay="03"';
 			}
 			if($this->connector_animate)
 			{
-				$connector_trans = 'data-animation="'.$this->connector_animate.'" data-animation-delay="02"';
+				$connector_trans = 'data-animation="'.esc_attr($this->connector_animate).'" data-animation-delay="02"';
 			}
 			if($icon_color !=''){
 				$ico_col = 'style="color:'.$icon_color.'";';
@@ -358,17 +360,17 @@ if(!class_exists('AIO_Info_list'))
 			}
 			if($icon_type == "selector"){
 				$icon_html .= '<div class="icon_list_icon" '.$css_trans.'>';
-				$icon_html .= '<i class="'.$list_icon.'" '.$ico_col.'></i>';
+				$icon_html .= '<i class="'.esc_attr($list_icon).'" '.$ico_col.'></i>';
 				$icon_html .= '</div>';
 			} else {
 
 				$img = apply_filters('ult_get_img_single', $icon_img, 'url', 'large');
 				//if(!empty($img)){
 				$icon_html .= '<div class="icon_list_icon" '.$css_trans.'>';
-				$icon_html .= '<img class="list-img-icon " alt="icon" src="'.apply_filters('ultimate_images', $img).'"/>';
+				$icon_html .= '<img class="list-img-icon " alt="icon" src="'.esc_url(apply_filters('ultimate_images', $img)).'"/>';
 				$img = apply_filters('ult_get_img_single', $icon_img, 'url');
 				$icon_html .= '<div class="icon_list_icon" '.$css_trans.'>';
-				$icon_html .= '<img class="list-img-icon" alt="icon" src="'.apply_filters('ultimate_images', $img).'"/>';
+				$icon_html .= '<img class="list-img-icon" alt="icon" src="'.esc_url(apply_filters('ultimate_images', $img)).'"/>';
 				$icon_html .= '</div>';
 			   //}
 			}
@@ -379,7 +381,7 @@ if(!class_exists('AIO_Info_list'))
 			$output .= '<h3>'.$list_title.'</h3>';
 			$output .= wpb_js_remove_wpautop($content, true);
 			$output .= '</div>';
-			$output .= '<div class="icon_list_connector" '.$connector_trans.' style="border-color:'.$this->connect_color.';"></div>';
+			$output .= '<div class="icon_list_connector" '.$connector_trans.' style="border-color:'.esc_attr($this->connect_color).';"></div>';
 			$output .= '</li>';
 			return $output;
 		}
@@ -808,17 +810,21 @@ if(!class_exists('AIO_Info_list'))
 global $AIO_Info_list; // WPB: Beter to create singleton in AIO_Info_list I think, but it also work
 if(class_exists('WPBakeryShortCodesContainer'))
 {
-	class WPBakeryShortCode_info_list extends WPBakeryShortCodesContainer {
-        function content( $atts, $content = null ) {
-            global $AIO_Info_list;
-            return $AIO_Info_list->front_info_list($atts, $content);
-        }
+	if ( ! class_exists( 'WPBakeryShortCode_info_list' ) ) {
+		class WPBakeryShortCode_info_list extends WPBakeryShortCodesContainer {
+	        function content( $atts, $content = null ) {
+	            global $AIO_Info_list;
+	            return $AIO_Info_list->front_info_list($atts, $content);
+	        }
+		}
 	}
-	class WPBakeryShortCode_info_list_item extends WPBakeryShortCode {
-        function content($atts, $content = null ) {
-            global $AIO_Info_list;
-            return $AIO_Info_list->front_info_list_item($atts, $content);
-        }
+	if ( ! class_exists( 'WPBakeryShortCode_info_list_item' ) ) {
+		class WPBakeryShortCode_info_list_item extends WPBakeryShortCode {
+	        function content($atts, $content = null ) {
+	            global $AIO_Info_list;
+	            return $AIO_Info_list->front_info_list_item($atts, $content);
+	        }
+		}
 	}
 }
 if(class_exists('AIO_Info_list'))

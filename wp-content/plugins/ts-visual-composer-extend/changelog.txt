@@ -1,3 +1,68 @@
+Version 5.2.2
+-------------
+- Added new element "TS Loan Calculator"
+- Added option to "TS Video YouTube" element to send a video quality request to YouTube
+- Added option to "TS Advanced Texblock" element to use either auto/fixed/maximum/minimum height settings for content
+- Added option to "TS Advanced Texblock" element to use a custom scrollbar for fixed/maximum content heights
+- Added option to "TS Teaser Block" and "TS Teaser Block Slide" elements to define custom border settings and radius
+- Added option to "TS Teaser Block" and "TS Teaser Block Slide" elements to use a custom scrollbar for fixed content heights
+- Improved usage for "TS Teaser Block" and "TS Teaser Block Slide" elements when no teaser link has been provided
+- Added option to "TS Panel Flip" element to customize line height for front and back content independently
+- Fixed "Undefined variable: front_icon_frame_class in ts_vcsc_shortcode_panel_flip.php" warning message for "TS Panel Flip" element
+- Added option to "TS Google Maps PLUS" and "TS Google Maps SINGLE" elements to use map activation toggle for all device types
+- Google map instances for "TS Google Maps PLUS" and "TS Google Maps SINGLE" elements are now exposed via JS variable "$TS_VCSC_Map_Instances"
+- Fixed wrong y-axis tooltip offset for "TS Fance Tabs (BETA)" element
+- Fixed "Undefined index: title" for "TS Fance Tabs (BETA)" element if no tab title has been provided
+- Changed custom scrollbar routine for "TS Circle Steps" element from "NiceScroll" to "PerfectScrollbar" script
+- Changed custom scrollbar routine for "TS Slit Slider" element from "NiceScroll" to "PerfectScrollbar" script
+- Added option to "TS Circle Steps" element to define a fixed or maximum height for the content holder when shown below/above the circle
+- Fixed issue with "TS Circle Steps" element where content is cut off on FireFox browser when shown below/above the circle
+- Changed built-in font icon generator "Iconicum" to drop unnecessary inner SPAN element within icon syntax
+- Fixed "Undefined property: VISUAL_COMPOSER_EXTENSIONS::$TS_VCSC_VisualComposer_Version" warning when main Visual Composer plugin is deactivated
+- Fixed "Use of undefined constant WPB_VC_VERSION - assumed WPB_VC_VERSION" warning when main Visual Composer plugin is deactivated
+- Fixed occasional fatal error "Cannot use object of type WP_Error as array ts_vcsc_autoupdate.php on line 242" for 3rd party auto-update routine
+- Fixed some spelling errors in German translation file
+- Other CSS + JS Improvements
+- Updated EN/DE .po/.mo language files
+
+Version 5.2.1
+-------------
+- Fixed issue with rogue space character at beginning of shortcode file for "TS Image Adipoli" element
+
+Version 5.2.0
+-------------
+- Auto-update routine has been moved to an external service at "https://kernl.us" for better performance
+- Auto-update notification page has been removed from plugin
+- Included bonus feature "Iconicum - Font Icon Generator" can now be used by all users and does not require a valid license key anymore
+- Removed unnecessary browser console messages for "TS Panel Flip" element
+- Improved tab overflow behavior for horizontal layouts for "TS Fancy Tabs (BETA)" element
+- All underscore shortcodes now properly extend "WPBakeryShortCodesContainer" or "WPBakeryShortCode" classes in Visual Composer
+- Fixed issues with last update package where random additional empty lines appeared in some shortcode files due to file corruption
+- Fixed inline style/script addition routine when plugin is globally set to load its core files on all pages
+- Other CSS + JS Improvements
+- Updated EN/DE .po/.mo language files
+
+Version 5.1.8
+-------------
+- Added support for custom icon font to icon picker parameters within "TS Image Advanced Overlay" element settings panel
+- Added support for custom icon font to icon picker parameters within "TS ToTop Menu Item" element settings panel
+- Added option to "TS Process Lines Item" element to add link to process title
+- Fixed issue with icon picker parameter where custom uploaded icon font is showing twice
+- Fixed issue with NivoSlider layout in "TS Image Gallery" element where gallery fails on mobile devices when not using the lightbox option
+- Added option to "TS Image Adipoli" element to use tinyMCE editor for tooltip content
+- Fixed issue with "TS Image Adipoli" element where optional tooltip does not show
+- Added option to "TS Image SVG" element to use link for in-page navigation
+- Unlocked input field for tab ID for "TS Single Tab (BETA)" element to provide custom ID name (default ID name will still be rendered initially)
+- Fixed issue with "TS Fancy Tabs (BETA)" element where adding an icon animation can cause an "Undefined index: animation_type" debug notice
+- Fixed issue with "TS Fancy Tabs (BETA)" element where disabling shadow and grow effect does not transfer to rendered tabs
+- Fixed issue with "TS Fancy Tabs (BETA)" element where custom tabs content background color does not transfer to rendered tabs
+- Improved/Fixed  "wp_style_is()" checks for some elements for output of custom CSS rules
+- Fixed "Undefined property: VISUAL_COMPOSER_EXTENSIONS::$TS_VCSC_ShowNotificationPage" warning if update notification feature has been deactivated
+- Fixed some spelling errors in German translation file
+- Made underlying JS backend routines backwards compatible to noUiSlider script v9.0.0 (currently using v9.2.0)
+- Other CSS + JS Improvements
+- Updated EN/DE .po/.mo language files
+
 Version 5.1.7
 -------------
 - Added option to "TS Horizontal Timeline Item" element to alternatively provide date (and time) for event via quick entry

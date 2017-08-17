@@ -47,7 +47,7 @@
 		$output 						= '';
 		$styling						= '';
 		$wpautop 						= ($content_wpautop == "true" ? true : false);
-		$inline							= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+		$inline							= TS_VCSC_FrontendAppendCustomRules('style');
 		
 		if (!empty($el_id)) {
 			$list_id					= $el_id;
@@ -161,7 +161,7 @@
 			$styling .= '</style>';
 		}
 		if (($styling != "") && ($inline == "true")) {
-			wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($styling));
+			wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($styling));
 		}
 		
 		// Create List Output

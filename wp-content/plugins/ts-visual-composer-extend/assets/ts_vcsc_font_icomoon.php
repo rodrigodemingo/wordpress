@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_IcoMoon = array(
     $this->TS_VCSC_Icons_Compliant_IcoMoon = array(
         "IcoMoon Font" => array(
             array("ts-icomoon-home" => "home house"),

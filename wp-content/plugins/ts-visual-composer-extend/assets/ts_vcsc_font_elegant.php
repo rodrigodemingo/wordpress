@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Elegant = array(
     $this->TS_VCSC_Icons_Compliant_Elegant = array(
         "Elegant Icons Font" => array(
             array("ts-elegant-arrow-up" => "arrow up"),

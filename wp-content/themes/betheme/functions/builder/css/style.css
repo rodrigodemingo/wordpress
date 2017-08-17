@@ -286,6 +286,9 @@ li.mfn-item-content .mfn-item-icon,
 /* Image */
 .mfn-item-image .mfn-item-icon { background-image:url(../images/items/image.png);}
 
+/* Image */
+.mfn-item-image_gallery .mfn-item-icon { background-image:url(../images/items/image_gallery.png);}
+
 /* Info box */
 .mfn-item-info_box .mfn-item-icon,
 .vc_element-icon.mfn-vc-icon-info_box { background-image:url(../images/items/info_box.png);}

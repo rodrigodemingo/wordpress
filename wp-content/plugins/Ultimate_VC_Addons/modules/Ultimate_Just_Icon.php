@@ -9,7 +9,9 @@ if(!class_exists('AIO_Just_Icon'))
 	{
 		function __construct()
 		{
-			add_action('init',array($this,'just_icon_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'just_icon_init'));
+			}
 			add_shortcode('just_icon',array($this,'just_icon_shortcode'));
 		}
 		function just_icon_init()
@@ -311,21 +313,21 @@ if(!class_exists('AIO_Just_Icon'))
 
 			if($icon_animation !== 'none')
 			{
-				$css_trans = 'data-animation="'.$icon_animation.'" data-animation-delay="03"';
+				$css_trans = 'data-animation="'.esc_attr($icon_animation).'" data-animation-delay="03"';
 			}
 
 			$uniqid = uniqid();
 			if($icon_link !== ''){
 				$href = vc_build_link($icon_link);
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
-				$link_prefix .= '<a class="aio-tooltip '.$uniqid.'" href = "'. $url .'" '.$target.' '. $rel .' '. $link_title .' data-toggle="tooltip" data-placement="'.$tooltip_disp.'" title="'.$tooltip_text.'">';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $tooltip_text ) && $tooltip_text !== '' ) ? "title='".esc_attr($tooltip_text)."'" : "title='".esc_attr($href['title'])."'" ;
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
+				$link_prefix .= '<a class="aio-tooltip '.esc_attr($uniqid).'" href = "'. esc_url($url) .'" '.$target.' '. $rel .' '. $link_title .' data-toggle="tooltip" data-placement="'.esc_attr($tooltip_disp).'">';
 				$link_sufix .= '</a>';
 			} else {
 				if($tooltip_disp !== ""){
-					$link_prefix .= '<div class="aio-tooltip '.$uniqid.'" href = "'.$href.'" '.$target.' data-toggle="tooltip" data-placement="'.$tooltip_disp.'" title="'.$tooltip_text.'">';
+					$link_prefix .= '<div class="aio-tooltip '.esc_attr($uniqid).'" href = "'.esc_url($href).'" '.$target.' data-toggle="tooltip" data-placement="'.esc_attr($tooltip_disp).'" title="'.esc_attr($tooltip_text).'">';
 					$link_sufix .= '</div>';
 				}
 			}
@@ -374,8 +376,8 @@ if(!class_exists('AIO_Just_Icon'))
 					if($icon_link == '' || $icon_align == 'center') {
 						$style .= 'display:inline-block;';
 					}
-					$output .= "\n".$link_prefix.'<div class="aio-icon-img '.$elx_class.'" style="font-size:'.$img_width.'px;'.$style.'" '.$css_trans.'>';
-					$output .= "\n\t".'<img class="img-icon" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'"/>';
+					$output .= "\n".$link_prefix.'<div class="aio-icon-img '.esc_attr($elx_class).'" style="font-size:'.esc_attr($img_width).'px;'.esc_attr($style).'" '.$css_trans.'>';
+					$output .= "\n\t".'<img class="img-icon" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'"/>';
 					$output .= "\n".'</div>'.$link_sufix;
 				}
 				$output = $output;
@@ -404,25 +406,25 @@ if(!class_exists('AIO_Just_Icon'))
 					$style .= 'display:inline-block;';
 				}
 				if($icon !== ""){
-					$output .= "\n".$link_prefix.'<div class="aio-icon '.$icon_style.' '.$elx_class.'" '.$css_trans.' style="'.$style.'">';
-					$output .= "\n\t".'<i class="'.$icon.'"></i>';
+					$output .= "\n".$link_prefix.'<div class="aio-icon '.esc_attr($icon_style).' '.esc_attr($elx_class).'" '.$css_trans.' style="'.esc_attr($style).'">';
+					$output .= "\n\t".'<i class="'.esc_attr($icon).'"></i>';
 					$output .= "\n".'</div>'.$link_sufix;
 				}
 				$output = $output;
 			}
-			if($tooltip_disp !== ""){
+			if($tooltip_disp !== "" && $tooltip_text !== "" ){
 				$output .= '<script>
 					jQuery(function () {
-						jQuery(".'.$uniqid.'").bsf_tooltip("hide");
+						jQuery(".'.esc_attr($uniqid).'").bsf_tooltip("hide");
 					})
 				</script>';
 			}
 			/* alignment fix */
 			if($icon_align_style !== ''){
-				$output = '<div class="align-icon" style="'.$icon_align_style.'">'.$output.'</div>';
+				$output = '<div class="align-icon" style="'.esc_attr($icon_align_style).'">'.$output.'</div>';
 			}
 
-			$output = '<div class="ult-just-icon-wrapper '.$el_class.' '.$css_just_icon.'">'.$output.'</div>';
+			$output = '<div class="ult-just-icon-wrapper '.esc_attr($el_class).' '.esc_attr($css_just_icon).'">'.$output.'</div>';
 
 			if($is_preset) {
 				$text = 'array ( ';
@@ -446,7 +448,7 @@ if(class_exists('AIO_Just_Icon'))
 {
 	$AIO_Just_Icon = new AIO_Just_Icon;
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_just_icon' ) ) {
     class WPBakeryShortCode_just_icon extends WPBakeryShortCode {
     }
 }

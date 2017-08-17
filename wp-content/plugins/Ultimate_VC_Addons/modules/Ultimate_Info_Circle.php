@@ -9,27 +9,21 @@ if(!class_exists('Ultimate_Info_Circle'))
 	{
 		function __construct()
 		{
-			add_action('init', array($this, 'add_info_circle'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init', array($this, 'add_info_circle'));
+			}
 			add_action("wp_enqueue_scripts", array($this, "register_info_circle_assets"),1);
 			add_shortcode( 'info_circle', array($this, 'info_circle' ) );
 			add_shortcode( 'info_circle_item', array($this, 'info_circle_item' ) );
 		}
 		function register_info_circle_assets()
 		{
-			$bsf_dev_mode = bsf_get_option('dev_mode');
-			if($bsf_dev_mode === 'enable') {
-				$js_path = '../assets/js/';
-				$css_path = '../assets/css/';
-				$ext = '';
-			}
-			else {
-				$js_path = '../assets/min-js/';
-				$css_path = '../assets/min-css/';
-				$ext = '.min';
-			}
-			wp_register_script("info-circle",plugins_url($js_path."info-circle".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
-			wp_register_script("info-circle-ui-effect",plugins_url($js_path."jquery-ui-effect".$ext.".js",__FILE__),array('jquery'),ULTIMATE_VERSION);
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'info-circle', 'info-circle', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
+			
+			Ultimate_VC_Addons::ultimate_register_script( 'info-circle-ui-effect', 'jquery-ui-effect', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			
 			Ultimate_VC_Addons::ultimate_register_style( 'info-circle', 'info-circle' );
 		}
 		function info_circle($atts, $content = null) {
@@ -206,8 +200,8 @@ if(!class_exists('Ultimate_Info_Circle'))
 			if($visible_circle != '' && $visible_circle != 100 && $circle_type_extended != 'full-circle')
 				$clipped_circle = 'clipped-info-circle';
 
-			$output ='<div class="info-wrapper '.$is_vc_49_plus.'"><div id="info-circle-wrapper-'.$uniq.'" data-uniqid="'.$uniq.'" class="info-circle-wrapper '.$ex_class.' '.$clipped_circle.'" data-half-percentage="'.$visible_circle.'" data-circle-type="'.$circle_type_extended.'">';
-			$output .= '<div class="'.$circle_type.'" style=\''.$style.'\' data-start-degree="'.$start_degree.'" data-divert="'.$icon_diversion.'" data-info-circle-angle="'.$icon_position.'" data-responsive-circle="'.$responsive.'" data-responsive-breakpoint="'.$responsive_breakpoint.'" data-launch="'.$icon_launch.'" data-launch-duration="'.$icon_launch_duration.'" data-launch-delay="'.$icon_launch_delay.'" data-slide-true="'.$auto_slide.'" data-slide-duration="'.$auto_slide_duration.'" data-icon-size="'.$icon_size.'" data-icon-show="'.$icon_show.'" data-icon-show-size="'.$content_icon_size.'" data-highlight-style="'.$highlight_style.'" data-focus-on="'.$focus_on.'">';
+			$output ='<div class="info-wrapper '.esc_attr($is_vc_49_plus).'"><div id="info-circle-wrapper-'.esc_attr($uniq).'" data-uniqid="'.esc_attr($uniq).'" class="info-circle-wrapper '.esc_attr($ex_class).' '.esc_attr($clipped_circle).'" data-half-percentage="'.esc_attr($visible_circle).'" data-circle-type="'.esc_attr($circle_type_extended).'">';
+			$output .= '<div class="'.esc_attr($circle_type).'" style=\''.esc_attr($style).'\' data-start-degree="'.esc_attr($start_degree).'" data-divert="'.esc_attr($icon_diversion).'" data-info-circle-angle="'.esc_attr($icon_position).'" data-responsive-circle="'.esc_attr($responsive).'" data-responsive-breakpoint="'.esc_attr($responsive_breakpoint).'" data-launch="'.esc_attr($icon_launch).'" data-launch-duration="'.esc_attr($icon_launch_duration).'" data-launch-delay="'.esc_attr($icon_launch_delay).'" data-slide-true="'.esc_attr($auto_slide).'" data-slide-duration="'.esc_attr($auto_slide_duration).'" data-icon-size="'.esc_attr($icon_size).'" data-icon-show="'.esc_attr($icon_show).'" data-icon-show-size="'.esc_attr($content_icon_size).'" data-highlight-style="'.esc_attr($highlight_style).'" data-focus-on="'.esc_attr($focus_on).'">';
 
 			$output .= '<div  class="icon-circle-list">';
 
@@ -217,23 +211,23 @@ if(!class_exists('Ultimate_Info_Circle'))
 				$output .='<div class="info-circle-icons suffix-remove"></div>';
 			}
 			$output .= '</div>';
-			$output .='<div id="'.$info_circle_id.'" class="info-c-full" style="'.$style1.'"><div class="info-c-full-wrap"></div>';
+			$output .='<div id="'.esc_attr($info_circle_id).'" class="info-c-full" style="'.esc_attr($style1).'"><div class="info-c-full-wrap"></div>';
 			$output .='</div>';
 			$output .= '</div>';
 			if($responsive=='on'){
-				$output .='<div class="smile_icon_list_wrap " data-content_bg="'.$content_bg.'" data-content_color="'.$content_color.'">
-							<ul id="'.$info_circle_id.'" class="smile_icon_list left circle with_bg">
-								<li class="icon_list_item" style="font-size:'.( $img_icon_size*3).'px;">
-									<div class="icon_list_icon" style="font-size:'. $img_icon_size.'px;">
+				$output .='<div class="smile_icon_list_wrap " data-content_bg="'.esc_attr($content_bg).'" data-content_color="'.esc_attr($content_color).'">
+							<ul id="'.esc_attr($info_circle_id).'" class="smile_icon_list left circle with_bg">
+								<li class="icon_list_item" style="font-size:'.( esc_attr( $img_icon_size ) * 3 ).'px;">
+									<div class="icon_list_icon" style="font-size:'. esc_attr($img_icon_size).'px;">
 										<i class="smt-pencil"></i>
 									</div>
-									<div  class="icon_description" style="font-size:'.$img_icon_size.'px;">
-										<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.' style="'.$desc_style_inline.'">
-											<h3 '.$info_circle_data_list.' class="ult-responsive new-cust-responsive-class" style="'.$title_style_inline.'"></h3>
+									<div  class="icon_description" style="font-size:'.esc_attr($img_icon_size).'px;">
+										<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.' style="'.esc_attr($desc_style_inline).'">
+											<h3 '.$info_circle_data_list.' class="ult-responsive new-cust-responsive-class" style="'.esc_attr($title_style_inline).'"></h3>
 											<p></p>
 										</div>
 									</div>
-									<div class="icon_list_connector" style="border-style:'.$eg_br_style.';border-color:'.$eg_border_color.'">
+									<div class="icon_list_connector" style="border-style:'.esc_attr($eg_br_style).';border-color:'.esc_attr($eg_border_color).'">
 									</div>
 								</li>
 							</ul>
@@ -263,14 +257,14 @@ if(!class_exists('Ultimate_Info_Circle'))
 			), $atts));
 			$icon_html = $output = $icon_type_class = '';
 			if($icon_type == "selector"){
-				$icon_html .= '<i class="'.$info_icon.'" ></i>';
+				$icon_html .= '<i class="'.esc_attr($info_icon).'" ></i>';
 				$icon_type_class = 'ult-info-circle-icon';
 			} else {
 				$img = apply_filters('ult_get_img_single', $info_img, 'url');
 				$alt = apply_filters('ult_get_img_single', $info_img, 'alt');
 				if($alt == '')
 					$alt = 'icon';
-				$icon_html .= '<img class="info-circle-img-icon" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'"/>';
+				$icon_html .= '<img class="info-circle-img-icon" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'"/>';
 				$icon_type_class = 'ult-info-circle-img';
 			}
 			if($icon_bg_color!=''){
@@ -290,34 +284,34 @@ if(!class_exists('Ultimate_Info_Circle'))
 			$href = vc_build_link($ilink);
 			if( !empty($href['url']) ){
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
-				$output .= '<div class="info-circle-icons '.$el_class.'" style="'.$style.'"><div class="info-circle-link">
-								<a class="info-circle-href" href="'. $url .'" '. $target .' '. $rel . ' '. $link_title .'></a>';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
+				$output .= '<div class="info-circle-icons '.esc_attr($el_class).'" style="'.esc_attr($style).'"><div class="info-circle-link">
+								<a class="info-circle-href" href="'. esc_url($url) .'" '. $target .' '. $rel . ' '. $link_title .'></a>';
 				$output .= $icon_html;
 				$output .="</div></div>";
 			}
 			else{
-				$output .= '<div class="info-circle-icons '.$el_class.'" style="'.$style.'">';
+				$output .= '<div class="info-circle-icons '.$el_class.'" style="'.esc_attr($style).'">';
 				$output .= $icon_html;
 				$output .="</div>";
 			}
-			$output .='<div class="info-details" data-icon-class="'.$icon_type_class.'">';
+			$output .='<div class="info-details" data-icon-class="'.esc_attr($icon_type_class).'">';
 			//$output .=$icon_html;
 			if( !empty($href['url']) ){
 				$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 				$output .='<div class="info-circle-def"><div  class="info-circle-sub-def">
-							<a class="info-circle-href" href="'. $url .'" '. $link_title .' '. $rel .' '. $target .'" style="color:inherit;">'.$icon_html.'</a>
-								<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.'><h3 '.$info_circle_data_list.' class="info-circle-heading ult-responsive new-cust-responsive-class" style="'.$title_style_inline.'">'.$info_title.'</h3>
-								<div '.$info_circle_desc_data_list.' class="info-circle-text " style="'.$desc_style_inline.'">'.do_shortcode($content).'</div>
+							<a class="info-circle-href" href="'. esc_url($url) .'" '. $link_title .' '. $rel .' '. $target .'" style="color:inherit;">'.$icon_html.'</a>
+								<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.'><h3 '.$info_circle_data_list.' class="info-circle-heading ult-responsive new-cust-responsive-class" style="'.esc_attr($title_style_inline).'">'.$info_title.'</h3>
+								<div '.$info_circle_desc_data_list.' class="info-circle-text " style="'.esc_attr($desc_style_inline).'">'.do_shortcode($content).'</div>
 							</div></div></div></div>';
 						//$output .= wpb_js_remove_wpautop($content, true);
 			}else{
-				$output .='<div class="info-circle-def"><div  class="info-circle-sub-def">'.$icon_html.'<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.'><h3 '.$info_circle_data_list.' class="info-circle-heading ult-responsive new-cust-responsive-class" style="'.$title_style_inline.'">'.$info_title.'</h3><div '.$info_circle_desc_data_list.' class="info-circle-text " style="'.$desc_style_inline.'">'.do_shortcode($content).'</div></div></div></div></div>';
+				$output .='<div class="info-circle-def"><div  class="info-circle-sub-def">'.$icon_html.'<div class="responsive-font-class ult-responsive" '.$info_circle_desc_data_list.'><h3 '.$info_circle_data_list.' class="info-circle-heading ult-responsive new-cust-responsive-class" style="'.esc_attr($title_style_inline).'">'.$info_title.'</h3><div '.$info_circle_desc_data_list.' class="info-circle-text " style="'.esc_attr($desc_style_inline).'">'.do_shortcode($content).'</div></div></div></div></div>';
 			}
 			return $output;
 		}
@@ -972,9 +966,14 @@ if(!class_exists('Ultimate_Info_Circle'))
 }
 if(class_exists('WPBakeryShortCodesContainer'))
 {
-	class WPBakeryShortCode_info_circle extends WPBakeryShortCodesContainer {
+	if ( ! class_exists( 'WPBakeryShortCode_info_circle' ) ) {
+		class WPBakeryShortCode_info_circle extends WPBakeryShortCodesContainer {
+		}	
 	}
-	class WPBakeryShortCode_info_circle_item extends WPBakeryShortCode {
+	
+	if ( ! class_exists( 'WPBakeryShortCode_info_circle_item' ) ) {
+		class WPBakeryShortCode_info_circle_item extends WPBakeryShortCode {
+		}
 	}
 }
 if(class_exists('Ultimate_Info_Circle'))

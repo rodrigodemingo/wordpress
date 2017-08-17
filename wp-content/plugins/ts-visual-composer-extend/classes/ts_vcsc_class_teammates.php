@@ -156,15 +156,16 @@
 				$team_array							= array();
 				$category_fields 	                = array();
 				$args = array(
+					'p'								=> $team_member,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_team',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
 					'order' 						=> 'ASC',
 				);
-				$team_query = new WP_Query($args);
+				$team_query 						= new WP_Query($args);
 				if ($team_query->have_posts()) {
 					foreach($team_query->posts as $p) {
 						if ($p->ID == $team_member) {
@@ -824,9 +825,10 @@
 				// Retrieve Team Post Main Content
 				$team_array							= array();
 				$args = array(
+					'p'								=> $team_member,
 					'no_found_rows' 				=> 1,
 					'ignore_sticky_posts' 			=> 1,
-					'posts_per_page' 				=> -1,
+					'posts_per_page' 				=> 1,
 					'post_type' 					=> 'ts_team',
 					'post_status' 					=> 'publish',
 					'orderby' 						=> 'title',
@@ -1631,7 +1633,7 @@
 				$teammate_query = new WP_Query($args);
 				if ($teammate_query->have_posts()) {
 					foreach($teammate_query->posts as $p) {
-						$categories = TS_VCSC_GetTheCategoryByTax($p->ID, 'ts_team_category');
+						$categories 				= TS_VCSC_GetTheCategoryByTax($p->ID, 'ts_team_category');
 						if ($categories && !is_wp_error($categories)) {
 							$category_slugs_arr     = array();
 							$arrayMatch             = 0;
@@ -3696,12 +3698,16 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCodesContainer')) {
+	if ((class_exists('WPBakeryShortCodesContainer')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Team_Mates_Slider_Custom'))) {
 		class WPBakeryShortCode_TS_VCSC_Team_Mates_Slider_Custom extends WPBakeryShortCodesContainer {};
 	}
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Team_Mates_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Team_Mates_Standalone extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Team_Mates_Single'))) {
 		class WPBakeryShortCode_TS_VCSC_Team_Mates_Single extends WPBakeryShortCode {};
+	}
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Team_Mates_Slider_Category'))) {
 		class WPBakeryShortCode_TS_VCSC_Team_Mates_Slider_Category extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Teammates" Class

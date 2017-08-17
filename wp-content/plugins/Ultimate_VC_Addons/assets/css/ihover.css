@@ -149,7 +149,7 @@
 .ult-ih-item .ult-ih-description-block .ult-ih-description,
 .ult-ih-item .ult-ih-description-block .ult-ih-description p,
 .ult-ih-item .ult-ih-heading-block,
-.ult-ih-item .ult-ih-heading-block h3.ult-ih-heading {
+.ult-ih-item .ult-ih-heading-block .ult-ih-heading {
     line-height: normal;
     text-align: center;
     color: inherit;
@@ -191,7 +191,7 @@
     margin: 0 auto
 }
 .ult-ih-item .ult-ih-content {
-    visibility: visible;
+    /*visibility: visible;*/
     display: block;
     position: absolute;
     width: 100%;
@@ -416,6 +416,91 @@
     -ms-transform: translate3d(0, 0, 280px) rotate3d(0, 0, 1, 90deg);
     transform: translate3d(0, 0, 280px) rotate3d(0, 0, 1, 90deg)
 }
+/* effect20 start */
+
+.ult-ih-item.ult-ih-circle .spinner {
+  position: relative;
+  border-width: 10px;
+  border-style: solid;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  z-index: 1;
+  -webkit-transition: transform 0.8s ease-out;
+  -webkit-transition: -webkit-transform 0.8s ease-out;
+  transition: -webkit-transform 0.8s ease-out;
+  transition: transform 0.8s ease-out;
+  transition: transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
+}
+.ult-ih-item.ult-ih-square .spinner {
+  position: relative;
+  border-width: 10px;
+  border-style: solid;
+  z-index: 1;
+  -webkit-transition: transform 0.8s ease-in-out;
+  -webkit-transition: -webkit-transform 0.8s ease-in-out;
+  transition: -webkit-transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out, -webkit-transform 0.8s ease-in-out;
+}
+.ult-ih-item.ult-ih-circle:hover .spinner,
+.ult-ih-item.ult-ih-square:hover .spinner {
+  -webkit-transition: transform 0.8s ease-in-out;
+  -webkit-transition: -webkit-transform 0.8s ease-in-out;
+  transition: -webkit-transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out, -webkit-transform 0.8s ease-in-out;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.ult-ih-item.ult-ih-circle.ult-ih-effect20,
+.ult-ih-item.ult-ih-square.ult-ih-effect20 {
+    -webkit-perspective: 900px;
+    perspective: 900px
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect20 .ult-ih-image-block,
+.ult-ih-item.ult-ih-square.ult-ih-effect20 .ult-ih-image-block {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    -webkit-transition: all .35s linear;
+    transition: all .35s linear;
+    -webkit-transform-origin: 50% 0;
+    -ms-transform-origin: 50% 0;
+    transform-origin: 50% 0
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect20 .ult-ih-info,
+.ult-ih-item.ult-ih-square.ult-ih-effect20 .ult-ih-info {
+    background: rgba(0, 0, 0, 0);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    height: auto;
+    width: auto;
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect20 .ult-ih-info .ult-ih-info-back,
+.ult-ih-item.ult-ih-square.ult-ih-effect20 .ult-ih-info .ult-ih-info-back {
+    background-color: #e6e6e6;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+    -webkit-transition: opacity 0.5s ease-in;
+    transition: opacity 0.5s ease-in; 
+    opacity: 0;
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect20:hover .ult-ih-info .ult-ih-info-back,
+.ult-ih-item.ult-ih-square.ult-ih-effect20:hover .ult-ih-info .ult-ih-info-back {
+    opacity: 1;
+}
+
+/* effect20 */
+
 .ult-ih-item.ult-ih-circle.ult-ih-effect2 .ult-ih-image-block,
 .ult-ih-item.ult-ih-square.ult-ih-effect2 .ult-ih-image-block {
     opacity: 1;
@@ -768,7 +853,9 @@
 }
 .ult-ih-item.ult-ih-circle.ult-ih-effect5:hover .ult-ih-info .ult-ih-info-back,
 .ult-ih-item.ult-ih-square.ult-ih-effect5:hover .ult-ih-info .ult-ih-info-back {
-    visibility: visible
+    visibility: visible;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
 }
 .ult-ih-item.ult-ih-circle.ult-ih-effect5 .ult-ih-info,
 .ult-ih-item.ult-ih-square.ult-ih-effect5 .ult-ih-info {

@@ -61,6 +61,7 @@
 			?>
 		    <div id="css-settings" class="ult-tabs active-tab">
 		        <form method="post" id="css_settings">
+		        	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'css-settings-setting' ); ?>" />
 		            <input type="hidden" name="action" value="update_css_options" />
 		            <table class="form-table">
 		                <tbody>

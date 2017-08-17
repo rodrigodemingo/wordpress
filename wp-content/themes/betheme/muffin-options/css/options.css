@@ -263,9 +263,26 @@
 #mfn-wrapper a.mfn-opts-upload:hover {}
 #mfn-wrapper a.mfn-opts-upload-remove {	background:url('../img/ico-cross.png') no-repeat left center; padding-left: 18px; line-height: 38px; text-decoration: none; display:inline-block; margin-left:10px;}
 #mfn-wrapper a.mfn-opts-upload-remove:hover { text-decoration: underline;}
+
 #mfn-wrapper img.mfn-opts-screenshot { max-width: 339px; max-height:339px; display: block; margin-top: 5px; clear:both; }
 #mfn-wrapper img.mfn-opts-screenshot.video { display:none !important;}
 
+
+/* -------------- .mfnf-upload.multi -------------- */
+#mfn-wrapper .mfnf-upload.multi .upload-input{visibility:hidden;width:1px;margin:0 -7px 0 0;padding:0}
+#mfn-wrapper .mfnf-upload.multi .upload-add{padding:0 17px 0 42px;display:inline-block;position:relative;margin-bottom:5px;top:1px}
+#mfn-wrapper .mfnf-upload.multi .upload-add span{display:block;width:16px;height:16px;overflow:hidden;position:absolute;left:14px;top:8px;background:url(../img/ico-upload.png) no-repeat}
+#mfn-wrapper .mfnf-upload.multi .upload-remove.all{background:url(../img/ico-cross.png) no-repeat left center;padding-left:18px;line-height:38px;text-decoration:none;display:inline-block;margin-left:10px}
+#mfn-wrapper .mfnf-upload.multi .upload-remove.all:hover{text-decoration:underline}
+
+#mfn-wrapper .mfnf-upload.multi .gallery-container{margin-top:20px}
+#mfn-wrapper .mfnf-upload.multi .image-container{position:relative;float:left;width:100px;height:100px;line-height:100px;margin:0 20px 20px 0;cursor:move}
+#mfn-wrapper .mfnf-upload.multi .image-container img{display:inline-block;vertical-align:middle;max-width:100px;max-height:100px}
+#mfn-wrapper .mfnf-upload.multi .image-container .upload-remove.single{position:absolute;top:-3px;right:-3px;color:red;padding:2px;background:#fff;box-shadow: 0 0 1px 0 rgba(0,0,0,.33);opacity:0;}
+#mfn-wrapper .mfnf-upload.multi .image-container:hover .upload-remove.single{opacity:.85;}
+#mfn-wrapper .mfnf-upload.multi .image-container .upload-remove.single:hover{opacity:1;}
+
+#mfn-wrapper .mfnf-upload.multi .image-container .upload-remove.single{transition:opacity .2s ease-in-out;}
 
 /* -------------- .mfn-opts-ajax --------------- */
 #mfn-wrapper a.mfn-opts-ajax { padding: 0 17px; display: inline-block;}

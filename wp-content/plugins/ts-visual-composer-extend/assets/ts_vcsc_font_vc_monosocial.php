@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Icons_Compliant_VC_MonoSocial = array(
 	$this->TS_VCSC_Icons_Compliant_VC_MonoSocial = array(
         "Mono Social Font (VC)" => array(
             array( 'vc-mono vc-mono-fivehundredpx' => 'Five Hundred px' ),

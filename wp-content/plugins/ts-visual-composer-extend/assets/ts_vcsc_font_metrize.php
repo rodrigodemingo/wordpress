@@ -1,5 +1,4 @@
 <?php
-    //$this->TS_VCSC_Compliant_Icons_Metrize = array(
     $this->TS_VCSC_Icons_Compliant_Metrize = array(
         "Metrize Icons Font" => array(
             array("ts-metrize-d-cube" => "circle cube"),

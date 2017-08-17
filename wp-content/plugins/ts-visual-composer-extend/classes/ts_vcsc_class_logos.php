@@ -1247,8 +1247,8 @@
 			}
 		}
 	}
-	// Register Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	// Register Container and Child Shortcode with Visual Composer
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Logo_Layouts_Category'))) {
 		class WPBakeryShortCode_TS_VCSC_Logo_Layouts_Category extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Logos" Class

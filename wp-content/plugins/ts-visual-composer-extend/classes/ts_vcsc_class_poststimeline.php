@@ -168,7 +168,7 @@
 				$output 							= '';
 				$styles								= '';
 				$rules								= '';
-				$inline								= wp_style_is('ts-visual-composer-extend-front', 'done') == true ? "false" : "true";
+				$inline								= TS_VCSC_FrontendAppendCustomRules('style');
 				
 				if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VCFrontEditMode == "true") {
 					$vcinline_status				= 'true';
@@ -387,7 +387,7 @@
 									$styles .= '</style>';
 									echo TS_VCSC_MinifyCSS($styles);
 								} else if ($inline == "true") {
-									wp_add_inline_style('ts-visual-composer-extend-front', TS_VCSC_MinifyCSS($rules));
+									wp_add_inline_style('ts-visual-composer-extend-custom', TS_VCSC_MinifyCSS($rules));
 								}
 							}
 						}
@@ -1076,11 +1076,11 @@
 								__( "Default Styling", "ts_visual_composer_extend" )				=> "default",								
 								__( "Single Solid Line", "ts_visual_composer_extend" )				=> "singlesolid",
 								__( "Single Dotted Line", "ts_visual_composer_extend" )				=> "singledotted",
-								__( "Single Dashed Line ", "ts_visual_composer_extend" )			=> "singledashed",
+								__( "Single Dashed Line", "ts_visual_composer_extend" )				=> "singledashed",
 								__( "Single Gradient Line", "ts_visual_composer_extend" )			=> "singlegradient",
 								__( "Dual Solid Lines", "ts_visual_composer_extend" )				=> "dualsolid",
 								__( "Dual Dotted Lines", "ts_visual_composer_extend" )				=> "dualdotted",
-								__( "Dual Dashed Lines ", "ts_visual_composer_extend" )				=> "dualdashed",
+								__( "Dual Dashed Lines", "ts_visual_composer_extend" )				=> "dualdashed",
 								__( "Dual Gradient Lines", "ts_visual_composer_extend" )			=> "dualgradient",
 							),
 							"description"       		=> __( "Select if you want to assign different styles to content sections when using the dual columns layout.", "ts_visual_composer_extend" ),
@@ -1432,7 +1432,7 @@
 		}
 	}
 	// Register Container and Child Shortcode with Visual Composer
-	if (class_exists('WPBakeryShortCode')) {
+	if ((class_exists('WPBakeryShortCode')) && (!class_exists('WPBakeryShortCode_TS_VCSC_Posts_Timeline_Standalone'))) {
 		class WPBakeryShortCode_TS_VCSC_Posts_Timeline_Standalone extends WPBakeryShortCode {};
 	}
 	// Initialize "TS Posts Timeline" Class

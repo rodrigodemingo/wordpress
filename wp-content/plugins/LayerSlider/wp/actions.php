@@ -57,6 +57,14 @@ function ls_register_form_actions() {
 			}
 		}
 
+		// Database Update
+		if(isset($_GET['page']) && $_GET['page'] == 'ls-system-status' && isset($_GET['action']) && $_GET['action'] == 'database_update') {
+			if(check_admin_referer('database_update')) {
+				layerslider_create_db_table();
+				wp_redirect('admin.php?page=ls-system-status&message=dbUpdateSuccess');
+			}
+		}
+
 
 		// Slider list bulk actions
 		if(isset($_POST['ls-bulk-action'])) {
@@ -147,6 +155,19 @@ function ls_register_form_actions() {
 			}
 		}
 
+		if(isset($_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'hide-important-notice') {
+			if(check_admin_referer('hide-important-notice')) {
+
+				$storeData = get_option('ls-store-data', false);
+				if( ! empty( $storeData ) && ! empty( $storeData['important_notice']['date'] ) ) {
+					update_option('ls-last-important-notice', $storeData['important_notice']['date']);
+				}
+
+				header('Location: admin.php?page=layerslider');
+				die();
+			}
+		}
+
 		if(isset($_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'hide-support-notice') {
 			if(check_admin_referer('hide-support-notice')) {
 				update_option('ls-show-support-notice', 0);
@@ -173,14 +194,6 @@ function ls_register_form_actions() {
 		}
 
 
-		// Create Debug Account
-		if(isset($_GET['page']) && $_GET['page'] == 'ls-system-status' && isset($_GET['action']) && $_GET['action'] == 'debug_account') {
-			if(check_admin_referer('debug_account')) {
-				add_action('admin_init', 'ls_create_debug_account');
-			}
-		}
-
-
 		// Erase Plugin Data
 		if( isset( $_POST['ls-erase-plugin-data'] ) ) {
 			if(check_admin_referer('erase_data')) {
@@ -197,6 +210,7 @@ function ls_register_form_actions() {
 		add_action('wp_ajax_ls_save_screen_options', 'ls_save_screen_options');
 		add_action('wp_ajax_ls_get_mce_sliders', 'ls_get_mce_sliders');
 		add_action('wp_ajax_ls_get_post_details', 'ls_get_post_details');
+		add_action('wp_ajax_ls_get_search_posts', 'ls_get_search_posts');
 		add_action('wp_ajax_ls_get_taxonomies', 'ls_get_taxonomies');
 		add_action('wp_ajax_ls_upload_from_url', 'ls_upload_from_url');
 		add_action('wp_ajax_ls_store_opened', 'ls_store_opened');
@@ -379,7 +393,7 @@ function ls_get_mce_sliders() {
 	$sliders = LS_Sliders::find(array('limit' => 50));
 	foreach($sliders as $key => $item) {
 		$sliders[$key]['preview'] = apply_filters('ls_preview_for_slider', $item );
-		$sliders[$key]['name'] = ! empty($item['name']) ? htmlspecialchars($item['name']) : 'Unnamed';
+		$sliders[$key]['name'] = ! empty($item['name']) ? htmlspecialchars(stripslashes($item['name'])) : 'Unnamed';
 	}
 
 	die(json_encode($sliders));
@@ -432,7 +446,7 @@ function ls_save_slider() {
 	}
 
 	// WPML
-	if(function_exists('icl_register_string')) {
+	if( has_action( 'wpml_register_single_string' ) ) {
 		layerslider_register_wpml_strings($id, $data);
 	}
 
@@ -448,6 +462,7 @@ function ls_save_slider() {
 	}
 
 
+	// Revisions handling
 	if( LS_Revisions::$active ) {
 
 		$lastRevision = LS_Revisions::last( $id );
@@ -459,6 +474,38 @@ function ls_save_slider() {
 				LS_Revisions::shift( $id );
 			}
 		}
+	}
+
+
+	// Popup Index
+	if( $data['properties']['type'] === 'popup' ) {
+		$props = $data['properties'];
+		LS_Popups::addIndex(array(
+			'id' => $id,
+			'first_time_visitor' => ! empty($props['popup_first_time_visitor']),
+			'repeat' => ! empty( $props['popup_repeat'] ),
+			'repeat_days' => $props['popup_repeat_days'],
+			'roles' => array(
+				'administrator' => ! empty($props['popup_roles_administrator']),
+				'editor' 		=> ! empty($props['popup_roles_editor']),
+				'author' 		=> ! empty($props['popup_roles_author']),
+				'contributor' 	=> ! empty($props['popup_roles_contributor']),
+				'subscriber' 	=> ! empty($props['popup_roles_subscriber']),
+				'visitor' 		=> ! empty($props['popup_roles_visitor'])
+			),
+
+			'pages' => array(
+				'all'  		=> ! empty($props['popup_pages_all']),
+				'home' 		=> ! empty($props['popup_pages_home']),
+				'post' 		=> ! empty($props['popup_pages_post']),
+				'page' 		=> ! empty($props['popup_pages_page']),
+				'custom' 	=> $props['popup_pages_custom'],
+				'exclude' 	=> $props['popup_pages_exclude']
+			)
+		));
+
+	} else {
+		LS_Popups::removeIndex( $id );
 	}
 
 	die(json_encode(array('status' => 'ok')));
@@ -647,7 +694,7 @@ function ls_import_online() {
 	if( ! $zip ) {
 		die(json_encode(array(
 			'success' => false,
-			'message' => __("LayerSlider couldn't download your selected slider. Please check LayerSlider -> System Status for potential issues. The WP Remote functions may be unavailable or your web hosting provider has to allow external connections to our domain.", 'LayerSlider')
+			'message' => __('LayerSlider couldn’t download your selected slider. Please check LayerSlider -> System Status for potential issues. The WP Remote functions may be unavailable or your web hosting provider has to allow external connections to our domain.', 'LayerSlider')
 		)));
 	}
 
@@ -668,7 +715,7 @@ function ls_import_online() {
 				die(json_encode(array(
 					'success' 	=> false,
 					'reload' 	=> true,
-					'message' 	=> __("LayerSlider couldn't download your selected slider. The server responded with the following error message: ", "LayerSlider") . $data->message
+					'message' 	=> __('LayerSlider couldn’t download your selected slider. The server responded with the following error message: ', 'LayerSlider') . $data->message
 				)));
 			}
 		}
@@ -684,7 +731,7 @@ function ls_import_online() {
 	if( ! file_put_contents($downloadPath, $zip) ) {
 		die(json_encode(array(
 			'success' => false,
-			'message' => __("LayerSlider couldn't save the downloaded slider on your server. Please check LayerSlider -> System Status for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.", 'LayerSlider')
+			'message' => __('LayerSlider couldn’t save the downloaded slider on your server. Please check LayerSlider -> System Status for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.', 'LayerSlider')
 		)));
 	}
 
@@ -847,7 +894,7 @@ function ls_save_user_css() {
 
 	// File isn't writable
 	} else {
-		wp_die(__("It looks like your files isn't writable, so PHP couldn't make any changes (CHMOD).", "LayerSlider"), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
+		wp_die(__('It looks like your files isn’t writable, so PHP couldn’t make any changes (CHMOD).', 'LayerSlider'), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
 	}
 }
 
@@ -861,7 +908,7 @@ function ls_save_user_skin() {
 
 	// Error checking
 	if(empty($_POST['skin']) || strpos($_POST['skin'], '..') !== false) {
-		wp_die(__("It looks like you haven't selected any skin to edit.", "LayerSlider"), __('No skin selected.', 'LayerSlider'), array('back_link' => true) );
+		wp_die(__('It looks like you haven’t selected any skin to edit.', 'LayerSlider'), __('No skin selected.', 'LayerSlider'), array('back_link' => true) );
 	}
 
 	// Get skin file and contents
@@ -874,7 +921,7 @@ function ls_save_user_skin() {
 		header('Location: admin.php?page=ls-skin-editor&skin='.$skin['handle'].'&edited=1');
 		die();
 	} else {
-		wp_die(__("It looks like your files isn't writable, so PHP couldn't make any changes (CHMOD).", "LayerSlider"), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
+		wp_die(__('It looks like your files isn’t writable, so PHP couldn’t make any changes (CHMOD).', 'LayerSlider'), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
 	}
 }
 
@@ -902,7 +949,8 @@ function ls_get_post_details() {
 		'post_status' => 'publish',
 		'limit' => 100,
 		'posts_per_page' => 100,
-		'post_type' => $params['post_type']
+		'post_type' => $params['post_type'],
+		'suppress_filters' => false
 	);
 
 	if(!empty($params['post_orderby'])) {
@@ -931,51 +979,67 @@ function ls_get_post_details() {
 }
 
 
+function ls_get_search_posts() {
+
+	$filters = array(
+		'posts_per_page' 	=> 50,
+		'post_status' 		=> 'any',
+		'post_type' 		=> 'post'
+	);
+
+	if( ! empty( $_GET['s'] ) ) {
+		$filters['s'] = $_GET['s'];
+	}
+
+	if( ! empty( $_GET['post_type'] ) ) {
+		$types = array( 'post', 'page', 'attachment' );
+		if( in_array( $_GET['post_type'], $types ) ) {
+			$filters['post_type'] = $_GET['post_type'];
+		}
+	}
+
+	$query = new WP_Query( $filters );
+
+	if( ! empty( $query->posts ) ) {
+		$ret = array();
+		foreach ( $query->posts as $key => $val ) {
+
+			if( $val->post_type === 'attachment' ) {
+				$imageURL = wp_get_attachment_url( $val->ID );
+			} elseif( function_exists('get_post_thumbnail_id') && function_exists('wp_get_attachment_url') ) {
+				$imageURL = wp_get_attachment_url(get_post_thumbnail_id( $val->ID ));
+			}
+
+			if( ! $imageURL ) {
+				$imageURL = LS_ROOT_URL . '/static/admin/img/blank.gif';
+			}
+
+			$ret[] = array(
+				'author' 	=> get_userdata($val->post_author)->user_nicename,
+				'content' 	=> htmlentities( $val->post_content ),
+				'image-url' => $imageURL,
+				'post-id' 	=> $val->ID,
+				'post-slug' => $val->post_name,
+				'post-url' 	=> get_permalink( $val->ID ),
+				'post-type' => $val->post_type,
+				'title' 	=> htmlentities( $val->post_title ),
+				'date-published' => date( get_option('date_format'), strtotime($val->post_date) ),
+				'date-modified' => date( get_option('date_format'), strtotime($val->post_modified) )
+			);
+		}
+
+		die( json_encode( $ret ) );
+	}
+
+	die('[]');
+
+}
+
+
 function ls_get_taxonomies() {
 	die(json_encode(array_values(get_terms($_POST['taxonomy']))));
 }
 
-
-function ls_create_debug_account() {
-
-	// Only administrators can use this function
-	// with activated auto-update feature.
-	if(
-		! current_user_can('manage_options') ||
-		! get_option('layerslider-authorized-site', false)
-	 ) {
-		die();
-	}
-
-	$userName = 'KreaturaSupport';
-
-	// Check if debug account already exits
-	if( $userID = username_exists( $userName ) ) {
-		wp_redirect(admin_url('admin.php?page=ls-system-status&error=1&message=debugAccountError&user='.$userID));
-		exit;
-	}
-
-	// Create account
-	$password = wp_generate_password( 12, true );
-	$userID = wp_create_user( $userName, $password );
-
-	// Set the role
-	$user = new WP_User( $userID );
-	$user->set_role('administrator');
-
-	// Message & headers
-	$message = 'New debug account for site: '. get_site_url().'/wp-admin/';
-	$message.= '<br><br>Username: '.$userName.'<br><br>Password: '.$password;
-	$headers = array(
-		'From: '.get_bloginfo('name').'<'.get_bloginfo('admin_email').'>',
-		'Content-Type: text/html; charset=UTF-8'
-	);
-
-	// Email the user
-	wp_mail( 'support@kreaturamedia.com', 'Debug Account', $message, $headers );
-	wp_redirect(admin_url('admin.php?page=ls-system-status&message=debugAccountSuccess'));
-	exit;
-}
 
 
 function ls_erase_plugin_data() {
@@ -1070,6 +1134,9 @@ function ls_do_erase_plugin_data() {
 		'ls-revisions-enabled',
 		'ls-revisions-limit',
 		'ls-revisions-interval',
+
+		// Popup Index
+		'ls-popup-index',
 
 		// Legacy
 		'ls-collapsed-boxes',
@@ -1236,15 +1303,30 @@ function layerslider_convert_urls($arr) {
 }
 
 
-function layerslider_register_wpml_strings($sliderID, $data) {
+function layerslider_register_wpml_strings( $sliderID, $data ) {
 
 	if(!empty($data['layers']) && is_array($data['layers'])) {
 		foreach($data['layers'] as $slideIndex => $slide) {
 
 			if(!empty($slide['sublayers']) && is_array($slide['sublayers'])) {
 				foreach($slide['sublayers'] as $layerIndex => $layer) {
-					if($layer['type'] != 'img') {
-						icl_register_string('LayerSlider WP', '<'.$layer['type'].':'.substr(sha1($layer['html']), 0, 10).'> layer on slide #'.($slideIndex+1).' in slider #'.$sliderID.'', $layer['html']);
+
+					if( ! empty( $layer['html'] ) && $layer['type'] != 'img' ) {
+
+						// Check 'createdWith' property to decide which WPML implementation
+						// should we use. This property was added in v6.5.5 along with the
+						// new WPML implementation, so no version comparison required.
+						if( ! empty( $layer['uuid'] ) && ! empty( $data['properties']['createdWith'] ) ) {
+
+							$string_name = "slider-{$sliderID}-layer-{$layer['uuid']}-html";
+							do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name, $layer['html'] );
+
+						// Old implementation
+						} else {
+
+							$string_name = '<'.$layer['type'].':'.substr(sha1($layer['html']), 0, 10).'> layer on slide #'.($slideIndex+1).' in slider #'.$sliderID.'';
+							do_action( 'wpml_register_single_string', 'LayerSlider WP', $string_name, $layer['html']);
+						}
 					}
 				}
 			}

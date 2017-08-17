@@ -9,7 +9,6 @@
 	$MenuPosition_Logos							= (((is_array($TS_VCSC_Menu_Positions)) && (array_key_exists('ts_logos', $TS_VCSC_Menu_Positions))) 			? $TS_VCSC_Menu_Positions['ts_logos'] 				: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Menu_Positions_Defaults['ts_logos']);
 	$MenuPosition_Downpage						= (((is_array($TS_VCSC_Menu_Positions)) && (array_key_exists('ts_downtime', $TS_VCSC_Menu_Positions))) 			? $TS_VCSC_Menu_Positions['ts_downtime']			: $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Menu_Positions_Defaults['ts_downtime']);
 ?>
-
 <div id="ts-settings-posttypes" class="tab-content">
 	<div class="ts-vcsc-section-main" style="display: <?php echo ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_PluginPHP == "false" ? "block" : "none"); ?>;">
 		<div class="ts-vcsc-section-title ts-vcsc-section-show"><i class="dashicons-warning"></i>Server Setup Warning</div>

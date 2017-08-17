@@ -5,7 +5,9 @@
 if(!class_exists("Ultimate_Buttons")){
 	class Ultimate_Buttons{
 		function __construct(){
-			add_action( 'init', array($this, 'init_buttons') );
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action( 'init', array($this, 'init_buttons') );
+			}
 			add_shortcode( 'ult_buttons',array($this,'ult_buttons_shortcode'));
 			add_action( 'admin_enqueue_scripts', array( $this, 'button_admin_scripts') );
 			add_action( "wp_enqueue_scripts", array( $this, "advanced_button_scripts"),1 );
@@ -89,7 +91,7 @@ if(!class_exists("Ultimate_Buttons")){
 			if($enable_tooltip == "yes"){
 				wp_enqueue_script('ultimate-tooltip');
 				wp_enqueue_style('ultimate-tooltip');
-				$tooltip .= 'data-toggle="tooltip" data-placement="'.$tooltip_pos.'" title="'.$tooltip_text.'"';
+				$tooltip .= 'data-toggle="tooltip" data-placement="'.esc_attr( $tooltip_pos ).'" title="'.esc_attr( $tooltip_text ).'"';
 				$tooltip_class .= " ubtn-tooltip ".$tooltip_pos;
 			}
 
@@ -109,20 +111,20 @@ if(!class_exists("Ultimate_Buttons")){
 				$href = vc_build_link($btn_link);
 				if($href['url'] !== ""){
 					$url 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-					$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-					$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-					$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='" . $rel . ' ' . $href['rel'] . "'" : "rel='" . $rel . "'";
+					$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr( trim( $href['target'] ) ) . "'" : '';
+					$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+					$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='" . esc_attr($rel) . ' ' . esc_attr($href['rel']) . "'" : "rel='" . esc_attr($rel) . "'";
 
 					if($btn_size == "ubtn-block"){
 						$tooltip_class .= ' ubtn-block';
 					}
 					
-					$link_prefix .= '<a class="ubtn-link '.$is_vc_49_plus.' '.$btn_align.' '.$btn_size.' '.$main_extra_class.'" '. $link_title .' ' . $rel . ' href = "' . $url .'" '.$target.'>';
+					$link_prefix .= '<a class="ubtn-link '.esc_attr($is_vc_49_plus).' '.esc_attr($btn_align).' '.esc_attr($btn_size).' '.esc_attr($main_extra_class).'" '. $link_title .' ' . $rel . ' href = "' . esc_url( $url ) .'" '.$target.'>';
 					$link_sufix .= '</a>';
 				}
 			} else {
 				if($enable_tooltip !== ""){
-					$link_prefix .= '<span class="'.$btn_align.'">';
+					$link_prefix .= '<span class="'.esc_attr( $btn_align ).'">';
 					$link_sufix .= '</span>';
 				}
 			}
@@ -227,13 +229,13 @@ if(!class_exists("Ultimate_Buttons")){
 				$el_class .= $main_extra_class;
 			}
 
-			$output .= '<button type="button" id="'.$adv_btn_id.'" class="ubtn '.$is_vc_49_plus.' ult-responsive '.$btn_size.' '.$btn_hover.' '.$el_class.' '.$btn_shadow.' '.$tooltip_class.'" '.$tooltip.' data-hover="'.$btn_title_color_hover.'" data-border-color="'.$btn_color_border.'" data-bg="'.$btn_bg_color.'" data-hover-bg="'.$btn_bg_color_hover.'" data-border-hover="'.$btn_color_border_hover.'" data-shadow-hover="'.$shadow_hover.'" data-shadow-click="'.$shadow_click.'" data-shadow="'.$box_shadow.'" data-shd-shadow="'.$btn_shadow_size.'" '.$data_list.' style="'.$style.'">';
+			$output .= '<button type="button" id="'. esc_attr( $adv_btn_id ).'" class="ubtn '.esc_attr( $is_vc_49_plus ).' ult-responsive '.esc_attr($btn_size).' '.esc_attr($btn_hover).' '.esc_attr($el_class).' '.esc_attr($btn_shadow).' '.esc_attr($tooltip_class).'" '.$tooltip.' data-hover="'.esc_attr($btn_title_color_hover).'" data-border-color="'.esc_attr($btn_color_border).'" data-bg="'.esc_attr($btn_bg_color).'" data-hover-bg="'.esc_attr($btn_bg_color_hover).'" data-border-hover="'.esc_attr($btn_color_border_hover).'" data-shadow-hover="'.esc_attr($shadow_hover).'" data-shadow-click="'.esc_attr($shadow_click).'" data-shadow="'.esc_attr($box_shadow).'" data-shd-shadow="'.esc_attr($btn_shadow_size).'" '.$data_list.' style="'.esc_attr($style).'">';
 
 			if($icon !== ''){
-				$output .= '<span class="ubtn-data ubtn-icon"><i class="'.$icon.'" style="font-size:'.$icon_size.'px;color:'.$icon_color.';"></i></span>';
+				$output .= '<span class="ubtn-data ubtn-icon"><i class="'.esc_attr($icon).'" style="font-size:'.esc_attr($icon_size).'px;color:'.esc_attr($icon_color).';"></i></span>';
 			}
-			$output .= '<span class="ubtn-hover" style="background-color:'.$btn_bg_color_hover.'"></span>';
-			$output .= '<span class="ubtn-data ubtn-text " >'.$btn_title.'</span>';
+			$output .= '<span class="ubtn-hover" style="background-color:'.esc_attr($btn_bg_color_hover).'"></span>';
+			$output .= '<span class="ubtn-data ubtn-text " >'.esc_html( $btn_title ).'</span>';
 			$output .= '</button>';
 
 			$output = $link_prefix.$output.$link_sufix;
@@ -249,14 +251,14 @@ if(!class_exists("Ultimate_Buttons")){
 
 			}
 			if($img !== ''){
-				$output = '<div class="'.$wrapper_class.' '.$main_extra_class.'">'.$output.'</div>';
+				$output = '<div class="'.esc_attr($wrapper_class).' '.esc_attr($main_extra_class).'">'.$output.'</div>';
 			}else{
-			$output = '<div class="'.$css_btn_design.' '.$wrapper_class.' '.$main_extra_class.'">'.$output.'</div>';
+			$output = '<div class="'.esc_attr($css_btn_design).' '.esc_attr($wrapper_class).' '.esc_attr($main_extra_class).'">'.$output.'</div>';
 			}
 
 			if($img !== ''){
-				$html = '<div class="ubtn-img-container '.$css_btn_design.'">';
-				$html .= '<img src="'.apply_filters( 'ultimate_images', $img ).'" alt="'.$alt.'"/>';
+				$html = '<div class="ubtn-img-container '.esc_attr($css_btn_design).'">';
+				$html .= '<img src="'.esc_url(apply_filters( 'ultimate_images', $img )).'" alt="'.esc_attr($alt).'"/>';
 				$html .= $output;
 				$html .= '</div>';
 				$output = $html;
@@ -265,7 +267,7 @@ if(!class_exists("Ultimate_Buttons")){
 			if($enable_tooltip !== ""){
 				$output .= '<script>
 					jQuery(function () {
-						jQuery(".tooltip-'.$uniqid.'").bsf_tooltip();
+						jQuery(".tooltip-'.esc_attr($uniqid).'").bsf_tooltip();
 					})
 				</script>';
 			}
@@ -816,7 +818,7 @@ if(!class_exists("Ultimate_Buttons")){
 	}
 	new Ultimate_Buttons;
 
-	if(class_exists('WPBakeryShortCode'))
+	if(class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_ult_buttons'))
 	{
 		class WPBakeryShortCode_ult_buttons extends WPBakeryShortCode {
 		}

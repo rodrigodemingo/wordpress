@@ -14,8 +14,10 @@ if(!class_exists('ULT_TAB_ELEMENT'))
 	{
 		function __construct()
 		{
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'ult_tab_init'));
+			}
 			add_action( 'wp_enqueue_scripts', 'ultimate_tabs',1 );
-			add_action('init',array($this,'ult_tab_init'));
 			//add_action('admin_init', 'ult_tab_init');
 			add_action( 'admin_print_scripts', 'ultimate_tabs_admin',999 );
 			add_shortcode('ult_tab_element',array($this,'ultimate_main_tab'));
@@ -386,7 +388,7 @@ $acord ='';
 $array_count='';
 $array_count=sizeof($tabarr);
 $newtab='';
-$newtab .='<ul id='.$advanced_tabs_id.' class="ult_tabmenu '.$style.' '.$tab_style_no.'" style="'.$tab_border.'">';
+$newtab .='<ul id='.esc_attr($advanced_tabs_id).' class="ult_tabmenu '.esc_attr($style).' '.esc_attr($tab_style_no).'" style="'.esc_attr($tab_border).'">';
 $cnt=0;
 //print_r($tabarr );
 
@@ -485,13 +487,13 @@ else{
 			if($icon_position=='Right')
 				{
 				$icon_position='right';
-				$newtab .='<li class="ult_tab_li '.$ult_style.' '.$ul_sub_class.' " data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'" style="'.$link_li_style.'">
-					<a href="#'.$tab_id.'" id="'.$tab_id.'" style="color:'.$tab_title_color.';'.$bgcolor.';'.$style5bgcolor.' '.$tab_css.'" class="ult_a '.$css_class .'">
-					   <span class="ult_tab_main  '.$resp_style.' ">
+				$newtab .='<li class="ult_tab_li '.esc_attr($ult_style).' '.esc_attr($ul_sub_class).' " data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'" style="'.esc_attr($link_li_style).'">
+					<a href="#'.esc_attr($tab_id).'" id="'.esc_attr($tab_id).'" style="color:'.esc_attr($tab_title_color).';'.esc_attr($bgcolor).';'.esc_attr($style5bgcolor).' '.esc_attr($tab_css).'" class="ult_a '.esc_attr($css_class) .'">
+					   <span class="ult_tab_main  '.esc_attr($resp_style).' ">
 					    <span class="ult_tab_section">
-					  		<span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.$tabs_nav_style.'">'.$value['title'].'</span>
-						   	<span class="aio-icon none ult_tab_icon'.$icon_position.'" style="'.$tab_icon_style.'">
-						   	<i class=" '.$tabicon.' ult_tab_icon"  ></i>
+					  		<span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.esc_attr($tabs_nav_style).'">'.$value['title'].'</span>
+						   	<span class="aio-icon none ult_tab_icon'.esc_attr($icon_position).'" style="'.esc_attr($tab_icon_style).'">
+						   	<i class=" '.esc_attr($tabicon).' ult_tab_icon"  ></i>
 						   </span>
 						</span>
 					   </span>
@@ -501,18 +503,18 @@ else{
 
 	/*-------------------accordion right icon------------------*/
 
-				$acord.='<dt class="'.$ul_sub_class.'">
-        	<a class="ult-tabto-actitle withBorder ult_a" id="'.$tab_id.'" style="color:'.$tab_title_color.';'.$style5bgcolor.';background-color:'.$tab_background_color.';'.$ult_ac_border.'" href="#'.$tab_id.'">
+				$acord.='<dt class="'.esc_attr($ul_sub_class).'">
+        	<a class="ult-tabto-actitle withBorder ult_a" id="'.esc_attr($tab_id).'" style="color:'.esc_attr($tab_title_color).';'.esc_attr($style5bgcolor).';background-color:'.esc_attr($tab_background_color).';'.esc_attr($ult_ac_border).'" href="#'.esc_attr($tab_id).'">
         		<i class="accordion-icon">+</i>
-        			<span class="ult_tab_main ult_ac_main'.$resp_style.'">
-					   <span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.$tabs_nav_style.';color:inherit " >'.$value['title'].'</span>
+        			<span class="ult_tab_main ult_ac_main'.esc_attr($resp_style).'">
+					   <span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.esc_attr($tabs_nav_style).';color:inherit " >'.$value['title'].'</span>
 					</span>
-					   <div class="aio-icon none " style="'.$tab_icon_style.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'">
-					   <i class="  '.$tabicon.' ult_tab_icon"  ></i>
+					   <div class="aio-icon none " style="'.esc_attr($tab_icon_style).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'">
+					   <i class="  '.esc_attr($tabicon).' ult_tab_icon"  ></i>
 					   </div>
 					</a></dt>
             		<dd class="ult-tabto-accordionItem ult-tabto-accolapsed">
-			            <div class="ult-tabto-acontent" style="'.$contain_bg.'">
+			            <div class="ult-tabto-acontent" style="'.esc_attr($contain_bg).'">
 			               '.$accontaint .'
 			            </div>
         	</dd>';
@@ -520,14 +522,14 @@ else{
 				}
 				else if($icon_position=='Left'){
 				$icon_position='left';
-					$newtab .='<li class="ult_tab_li '.$ult_style.' '.$ul_sub_class.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'" style="'.$link_li_style.'">
-					<a href="#'.$tab_id.'" id="'.$tab_id.'" style="color:'.$tab_title_color.';'.$bgcolor.';'.$style5bgcolor.' '.$tab_css.'" class="ult_a  '.$css_class .'">
-					     <span class="ult_tab_main '.$resp_style.'">
+					$newtab .='<li class="ult_tab_li '.esc_attr($ult_style).' '.esc_attr($ul_sub_class).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'" style="'.esc_attr($link_li_style).'">
+					<a href="#'.esc_attr($tab_id).'" id="'.esc_attr($tab_id).'" style="color:'.esc_attr($tab_title_color).';'.esc_attr($bgcolor).';'.esc_attr($style5bgcolor).' '.esc_attr($tab_css).'" class="ult_a  '.esc_attr($css_class) .'">
+					     <span class="ult_tab_main '.esc_attr($resp_style).'">
 					      <span class="ult_tab_section">
-						   <span class="aio-icon none ult_tab_icon'.$icon_position.'" style="'.$tab_icon_style.'">
-						   <i class="  '.$tabicon.' ult_tab_icon"  ></i>
+						   <span class="aio-icon none ult_tab_icon'.esc_attr($icon_position).'" style="'.esc_attr($tab_icon_style).'">
+						   <i class="  '.esc_attr($tabicon).' ult_tab_icon"  ></i>
 						   </span>
-						   <span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.$tabs_nav_style.'">'.$value['title'].'</span>
+						   <span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.esc_attr($tabs_nav_style).'">'.$value['title'].'</span>
 						    </span >
 						</span>
 					</a>
@@ -535,31 +537,31 @@ else{
 
 /*-------------------accordion left icon------------------*/
 
-				$acord.='<dt class="'.$ul_sub_class.'">
-        	<a class="ult-tabto-actitle withBorder ult_a"  id="'.$tab_id.'" style="color:'.$tab_title_color.';'.$style5bgcolor.';background-color:'.$tab_background_color.';'.$ult_ac_border.'" href="#'.$tab_id.'">
+				$acord.='<dt class="'.esc_attr($ul_sub_class).'">
+        	<a class="ult-tabto-actitle withBorder ult_a"  id="'.esc_attr($tab_id).'" style="color:'.esc_attr($tab_title_color).';'.esc_attr($style5bgcolor).';background-color:'.esc_attr($tab_background_color).';'.esc_attr($ult_ac_border).'" href="#'.esc_attr($tab_id).'">
         		<i class="accordion-icon">+</i>
-        			<span class="ult_tab_main ult_ac_main'.$resp_style.'">
-					   <div class="aio-icon none " style="'.$tab_icon_style.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'">
-					   <i class="  '.$tabicon.' ult_tab_icon"  ></i>
+        			<span class="ult_tab_main ult_ac_main'.esc_attr($resp_style).'">
+					   <div class="aio-icon none " style="'.esc_attr($tab_icon_style).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'">
+					   <i class="  '.esc_attr($tabicon).' ult_tab_icon"  ></i>
 					   </div>
-					<span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.$tabs_nav_style.';color:inherit " >'.$value['title'].'</span>
+					<span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.esc_attr($tabs_nav_style).';color:inherit " >'.$value['title'].'</span>
 					</span></a></dt>
             		<dd class="ult-tabto-accordionItem ult-tabto-accolapsed">
-			            <div class="ult-tabto-acontent" style="'.$contain_bg.'">
+			            <div class="ult-tabto-acontent" style="'.esc_attr($contain_bg).'">
 			               '.$accontaint .'
 			            </div>
         	</dd>';
 				}
 		     	else if($icon_position=='Top')
 				{
-					$newtab .='<li class="ult_tab_li '.$ult_style.' '.$ul_sub_class.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'" style="'.$link_li_style.'">
-					<a href="#'.$tab_id.'" id="'.$tab_id.'"  style="color:'.$tab_title_color.';'.$bgcolor.';'.$style5bgcolor.' '.$tab_css.'" class="ult_a '.$icon_top_link.' '.$css_class .'">
-					    <span class="ult_tab_main '.$ult_top.' '.$resp_style.' ">
+					$newtab .='<li class="ult_tab_li '.esc_attr($ult_style).' '.esc_attr($ul_sub_class).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'" style="'.esc_attr($link_li_style).'">
+					<a href="#'.esc_attr($tab_id).'" id="'.esc_attr($tab_id).'"  style="color:'.$tab_title_color.';'.esc_attr($bgcolor).';'.esc_attr($style5bgcolor).' '.esc_attr($tab_css).'" class="ult_a '.esc_attr($icon_top_link).' '.esc_attr($css_class) .'">
+					    <span class="ult_tab_main '.esc_attr($ult_top).' '.esc_attr($resp_style).' ">
 					    <span class="ult_tab_section">
-					   <span class="aio-icon none icon-top ult_tab_icon'.$icon_position.'"  style="'.$tab_icon_style.'">
-					   <i class="  '.$tabicon.' ult_tab_icon" ></i>
+					   <span class="aio-icon none icon-top ult_tab_icon'.esc_attr($icon_position).'"  style="'.esc_attr($tab_icon_style).'">
+					   <i class="  '.esc_attr($tabicon).' ult_tab_icon" ></i>
 					   </span>
-					   <span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.$tabs_nav_style.'">'.$value['title'].'</span>
+					   <span '.$advanced_tabs_data_list.' class="ult-span-text ult-responsive" style="'.esc_attr($tabs_nav_style).'">'.$value['title'].'</span>
 					   </span>
 						</span>
 					</a>
@@ -567,17 +569,17 @@ else{
 
 /*-------------------accordion top icon------------------*/
 
-				$acord.='<dt class="'.$ul_sub_class.'">
-	        	<a class="ult-tabto-actitle withBorder ult_a" id="'.$tab_id.'"  style="color:'.$tab_title_color.';'.$style5bgcolor.';background-color:'.$tab_background_color.';'.$ult_ac_border.'" href="#'.$tab_id.'">
+				$acord.='<dt class="'.esc_attr($ul_sub_class).'">
+	        	<a class="ult-tabto-actitle withBorder ult_a" id="'.esc_attr($tab_id).'"  style="color:'.esc_attr($tab_title_color).';'.esc_attr($style5bgcolor).';background-color:'.esc_attr($tab_background_color).';'.esc_attr($ult_ac_border).'" href="#'.esc_attr($tab_id).'">
 	        		<i class="accordion-icon">+</i>
-	        			<span class="ult_tab_main ult_ac_main ult_top ' .$resp_style.'">
-						   <span class="aio-icon none icon-top" style="'.$tab_icon_style.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'">
-						   <i class="  '.$tabicon.' ult_tab_icon"  ></i>
+	        			<span class="ult_tab_main ult_ac_main ult_top ' .esc_attr($resp_style).'">
+						   <span class="aio-icon none icon-top" style="'.esc_attr($tab_icon_style).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'">
+						   <i class="  '.esc_attr($tabicon).' ult_tab_icon"  ></i>
 						   </span>
-						<span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.$tabs_nav_style.';color:inherit " >'.$value['title'].'</span>
+						<span '.$advanced_tabs_data_list.' class="ult-span-text ult_acordian-text ult-responsive" style="'.esc_attr($tabs_nav_style).';color:inherit " >'.$value['title'].'</span>
 						</span></a></dt>
 	            		<dd class="ult-tabto-accordionItem ult-tabto-accolapsed">
-				            <div class="ult-tabto-acontent" style="'.$contain_bg.'">
+				            <div class="ult-tabto-acontent" style="'.esc_attr($contain_bg).'">
 				               '.$accontaint .'
 				            </div>
 	        	</dd>';
@@ -585,11 +587,11 @@ else{
 				}
 			  	 else {
 					$icon_position='none';
-					$newtab .='<li class="ult_tab_li '.$ult_style.' '.$ul_sub_class.'" data-iconcolor="'.$icon_color.'" data-iconhover="'.$icon_hover_color.'" style="'.$link_li_style.'">
-					<a href="#'.$tab_id.'"  id="'.$tab_id.'"  style="color:'.$tab_title_color.';'.$bgcolor.';'.$style5bgcolor.' '.$tab_css.' " class="ult_a '.$ult_style.' '.$css_class .'">
-					     <span class="ult_tab_main '.$resp_style.' ">
+					$newtab .='<li class="ult_tab_li '.esc_attr($ult_style).' '.esc_attr($ul_sub_class).'" data-iconcolor="'.esc_attr($icon_color).'" data-iconhover="'.esc_attr($icon_hover_color).'" style="'.esc_attr($link_li_style).'">
+					<a href="#'.esc_attr($tab_id).'"  id="'.esc_attr($tab_id).'"  style="color:'.esc_attr($tab_title_color).';'.esc_attr($bgcolor).';'.esc_attr($style5bgcolor).' '.esc_attr($tab_css).' " class="ult_a '.esc_attr($ult_style).' '.esc_attr($css_class) .'">
+					     <span class="ult_tab_main '.esc_attr($resp_style).' ">
 					 		 <span class="ult_tab_section">
-					   			<span '.$advanced_tabs_data_list.' class="ult-span-text no_icon ult_tab_display_text ult-responsive" style="'.$tabs_nav_style.';">'.$value['title'].'</span>
+					   			<span '.$advanced_tabs_data_list.' class="ult-span-text no_icon ult_tab_display_text ult-responsive" style="'.esc_attr($tabs_nav_style).';">'.$value['title'].'</span>
 					   		</span>
 						</span>
 					</a>
@@ -597,15 +599,15 @@ else{
 
 /*-------------------accordion without icon------------------*/
 
-				$acord.='<dt class="'.$ul_sub_class.'">
-	        	<a class="ult-tabto-actitle withBorder ult_a " id="'.$tab_id.'" style="color:'.$tab_title_color.';'.$style5bgcolor.';background-color:'.$tab_background_color.';'.$ult_ac_border.'" href="#'.$tab_id.'">
+				$acord.='<dt class="'.esc_attr($ul_sub_class).'">
+	        	<a class="ult-tabto-actitle withBorder ult_a " id="'.esc_attr($tab_id).'" style="color:'.esc_attr($tab_title_color).';'.esc_attr($style5bgcolor).';background-color:'.esc_attr($tab_background_color).';'.esc_attr($ult_ac_border).'" href="#'.esc_attr($tab_id).'">
 	        		<i class="accordion-icon">+</i>
-	        			<span class="ult_tab_main ult_ac_main ult_noacordicn' .$resp_style.'">
+	        			<span class="ult_tab_main ult_ac_main ult_noacordicn' .esc_attr($resp_style).'">
 
-						<span '.$advanced_tabs_data_list.' class="ult-span-text no_icon ult_acordian-text ult-responsive" style="'.$tabs_nav_style.';color:inherit " >'.$value['title'].'</span>
+						<span '.$advanced_tabs_data_list.' class="ult-span-text no_icon ult_acordian-text ult-responsive" style="'.esc_attr($tabs_nav_style).';color:inherit " >'.$value['title'].'</span>
 						</span></a></dt>
 	            		<dd class="ult-tabto-accordionItem ult-tabto-accolapsed">
-				            <div class="ult-tabto-acontent" style="'.$contain_bg.'">
+				            <div class="ult-tabto-acontent" style="'.esc_attr($contain_bg).'">
 				               '.$accontaint .'
 				            </div>
 	        			</dd>';
@@ -623,19 +625,19 @@ $newtabcontain .=wpb_js_remove_wpautop( $content );
 $newtabcontain .='</div>';
 $newtabcontain .='</div>';
 $op='';
-$op .='<div id="'.$advanced_tabs_desc_id.'" class="ult_tabs '.$el_class.'" style="'.$container_style.' '.$wrapper_margin.'" data-tabsstyle="'.$style.'"
- data-titlebg="'.$tab_background_color.'" data-titlecolor="'.$tab_title_color.'" data-fullheight="'.$tab_max.'"
- data-titlehoverbg="'.$tab_hover_background_color.'" data-titlehovercolor="'.$tab_hover_title_color.'"
- data-rotatetabs="'.$interval.'" data-responsivemode="'.$resp_style.'" data-animation="'.$tab_animation.'"
-data-activetitle="'.$acttab_title.'" data-activeicon="'.$act_icon_color.'" data-activebg="'.$acttab_background.'"  data-respmode="'.$resp_type.'" data-respwidth="'.$resp_width.'" data-scroll = "'.$smooth_scroll.'" data-activeindex="'.$tabs_active_index.'">';
+$op .='<div id="'.esc_attr($advanced_tabs_desc_id).'" class="ult_tabs '.esc_attr($el_class).'" style="'.esc_attr($container_style).' '.esc_attr($wrapper_margin).'" data-tabsstyle="'.esc_attr($style).'"
+ data-titlebg="'.esc_attr($tab_background_color).'" data-titlecolor="'.esc_attr($tab_title_color).'" data-fullheight="'.esc_attr($tab_max).'"
+ data-titlehoverbg="'.esc_attr($tab_hover_background_color).'" data-titlehovercolor="'.esc_attr($tab_hover_title_color).'"
+ data-rotatetabs="'.esc_attr($interval).'" data-responsivemode="'.esc_attr($resp_style).'" data-animation="'.esc_attr($tab_animation).'"
+data-activetitle="'.esc_attr($acttab_title).'" data-activeicon="'.esc_attr($act_icon_color).'" data-activebg="'.esc_attr($acttab_background).'"  data-respmode="'.esc_attr($resp_type).'" data-respwidth="'.esc_attr($resp_width).'" data-scroll = "'.esc_attr($smooth_scroll).'" data-activeindex="'.esc_attr($tabs_active_index).'">';
 $op .=$newtab;
-$op .='<div '.$advanced_tabs_desc_data_list.'class="ult_tabcontent ult-responsive '.$style.'" style="'.$contain_bg.'">';
+$op .='<div '.$advanced_tabs_desc_data_list.'class="ult_tabcontent ult-responsive '.esc_attr($style).'" style="'.esc_attr($contain_bg).'">';
 $tabanimatclass="";
 if($tab_animation=='Slide-Zoom'){
 
 	$tabanimatclass="tabanimate";
 }
-$op .='<div class="ult_tab_min_contain '.$tabanimatclass.'" >';
+$op .='<div class="ult_tab_min_contain '.esc_attr($tabanimatclass).'" >';
 $op .=wpb_js_remove_wpautop( $content );
 $op .='</div>';
 $op .='</div>';
@@ -647,17 +649,17 @@ echo $op;
 
 /*---------------- for acordian -----------------*/
 $actab='';
-$actab .='<div class="ult_acord '.$advanced_tabs_desc_id.'">
+$actab .='<div class="ult_acord '.esc_attr($advanced_tabs_desc_id).'">
    <div class="ult-tabto-accordion " style="width:;"
-    data-titlecolor="'.$tab_title_color.'"  data-titlebg="'.$tab_background_color.'"
-     data-titlehoverbg="'.$tab_hover_background_color.'" data-titlehovercolor="'.$tab_hover_title_color.'" data-animation="'.$tab_animation.'"
-     data-activetitle="'.$acttab_title.'" data-activeicon="'.$act_icon_color.'" data-activebg="'.$acttab_background.'" data-scroll = "'.$smooth_scroll.'" data-activeindex="'.$tabs_active_index.'" >
+    data-titlecolor="'.esc_attr($tab_title_color).'"  data-titlebg="'.esc_attr($tab_background_color).'"
+     data-titlehoverbg="'.esc_attr($tab_hover_background_color).'" data-titlehovercolor="'.esc_attr($tab_hover_title_color).'" data-animation="'.esc_attr($tab_animation).'"
+     data-activetitle="'.esc_attr($acttab_title).'" data-activeicon="'.esc_attr($act_icon_color).'" data-activebg="'.esc_attr($acttab_background).'" data-scroll = "'.esc_attr($smooth_scroll).'" data-activeindex="'.esc_attr($tabs_active_index).'" >
      <dl>';
 
 $actab .=$acord;
 $actab .='
     	</dl>
-    <!--<div class="extraborder" style="background-color:'.$tab_hover_background_color.'"></div>-->
+    <!--<div class="extraborder" style="background-color:'.esc_attr($tab_hover_background_color).'"></div>-->
 </div>
 
 </div>';
@@ -1342,24 +1344,21 @@ vc_map( array(
 }
 
 
-function ultimate_tabs() {
-	$bsf_dev_mode = bsf_get_option('dev_mode');
-	if($bsf_dev_mode === 'enable') {
-		$js_path = '../assets/js/';
-		$css_path = '../assets/css/';
-		$ext = '';
-	}
-	else {
-		$js_path = '../assets/min-js/';
-		$css_path = '../assets/min-css/';
-		$ext = '.min';
-	}
 
+
+
+}//end of vcmap function
+
+
+	}
+function ultimate_tabs() {
+	
 	Ultimate_VC_Addons::ultimate_register_style( 'ult_tabs', 'tabs' );
 	Ultimate_VC_Addons::ultimate_register_style( 'ult_tabs_acordian', 'tabs-accordion' );
 
-	wp_register_script('ult_tabs_acordian_js',plugins_url( $js_path.'tabs-accordion'.$ext.'.js', __FILE__ ),array( 'jquery'),ULTIMATE_VERSION,true);
-	wp_register_script('ult_tabs_rotate',plugins_url( $js_path.'tabs'.$ext.'.js', __FILE__ ),array( 'jquery'),ULTIMATE_VERSION,true);
+	Ultimate_VC_Addons::ultimate_register_script( 'ult_tabs_acordian_js', 'tabs-accordion', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+	
+	Ultimate_VC_Addons::ultimate_register_script( 'ult_tabs_rotate', 'tabs', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 }
 
 function ultimate_tabs_admin() {
@@ -1374,13 +1373,6 @@ function ultimate_tabs_admin() {
 	wp_enqueue_script('tab-js-2');
 	//wp_enqueue_style('css-1',plugins_url( '../admin/vc_extend/css/sub-tab.css', __FILE__ ));
 }
-
-
-
-}//end of vcmap function
-
-
-	}
 }
 
 if(class_exists('ULT_TAB_ELEMENT'))
@@ -1531,11 +1523,11 @@ class WPBakeryShortCode_SINGLE_TAB extends WPBakeryShortCode_VC_Column {
 
 					}
 					public function customAdminBlockParams() {
-						return ' id="tab-' . $this->atts['tab_id'] . '"';
+						return ' id="tab-' . esc_attr($this->atts['tab_id']) . '"';
 					}
 
 					public function mainHtmlBlockParams( $width, $i ) {
-						return 'data-element_type="' . $this->settings["base"] . '" class="wpb_' . $this->settings['base'] . ' wpb_sortable wpb_content_holder"' . $this->customAdminBlockParams();
+						return 'data-element_type="' . esc_attr($this->settings["base"]) . '" class="wpb_' . esc_attr($this->settings['base']) . ' wpb_sortable wpb_content_holder"' . $this->customAdminBlockParams();
 					}
 
 					public function containerHtmlBlockParams( $width, $i ) {

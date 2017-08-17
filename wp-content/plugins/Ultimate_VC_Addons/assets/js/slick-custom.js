@@ -117,4 +117,23 @@
             }
         });
     });
+    jQuery(document).on('ultAdvancedTabClickedCarousel',function(event, nav){
+             $(nav).find(".ult-carousel-wrapper").each(function () {
+            var $this = $(this);
+            if ($this.hasClass("ult_full_width")) {
+                $this.css('left', 0);
+                $this.css('right', 0);
+                var al = 0;
+                var bl = $this.offset().left;
+                var xl = Math.abs(al - bl);
+                var rtl = $this.attr('data-rtl');
+                var w = $("html").outerWidth();
+                var left = xl;
+                if (rtl === 'true' || rtl === true)
+                    $this.css({"position": "relative", "right": "-" + left + "px", "width": w + "px"});
+                else
+                    $this.css({"position": "relative", "left": "-" + left + "px", "width": w + "px"});
+            }
+        });
+    });
 })(jQuery);

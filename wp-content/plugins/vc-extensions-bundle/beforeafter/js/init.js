@@ -3,11 +3,26 @@ function drags(dragElement, resizeElement, container) {
     var _iconcolor = container.data('iconcolor');
     var _handlestyle = container.data('handlestyle');
     var _handlecolor = container.data('handlecolor');
+    var _captioncolor = container.data('captioncolor');
+    var _captionbg = container.data('captionbg');
+    var _captionminwidth = parseInt(container.data('captionminwidth'), 10);
     var _width = container.width();
     var _icon = dragElement.find('i');
     var _tooltipTitle = _icon.attr('title');
     var _tooltip;
     var _slideID = 0;
+
+
+    if(_captioncolor!=""){
+      jQuery(".cq-beforeafter-caption", container).css('color', _captioncolor);
+    }
+    if(_captionbg!=""){
+      jQuery(".cq-beforeafter-caption", container).css('background-color', _captionbg);
+    }
+    if(_captionminwidth>0){
+      jQuery(".cq-beforeafter-caption", container).css('min-width', _captionminwidth);
+    }
+
     if(_iconcolor!="") _icon.css('color', _iconcolor);
     if(_handlestyle=="customized"&&_handlecolor!=""){
         dragElement.find('i').css({

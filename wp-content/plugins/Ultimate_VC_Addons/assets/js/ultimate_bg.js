@@ -701,7 +701,7 @@
 				}
 				if(poster != '')
 				{
-					console.log(content);
+					//console.log(content);
 					if(content.is('.utube')) {
 						content.css({'background-image':'url('+poster+')'});
 					} else {
@@ -828,8 +828,12 @@
 					var ptop = parent.css('padding-top');
 					var pbottom = parent.css('padding-bottom');
 					parent.find('.vc-row-translate-wrapper').css({'padding-top':ptop, 'padding-bottom':pbottom});
-					parent[0].style.setProperty( 'padding-top', '0px', 'important' );
-					parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					
+					if( typeof parent[0] !=='undefined' && parent !=='' ){
+						parent[0].style.setProperty( 'padding-top', '0px', 'important' );
+						parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					}
+					
 				}
 
 				// hide row
@@ -908,7 +912,9 @@
 					h = selector.parent().outerHeight();
 					w = ancenstor.outerWidth();
 					selector.css({'min-width':w+'px'});
-					bl = selector.offset().left;
+					if( typeof selector.offset() !== 'undefined' ){
+						bl = selector.offset().left;
+					}
 					if ( is_uavc_rtl() == true ) {
 						selector.css({'right':-(Math.abs(al-bl))+'px'});
 					} else {
@@ -1033,8 +1039,10 @@
 					var ptop = parent.css('padding-top');
 					var pbottom = parent.css('padding-bottom');
 					parent.find('.vc-row-translate-wrapper').css({'padding-top':ptop, 'padding-bottom':pbottom});
-					parent[0].style.setProperty( 'padding-top', '0px', 'important' );
-					parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					if( typeof parent[0] !=='undefined' && parent !=='' ){
+						parent[0].style.setProperty( 'padding-top', '0px', 'important' );
+						parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					}
 				}
 
 				// hide row
@@ -1230,8 +1238,10 @@
 					var ptop = parent.css('padding-top');
 					var pbottom = parent.css('padding-bottom');
 					parent.find('.vc-row-translate-wrapper').css({'padding-top':ptop, 'padding-bottom':pbottom});
-					parent[0].style.setProperty( 'padding-top', '0px', 'important' );
-					parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					if( typeof parent[0] !=='undefined' && parent !=='' ){
+						parent[0].style.setProperty( 'padding-top', '0px', 'important' );
+						parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					}
 				}
 
 				parent.prepend('<div class="upb_row_bg">'+overlay_html+'</div>');
@@ -1417,8 +1427,10 @@
 					var ptop = parent.css('padding-top');
 					var pbottom = parent.css('padding-bottom');
 					parent.find('.vc-row-translate-wrapper').css({'padding-top':ptop, 'padding-bottom':pbottom});
-					parent[0].style.setProperty( 'padding-top', '0px', 'important' );
-					parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					if( typeof parent[0] !=='undefined' && parent !=='' ){
+						parent[0].style.setProperty( 'padding-top', '0px', 'important' );
+						parent[0].style.setProperty( 'padding-bottom', '0px', 'important' );
+					}
 				}
 			});
 			jQuery('.upb_no_bg').remove();

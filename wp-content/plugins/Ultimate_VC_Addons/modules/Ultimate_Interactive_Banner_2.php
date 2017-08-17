@@ -6,7 +6,9 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 {
 	class Ultimate_Interactive_Banner{
 		function __construct(){
-			add_action('init',array($this,'banner_init'));
+			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
+				add_action('init',array($this,'banner_init'));
+			}
 			add_shortcode('interactive_banner_2',array($this,'banner_shortcode'));
 			add_action('wp_enqueue_scripts', array($this, 'register_ib2_banner_assets'),1);
 		}
@@ -54,6 +56,9 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 									__("H4","ultimate_vc") => "h4",
 									__("H5","ultimate_vc") => "h5",
 									__("H6","ultimate_vc") => "h6",
+									__("Div","ultimate_vc") => "div",
+									__("p","ultimate_vc") => "p",
+									__("span","ultimate_vc") => "span",
 								),
 								"description" => __("Default is H2", "ultimate_vc"),
 								),
@@ -401,7 +406,7 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 			//$banner_style = 'style01';
 
 			if($enable_responsive == "yes"){
-				$responsive .= 'data-min-width="'.$responsive_min.'" data-max-width="'.$responsive_max.'"';
+				$responsive .= 'data-min-width="'.esc_attr( $responsive_min ).'" data-max-width="'.esc_attr( $responsive_max ).'"';
 				$el_class .= " ult-ib-resp";
 			}
 
@@ -416,9 +421,9 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 				$href = vc_build_link($banner_link);
 
 				$link 			= ( isset( $href['url'] ) && $href['url'] !== '' ) ? $href['url']  : '';
-				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . trim( $href['target'] ) . "'" : '';
-				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".$href['title']."'" : '';
-				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".$href['rel']."'" : '';
+				$target 		= ( isset( $href['target'] ) && $href['target'] !== '' ) ? "target='" . esc_attr(trim( $href['target'] )) . "'" : '';
+				$link_title 	= ( isset( $href['title'] ) && $href['title'] !== '' ) ? "title='".esc_attr($href['title'])."'" : '';
+				$rel 			= ( isset( $href['rel'] ) && $href['rel'] !== '' ) ? "rel='".esc_attr($href['rel'])."'" : '';
 			} else {
 				$link = "#";
 			}
@@ -430,7 +435,7 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 					$banner_title_style_inline = 'font-family:\''.$bfamily.'\';';
 			}
 			$banner_title_style_inline .= get_ultimate_font_style($banner_title_style);
-
+			
 			// if($banner_title_font_size != '')
 			// 	$banner_title_style_inline .= 'font-size:'.$banner_title_font_size.'px;';
 
@@ -487,8 +492,8 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 			$banner_min_height = $img_min_height = $img_max_height = $min_height_class = '';
 			if($banner_min_height_op != '' && $banner_min_height_op == 'custom' ) {
 				if($banner_min != '') {
-					$banner_min_height = ' data-min-height="'.$banner_min.'" ';
-					$img_min_height = ' data-min-height="'.$banner_min.'" ';
+					$banner_min_height = ' data-min-height="'.esc_attr($banner_min).'" ';
+					$img_min_height = ' data-min-height="'.esc_attr($banner_min).'" ';
 					//$img_max_height = ' data-max-width="none" ';
 					$min_height_class = 'ult-ib2-min-height';
 					$banner_style_inline .= ' opacity:0; ';
@@ -498,6 +503,9 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 			if($banner_color_title != '')
 				$banner_title_style_inline .= 'color:'.$banner_color_title.';';
 
+			if($heading_tag == 'span')
+				$banner_title_style_inline .= 'display: block';
+
 			if($banner_color_desc != '')
 				$banner_desc_style_inline .= 'color:'.$banner_color_desc.';';
 
@@ -505,20 +513,24 @@ if(!class_exists('Ultimate_Interactive_Banner'))
 				$img_style .= 'opacity:'.$image_opacity.';';
 			}
 			if($link !== "#")
-				$href = 'href="'.$link.'"';
+				$href = 'href="'.esc_url($link).'"';
 			else
 				$href = '';
 
 			$heading_tag = ( isset($heading_tag) && trim($heading_tag) != "" ) ? $heading_tag : 'h2';
 
-			$output .= '<div class="ult-new-ib ult-ib-effect-'.$banner_style.' '.$el_class.' '.$min_height_class.' '.$css_ib2_styles.'" '.$responsive.' style="'.$banner_style_inline.'" data-opacity="'.$image_opacity.'" data-hover-opacity="'.$image_opacity_on_hover.'" '.$banner_min_height.'>';
+			$output .= '<div class="ult-new-ib ult-ib-effect-'.esc_attr($banner_style).' '.esc_attr($el_class).' '.esc_attr($min_height_class).' '.esc_attr($css_ib2_styles).'" '.$responsive.' style="'.esc_attr($banner_style_inline).'" data-opacity="'.esc_attr($image_opacity).'" data-hover-opacity="'.esc_attr($image_opacity_on_hover).'" '.$banner_min_height.'>';
 			if($img !== '')
-				$output .= '<img class="ult-new-ib-img" style="'.$img_style.'" alt="'.$alt.'" src="'.apply_filters('ultimate_images', $img).'" '.$img_min_height.' '.$img_max_height.' />';
-			$output .= '<div id="'.$interactive_banner_id.'" class="ult-new-ib-desc" style="'.$title_bg.'">';
-			$output .= '<'.$heading_tag.' class="ult-new-ib-title ult-responsive" '.$interactive_banner_data_list.' style="'.$banner_title_style_inline.'">'.$banner_title.'</'.$heading_tag.'>';
-			$output .= '<div class="ult-new-ib-content ult-responsive" '.$interactive_banner_desc_data_list.' style="'.$banner_desc_style_inline.'"><p>'.$banner_desc.'</p></div>';
+				$output .= '<img class="ult-new-ib-img" style="'.esc_attr($img_style).'" alt="'.esc_attr($alt).'" src="'.esc_url(apply_filters('ultimate_images', $img)).'" '.$img_min_height.' '.$img_max_height.' />';
+			$output .= '<div id="'.esc_attr($interactive_banner_id).'" class="ult-new-ib-desc" style="'.esc_attr($title_bg).'">';
+			$output .= '<'.$heading_tag.' class="ult-new-ib-title ult-responsive" '.$interactive_banner_data_list.' style="'.esc_attr($banner_title_style_inline).'">'.$banner_title.'</'.$heading_tag.'>';
+			if($banner_desc != ''){
+			$output .= '<div class="ult-new-ib-content ult-responsive" '.$interactive_banner_desc_data_list.' style="'.esc_attr($banner_desc_style_inline).'"><p>'.$banner_desc.'</p></div>';
+			}
 			$output .= '</div>';
+			if($href != ''){
 			$output .= '<a class="ult-new-ib-link" '.$href.' '.$target.' '. $link_title .' '. $rel .'></a>';
+			}
 			$output .= '</div>';
 			$is_preset = false; //Display settings for Preset
 			if(isset($_GET['preset'])) {
@@ -552,7 +564,7 @@ if(class_exists('Ultimate_Interactive_Banner'))
 {
 	$Ultimate_Interactive_Banner = new Ultimate_Interactive_Banner;
 }
-if ( class_exists( 'WPBakeryShortCode' ) ) {
+if ( class_exists( 'WPBakeryShortCode' ) && !class_exists( 'WPBakeryShortCode_interactive_banner_2' ) ) {
     class WPBakeryShortCode_interactive_banner_2 extends WPBakeryShortCode {
     }
 }

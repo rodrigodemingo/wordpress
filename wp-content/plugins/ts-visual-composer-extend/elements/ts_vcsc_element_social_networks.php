@@ -1,13 +1,11 @@
 <?php
     global $VISUAL_COMPOSER_EXTENSIONS;
-
 	$social_values 					= get_option('ts_vcsc_extend_settings_socialDefaults', '');
 	if (($social_values == false) || (empty($social_values)) || ($social_values == "") || (!is_array($social_values))) {
 		$social_values				= array();
 	}
 	$social_dismiss					= __( "Click here to permanently remove the default value for this social network.", "ts_visual_composer_extend" );
 	$social_identifier				= mt_rand(999999, 9999999);
-
 	$VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element = array(
 		"name"						=> __( "TS Social Networks", "ts_visual_composer_extend" ),
 		"base"						=> "TS-VCSC-Social-Icons",
@@ -545,11 +543,10 @@
 				"group"				=> "Other Settings",
 			),
 		)
-	);
-	
+	);	
 	if ($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_LeanMap == "true") {
 		return $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element;
 	} else {			
 		vc_map($VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_VisualComposer_Element);
-	}
+	};
 ?>

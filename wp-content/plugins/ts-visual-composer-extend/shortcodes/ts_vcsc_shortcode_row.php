@@ -1,7 +1,5 @@
 <?php
-    global $VISUAL_COMPOSER_EXTENSIONS;
-	add_filter('TS_VCSC_ComposerRowAdditions_Filter',		'TS_VCSC_ComposerRowAdditions', 		10, 2);
-	
+	add_filter('TS_VCSC_ComposerRowAdditions_Filter',		'TS_VCSC_ComposerRowAdditions', 		10, 2);	
 	function TS_VCSC_ComposerRowAdditions($output, $atts, $content = '') {
 		global $VISUAL_COMPOSER_EXTENSIONS;
 		$TS_VCSC_RowToggleLimits		= get_option('ts_vcsc_extend_settings_rowVisibilityLimits', $VISUAL_COMPOSER_EXTENSIONS->TS_VCSC_Row_Toggle_Defaults);

@@ -40,6 +40,7 @@
 			'front_content_html'		=> '',
 			'front_content_customize'	=> 'false',
 			'front_content_color'		=> '#000000',
+			'front_content_line'		=> 120,
 			'front_panel_customize'		=> 'false',
 			'front_panel_styling'		=> 'color',
 			'front_panel_color'			=> '#ffffff',
@@ -66,6 +67,7 @@
 			'back_content_html'			=> '',
 			'back_content_customize'	=> 'false',
 			'back_content_color'		=> '#000000',
+			'back_content_line'			=> 120,
 			'back_panel_customize'		=> 'false',
 			'back_panel_styling'		=> 'color',
 			'back_panel_color'			=> '#ffffff',
@@ -356,7 +358,7 @@
 									if (($front_icon_type == "icon") && ($front_icon_font != '')) {
 										$output .= '<i style="' . $front_icon_padding . ' color:' . $front_icon_color . ';' . $front_icon_style . ' ' . $front_icon_border . '" class="ts-flip-front-icon ts-font-icon ' . $front_icon_font . ' ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '"></i>';
 									} else if (($front_icon_type == "image") && (isset($front_image_path[0]))) {
-										$output .= '<img src="' . $front_image_path[0] . '" style="' . $front_image_style . ' ' . $front_icon_border . '" class="ts-flip-front-icon ts-font-icon ' . $front_icon_frame_class . ' ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '">';
+										$output .= '<img src="' . $front_image_path[0] . '" style="' . $front_image_style . ' ' . $front_icon_border . '" class="ts-flip-front-icon ts-font-icon ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '">';
 									}
 									// Front Panel Title
 									if ($front_title_string != "") {
@@ -364,7 +366,7 @@
 									}
 									// Front Panel Content
 									if ($front_content_html != "") {
-										$output .= '<div class="ts-flip-front-content ts-flip-text" style="' . $google_font_frontcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($front_content_html)))) . '</div>';
+										$output .= '<div class="ts-flip-front-content ts-flip-text" style="line-height: ' . $front_content_line . '%; ' . $google_font_frontcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($front_content_html)))) . '</div>';
 									}
 								$output .= '</div>';
 							$output .= '</div>';
@@ -386,7 +388,7 @@
 									}
 									// Back Panel Content
 									if ($back_content_html != "") {
-										$output .= '<div class="ts-flip-back-content ts-flip-text" style="' . $google_font_backcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($back_content_html)))) . '</div>';
+										$output .= '<div class="ts-flip-back-content ts-flip-text" style="line-height: ' . $back_content_line . '%; ' . $google_font_backcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($back_content_html)))) . '</div>';
 									}
 									// Back Panel Link
 									if ($link_usage == "true") {
@@ -441,15 +443,15 @@
 									if (($front_icon_type == "icon") && ($front_icon_font != '')) {
 										$output .= '<i style="' . $front_icon_padding . ' color:' . $front_icon_color . ';' . $front_icon_style . ' ' . $front_icon_border . '" class="ts-font-icon ' . $front_icon_font . ' ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '"></i>';
 									} else if (($front_icon_type == "image") && (isset($front_image_path[0]))) {
-										$output .= '<img src="' . $front_image_path[0] . '" style="' . $front_image_style . ' ' . $front_icon_border . '" class="ts-flip-front-icon ts-font-icon ' . $front_icon_frame_class . ' ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '">';
+										$output .= '<img src="' . $front_image_path[0] . '" style="' . $front_image_style . ' ' . $front_icon_border . '" class="ts-flip-front-icon ts-font-icon ' . $animation_fronticon . '" data-animation="' . $animation_fronticon . '">';
 									}
 									// Front Panel Title
 									if ($front_title_string != "") {
-										$output .= '<' . $front_title_wrapper . ' class="ts-flip-front-title" style="color: ' . $front_title_color . '; ' . $front_banner_adjust . '; ' . $google_font_fronttitle . '">' . rawurldecode(base64_decode(strip_tags($front_title_string))) . '</' . $front_title_wrapper . '>';
+										$output .= '<' . $front_title_wrapper . ' class="ts-flip-front-title" style="color: ' . $front_title_color . '; ' . $google_font_fronttitle . '">' . rawurldecode(base64_decode(strip_tags($front_title_string))) . '</' . $front_title_wrapper . '>';
 									}
 									// Front Panel Content
 									if ($front_content_html != "") {
-										$output .= '<div class="ts-flip-front-content ts-flip-text" style="' . $google_font_frontcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($front_content_html)))) . '</div>';
+										$output .= '<div class="ts-flip-front-content ts-flip-text" style="line-height: ' . $front_content_line . '%; ' . $google_font_frontcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($front_content_html)))) . '</div>';
 									}
 								$output .= '</div>';
 							$output .= '</div>';
@@ -471,7 +473,7 @@
 									}
 									// Back Panel Content
 									if ($back_content_html != "") {
-										$output .= '<div class="ts-flip-back-content ts-flip-text" style="' . $google_font_backcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($back_content_html)))) . '</div>';
+										$output .= '<div class="ts-flip-back-content ts-flip-text" style="line-height: ' . $back_content_line . '%; ' . $google_font_backcontent . '">' . do_shortcode(rawurldecode(base64_decode(strip_tags($back_content_html)))) . '</div>';
 									}
 									// Back Panel Link
 									if ($link_usage == "true") {
@@ -515,8 +517,5 @@
 		
 		$myvariable = ob_get_clean();
 		return $myvariable;
-	}
-	if (class_exists('WPBakeryShortCode')) {
-		class WPBakeryShortCode_TS_VCSC_Panel_Flip extends WPBakeryShortCode {};
 	}
 ?>
