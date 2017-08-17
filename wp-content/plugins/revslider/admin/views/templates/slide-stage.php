@@ -267,9 +267,9 @@ if($slide->isStaticSlide()){
 							<input type="text" data-suffix="px" data-suffixalt="%" class="input-deepselects text-sidebar rs-layer-input-field tipsy_enabled_top" title="<?php _e("Layer Height (px) Use 'auto' to respect White Space",'revslider'); ?>" style="width:60px" id="layer_scaleY" name="layer_scaleY" value="" data-deepwidth="125" data-selects="Custom %||Custom PX||100%||100px||auto" data-svalues ="50%||150px||100%||100px||auto" data-icons="wrench||wrench||filter||filter||font">						
 						</span>
 						<!-- DEFAULT LAYER SIZE -->
-						<span id="layer_max_widthheight_wrapper" class="ho_row_ ho_column_">
-							<i class="rs-mini-layer-icon rs-icon-maxwidth rs-toolbar-icon tipsy_enabled_top " title="<?php _e("Layer Width (px/%). Use 'auto' to respect White Space",'revslider'); ?>" style="margin-right:3px"></i>
-							<input type="text" data-suffix="px" data-suffixalt="%" class="input-deepselects text-sidebar rs-layer-input-field tipsy_enabled_top" title="<?php _e("Layer Width (px/%). Use 'auto' to respect White Space",'revslider'); ?>" style="width:60px" id="layer_max_width" name="layer_max_width" value="auto" data-deepwidth="125" data-selects="Custom %||Custom PX||100%||100px||auto" data-svalues ="50%||150px||100%||100px||auto" data-icons="wrench||wrench||filter||filter||font">						
+						<span id="layer_max_widthheight_wrapper" class="ho_column_">
+							<i class="rs-mini-layer-icon rs-icon-maxwidth rs-toolbar-icon tipsy_enabled_top ho_row_" title="<?php _e("Layer Width (px/%). Use 'auto' to respect White Space",'revslider'); ?>" style="margin-right:3px"></i>
+							<input type="text" data-suffix="px" data-suffixalt="%" class="input-deepselects text-sidebar rs-layer-input-field tipsy_enabled_top ho_row_" title="<?php _e("Layer Width (px/%). Use 'auto' to respect White Space",'revslider'); ?>" style="width:60px" id="layer_max_width" name="layer_max_width" value="auto" data-deepwidth="125" data-selects="Custom %||Custom PX||100%||100px||auto" data-svalues ="50%||150px||100%||100px||auto" data-icons="wrench||wrench||filter||filter||font">						
 							<span class="rs-layer-toolbar-space" style="margin-right:11px"></span>
 							<i class="rs-mini-layer-icon rs-icon-maxheight rs-toolbar-icon tipsy_enabled_top" title="<?php _e("Layer Height (px). Use 'auto' to respect White Space",'revslider'); ?>"></i>
 							<input type="text" data-suffix="px" data-suffixalt="%" class="input-deepselects text-sidebar rs-layer-input-field tipsy_enabled_top " title="<?php _e("Layer Height (px). Use 'auto' to respect White Space",'revslider'); ?>" style="width:60px" id="layer_max_height" name="layer_max_height" value="auto" data-deepwidth="125" data-selects="Custom %||Custom PX||100%||100px||auto" data-svalues ="50%||150px||100%||100px||auto" data-icons="wrench||wrench||filter||filter||font">
@@ -284,7 +284,7 @@ if($slide->isStaticSlide()){
 						</span>
 
 						<!-- MIN HEIGHT -->
-						<span id="layer_minwidthheight_wrapper" style="display:none">
+						<span id="layer_minwidthheight_wrapper" class="ho_column_" style="display:none">
 							<i class="rs-mini-layer-icon rs-icon-maxwidth rs-toolbar-icon tipsy_enabled_top ho_column_" title="<?php _e("Min Width of Element. Use 'auto' to respect White Space",'revslider'); ?>" style="margin-right:3px"></i>						
 							<input type="text" data-suffix="px" data-suffixalt="%" class="input-deepselects text-sidebar rs-layer-input-field tipsy_enabled_top" title="<?php _e("Min Width",'revslider'); ?>" style="width:60px" id="layer_min_width" name="layer_min_width" value="" data-deepwidth="125" data-selects="Custom %||Custom PX||100%||100px||auto" data-svalues ="50%||150px||100%||100px||auto" data-icons="wrench||wrench||filter||filter||font">
 							<span class="rs-layer-toolbar-space" style="margin-right:11px"></span>
@@ -539,12 +539,13 @@ if($slide->isStaticSlide()){
 									<span class="rs-layer-toolbar-space" style="margin-right:15px"></span>
 
 									<!-- TEXT ALIGN VERTICAL (NOT USED YET, NOT VISIBLE !!)-->
-									<!--<i class="ho_row_ rs-mini-layer-icon rs-icon-vertical-align rs-toolbar-icon tipsy_enabled_top" title="<?php _e("Vertical Align ",'revslider'); ?>" style="margin-right:10px"></i>
-									<select class="ho_row_ rs-staticcustomstylechange rs-layer-input-field  tipsy_enabled_top" title="<?php _e("Vertical Align",'revslider'); ?>" style="width:100px;cursor:pointer" id="css_vertical-align" name="css_vertical-align">
+									<i class="ho_row_ ho_image_ ho_shape_ ho_button_ ho_video_ ho_svg_ ho_sltic_ ho_text_ rs-mini-layer-icon rs-icon-vertical-align rs-toolbar-icon tipsy_enabled_top" title="<?php _e("Vertical Align ",'revslider'); ?>" style="margin-right:10px"></i>
+									<select class="ho_row_ ho_image_ ho_shape_ ho_button_ ho_video_ ho_svg_ ho_sltic_ ho_text_ rs-staticcustomstylechange rs-layer-input-field  tipsy_enabled_top" title="<?php _e("Vertical Align",'revslider'); ?>" style="width:100px;cursor:pointer" id="css_vertical-align" name="css_vertical-align">
 										<option value="top"><?php _e('Top', 'revslider'); ?></option>
 										<option value="middle"><?php _e('Middle', 'revslider'); ?></option>
 										<option value="bottom"><?php _e('Bottom', 'revslider'); ?></option>
-									</select>-->
+									</select>
+									<span class="rs-layer-toolbar-space" style="margin-right:15px"></span>
 
 									<!-- ROW BREAK (NOT VISIBLE !!) -->								
 									<select style="display:none" class="rs-staticcustomstylechange rs-layer-input-field  tipsy_enabled_top" title="<?php _e("Columns Break at",'revslider'); ?>" style="width:100px;cursor:pointer" id="column_break_at" name="column_break_at">

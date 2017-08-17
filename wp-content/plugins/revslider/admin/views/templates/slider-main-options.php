@@ -146,6 +146,11 @@ if(!isset($linksEditSlides)) $linksEditSlides = '';
 								<span class="rs-source-label"><?php _e('Specific Posts', 'revslider');?></span>
 							</span>
 							<span class="rs-source-selector">
+								<span class="rs-source-image rssi-post"></span>
+								<input type="radio" id="source_type_10" value="current_post" name="source_type" <?php checked($source_type, 'current_post');?> />
+								<span class="rs-source-label"><?php _e('Current Post/Page', 'revslider');?></span>
+							</span>
+							<span class="rs-source-selector">
 								<span class="rs-source-image rssi-flickr"></span>
 								<input type="radio" id="source_type_3" value="flickr" name="source_type" <?php checked($source_type, 'flickr');?> />
 								<span class="rs-source-label"><?php _e('Flickr Stream', 'revslider');?></span>
@@ -730,13 +735,13 @@ if(!isset($linksEditSlides)) $linksEditSlides = '';
 						<div class="slidertitlebox">
 
 							<span class="one-third-container">
-								<input placeholder='<?php _e("Enter your Slider Name here", 'revslider')?>' type="text" class='regular-text' id="title" name="title" value="<?php echo RevSliderFunctions::getVal($arrFieldsParams, 'title', '');?>"/>
+								<input placeholder='<?php _e("Enter your Slider Name here", 'revslider')?>' type="text" class='regular-text' id="title" name="title" value="<?php echo esc_attr(stripslashes(RevSliderFunctions::getVal($arrFieldsParams, 'title', ''))); ?>"/>
 								<i class="input-edit-icon"></i>
 								<span class="description"><?php _e("The title of the slider, example: Slider 1", 'revslider')?></span>
 							</span>
 
 							<span class="one-third-container">
-								<input placeholder='<?php _e("Enter your Slider Alias here", 'revslider')?>' type="text" class='regular-text' id="alias" name="alias" value="<?php echo RevSliderFunctions::getVal($arrFieldsParams, 'alias', '');?>"/>
+								<input placeholder='<?php _e("Enter your Slider Alias here", 'revslider')?>' type="text" class='regular-text' id="alias" name="alias" value="<?php echo esc_attr(stripslashes(RevSliderFunctions::getVal($arrFieldsParams, 'alias', ''))); ?>"/>
 								<i class="input-edit-icon"></i>
 								<span class="description"><?php _e("The alias for embedding your slider, example: slider1", 'revslider')?></span>
 							</span>
@@ -4221,6 +4226,11 @@ if(!isset($linksEditSlides)) $linksEditSlides = '';
 								<input type="checkbox" class="tp-moderncheckbox withlabel" id="fade_scrolleffect" name="fade_scrolleffect" data-unchecked="off" <?php checked(RevSliderFunctions::getVal($arrFieldsParams, "fade_scrolleffect", "off"), "on");?>>
 								<div class="clear"></div>
 
+								<!-- SCALE EFFECT ON SCROLL -->
+								<?php /*<span class="label" id="label_scale_scrolleffect" origtitle="<?php _e("Endable / Disable scale Effect on Scroll:", 'revslider');?>"><?php _e("Scale Effect", 'revslider');?> </span>
+								<input type="checkbox" class="tp-moderncheckbox withlabel" id="scale_scrolleffect" name="scale_scrolleffect" data-unchecked="off" <?php checked(RevSliderFunctions::getVal($arrFieldsParams, "scale_scrolleffect", "off"), "on");?>>
+								<div class="clear"></div>*/ ?>
+
 								<!-- BLUR EFFECT ON SCROLL -->
 								<span class="label" id="label_blur_scrolleffect" origtitle="<?php _e("Endable / Disable Blur Effect on Scroll", 'revslider');?>"><?php _e("Blur Effect", 'revslider');?> </span>
 								<input type="checkbox" class="tp-moderncheckbox withlabel" id="blur_scrolleffect" name="blur_scrolleffect" data-unchecked="off" <?php checked(RevSliderFunctions::getVal($arrFieldsParams, "blur_scrolleffect", "off"), "on");?>>
@@ -4407,7 +4417,7 @@ if(!isset($linksEditSlides)) $linksEditSlides = '';
 								</select>
 								<div class="clear"></div>
 								
-								<span id="label_allow_android_html5_autoplay" class="label" origtitle="<?php _e("Allow HTML5 autoplayback on android devices", 'revslider');?>"><?php _e("Allow Android HTML5 Autoplay", 'revslider');?> </span>
+								<span id="label_allow_android_html5_autoplay" class="label" origtitle="<?php _e("HTML5 autoplay on mobile devices", 'revslider');?>"><?php _e("HTML5 Autoplay on Mobiles", 'revslider');?> </span>
 								<input type="checkbox" class="tp-moderncheckbox withlabel" id="allow_android_html5_autoplay" name="allow_android_html5_autoplay" data-unchecked="off" <?php checked(RevSliderFunctions::getVal($arrFieldsParams, "allow_android_html5_autoplay", "on"), "on");?>>
 								<div class="clear"></div>
 								
@@ -4826,7 +4836,7 @@ if(!isset($linksEditSlides)) $linksEditSlides = '';
 	console.log("Slider After Swap");
 	//data.currentslide - <?php _e('Current Slide as jQuery Object', 'revslider');?>
 
-	//data.previousslide - <?php _e('Previous Slide as jQuery Object', 'revslider');?>
+	//data.prevslide - <?php _e('Previous Slide as jQuery Object', 'revslider');?>
 });</textarea>
 <h4 style="margin-top:15px"><?php _e("Last slide starts", 'revslider')?></h4>
 <textarea class="api_area" style=" height:80px;" readonly>
