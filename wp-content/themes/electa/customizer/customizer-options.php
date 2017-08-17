@@ -23,6 +23,20 @@ function customizer_library_kaira_options() {
 	// Adds the sections to the $options array
 	$options['sections'] = $sections;
     
+    $section = 'header_image';
+
+    $sections[] = array(
+        'id' => $section,
+        'title' => __( 'Site Logo', 'electa' ),
+        'priority' => '25'
+    );
+    $options['kra-header-logo-max-width'] = array(
+        'id' => 'kra-header-logo-max-width',
+        'label'   => __( 'Set a max-width for the logo', 'electa' ),
+        'section' => $section,
+        'type'    => 'number',
+        'description' => __( 'This only applies if a logo image is uploaded', 'electa' )
+    );
     
     // Header Settings
     $section = 'kra-header';
@@ -63,7 +77,7 @@ function customizer_library_kaira_options() {
     $sections[] = array(
         'id' => $section,
         'title' => __( 'Home Layout Options', 'electa' ),
-        'priority' => '34'
+        'priority' => '30'
     );
     
     $options['kra-home-blocks-layout'] = array(
@@ -151,7 +165,6 @@ function customizer_library_kaira_options() {
         'label'   => __( 'Custom CSS', 'electa' ),
         'section' => $section,
         'type'    => 'textarea',
-        'default' => __( '', 'electa'),
         'description' => __( 'Add custom CSS to your theme. For advanced custom styling we recommend using a <a href="https://wordpress.org/plugins/so-css/" target="_blank">Custom CSS plugin</a>', 'electa' )
     );
     
@@ -169,7 +182,7 @@ function customizer_library_kaira_options() {
     $sections[] = array(
         'id' => $section,
         'title' => __( 'Blog Layout Options', 'electa' ),
-        'priority' => '160'
+        'priority' => '30'
     );
     
     $options['kra-blog-blocks-layout'] = array(
@@ -180,13 +193,6 @@ function customizer_library_kaira_options() {
         'description' => __( 'Enable this to change the layout of the blog page to list posts as blocks. This shows ALL posts', 'electa' ),
         'default' => 0,
     );
-    $options['kra-blog-cats'] = array(
-        'id' => 'kra-blog-cats',
-        'label'   => __( 'Blog Categories', 'electa' ),
-        'section' => $section,
-        'type'    => 'text',
-        'description' => __( 'Enter the ID\'s of the post categories you want to EXCLUDE from the blog, with a minus(-) before.<br />Eg: "-13,-17,-19"<br /><br /> Get the ID\'s at <b>Posts -> Categories</b>', 'electa' )
-    );
     $options['kra-blog-title'] = array(
         'id' => 'kra-blog-title',
         'label'   => __( 'Blog Page Title', 'electa' ),
@@ -194,11 +200,18 @@ function customizer_library_kaira_options() {
         'type'    => 'text',
         'default' => 'Blog'
     );
+    $options['kra-blog-cats'] = array(
+        'id' => 'kra-blog-cats',
+        'label'   => __( 'Blog Categories', 'electa' ),
+        'section' => $section,
+        'type'    => 'text',
+        'description' => __( 'Enter the ID\'s of the post categories you want to EXCLUDE from the blog, with a minus(-) before.<br />Eg: "-13,-17,-19"<br /><br /> Get the ID\'s at <b>Posts -> Categories</b>', 'electa' )
+    );
     $options['kra-upsell-blog'] = array(
         'id' => 'kra-upsell-blog',
         'section' => $section,
         'type'    => 'upsell',
-        'description' => __( '<b>Premium Extra Features:</b><br />- Setting to change blog blocks columns layout<br />- Enable blocks layout on Archive pages<br />- Set WooCommerce Shop page to full width', 'electa' )
+        'description' => __( '<b>Premium Extra Features:</b><br />- Setting to change blog blocks columns layout<br />- Enable blocks layout on Archive pages<br /><br />- Custom WooCommerce Styling<br />- Set WooCommerce Shop page to full width<br />- Set WC products per row<br />- Set WC products per page', 'electa' )
     );
     
     
@@ -208,7 +221,7 @@ function customizer_library_kaira_options() {
     $sections[] = array(
         'id' => $section,
         'title' => __( 'Social Links', 'electa' ),
-        'priority' => '160'
+        'priority' => '40'
     );
     
     $options['kra-social-email'] = array(
@@ -244,7 +257,7 @@ function customizer_library_kaira_options() {
     $sections[] = array(
         'id' => $section,
         'title' => __( 'Website Text', 'electa' ),
-        'priority' => '160'
+        'priority' => '50'
     );
     
     $options['kra-website-error-head'] = array(

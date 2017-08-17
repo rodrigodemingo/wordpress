@@ -5,7 +5,7 @@
  * @package Electa
  */
 
-define( 'KAIRA_THEME_VERSION' , '1.3.04' );
+define( 'KAIRA_THEME_VERSION' , '1.3.05' );
 
 // Upgrade / Order Premium page
 require get_template_directory() . '/upgrade/upgrade.php';
@@ -21,6 +21,11 @@ require get_template_directory() . '/customizer/customizer-options.php';
 require get_template_directory() . '/customizer/customizer-library/customizer-library.php';
 require get_template_directory() . '/customizer/styles.php';
 require get_template_directory() . '/customizer/mods.php';
+
+// Load TGM plugin class
+require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+// Add customizer Upgrade class
+require_once( get_template_directory() . '/includes/electa-pro/class-customize.php' );
 
 if ( ! function_exists( 'kaira_setup_theme' ) ) :
 /**
@@ -63,7 +68,6 @@ function kaira_setup_theme() {
     
     // The custom header is used for the logo
     add_theme_support('custom-header', array(
-        'default-image' => '',
         'width'         => 250,
         'height'        => 180,
         'flex-width' => true,
@@ -87,12 +91,14 @@ function kaira_setup_theme() {
 	// Setup the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'electa_custom_background_args', array(
 		'default-color' => 'F6F6F6',
-		'default-image' => '',
 	) ) );
     
     add_theme_support( 'title-tag' );
     
     add_theme_support( 'woocommerce' );
+    add_theme_support( 'wc-product-gallery-zoom' );
+    add_theme_support( 'wc-product-gallery-lightbox' );
+    add_theme_support( 'wc-product-gallery-slider' );
 }
 endif; // kaira_setup_theme
 add_action( 'after_setup_theme', 'kaira_setup_theme' );
@@ -106,7 +112,6 @@ function kaira_widgets_init() {
 	register_sidebar( array(
 		'name'          => __( 'Sidebar', 'electa' ),
 		'id'            => 'sidebar-1',
-		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h3 class="widget-title">',
@@ -171,12 +176,6 @@ add_action( 'admin_enqueue_scripts', 'kaira_load_admin_script' );
  */
 function load_kaira_customizer_style() {
     wp_enqueue_script( 'kaira-customizer-js', get_template_directory_uri() . '/customizer/customizer-library/js/customizer-custom.js', array('jquery'), KAIRA_THEME_VERSION, true );
-    $kaira_upgrade_button = array(
-        'link' => admin_url( 'themes.php?page=theme_info' ),
-        'text' => __( 'Upgrade to Electa Premium', 'electa' ),
-        'sub_text' => __( 'Upgrade now while Electa is offered at only $20', 'electa' )
-    );
-    wp_localize_script( 'kaira-customizer-js', 'upgrade_button', $kaira_upgrade_button );
     wp_enqueue_style( 'electa-customizer-css', get_template_directory_uri() . '/customizer/customizer-library/css/customizer.css' );
 }    
 add_action( 'customize_controls_enqueue_scripts', 'load_kaira_customizer_style' );
@@ -206,6 +205,52 @@ if ( is_plugin_active( 'ml-slider/ml-slider.php' ) ) {
     add_filter( 'metaslider_hoplink', 'metaslider_hoplink', 10, 1 );
     
 }
+
+/**
+ * Display recommended plugins with the TGM class
+ */
+function kaira_register_required_plugins() {
+    $plugins = array(
+        // The recommended WordPress.org plugins.
+        array(
+            'name'      => __( 'WooCommerce', 'electa' ),
+            'slug'      => 'woocommerce',
+            'required'  => false,
+        ),
+        array(
+            'name'      => __( 'Page Builder', 'electa' ),
+            'slug'      => 'siteorigin-panels',
+            'required'  => false,
+        ),
+        array(
+            'name'      => __( 'Widgets Bundle', 'electa' ),
+            'slug'      => 'siteorigin-panels',
+            'required'  => false,
+        ),
+        array(
+            'name'      => __( 'Contact Form 7', 'electa' ),
+            'slug'      => 'contact-form-7',
+            'required'  => false,
+        ),
+        array(
+            'name'      => __( 'Breadcrumb NavXT', 'electa' ),
+            'slug'      => 'breadcrumb-navxt',
+            'required'  => false,
+        ),
+        array(
+            'name'      => __( 'Meta Slider', 'electa' ),
+            'slug'      => 'ml-slider',
+            'required'  => false,
+        )
+    );
+    $config = array(
+        'id'           => 'electa',
+        'menu'         => 'tgmpa-install-plugins',
+    );
+
+    tgmpa( $plugins, $config );
+}
+add_action( 'tgmpa_register', 'kaira_register_required_plugins' );
 
 /**
  * Register a custom Post Categories ID column

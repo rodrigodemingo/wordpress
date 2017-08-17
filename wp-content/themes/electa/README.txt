@@ -2,8 +2,7 @@
 Contributors: Kaira
 Donate link: 
 Tags: one-column, two-columns, three-columns, four-columns, right-sidebar, grid-layout, flexible-header, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, full-width-template, theme-options, threaded-comments, translation-ready, blog, e-commerce, entertainment, photography, portfolio
-Tested up to: 3.9
-Stable tag: 3.7
+Requires at least: 4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +59,17 @@ View the theme settings under "Appearance" -> Customize.
 1. Featured Images work best at a minimum of 1000 wide and 600 high.
 
 == Changelog ==
+
+#### 1.3.05
+* Updated/Improved JS for Masonry Grid layout
+* Added setting to set max-width to uploaded logo
+* Added TGM Plugin Activation class
+* Updated/fixed compatibility with new WooCommerce Gallery
+* Updated the language .pot file
+Premium: Added setting to remove Block layout text
+Premium: Added setting to set WooCommerce products shown per page
+Premium: Added setting to set WooCommerce products per row
+Premium: Added setting to remove product borders
 
 #### 1.3.04
 * Styling fixes/tweaks

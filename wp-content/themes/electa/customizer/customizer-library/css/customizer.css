@@ -1,4 +1,4 @@
-
+#customize-theme-controls #accordion-section-header_image h3:hover,
 #customize-theme-controls #accordion-section-kra-styling h3:hover,
 #customize-theme-controls #accordion-section-kra-website h3:hover,
 #customize-theme-controls #accordion-section-kra-header h3:hover,
@@ -10,37 +10,17 @@
     color: #FFF;
 }
 
-#customize-theme-controls #accordion-section-kra-styling.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-website.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-header.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-homepage.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-blog.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-social.control-section.open h3,
-#customize-theme-controls #accordion-section-kra-favicon.control-section.open h3 {
-    background-color: #006CC9 !important;
-    color: #FFF !important;
-}
-
-a.kaira-upgrade-btn {
-    display: inline-block;
-    font-size: 11px;
+#accordion-section-electa_premium a.button {
     background-color: #006CC9;
     color: #FFF;
-    line-height: 14px;
-    margin: 6px 0 0;
-    padding: 5px 8px 6px;
-    border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    text-decoration: none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+    border: 0;
+    position: relative;
+    top: -2px;
 }
-a.kaira-upgrade-btn:hover {
+#accordion-section-electa_premium a.button:hover {
     background-color: #0952A9;
     color: #FFF;
-}
-.kaira-upgrade-txt {
-	font-size: 11px;
-	color: #999;
 }
 
 .kaira-upsell-desc {
@@ -57,7 +37,12 @@ a.kaira-upgrade-btn:hover {
     color: #006cc9;
 }
 
-#customize-control-background_color,
+#customize-control-blogdescription,
+#customize-control-kra-header-logo-max-width,
+#customize-control-kra-home-blocks-layout,
+#customize-control-kra-blog-blocks-layout,
+#customize-control-kra-blog-title,
+#customize-control-kra-website-error-msg,
 #customize-control-kra-header-font-color,
 #customize-control-kra-main-color-hover,
 #customize-control-kra-heading-font-color {

@@ -2,7 +2,7 @@
 /**
  * @package Electa
  */
-?><!DOCTYPE html>
+?><!DOCTYPE html><!-- Electa.ORG -->
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -30,7 +30,7 @@
     <div class="site-header-inner">
     	<div class="site-branding">
             <?php if ( get_header_image() ) : ?>
-                <a href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?>" rel="home"><img src="<?php esc_url( header_image() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ) ?>" /></a>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo-img" title="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?>" rel="home"><img src="<?php esc_url( header_image() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ) ?>" /></a>
                 <?php if ( get_theme_mod( 'kra-header-slogan', false ) ) : ?>
                     <h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
                 <?php endif; ?>

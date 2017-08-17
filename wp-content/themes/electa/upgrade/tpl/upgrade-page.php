@@ -10,7 +10,7 @@
             
             <div class="upgrade-order-number-info-btns-link">
                 <a href="https://kairaweb.com/theme/electa/#purchase-premium" class="upgrade-page-link" id="upgrade-purchase-link" target="_blank">
-                    <?php printf( __( '<span>Electa Premium </span><em>$20</em>', 'electa' ) ); ?>
+                    <?php printf( __( '<span>Electa Premium </span><em>$25</em>', 'electa' ) ); ?>
                 </a>
             </div>
             
@@ -57,7 +57,7 @@
             <h3 class="upgrade-page-sub-title"><?php _e( 'Upgrade to Premium', 'electa' ); ?></h3>
             <div class="upgrade-page-left-box">
                 <div class="upgrade-page-left-box-left">
-                    <?php printf( __( "If you've enjoyed using our Electa theme to build your website, then you should love the premium version which comes with a bunch of extra features for a low cost of <strong>$20</strong>.<br /><br />With Electa premium we offer continued updates and you'll get prioritized support to help you build the website you want.", 'electa' ) ); ?>
+                    <?php printf( __( "If you've enjoyed using our Electa theme to build your website, then you should love the premium version which comes with a bunch of extra features for a low cost of <strong>$25</strong>.<br /><br />With Electa premium we offer continued updates and you'll get prioritized support to help you build the website you want.", 'electa' ) ); ?>
                 </div>
                 <div class="upgrade-page-left-box-right">
                     <img src="<?php echo get_template_directory_uri(); ?>/upgrade/images/upgrade-payment.png" alt="<?php _e( 'Upgrade to Premium', 'electa' ); ?>" />

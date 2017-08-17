@@ -14,7 +14,25 @@ if ( ! function_exists( 'customizer_library_kaira_build_styles' ) && class_exist
  * @return void
  */
 function customizer_library_kaira_build_styles() {
+    
+    // Site Logo Max Width
+    $setting = 'kra-header-logo-max-width';
+    $mod = get_theme_mod( $setting, customizer_library_get_default( $setting ) );
 
+    if ( $mod !== customizer_library_get_default( $setting ) ) {
+
+        $logo_max_width = esc_attr( $mod );
+
+        Customizer_Library_Styles()->add( array(
+            'selectors' => array(
+                'a.site-logo-img'
+            ),
+            'declarations' => array(
+                'max-width' => $logo_max_width . 'px'
+            )
+        ) );
+    }
+    
 	// Main Color
 	$color = 'kra-main-color';
 	$colormod = get_theme_mod( $color, customizer_library_get_default( $color ) );

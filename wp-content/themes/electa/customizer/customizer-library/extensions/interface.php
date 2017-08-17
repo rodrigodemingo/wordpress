@@ -58,6 +58,7 @@ function customizer_library_register( $wp_customize ) {
 			switch ( $option['type'] ) {
 
 				case 'text':
+				case 'number':
 				case 'select':
 				case 'radio':
 				case 'checkbox':
