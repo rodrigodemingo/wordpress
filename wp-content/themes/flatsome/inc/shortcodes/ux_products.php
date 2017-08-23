@@ -73,7 +73,7 @@ function ux_products($atts, $content = null, $tag) {
 
 	// Fix product on small screens
 	if($style == 'overlay' || $style == 'shade'){
-		$columns__sm = 1;
+		if(!$columns__sm) $columns__sm = 1;
 	}
 
 	if($tag == 'ux_bestseller_products') {
@@ -212,6 +212,7 @@ function ux_products($atts, $content = null, $tag) {
 				'post__in' => $ids,
 				'post_type' => 'product',
 				'numberposts' => -1,
+				'posts_per_page' => -1,
 				'orderby' => 'post__in',
 				'ignore_sticky_posts' => true,
 			);

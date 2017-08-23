@@ -127,6 +127,8 @@
 .mfn-header .mfn-popup-save { float:right; margin:19px 20px 0 0;}
 
 .mfn-header .mfn-buttons { float:right; border-left:1px solid #48c9b0; height:100%; padding:0 10px; position:relative;}
+
+/*
 .mfn-header .mfn-buttons a { display:block; width:20px; height:20px; background:url(../img/ico-buttons.png) no-repeat; float:left; margin:17px 0; border:10px solid #1ABC9C; position:relative;}
 .mfn-header .mfn-buttons a:hover { background-color:#1caa8e; border-color:#1caa8e;}
 .mfn-header .mfn-buttons a span { display:none; background:#1caa8e; color:#fff; padding:5px; position:absolute; z-index:2; top:-40px; left:-10px; font-size:14px; }
@@ -139,6 +141,7 @@
 .mfn-header .mfn-buttons a.mfn-btn-xml	{ background-position:0 -20px;}
 .mfn-header .mfn-buttons a.mfn-btn-doc	{ background-position:0 -40px;}
 .mfn-header .mfn-buttons a.mfn-btn-demo { background-position:0 -60px;}
+*/
 
 .mfn-sections { min-height:474px; background:#f8f9f9;}
 
@@ -148,7 +151,10 @@
 .mfn-sections-footer { padding: 19px 0 14px; overflow:hidden;}
 .mfn-sections-footer .mfn-popup-save { float:right;}
 
-.mfn-theme-version { text-align:center; margin-top:10px; color:#777;}
+#mfn-wrapper .mfn-theme-version{text-align:center;margin-top:10px;color:#777}
+#mfn-wrapper .mfn-link{text-align:center}
+#mfn-wrapper .mfn-link a{color:#0073aa}
+#mfn-wrapper .mfn-link a:hover{color:#00a0d2}
 
 
 /* ------------------------- .form-table -------------------------- */

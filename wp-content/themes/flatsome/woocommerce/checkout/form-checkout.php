@@ -28,8 +28,8 @@ $row_classes = implode(" ", $row_classes);
 $main_classes = implode(" ", $main_classes);
 $sidebar_classes = implode(" ", $sidebar_classes);
 
-wc_print_notices();?>
-<div class="container">
+wc_print_notices(); ?>
+
 <?php
 
 do_action( 'woocommerce_before_checkout_form', $checkout );
@@ -89,4 +89,3 @@ if(flatsome_option('facebook_login_checkout') && get_option('woocommerce_enable_
 </form>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
-</div>

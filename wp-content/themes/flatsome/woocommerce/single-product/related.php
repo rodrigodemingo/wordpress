@@ -21,22 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Fallback to old
-if(!woocommerce_version_check('3.0.0')){
+if(!fl_woocommerce_version_check('3.0.0')){
   return wc_get_template_part( 'single-product/related-old');
 }
 
 // Get Type
-$type = get_theme_mod('related_products');
+$type = get_theme_mod('related_products', 'slider');
 if($type == 'hidden') return;
 if($type == 'grid') $type = 'row';
 
 // Disable slider if less than selected products pr row.
-if ( sizeof( $related_products ) < (flatsome_option('related_products_pr_row')+1) ) {
+if ( sizeof( $related_products ) < (get_theme_mod('related_products_pr_row', 4)+1) ) {
   $type = 'row';
 }
 
 $repater['type'] = $type;
-$repater['columns'] = flatsome_option('related_products_pr_row');
+$repater['columns'] = get_theme_mod('related_products_pr_row', 4);
 $repater['slider_style'] = 'reveal';
 $repater['row_spacing'] = 'small';
 

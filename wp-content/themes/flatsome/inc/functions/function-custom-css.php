@@ -278,7 +278,7 @@ if(!empty($type_headings['font-family'])) {
 echo 'h1,h2,h3,h4,h5,h6,.heading-font, .off-canvas-center .nav-sidebar.nav-vertical > li > a{font-family: "'.$type_headings['font-family'].'", sans-serif;}';
 }
 if(!empty($type_headings['variant'])) {
-  echo 'h1,h2,h3,h4,h5,h6,.heading-font,.banner h1,.banner h2{font-weight: '.($type_headings['variant']*1).';}';
+  echo 'h1,h2,h3,h4,h5,h6,.heading-font,.banner h1,.banner h2{font-weight: '.(intval($type_headings['variant'])).';}';
 }
 if(get_theme_mod('type_headings_color')){
   echo 'h1,h2,h3,h4,h5,h6,.heading-font{color: '.get_theme_mod('type_headings_color').';}';
@@ -402,7 +402,7 @@ background-color: <?php echo get_theme_mod('header_shop_bg_color') ?>;}
 <?php } ?>
 
 <?php if(get_theme_mod('button_radius') && get_theme_mod('button_radius')  !== '0px') { ?>
-input[type='submit'], input[type="button"], button, .button{border-radius: <?php echo get_theme_mod('button_radius');?>!important}
+input[type='submit'], input[type="button"], button:not(.icon), .button:not(.icon){border-radius: <?php echo get_theme_mod('button_radius');?>!important}
 <?php } ?>
 
 <?php if(get_theme_mod('flatsome_lightbox_bg')) { ?>

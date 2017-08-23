@@ -35,7 +35,6 @@ function featured_box($atts, $content = null) {
   $css_args_out = array(
     'margin' => array(
         'attribute' => 'margin',
-        'unit' => 'px',
         'value' => $margin,
     ),
   );
@@ -55,7 +54,7 @@ function featured_box($atts, $content = null) {
   $classes = implode(" ", $classes);
   $classes_img = implode(" ", $classes_img);
   ?>
-  
+
   <?php if($link) { echo '<a class="plain" href="'.$link.'">'; } ?>
   <div class="icon-box <?php echo $classes; ?>" <?php if($tooltip) echo 'title="'.$tooltip.'"'?> <?php echo get_shortcode_inline_css($css_args_out);?>>
 

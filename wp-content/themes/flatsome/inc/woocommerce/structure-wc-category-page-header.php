@@ -21,7 +21,7 @@ function flatsome_category_header(){
         echo wc_get_template_part('layouts/headers/category-title');
     }
     // Set Category headers
-    else if(is_product_category() || is_shop() || is_product_tag()){
+    else if(is_product_category() || is_shop() || is_product_tag() || is_tax()){
         // Get Custom Header Content
         $cat_header_style = get_theme_mod('category_title_style');
 

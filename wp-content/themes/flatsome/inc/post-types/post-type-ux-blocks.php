@@ -13,7 +13,7 @@ register_post_type('blocks',
                         'not_found_in_trash' => __('No Blocks found in Trash', "blocks"),
                     ),
                     'public' => true,
-                    'has_archive' => true,
+                    'has_archive' => false,
                     'show_in_menu' => true,
                     'supports' => array('thumbnail','editor','title','revisions','custom-fields'),
                     'show_in_nav_menus' => true,
@@ -141,7 +141,7 @@ function block_shortcode($atts, $content = null) {
             && function_exists('ux_builder_is_active')
             && !ux_builder_is_active()) {
            // $edit_link = get_edit_post_link( $post_id );
-           $edit_link = ux_builder_edit_url( $post->ID /* post to preview */, $post_id /* pot to edit */ );
+           $edit_link = ux_builder_edit_url( $post->ID /* post to preview */, $post_id /* post to edit */ );
            $edit_link_backend = admin_url('post.php?post='.$post_id.'&action=edit');
            $html = '<div class="block-edit-link" data-title="Edit Block: '.get_the_title($post_id).'"   data-backend="'.esc_url($edit_link_backend).'" data-link="'.esc_url($edit_link).'"></div>'.$html.'';
         }

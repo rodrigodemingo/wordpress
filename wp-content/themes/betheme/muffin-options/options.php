@@ -501,18 +501,22 @@ if ( ! class_exists('MFN_Options') ){
 						// end: menu items -------------------------------------------
 						
 						echo '<div class="mfn-theme-version">'. __('Theme Version', 'mfn-opts') .' <span>'. THEME_VERSION .'</span></div>';	
+						echo '<div class="mfn-link"><a href="admin.php?page=be-support">'. __('Manual & Support', 'mfn-opts') .'</a></div>';	
 					echo '</div>';
 					
 					echo '<div id="mfn-main">';
 						echo '<div class="mfn-header">';
+						
+							/*
 							echo '<div class="mfn-buttons">';
 								echo '<a class="mfn-btn-more" href="javascript:void(0);"><span>'. __('More Options','mfn-opts') .'</span></a>';
 								echo '<div class="mfn-buttons-more">';
-// 									echo '<a class="mfn-btn-xml" href="http://themes.muffingroup.com/xmls" target="_blank"><span>Get&nbsp;the&nbsp;XML&nbsp;file</span></a>';
 									echo '<a class="mfn-btn-doc"  href="http://themes.muffingroup.com/betheme/documentation" target="_blank"><span>Documentation</span></a>';
 									echo '<a class="mfn-btn-demo" href="http://themes.muffingroup.com/be/splash/" target="_blank"><span>Demo</span></a>';
 								echo '</div>';
 							echo '</div>';
+							*/
+							
 							echo '<input type="submit" name="submit" value="'.__('Save Changes', 'mfn-opts').'" class="mfn-popup-save" />';
 						echo '</div>';
 			

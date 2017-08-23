@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product, $woocommerce_loop;
 
 // Fallback to WC.2x Versions.
-if(!woocommerce_version_check('3.0.0') ) {
+if(!fl_woocommerce_version_check('3.0.0') ) {
   wc_get_template( 'woocommerce/single-product/w2-up-sells.php' );
   return;
 }

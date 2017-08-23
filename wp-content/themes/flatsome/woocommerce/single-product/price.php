@@ -24,9 +24,8 @@ global $product;
 
 $classes = array();
 if($product->is_on_sale()) $classes[] = 'price-on-sale';
-if(!$product->is_in_stock()) $classes[] = 'price-not-in-stock';
-
-?>
+if(!$product->is_in_stock()) $classes[] = 'price-not-in-stock'; ?>
 <div class="price-wrapper">
-	<p class="price product-page-price <?php echo implode(' ', $classes); ?>"><?php echo $product->get_price_html(); ?></p>
+	<p class="price product-page-price <?php echo implode(' ', $classes); ?>">
+  <?php echo $product->get_price_html(); ?></p>
 </div>

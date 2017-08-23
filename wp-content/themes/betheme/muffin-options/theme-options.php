@@ -380,7 +380,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'type' 		=> 'radio_img',
 					'title' 	=> __('Style | Main', 'mfn-opts'),
 					'options' 	=> array(
-						'' 			=> array('title' => 'Default', 	'img' => MFN_OPTIONS_URI .'img/select/style/default.png'),
+						'' 			=> array('title' => 'Classic', 	'img' => MFN_OPTIONS_URI .'img/select/style/default.png'),
 						'simple' 	=> array('title' => 'Simple', 	'img' => MFN_OPTIONS_URI .'img/select/style/simple.png'),
 					),
 					'class'		=> 'wide',
@@ -1961,7 +1961,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'type' 		=> 'switch',
 					'title' 	=> __('Load More button', 'mfn-opts'),
 					'sub_desc' 	=> __('Show Ajax Load More button', 'mfn-opts'),
-					'desc' 		=> __('Sliders and videos will be replaced with featured image', 'mfn-opts'),
+					'desc' 		=> __('<b>Sliders</b> will be replaced with featured images', 'mfn-opts'),
 					'options' 	=> array( '0' => 'Off', '1' => 'On' ),
 					'std' 		=> '0'
 				),
@@ -2286,7 +2286,7 @@ if( ! function_exists( 'mfn_opts_setup' ) )
 					'id' 		=> 'portfolio-isotope',
 					'type' 		=> 'switch',
 					'title' 	=> __('jQuery filtering', 'mfn-opts'),
-					'desc' 		=> __('When this option is enabled, portfolio looks great with all projects on single site, so please set "Posts per page" option to bigger number', 'mfn-opts'),
+					'desc' 		=> __('When this option is enabled, portfolio looks great with all projects on single site, so please set <b>Posts per page</b> option to bigger number', 'mfn-opts'),
 					'options' 	=> array('1' => 'On','0' => 'Off'),
 					'std' 		=> '1'
 				),

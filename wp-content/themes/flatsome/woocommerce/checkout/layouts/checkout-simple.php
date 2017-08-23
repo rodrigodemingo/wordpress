@@ -28,7 +28,6 @@
       <?php get_template_part('template-parts/header/partials/element','logo'); ?>
       <?php wc_get_template('checkout/header-small.php'); ?>
     </div>
-
     <?php the_content(); ?>
 
   <?php endwhile; // end of the loop. ?>

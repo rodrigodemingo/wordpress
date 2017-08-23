@@ -1308,7 +1308,7 @@ if( ! function_exists( 'mfn_post_thumbnail_type' ) )
  * --------------------------------------------------------------------------- */
 if( ! function_exists( 'mfn_post_thumbnail' ) )
 {
-	function mfn_post_thumbnail( $postID, $type = false, $style = false, $images_only = false ){
+	function mfn_post_thumbnail( $postID, $type = false, $style = false, $featured_image = false ){
 		$output = '';
 	
 		
@@ -1525,13 +1525,21 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 		
 		$post_format = mfn_post_format( $postID );
 		
-		// Images Only
 		
-		if( $images_only ){
+		// Featured images | available types ---
+		
+		// no slider if load more
+		if( $featured_image == 'no_slider' ){
+			$type = 'portfolio';
+		}
+		
+		// images only option
+		if( $featured_image == 'image' ){
 			if( ! in_array( $post_format, array( 'quote', 'link', 'image' ) ) ){
-				$post_format = 'images-only';
+				$post_format = 'image-only';
 			}
 		}
+
 
 		switch( $post_format ){
 			
@@ -1571,13 +1579,15 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 				}
 				break;
 				
-			case 'images-only':
-				
-				// Images Only
-				
-				$output .= $link_before;
-					$output .= get_the_post_thumbnail( $postID, $sizeH, array( 'class' => 'scale-with-grid' ) );
-				$output .= $link_after;
+			case 'image-only':
+			
+				// images only option
+			
+				if( has_post_thumbnail() ){
+					$output .= $link_before;
+						$output .= get_the_post_thumbnail( $postID, $sizeH, array( 'class'=>'scale-with-grid' ) );
+					$output .= $link_after;
+				}
 				break;
 				
 			default:
@@ -1587,7 +1597,7 @@ if( ! function_exists( 'mfn_post_thumbnail' ) )
 				$rev_slider = get_post_meta( $postID, 'mfn-post-slider', true );
 				$lay_slider = get_post_meta( $postID, 'mfn-post-slider-layer', true );
 				
-				if( $type != 'portfolio' && ( $rev_slider || $lay_slider ) ){
+				if( ( 'portfolio' != $type ) && ( $rev_slider || $lay_slider ) ){
 						
 					if( $rev_slider ){
 						// Revolution Slider

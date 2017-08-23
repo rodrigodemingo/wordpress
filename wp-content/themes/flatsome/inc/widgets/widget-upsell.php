@@ -35,7 +35,7 @@ class Upsell_Widget extends WP_Widget {
 		/* Disable if not on product page */
 		if(!function_exists('is_product') || !is_product()) return;
 
-    $upsells = woocommerce_version_check('3.0.0') ?  $product->get_upsell_ids() :  $product->get_upsells();
+    $upsells = fl_woocommerce_version_check('3.0.0') ?  $product->get_upsell_ids() :  $product->get_upsells();
 
 		if ( sizeof( $upsells ) == 0 ) return;
 

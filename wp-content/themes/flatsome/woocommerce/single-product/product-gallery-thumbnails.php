@@ -2,7 +2,7 @@
 
 global $post, $product, $woocommerce;
 
-$attachment_ids = woocommerce_version_check('3.0.0') ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
+$attachment_ids = fl_woocommerce_version_check('3.0.0') ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
 $thumb_count = count($attachment_ids)+1;
 
 // Disable thumbnails if there is only one extra image.

@@ -21,7 +21,7 @@ function ux_builder_asset( $path ) {
 }
 
 /**
- * Renders a url for editing a post the UX Builder.
+ * Renders a url for editing a post with the UX Builder.
  *
  * @param  number $post_id
  * @param  number $edit_post_id

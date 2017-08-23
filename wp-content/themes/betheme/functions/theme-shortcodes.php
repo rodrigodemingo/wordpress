@@ -1044,16 +1044,23 @@ if( ! function_exists( 'sc_blog' ) )
 			
 				$output .= '<div class="posts_group lm_wrapper col-'. $columns .' '. $classes .'">';
 
-					$images_only = false;
-					if( $load_more || $images ){
-						$images_only = 'images_only';
+					// Featured images | available types
+					
+					$featured_image = '';	// all
+					if( $load_more ){
+						$featured_image = 'no_slider';	// no slider if load more
+					}
+					if( $images ){
+						$featured_image = 'image';	// images only option
 					}
 
-					$output .= mfn_content_post( $query_blog, $style, $images_only );
+					$output .= mfn_content_post( $query_blog, $style, $featured_image );
 										
 				$output .= '</div>';
 	
-				if( $pagination ) $output .= mfn_pagination( $query_blog, $load_more );
+				if( $pagination || $load_more ){
+					$output .= mfn_pagination( $query_blog, $load_more );
+				}
 				
 			$output .= '</div>'."\n";
 		

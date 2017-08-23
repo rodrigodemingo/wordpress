@@ -26,8 +26,8 @@ if ( ! function_exists( 'is_portfolio_activated' ) ) {
 }
 
 /* Check WooCommerce Version */
-if( ! function_exists('woocommerce_version_check') ){
-	function woocommerce_version_check( $version = '2.6' ) {
+if( ! function_exists('fl_woocommerce_version_check') ){
+	function fl_woocommerce_version_check( $version = '2.6' ) {
     global $woocommerce;
     if( version_compare( $woocommerce->version, $version, ">=" ) ) {
       return true;

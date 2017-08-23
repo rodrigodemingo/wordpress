@@ -169,13 +169,18 @@ $translate['item-all'] 		= mfn_opts_get('translate') ? mfn_opts_get('translate-i
 						
 							<div class="posts_group lm_wrapper <?php echo implode(' ', $blog_classes); ?>">
 								<?php
-									
-									$images_only = false;
-									if( $load_more || mfn_opts_get( 'blog-images' ) ){
-										$images_only = 'images_only';
+
+									// Featured images | available types
+										
+									$featured_image = '';	// all
+									if( $load_more ){
+										$featured_image = 'no_slider';	// no slider if load more
+									}
+									if( mfn_opts_get( 'blog-images' ) ){
+										$featured_image = 'image';	// images only option
 									}
 								
-									echo mfn_content_post( false, false, $images_only );
+									echo mfn_content_post( false, false, $featured_image );
 								?>
 							</div>
 						

@@ -41,8 +41,8 @@ if ( $order ) : ?>
 
     <?php
 
-    $get_payment_method = woocommerce_version_check('3.0.0') ? $order->get_payment_method() : $order->payment_method;
-    $get_order_id = woocommerce_version_check('3.0.0') ? $order->get_id() : $order->id; ?>
+    $get_payment_method = fl_woocommerce_version_check('3.0.0') ? $order->get_payment_method() : $order->payment_method;
+    $get_order_id = fl_woocommerce_version_check('3.0.0') ? $order->get_id() : $order->id; ?>
 
     <?php do_action( 'woocommerce_thankyou_' . $get_payment_method, $get_order_id ); ?>
     <?php do_action( 'woocommerce_thankyou', $get_order_id ); ?>
@@ -60,7 +60,7 @@ if ( $order ) : ?>
           <strong><?php echo $order->get_order_number(); ?></strong>
         </li>
 
-        <?php if(woocommerce_version_check('3.0.0')) { ?>
+        <?php if(fl_woocommerce_version_check('3.0.0')) { ?>
         <li class="woocommerce-order-overview__date date">
           <?php _e( 'Date:', 'woocommerce' ); ?>
           <strong><?php echo wc_format_datetime( $order->get_date_created() ); ?></strong>
@@ -78,7 +78,7 @@ if ( $order ) : ?>
         </li>
 
         <?php
-        $payment_method = woocommerce_version_check('3.0.0') ? $order->get_payment_method_title() : $order->payment_method_title;
+        $payment_method = fl_woocommerce_version_check('3.0.0') ? $order->get_payment_method_title() : $order->payment_method_title;
         if ( $payment_method ) :
         ?>
 

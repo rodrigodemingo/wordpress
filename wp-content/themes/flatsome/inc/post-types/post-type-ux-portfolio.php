@@ -219,7 +219,7 @@ class Featured_Item_Post_Type {
 				$terms = get_the_terms( $post->ID, 'featured_item_category' );
 				
 				if ( ! $terms )
-					return str_replace( '%featured_item_category%', '', $permalink );
+					return str_replace( '/%featured_item_category%', '', $permalink );
 			 
 				$post_terms = array();
 				foreach ( $terms as $term )

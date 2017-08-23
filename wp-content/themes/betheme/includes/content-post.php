@@ -8,7 +8,7 @@
  */
 
 if( ! function_exists('mfn_content_post') ){
-	function mfn_content_post( $query = false, $style = false, $images_only = false ){
+	function mfn_content_post( $query = false, $style = false, $featured_image = false ){
 		global $wp_query;
 		$output = '';
 	
@@ -107,14 +107,14 @@ if( ! function_exists('mfn_content_post') ){
 							
 							// Post Image
 							$post_format = mfn_post_thumbnail_type( get_the_ID() );
-							if( $images_only ){
-								$post_format = $images_only;
+							if( $featured_image == 'image' ){
+								$post_format = 'images_only';
 							}
 							
 							
 							$output .= '<div class="image_frame post-photo-wrapper scale-with-grid '. $post_format .'">';
 								$output .= '<div class="image_wrapper">';
-									$output .= mfn_post_thumbnail( get_the_ID(), 'blog', $style, $images_only );
+									$output .= mfn_post_thumbnail( get_the_ID(), 'blog', $style, $featured_image );
 								$output .= '</div>';
 							$output .= '</div>';
 							

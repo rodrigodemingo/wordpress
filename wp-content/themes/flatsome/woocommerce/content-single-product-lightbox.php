@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $post, $product, $woocommerce;
-$attachment_ids = $product->get_gallery_attachment_ids();
+ $attachment_ids = $product->get_gallery_image_ids();
 
 // run quick view hooks
 do_action('wc_quick_view_before_single_product');
@@ -26,7 +26,7 @@ do_action('wc_quick_view_before_single_product');
             'title' => $image_title
             ) );
 
-          $attachment_count = count( $product->get_gallery_attachment_ids() );
+          $attachment_count = count( $product->get_gallery_image_ids() );
 
           if ( $attachment_count > 0 ) {
             $gallery = '[product-gallery]';
@@ -37,7 +37,7 @@ do_action('wc_quick_view_before_single_product');
           echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<div class="slide first">%s</div>', $image ), $post->ID );
 
           // additional
-          $attachment_ids =  $product->get_gallery_attachment_ids();
+          $attachment_ids = $product->get_gallery_image_ids();
           if ( $attachment_ids ) {
               $loop = 0;
               $columns = apply_filters( 'woocommerce_product_thumbnails_columns', 3 );

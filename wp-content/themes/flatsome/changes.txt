@@ -1,3 +1,45 @@
+--- 3.3.7 ---
+FIXED: Not possible to open andedit Blocks from admin.
+
+--- 3.3.6 ---
+NEW: Added payment icon for AfterPay and Swish (SE).
+NEW: Russian Translations added.
+NEW: Option to move social logins to top or bottom on login modal.
+FIXED: Outdated WooCommerce 3.1 Template files.
+FIXED: Various CSS & layout issues and improvements.
+FIXED: Various SEO Improvements.
+FIXED: Responsive values for Margins and Paddings in UX Builder did not work.
+FIXED: Implemented H1 title in sidebar page templates.
+FIXED: Product meta for ligtboxes did not show.
+FIXED: Improved SKU live search.
+FIXED: Related products slider now works.
+FIXED: Possible to override "continue shopping" url with a filter.
+FIXED: Various translation strings.
+FIXED: Updated Turkish language file.
+FIXED: WooCommerce Reviews Pagination
+
+--- 3.3.5 ---
+FIXED: Change number of related products now works.
+FIXED: Videos now has correct size in IE9+
+FIXED: Chrome render bug in UX Builder.
+FIXED: Compatibility with Composite Products plugin.
+FIXED: Changing divider width in UX Builder did not work.
+FIXED: Various CSS & layout issues.
+
+--- 3.3.4 ---
+NEW: Option to add class to Buttons in UX Builder.
+FIXED: Outdated WooCommerce 3.0.3 files.
+FIXED: Various CSS bugs.
+FIXED: Klarna Payment Icon.
+FIXED: Make sure new products is visible in live search.
+
+--- 2.9.9 (Old Flatsome) --- 
+Fixed: Outdated WooCommerce 3.0.3 files
+Fixed: Images did not change when changing variations.
+
+--- 3.3.3 ---
+FIXED: Outdated WooCommerce 3.0.2 files.
+
 --- 3.3.2 ---
 FIXED: Various translation strings in WooCommerce 3.0 did not work.
 FIXED: Outdated Tempalte files for WooCommerce 3.0.1.

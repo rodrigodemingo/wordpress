@@ -5,6 +5,12 @@ $demos 	= array(
 		'categories'	=> array( 'bus', 'blo', 'por' ),
 		'plugins'		=> array( 'cf7', 'rev' ),
 	),
+	'clinic2' => array(
+		'name'			=> 'Clinic 2',
+		'categories'	=> array( 'bus' ),
+		'plugins'		=> array( 'cf7', 'rev' ),
+		'revslider'		=> array( 'clinic2.zip', 'clinic2-content.zip' ),
+	),
 	'assistance' => array(
 		'name'			=> 'Assistance',
 		'categories'	=> array( 'bus', 'one' ),

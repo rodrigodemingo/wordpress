@@ -74,7 +74,7 @@ if(!function_exists('flatsome_add_extra_product_images')) {
           $image_size = 'large';
         }
 
-        $attachment_ids = woocommerce_version_check('3.0.0') ? $_product->get_gallery_image_ids() : $_product->get_gallery_attachment_ids();
+        $attachment_ids = fl_woocommerce_version_check('3.0.0') ? $_product->get_gallery_image_ids() : $_product->get_gallery_attachment_ids();
 
         if ( $attachment_ids ) {
             $loop = 0;
@@ -160,7 +160,7 @@ add_filter( 'body_class', 'flatsome_product_body_classes' );
 
 function flatsome_product_video_tab(){
    global $wc_cpdf;
-   echo apply_filters('the_content', $wc_cpdf->get_value(get_the_ID(), '_product_video'));
+   echo do_shortcode('[ux_video url="'.$wc_cpdf->get_value(get_the_ID(), '_product_video').'"]');
 }
 
 // Custom Product Tabs
@@ -265,3 +265,9 @@ function flatsome_product_bottom_content(){
   }
 }
 add_action('flatsome_after_product_page','flatsome_product_bottom_content', 10);
+
+function flatsome_related_products_args( $args ) {
+  $args['posts_per_page'] = get_theme_mod('max_related_products', 8);
+  return $args;
+}
+add_filter( 'woocommerce_output_related_products_args', 'flatsome_related_products_args' );

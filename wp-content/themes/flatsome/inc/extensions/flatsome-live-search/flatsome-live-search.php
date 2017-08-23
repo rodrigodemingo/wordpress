@@ -45,25 +45,11 @@ function flatsome_ajax_search_products ( $args ) {
   $args['post_type'] = 'product';
   $args['orderby'] = $ordering_args['orderby'];
   $args['order'] = $ordering_args['order'];
-
-  $args['meta_query'] = array(
-    array(
-      'key' => '_visibility',
-      'value' => array( 'search', 'visible' ),
-      'compare' => 'IN',
-    ),
-  );
-
-  if ( $hide_outofstock ) {
-    $args['meta_query'][] = array(
-      'key' => '_stock_status',
-      'value' => 'outofstock',
-      'compare' => 'NOT IN',
-    );
-  }
+  $args['tax_query'] = WC()->query->get_tax_query();
+  $args['meta_query'] = WC()->query->get_meta_query();
 
   if ( isset( $_REQUEST['product_cat'] ) ) {
-    $args['tax_query'] = array(
+    $args['tax_query'][] = array(
       'relation' => 'AND',
       array(
         'taxonomy' => 'product_cat',
@@ -90,17 +76,44 @@ function flatsome_ajax_search_products ( $args ) {
 function flatsome_ajax_search_products_by_sku () {
   $query = apply_filters( 'flatsome_ajax_search_products_by_sku_search_query', esc_attr( $_REQUEST['query'] ) );
 
-  $results = new WP_Query( array(
+  $query_args = array(
+    'post_status' => 'publish',
     'post_type' => 'product',
     'meta_query' => array(
       array(
         'key' => '_sku',
-        'value'	=> $query,
+        'value' => $query,
       )
-    )
-  ) );
+    ),
+    'tax_query' => array(
+        'relation' => 'AND',
+    ),
+  );
+
+  $query_args = flatsome_ajax_search_catalog_visibility( $query_args );
+  $results = new WP_Query($query_args);
 
   return $results->get_posts();
+}
+
+/**
+ * Check product catalog visibility with custom tax_query. (only queries the exclude-from-search term)
+ *
+ * @param  array $query_args
+ * @return array
+ */
+function flatsome_ajax_search_catalog_visibility( $query_args ) {
+  $product_visibility_term_ids = wc_get_product_visibility_term_ids();
+
+  $query_args['tax_query'][] = array(
+    'taxonomy' => 'product_visibility',
+    'field' => 'term_taxonomy_id',
+    'terms' => $product_visibility_term_ids['exclude-from-search'],
+    'operator' => 'NOT IN',
+  );
+  $query_args['post_parent'] = 0;
+
+  return $query_args;
 }
 
 /**
@@ -133,7 +146,7 @@ function flatsome_ajax_search () {
       : array();
   }
 
-  if ( get_theme_mod( 'search_result', 1 ) ) {
+  if ( get_theme_mod( 'search_result', 1 ) && !isset( $_REQUEST['product_cat']) ) {
     $posts = flatsome_ajax_search_posts( $args );
   }
 

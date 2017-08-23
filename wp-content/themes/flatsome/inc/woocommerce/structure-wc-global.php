@@ -79,8 +79,8 @@ function flatsome_shop_widgets_init() {
     'id'            => 'shop-sidebar',
     'before_widget' => '<aside id="%1$s" class="widget %2$s">',
     'after_widget'  => '</aside>',
-    'before_title'  => '<h3 class="widget-title shop-sidebar">',
-    'after_title'   => '</h3><div class="is-divider small"></div>',
+    'before_title'  => '<span class="widget-title shop-sidebar">',
+    'after_title'   => '</span><div class="is-divider small"></div>',
   ) );
 
   register_sidebar( array(
@@ -88,8 +88,8 @@ function flatsome_shop_widgets_init() {
     'id'            => 'product-sidebar',
     'before_widget' => '<aside id="%1$s" class="widget %2$s">',
     'after_widget'  => '</aside>',
-    'before_title'  => '<h3 class="widget-title shop-sidebar">',
-    'after_title'   => '</h3><div class="is-divider small"></div>',
+    'before_title'  => '<span class="widget-title shop-sidebar">',
+    'after_title'   => '</span><div class="is-divider small"></div>',
   ) );
 
 
@@ -214,7 +214,7 @@ function flatsome_presentage_bubble($product, $before = '-', $after = '%'){
   $regular_price = $product->get_regular_price();
   $sale_price = $product->get_sale_price();
   if($product->is_type( 'simple' ) ||$product->is_type( 'external' )){
-      $price = $before.round( ( ( intval($regular_price) - intval($sale_price) ) / intval($regular_price) ) * 100 ).$after;
+      $price = $before.round( ( ( floatval($regular_price) - floatval($sale_price) ) / floatval($regular_price) ) * 100 ).$after;
   } else if($product->is_type( 'variable' )){
     $price = '';
     $available_variations = $product->get_available_variations();
@@ -223,8 +223,8 @@ function flatsome_presentage_bubble($product, $before = '-', $after = '%'){
       $variation_id=$available_variations[$i]['variation_id'];
       $variable_product1= new WC_Product_Variation( $variation_id );
       $regular_price = $variable_product1 -> get_regular_price();
-      $sales_price = $variable_product1 -> get_sale_price();
-      $percentage= round((( ( intval($regular_price) - intval($sales_price)) / intval($regular_price) ) * 100),0) ;
+      $sale_price = $variable_product1 -> get_sale_price();
+      $percentage= round( ( ( floatval($regular_price) - floatval($sale_price) ) / floatval($regular_price) ) * 100 );
         if ($percentage != 100 && $percentage > $maximumper) {
           $maximumper = $percentage;
         }
@@ -247,8 +247,9 @@ function flatsome_account_login_lightbox(){
 
     ?>
     <div id="login-form-popup" class="lightbox-content mfp-hide">
+      <?php if(get_theme_mod('social_login_pos','top') == 'top' && ($is_facebook_login || $is_google_login)) echo wc_get_template('myaccount/header.php'); ?>
       <?php echo wc_get_template_part('myaccount/form-login'); ?>
-      <?php if($is_facebook_login || $is_google_login) echo wc_get_template('myaccount/header.php'); ?>
+      <?php if(get_theme_mod('social_login_pos','top') == 'bottom' && ($is_facebook_login || $is_google_login)) echo wc_get_template('myaccount/header.php'); ?>
     </div>
   <?php }
 }

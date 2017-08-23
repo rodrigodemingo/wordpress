@@ -63,7 +63,7 @@ function ux_list_products($args) {
               switch ( $show ) {
                 case 'featured' :
 
-                  if(woocommerce_version_check('3.0.0')) {
+                  if(fl_woocommerce_version_check('3.0.0')) {
                   $query_args['tax_query'][] = array(
                     'taxonomy' => 'product_visibility',
                     'field'    => 'name',
@@ -109,7 +109,7 @@ function ux_list_products($args) {
               if(!empty($cat)) {
                 $query_args = ux_maybe_add_category_args( $query_args, $cat, 'IN' );
               }
-              
+
               $results = new WP_Query( $query_args );
 
               return $results;

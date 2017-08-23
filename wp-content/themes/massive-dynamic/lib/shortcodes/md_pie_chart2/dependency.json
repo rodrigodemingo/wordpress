@@ -1,9 +1,0 @@
-{
-    "js": [
-        "assets/js/easypie.min.js"
-    ],
-    "css": [],
-    "shortcode": [
-        "md_pie_chart"
-    ]
-}

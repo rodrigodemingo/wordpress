@@ -24,7 +24,7 @@ function flatsome_woocommerce_get_alt_product_thumbnail() {
     if($hover_style !== 'fade_in_back' && $hover_style !== 'zoom_in') return;
 
     global $product;
-    $attachment_ids = woocommerce_version_check('3.0.0') ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
+    $attachment_ids = fl_woocommerce_version_check('3.0.0') ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
     $class = 'show-on-hover absolute fill hide-for-small back-image';
     if($hover_style == 'zoom_in') $class .= $class.' hover-zoom';
 
@@ -120,7 +120,7 @@ function flatsome_woocommerce_shop_loop_button(){
             esc_attr( $product->get_id() ),
             esc_attr( $product->is_type( 'variable' ) ? '' : 'ajax_add_to_cart'),
             $product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
-            esc_attr( $product->product_type ),
+            esc_attr( $product->get_type() ),
             esc_attr( 'primary' ), // Button color
             esc_attr( get_theme_mod('add_to_cart_style', 'outline') ), // Button style
             esc_attr( 'small' ), // Button size
