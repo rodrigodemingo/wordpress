@@ -348,7 +348,7 @@ class Featured_Item_Post_Type {
 				return;
 			}
 			echo '<select name="' . esc_attr( $tax_slug ) . '" id="' . esc_attr( $tax_slug ) . '" class="postform">';
-			echo '<option>' . esc_html( $tax_name ) .'</option>';
+			echo '<option value="">' . esc_html( $tax_name ) .'</option>';
 			foreach ( $terms as $term ) {
 				printf(
 					'<option value="%s"%s />%s</option>',

@@ -259,9 +259,15 @@ while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 					?>
 					</p>
 					<?php } ?>
-					<?php if($comments == 'true' && comments_open() && '0' != get_comments_number()){ ?>
-						<p class="from_the_blog_comments uppercase is-xsmall"><?php echo get_comments_number( get_the_ID() ); ?> comments</p>
-					<?php } ?>
+                    <?php if ( $comments == 'true' && comments_open() && '0' != get_comments_number() ) { ?>
+                        <p class="from_the_blog_comments uppercase is-xsmall">
+                            <?php
+                                $comments_number = get_comments_number( get_the_ID() );
+                                printf( _n( '%1$s Comment', '%1$s Comments', $comments_number, 'flatsome' ),
+                                    number_format_i18n( $comments_number ) )
+                            ?>
+                        </p>
+                    <?php } ?>
 
 					<?php if($readmore) { ?>
 						<button href="<?php echo get_the_permalink(); ?>" class="button <?php echo $readmore_color; ?> is-<?php echo $readmore_style; ?> is-<?php echo $readmore_size; ?> mb-0">

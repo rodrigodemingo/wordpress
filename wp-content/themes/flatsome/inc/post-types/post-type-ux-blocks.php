@@ -26,6 +26,8 @@ register_post_type('blocks',
                     'capability_type' => 'page',
                     'hierarchical' => true,
                     'menu_position' => null,
+                    'show_in_rest'  => true,
+                    'rest_base' => 'ux-blocks',
                     'menu_icon' => 'dashicons-tagcloud',
   )
 );

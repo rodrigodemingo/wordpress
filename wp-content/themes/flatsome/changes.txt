@@ -1,5 +1,37 @@
+--- 3.3.8 ---
+NEW: Instagram and Google+ option for Team Members.
+NEW: Maintenance admin notification.
+NEW: Pinterest icon in title element.
+NEW: Category filter custom text option.
+FIXED: Cart Qty buttons did not work after updating cart.
+FIXED: Newsletter duplication when header element was added to both desktop and mobile/tablet.
+FIXED: Scroll to is now sortable again in UX builder.
+FIXED: Not possible to translate "Comments".
+FIXED: Not possible to set Gallery lightbox to false.
+FIXED: Logo element PHP notice.
+FIXED: Product search visibility.
+FIXED: Search now excludes out of stock products if enabled in WooCommerce.
+FIXED: Possible to filter post, pages in search with a new filter.
+FIXED: Blog featured slider bottom margin.
+FIXED: Instagram element, 4 column setting now works.
+FIXED: Product slider bullets now appear when enabled.
+FIXED: Review tab is focused correctly again after posting a review.
+FIXED: Wishlist icon style for mobile/tablet.
+FIXED: Wishlist label count now shows correct count (without refreshing the page) when last product is removed.
+FIXED: Paging navigation now sizes for huge page numbers.
+FIXED: Social and Follow icons now appear horizontal instead of vertical when added to a text widget.
+FIXED: YOAST undefined function error when saving from WP editor.
+FIXED: Vertical product gallery thumbnails scroll bar.
+FIXED: Portfolio slider limit when using custom id's.
+FIXED: Portfolio admin search.
+FIXED: Ordered/Numbered list now appear inside the canvas.
+FIXED: Gallery lightbox image shadow position.
+FIXED: Tab element panel alignment.
+FIXED: Various CSS, layout issues and improvements.
+UPDATED: Russian translation (thanks letquest)
+
 --- 3.3.7 ---
-FIXED: Not possible to open andedit Blocks from admin.
+FIXED: Not possible to open and edit Blocks from admin.
 
 --- 3.3.6 ---
 NEW: Added payment icon for AfterPay and Swish (SE).
@@ -10,7 +42,7 @@ FIXED: Various CSS & layout issues and improvements.
 FIXED: Various SEO Improvements.
 FIXED: Responsive values for Margins and Paddings in UX Builder did not work.
 FIXED: Implemented H1 title in sidebar page templates.
-FIXED: Product meta for ligtboxes did not show.
+FIXED: Product meta for lightboxes did not show.
 FIXED: Improved SKU live search.
 FIXED: Related products slider now works.
 FIXED: Possible to override "continue shopping" url with a filter.
@@ -42,7 +74,7 @@ FIXED: Outdated WooCommerce 3.0.2 files.
 
 --- 3.3.2 ---
 FIXED: Various translation strings in WooCommerce 3.0 did not work.
-FIXED: Outdated Tempalte files for WooCommerce 3.0.1.
+FIXED: Outdated Template files for WooCommerce 3.0.1.
 FIXED: Disable image click if Product Lightbox is disabled.
 FIXED: Lightbox / Next prev nav arrow styling.
 
@@ -50,7 +82,7 @@ FIXED: Lightbox / Next prev nav arrow styling.
 FIXED: Product Zoom for Vertical Image Gallery.
 FIXED: Various bugs with Product Element.
 FIXED: Various JS problems with WC 3.0.
-FIXED: Bugs with presentage sale bubble style.
+FIXED: Bugs with percentage sale bubble style.
 FIXED: Missing WooCommerce translations.
 
 --- 3.3 ---
@@ -71,7 +103,7 @@ CHANGED: All WooCommerce Microdata (Rich snippets) is moved out from template fi
 CHANGED: Updated Instagram icon to the new logo.
 
 FIXED: UX Builder - Better compatibility with many plugins.
-FIXED: Password strenght meter in Login Lightbox.
+FIXED: Password strength meter in Login Lightbox.
 FIXED: Duplicated Share icons on product page.
 FIXED: Better translation control for plurals in Countdown Element.
 FIXED: Team members got a "p" in front in UX Builder.
@@ -93,7 +125,7 @@ FIXED: Bottom content in mobile & tablet header is now centered.
 FIXED: Category header for Product Tags and Custom Taxonomy.
 FIXED: Problems with animations in Firefox.
 FIXED: Centered Top Bar Content is now correctly centered.
-FIXED: Ordered <ol> lists style.
+FIXED: Ordered lists style.
 FIXED: Improved Thank you page layout
 FIXED: Disabling Footer per. page now works.
 FIXED: Equal height rows in Safari.
@@ -108,7 +140,7 @@ FIXED: Menu was auto closing on mobile when scrolling.
 FIXED: Problems with My Account links.
 
 --- 3.2.5 ---
-NEW: Option to set Visibility to hidden to tempoary disable elements in UX Builder.
+NEW: Option to set Visibility to hidden to temporary disable elements in UX Builder.
 NEW: Option to Lazy Load Flatsome Icons (Fixes the "data:application/x-font-ttfAAAAAwAAAAAAAAAAAAA" optimize error from Pingdom)
 NEW: Product List element added to UX Builder (Same style as Product Widgets.)
 
@@ -117,7 +149,7 @@ FIXED: Possible to translate "Be the first to review..."
 FIXED: Lists in texts had wrong align.
 FIXED: My Account Dashboard links now looks better on mobile.
 FIXED: Remove link from Logo element if no link is set.
-FIXED: Better aligment of Language dropdown flags.
+FIXED: Better alignment of Language dropdown flags.
 FIXED: Dropdown content size did not work on front-end.
 FIXED: Google Rich Snippets on Product Page.
 FIXED: Sale badge for Grouped products now gets "Sale" text.
@@ -408,7 +440,7 @@ NEW: New layouts for blog.
 NEW: Option to have different blog layout on archives.
 NEW: New Hotspot element for UX Banners.
 NEW: Video Icon for Images with Youtube links. Also opens video in a lightbox.
-NEW: Hundres of new options for all our shortcodes. Try them out in our new page builder.
+NEW: Hundreds of new options for all our shortcodes. Try them out in our new page builder.
 NEW: Lazy Loading of images.
 
 Changed: Full Product templates now uses shop sidebar as default if no product sidebar widgets are empty.
@@ -531,7 +563,7 @@ FIXED: Default/Normal grid style is now displayed normally.
 FIXED: Bugs with Parallax.
 FIXED: Better Sliding and scrolling on mobile.
 FIXED: Bugs with portfolio filtering.
-FIXED: Bug with vidoes in slider not playing.
+FIXED: Bug with videos in slider not playing.
 FIXED: Changing Lightbox background color did not work.
 
 --- BETA 3.0.17 ---
@@ -540,7 +572,7 @@ FIXED: Problems with Vertical product gallery and one image.
 FIXED: Google Maps now uses the API set in Advanced > Google APIs
 FIXED: Make sure first tab is always automatically opened on product pages.
 FIXED: Bug with HTTPS logos.
-FIXED: Dupliacted blog posts results.
+FIXED: Duplicated blog posts results.
 FIXED: Product Lightbox and Color variations.
 FIXED: Improved Parallax.
 FIXED: Various UX Builder bugs.
@@ -560,7 +592,7 @@ FIXED: Bug with portfolio items.
 FIXED: Bug with Search results & Category dropdown.
 FIXED: Better styling for Product Page Section style.
 FIXED: Improved and fixed bugs with Accordion.
-FIXED: Bugs with dupliacated header elements in the Header builder.
+FIXED: Bugs with duplicated header elements in the Header builder.
 FIXED: Various CSS bugs.
 FIXED: Problems with Tabs and no product description.
 FIXED: Problems with Catalog Mode and prices.
@@ -594,7 +626,7 @@ FIXED: Logo Shortcode height bug.
 FIXED: Clear responsive option tooltip.
 FIXED: Slide effects in Page Builder.
 FIXED: Various CSS improvements.
-FIXED: Mainenance logo bug.
+FIXED: Maintenance logo bug.
 
 CHANGED: Improved Header builder design.
 CHANGED: Moved logo position option to Theme Options > Logo & Site Identity.
@@ -759,7 +791,7 @@ FIXED: Various bugs with WooCommerce 2.6.
 FIXED: Problems with Category Grid shortcode and WooCommerce 2.6.
 FIXED: Bugs with zoom on single image products.
 FIXED: Possible to use lightbox login when account is on top.
-FIXED: Various CSS improvments.
+FIXED: Various CSS improvements.
 
 --- 2.9.2 ---
 FIXED: Missing Transparent header templates

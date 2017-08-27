@@ -1,6 +1,12 @@
 <?php
 
-// Get Flatsome Options
+/**
+ * Get Flatsome option
+ *
+ * @deprecated in favor of get_theme_mod()
+ *
+ * @return string
+ */
 function flatsome_option($option) {
 	// Get options
 	return get_theme_mod( $option, flatsome_defaults($option) );

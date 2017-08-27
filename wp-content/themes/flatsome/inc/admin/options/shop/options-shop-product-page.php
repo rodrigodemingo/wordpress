@@ -210,7 +210,7 @@ Flatsome_Option::add_field( 'option',  array(
 		'tabs_pills' => __( 'Pills', 'flatsome-admin' ),
 		'tabs_outline' => __( 'Outline', 'flatsome-admin' ),
 		'sections' => __( 'Sections', 'flatsome-admin' ),
-		'accordian' => __( 'Accordian', 'flatsome-admin' ),
+		'accordian' => __( 'Accordion', 'flatsome-admin' ),
 	),
 ));
 

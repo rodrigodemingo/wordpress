@@ -5,7 +5,7 @@ function ux_gallery($atts) {
       // meta
       '_id' => 'gallery-'.rand(),
       'ids' => '', // Gallery IDS
-      'lightbox' => 'true',
+      'lightbox' => true,
       'thumbnails' => true,
       'orderby' => 'post__in',
       'order' => '',
@@ -47,8 +47,6 @@ function ux_gallery($atts) {
       'image_overlay' => '',
 
       ), $atts));
-
-      ob_start();
 
       global $post;
 
@@ -158,7 +156,7 @@ function ux_gallery($atts) {
             $link_start = '<a href="'.$content.'" class="open-video" title="'.$attachment->post_excerpt.'">';
             $link_end = '</a>';
 
-        } else if($lightbox) {
+        } else if( 'false' !== $lightbox) {
            $get_image = wp_get_attachment_image_src( $attachment->ID, 'large');
            $link_start = '<a class="image-lightbox lightbox-gallery" href="'.$get_image[0].'" title="'.$attachment->post_excerpt.'">';
            $link_end = '</a>';

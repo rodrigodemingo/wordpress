@@ -3,12 +3,12 @@ function flatsome_scroll_to($atts, $content = null) {
 
   extract(shortcode_atts(array(
     'bullet' => 'true',
-    'title' => '',
+    'title' => 'Change this',
     'link' => '',
   ), $atts));
 
   if(!$title && !$link) return false;
-  
+
   // Convert title to link if link is not set.
   if(!$link) $link = flatsome_to_dashed($title);
 

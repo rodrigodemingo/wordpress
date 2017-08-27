@@ -50,7 +50,7 @@ require get_template_directory() . '/inc/helpers/helpers-icons.php';
  * Structure.
  * Template functions used throughout the theme.
  */
-if(!is_admin()){
+//if(!is_admin()){
   require get_template_directory() . '/inc/structure/structure-footer.php';
   require get_template_directory() . '/inc/structure/structure-header.php';
   require get_template_directory() . '/inc/structure/structure-pages.php';
@@ -60,7 +60,7 @@ if(!is_admin()){
   if(is_portfolio_activated()){
       require get_template_directory() . '/inc/structure/structure-portfolio.php';
   }
-}
+//}
 
 if(is_admin()){
   require get_template_directory() . '/inc/structure/structure-admin.php';

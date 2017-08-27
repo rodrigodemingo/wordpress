@@ -37,7 +37,7 @@ function flatsome_refresh_shop_partials( WP_Customize_Manager $wp_customize ) {
 	$wp_customize->selective_refresh->add_partial( 'shop-header', array(
 	    'selector' => '.woocommerce .category-page-title',
 	    	    'fallback_refresh' => false,
-	    'settings' => array('html_shop_page','category_title_style','category_show_title'),
+	    'settings' => array('html_shop_page','category_title_style','category_show_title', 'category_filter_text'),
 	    'container_inclusive' => true,
 	    'render_callback' => function() {
 	        return flatsome_category_header();

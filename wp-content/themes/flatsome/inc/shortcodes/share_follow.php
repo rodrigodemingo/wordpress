@@ -80,6 +80,7 @@ function flatsome_share($atts, $content = null) {
     <?php
 	$content = ob_get_contents();
 	ob_end_clean();
+	$content = flatsome_sanitize_whitespace_chars( $content);
 	return $content;
 }
 add_shortcode('share','flatsome_share');
@@ -207,6 +208,7 @@ function flatsome_follow($atts, $content = null) {
 	<?php
 	$content = ob_get_contents();
 	ob_end_clean();
+	$content = flatsome_sanitize_whitespace_chars( $content);
 	return $content;
 }
 add_shortcode("follow", "flatsome_follow");
