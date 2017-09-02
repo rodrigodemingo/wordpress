@@ -1,16 +1,19 @@
 <?php
+
 namespace MailPoet\API\JSON\v1;
 
+use Carbon\Carbon;
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
+use MailPoet\Config\AccessControl;
 use MailPoet\Listing;
+use MailPoet\Models\Newsletter;
+use MailPoet\Models\NewsletterOption;
+use MailPoet\Models\NewsletterOptionField;
+use MailPoet\Models\NewsletterSegment;
+use MailPoet\Models\NewsletterTemplate;
 use MailPoet\Models\SendingQueue;
 use MailPoet\Models\Setting;
-use MailPoet\Models\Newsletter;
-use MailPoet\Models\NewsletterTemplate;
-use MailPoet\Models\NewsletterSegment;
-use MailPoet\Models\NewsletterOptionField;
-use MailPoet\Models\NewsletterOption;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\Renderer\Renderer;
 use MailPoet\Newsletter\Scheduler\Scheduler;
@@ -22,6 +25,10 @@ if(!defined('ABSPATH')) exit;
 require_once(ABSPATH . 'wp-includes/pluggable.php');
 
 class Newsletters extends APIEndpoint {
+  public $permissions = array(
+    'global' => AccessControl::PERMISSION_MANAGE_EMAILS
+  );
+
   function get($data = array()) {
     $id = (isset($data['id']) ? (int)$data['id'] : false);
     $newsletter = Newsletter::findOne($id);
@@ -134,7 +141,7 @@ class Newsletters extends APIEndpoint {
     }
 
     $id = (isset($data['id'])) ? (int)$data['id'] : false;
-    $newsletter = Newsletter::findOne($id);
+    $newsletter = Newsletter::filter('filterWithOptions')->findOne($id);
 
     if($newsletter === false) {
       return $this->errorResponse(array(
@@ -147,11 +154,22 @@ class Newsletters extends APIEndpoint {
 
     if(!empty($errors)) {
       return $this->errorResponse($errors);
-    } else {
-      return $this->successResponse(
-        Newsletter::findOne($newsletter->id)->asArray()
-      );
     }
+
+    // if there are past due notifications, reschedule them for the next send date
+    if($newsletter->type === Newsletter::TYPE_NOTIFICATION && $status === Newsletter::STATUS_ACTIVE) {
+      $next_run_date = Scheduler::getNextRunDate($newsletter->schedule);
+      $newsletter->queue()
+        ->whereLte('scheduled_at', Carbon::createFromTimestamp(current_time('timestamp')))
+        ->where('status', SendingQueue::STATUS_SCHEDULED)
+        ->findResultSet()
+        ->set('scheduled_at', $next_run_date)
+        ->save();
+    }
+
+    return $this->successResponse(
+      Newsletter::findOne($newsletter->id)->asArray()
+    );
   }
 
   function restore($data = array()) {

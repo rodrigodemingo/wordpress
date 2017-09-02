@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit10b5d37ffba46ca8f302144725b97f38
+class ComposerStaticInitf68263c67cbc83aedae2fa54e4dfbd26
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -117,7 +117,6 @@ class ComposerStaticInit10b5d37ffba46ca8f302144725b97f38
         'IdiormStringException' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
         'MailPoet\\API\\API' => __DIR__ . '/../..' . '/lib/API/API.php',
         'MailPoet\\API\\JSON\\API' => __DIR__ . '/../..' . '/lib/API/JSON/API.php',
-        'MailPoet\\API\\JSON\\Access' => __DIR__ . '/../..' . '/lib/API/JSON/Access.php',
         'MailPoet\\API\\JSON\\Endpoint' => __DIR__ . '/../..' . '/lib/API/JSON/Endpoint.php',
         'MailPoet\\API\\JSON\\Error' => __DIR__ . '/../..' . '/lib/API/JSON/Error.php',
         'MailPoet\\API\\JSON\\ErrorResponse' => __DIR__ . '/../..' . '/lib/API/JSON/ErrorResponse.php',
@@ -140,6 +139,7 @@ class ComposerStaticInit10b5d37ffba46ca8f302144725b97f38
         'MailPoet\\API\\MP\\v1\\API' => __DIR__ . '/../..' . '/lib/API/MP/v1/API.php',
         'MailPoet\\Analytics\\Analytics' => __DIR__ . '/../..' . '/lib/Analytics/Analytics.php',
         'MailPoet\\Analytics\\Reporter' => __DIR__ . '/../..' . '/lib/Analytics/Reporter.php',
+        'MailPoet\\Config\\AccessControl' => __DIR__ . '/../..' . '/lib/Config/AccessControl.php',
         'MailPoet\\Config\\Activator' => __DIR__ . '/../..' . '/lib/Config/Activator.php',
         'MailPoet\\Config\\Changelog' => __DIR__ . '/../..' . '/lib/Config/Changelog.php',
         'MailPoet\\Config\\Database' => __DIR__ . '/../..' . '/lib/Config/Database.php',
@@ -336,6 +336,7 @@ class ComposerStaticInit10b5d37ffba46ca8f302144725b97f38
         'MailPoet\\Util\\pQuery\\Html5Parser' => __DIR__ . '/../..' . '/lib/Util/pQuery/pQuery.php',
         'MailPoet\\Util\\pQuery\\pQuery' => __DIR__ . '/../..' . '/lib/Util/pQuery/pQuery.php',
         'MailPoet\\WP\\DateTime' => __DIR__ . '/../..' . '/lib/WP/DateTime.php',
+        'MailPoet\\WP\\Emoji' => __DIR__ . '/../..' . '/lib/WP/Emoji.php',
         'MailPoet\\WP\\Hooks' => __DIR__ . '/../..' . '/lib/WP/Hooks.php',
         'MailPoet\\WP\\Notice' => __DIR__ . '/../..' . '/lib/WP/Notice.php',
         'MailPoet\\WP\\Posts' => __DIR__ . '/../..' . '/lib/WP/Posts.php',
@@ -834,10 +835,10 @@ class ComposerStaticInit10b5d37ffba46ca8f302144725b97f38
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit10b5d37ffba46ca8f302144725b97f38::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit10b5d37ffba46ca8f302144725b97f38::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit10b5d37ffba46ca8f302144725b97f38::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit10b5d37ffba46ca8f302144725b97f38::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf68263c67cbc83aedae2fa54e4dfbd26::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf68263c67cbc83aedae2fa54e4dfbd26::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf68263c67cbc83aedae2fa54e4dfbd26::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf68263c67cbc83aedae2fa54e4dfbd26::$classMap;
 
         }, null, ClassLoader::class);
     }
